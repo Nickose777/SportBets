@@ -39,6 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BetEntity.cs" />
+    <Compile Include="Models\BookmakerEntity.cs" />
+    <Compile Include="Models\ClientEntity.cs" />
+    <Compile Include="Models\CoefficientEntity.cs" />
+    <Compile Include="Models\CountryEntity.cs" />
+    <Compile Include="Models\EventEntity.cs" />
+    <Compile Include="Models\ParticipantEntity.cs" />
+    <Compile Include="Models\ParticipationEntity.cs" />
+    <Compile Include="Models\SportEntity.cs" />
+    <Compile Include="Models\TournamentEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
