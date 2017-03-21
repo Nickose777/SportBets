@@ -58,6 +58,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\BetConfiguration.cs" />
+    <Compile Include="Configurations\BookmakerConfiguration.cs" />
+    <Compile Include="Configurations\ClientConfiguration.cs" />
+    <Compile Include="Configurations\CoefficientConfiguration.cs" />
+    <Compile Include="Configurations\CountryConfiguration.cs" />
+    <Compile Include="Configurations\EventConfiguration.cs" />
+    <Compile Include="Configurations\ParticipantConfiguration.cs" />
+    <Compile Include="Configurations\ParticipationConfiguration.cs" />
+    <Compile Include="Configurations\SportConfiguration.cs" />
+    <Compile Include="Configurations\TournamentConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

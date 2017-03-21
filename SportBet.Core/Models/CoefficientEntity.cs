@@ -14,7 +14,7 @@ namespace SportBet.Core.Models
         public decimal Value { get; set; }
         public bool? Win { get; set; }
 
-        public int EventID { get; set; }
+        public int EventId { get; set; }
         public virtual EventEntity Event { get; set; }
 
         public virtual ICollection<BetEntity> Bets { get; set; }

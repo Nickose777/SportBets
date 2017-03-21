@@ -12,7 +12,7 @@ namespace SportBet.Core.Models
         public DateTime DateOfEvent { get; set; }
         public string Notes { get; set; }
 
-        public int TornamentId { get; set; }
+        public int TournamentId { get; set; }
         public virtual TournamentEntity Tournament { get; set; }
 
         public virtual ICollection<CoefficientEntity> Coefficients { get; set; }
