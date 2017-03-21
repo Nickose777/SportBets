@@ -81,6 +81,17 @@
     <Compile Include="Contracts\Repositories\ISportRepository.cs" />
     <Compile Include="Contracts\Repositories\ITournamentRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BetRepository.cs" />
+    <Compile Include="Repositories\BookmakerRepository.cs" />
+    <Compile Include="Repositories\ClientRepository.cs" />
+    <Compile Include="Repositories\CoefficientRepository.cs" />
+    <Compile Include="Repositories\CountryRepository.cs" />
+    <Compile Include="Repositories\EventRepository.cs" />
+    <Compile Include="Repositories\ParticipantRepository.cs" />
+    <Compile Include="Repositories\ParticipationRepository.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Repositories\SportRepository.cs" />
+    <Compile Include="Repositories\TournamentRepository.cs" />
     <Compile Include="SportBetDbContext.cs" />
   </ItemGroup>
   <ItemGroup>
