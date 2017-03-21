@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SportBet.Data.Repositories
 {
-    class BookmakerRepository : RepositoryBase<BookmakerEntity>, IRepository<BookmakerEntity>
+    class BookmakerRepository : RepositoryBase<BookmakerEntity>, IBookmakerRepository
     {
         public BookmakerRepository(SportBetDbContext context)
             : base(context) { }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SportBet.Data.Repositories
 {
-    class ParticipationRepository : RepositoryBase<ParticipationEntity>, IRepository<ParticipationEntity>
+    class ParticipationRepository : RepositoryBase<ParticipationEntity>, IParticipationRepository
     {
         public ParticipationRepository(SportBetDbContext context)
             : base(context) { }

@@ -93,6 +93,7 @@
     <Compile Include="Repositories\SportRepository.cs" />
     <Compile Include="Repositories\TournamentRepository.cs" />
     <Compile Include="SportBetDbContext.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SportBet.Core\SportBet.Core.csproj">

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SportBet.Data.Repositories
 {
-    class CoefficientRepository : RepositoryBase<CoefficientEntity>, IRepository<CoefficientEntity>
+    class CoefficientRepository : RepositoryBase<CoefficientEntity>, ICoefficientRepository
     {
         public CoefficientRepository(SportBetDbContext context)
             : base(context) { }
