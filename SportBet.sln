@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBet", "SportBet\SportBet.csproj", "{3BB8C77C-CFAB-4B6D-8C79-099840BABB71}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBet.Core", "SportBet.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBet.Data", "SportBet.Data\SportBet.Data.csproj", "{E50EAFF8-E346-4EDB-96B9-79A3E5509698}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBet.Controllers", "SportBet.Controllers\SportBet.Controllers.csproj", "{198E2555-6495-4ACF-A03D-59CD11F811C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBet.Services", "SportBet.Services\SportBet.Services.csproj", "{198E2555-6495-4ACF-A03D-59CD11F811C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

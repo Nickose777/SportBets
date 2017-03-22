@@ -94,9 +94,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SportBet.Controllers\SportBet.Controllers.csproj">
+    <ProjectReference Include="..\SportBet.Services\SportBet.Services.csproj">
       <Project>{198e2555-6495-4acf-a03d-59cd11f811c7}</Project>
-      <Name>SportBet.Controllers</Name>
+      <Name>SportBet.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
