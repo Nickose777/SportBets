@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SportBet.Controllers.DTOModels
+namespace SportBet.Services.DTOModels
 {
     public class ClientRegisterDTO
     {
