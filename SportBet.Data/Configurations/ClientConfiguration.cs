@@ -22,11 +22,14 @@ namespace SportBet.Data.Configurations
 
             //Other Settings
             this.Property(client => client.FirstName).
-                IsRequired();
+                IsRequired().
+                HasMaxLength(20);
             this.Property(client => client.LastName).
-                IsRequired();
+                IsRequired().
+                HasMaxLength(20);
             this.Property(client => client.PhoneNumber).
-                IsRequired();
+                IsRequired().
+                HasMaxLength(20);
             this.Property<DateTime>(client => client.DateOfBirth).
                 IsRequired();
             this.Property<DateTime>(client => client.DateOfRegistration).

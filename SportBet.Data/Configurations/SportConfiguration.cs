@@ -21,7 +21,7 @@ namespace SportBet.Data.Configurations
             this.HasKey(sport => sport.Id);
 
             //Other Settings
-            this.Property(sport => sport.Name).
+            this.Property(sport => sport.Type).
                 IsRequired();
         }
     }

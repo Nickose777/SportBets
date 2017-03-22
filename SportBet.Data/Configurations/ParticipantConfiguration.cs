@@ -26,10 +26,14 @@ namespace SportBet.Data.Configurations
             this.HasRequired<CountryEntity>(participant => participant.Country).
                 WithMany(client => client.Participants).
                 HasForeignKey(participant => participant.CountryId);
+            this.HasRequired<SportEntity>(participant => participant.Sport).
+                WithMany(sport => sport.Participants).
+                HasForeignKey(participant => participant.SportId);
 
             //Other Settings
             this.Property(participant => participant.Name).
-                IsRequired();
+                IsRequired().
+                HasMaxLength(20);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace SportBet.Data.Configurations
             this.Property<DateTime>(_event => _event.DateOfEvent).
                 IsRequired();
             this.Property(_event => _event.Notes).
-                IsRequired();
+                HasMaxLength(100);
         }
     }
 }

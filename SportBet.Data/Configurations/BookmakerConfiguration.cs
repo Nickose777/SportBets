@@ -22,11 +22,14 @@ namespace SportBet.Data.Configurations
 
             //Other Settings
             this.Property(bookmaker => bookmaker.FirstName).
-                IsRequired();
+                IsRequired().
+                HasMaxLength(20);
             this.Property(bookmaker => bookmaker.LastName).
-                IsRequired();
+                IsRequired().
+                HasMaxLength(20);
             this.Property(bookmaker => bookmaker.PhoneNumber).
-                IsRequired();
+                IsRequired().
+                HasMaxLength(20);
         }
     }
 }

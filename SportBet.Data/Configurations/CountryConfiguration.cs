@@ -22,7 +22,8 @@ namespace SportBet.Data.Configurations
 
             //Other Settings
             this.Property(country => country.Name).
-                IsRequired();
+                IsRequired().
+                HasMaxLength(20);
         }
     }
 }

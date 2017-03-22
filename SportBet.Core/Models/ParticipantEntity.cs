@@ -14,6 +14,9 @@ namespace SportBet.Core.Models
         public int CountryId { get; set; }
         public virtual CountryEntity Country { get; set; }
 
+        public int SportId { get; set; }
+        public virtual SportEntity Sport { get; set; }
+
         public virtual ICollection<ParticipationEntity> Participations { get; set; }
     }
 }

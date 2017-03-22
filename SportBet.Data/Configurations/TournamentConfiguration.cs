@@ -29,7 +29,8 @@ namespace SportBet.Data.Configurations
 
             //Other Settings
             this.Property(tournament => tournament.Name).
-                IsRequired();
+                IsRequired().
+                HasMaxLength(20);
             this.Property<DateTime>(tournament => tournament.DateOfStart).
                 IsRequired();
         }

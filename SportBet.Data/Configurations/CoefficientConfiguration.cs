@@ -29,7 +29,8 @@ namespace SportBet.Data.Configurations
 
             //Other Settings
             this.Property(coefficient => coefficient.Description).
-                IsRequired();
+                IsRequired().
+                HasMaxLength(100);
             this.Property<decimal>(coefficient => coefficient.Value).
                 IsRequired();
         }
