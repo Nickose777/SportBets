@@ -47,8 +47,10 @@
     <Compile Include="Models\EventEntity.cs" />
     <Compile Include="Models\ParticipantEntity.cs" />
     <Compile Include="Models\ParticipationEntity.cs" />
+    <Compile Include="Models\RoleEntity.cs" />
     <Compile Include="Models\SportEntity.cs" />
     <Compile Include="Models\TournamentEntity.cs" />
+    <Compile Include="Models\UserEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

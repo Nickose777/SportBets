@@ -11,6 +11,9 @@ namespace SportBet.Data
 {
     public class SportBetDbContext : DbContext
     {
+        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<RoleEntity> Roles { get; set; }
+
         public DbSet<BetEntity> Bets { get; set; }
         public DbSet<BookmakerEntity> Bookmakers { get; set; }
         public DbSet<ClientEntity> Clients { get; set; }
@@ -28,6 +31,9 @@ namespace SportBet.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("public");
+
+            modelBuilder.Configurations.Add(new RoleConfiguraion());
+            modelBuilder.Configurations.Add(new UserConfiguraion());
 
             modelBuilder.Configurations.Add(new BetConfiguration());
             modelBuilder.Configurations.Add(new BookmakerConfiguration());

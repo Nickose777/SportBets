@@ -9,6 +9,7 @@ namespace SportBet.Data.Contracts
 {
     public interface IUnitOfWork
     {
+        IAccountRepository Accounts { get; }
         IBetRepository Bets { get; }
         IBookmakerRepository Bookmakers { get; }
         IClientRepository Clients { get; }

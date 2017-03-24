@@ -74,6 +74,11 @@ namespace SportBet.Services.Providers
                 message = "You are too old. Sorry";
                 isValid = false;
             }
+            else if (clientRegisterDTO.DateOfBirth.Year > DateTime.Now.Year - 18)
+            {
+                message = "You are too young. Sorry";
+                isValid = false;
+            }
 
             return isValid;
         }
