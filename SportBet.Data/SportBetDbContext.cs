@@ -1,4 +1,4 @@
-﻿using SportBet.Core.Models;
+﻿using SportBet.Core.Entities;
 using SportBet.Data.Configurations;
 using System;
 using System.Collections.Generic;

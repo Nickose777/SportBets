@@ -39,18 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\BetEntity.cs" />
-    <Compile Include="Models\BookmakerEntity.cs" />
-    <Compile Include="Models\ClientEntity.cs" />
-    <Compile Include="Models\CoefficientEntity.cs" />
-    <Compile Include="Models\CountryEntity.cs" />
-    <Compile Include="Models\EventEntity.cs" />
-    <Compile Include="Models\ParticipantEntity.cs" />
-    <Compile Include="Models\ParticipationEntity.cs" />
-    <Compile Include="Models\RoleEntity.cs" />
-    <Compile Include="Models\SportEntity.cs" />
-    <Compile Include="Models\TournamentEntity.cs" />
-    <Compile Include="Models\UserEntity.cs" />
+    <Compile Include="Entities\BetEntity.cs" />
+    <Compile Include="Entities\BookmakerEntity.cs" />
+    <Compile Include="Entities\ClientEntity.cs" />
+    <Compile Include="Entities\CoefficientEntity.cs" />
+    <Compile Include="Entities\CountryEntity.cs" />
+    <Compile Include="Entities\EventEntity.cs" />
+    <Compile Include="Entities\ParticipantEntity.cs" />
+    <Compile Include="Entities\ParticipationEntity.cs" />
+    <Compile Include="Entities\RoleEntity.cs" />
+    <Compile Include="Entities\SportEntity.cs" />
+    <Compile Include="Entities\TournamentEntity.cs" />
+    <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
