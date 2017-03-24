@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SportBet.Services.ResultTypes;
 using SportBet.Services.DTOModels;
 using SportBet.Data.Contracts;
+using SportBet.Core;
 
 namespace SportBet.Services.Providers
 {
@@ -34,14 +35,30 @@ namespace SportBet.Services.Providers
             else if (!ValidatePassword(clientRegisterDTO.Password, ref message))
                 success = false;
 
+            //TODO
+            //Check for such login in DB
+            //Hash password
+
+            ClientRegister clientRegister = new ClientRegister
+            {
+                FirstName = clientRegisterDTO.FirstName,
+                LastName = clientRegisterDTO.LastName,
+                PhoneNumber = clientRegisterDTO.PhoneNumber,
+                DateOfBirth = clientRegisterDTO.DateOfBirth,
+                DateOfRegistration = DateTime.Now,
+                
+                Login = clientRegisterDTO.Login,
+                Password = clientRegisterDTO.Password
+            };
+
             try
             {
-                //TODO
-                //implement registering
+                unitOfWork.Accounts.RegisterClient(clientRegister);
             }
-            catch
+            catch (Exception ex)
             {
-
+                message = ex.Message;
+                success = false;
             }
             finally
             {
