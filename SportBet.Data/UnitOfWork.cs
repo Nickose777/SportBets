@@ -70,9 +70,9 @@ namespace SportBet.Data
             get { return tournaments ?? (tournaments = new TournamentRepository(context)); }
         }
 
-        public UnitOfWork(SportBetDbContext context)
+        public UnitOfWork()
         {
-            this.context = context;
+            this.context = new SportBetDbContext();
         }
 
         public void Commit()

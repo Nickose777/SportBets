@@ -8,6 +8,7 @@ using SportBet.Services.ResultTypes;
 using SportBet.Services.DTOModels;
 using SportBet.Data.Contracts;
 using SportBet.Core;
+using SportBet.Data;
 
 namespace SportBet.Services.Providers
 {
@@ -15,9 +16,9 @@ namespace SportBet.Services.Providers
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public AuthService(IUnitOfWork unitOfWork)
+        public AuthService()
         {
-            this.unitOfWork = unitOfWork;
+            this.unitOfWork = new UnitOfWork();
         }
 
         public AuthResult Register(ClientRegisterDTO clientRegisterDTO)
