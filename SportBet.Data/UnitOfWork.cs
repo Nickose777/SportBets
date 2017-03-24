@@ -79,5 +79,10 @@ namespace SportBet.Data
         {
             context.SaveChanges();
         }
+
+        public void Dispose()
+        {
+            context.Dispose();
+        }
     }
 }

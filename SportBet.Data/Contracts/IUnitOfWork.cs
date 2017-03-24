@@ -7,7 +7,7 @@ using SportBet.Data.Contracts.Repositories;
 
 namespace SportBet.Data.Contracts
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         IAccountRepository Accounts { get; }
         IBetRepository Bets { get; }
