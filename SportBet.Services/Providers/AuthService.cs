@@ -9,6 +9,7 @@ using SportBet.Services.DTOModels;
 using SportBet.Data.Contracts;
 using SportBet.Core;
 using SportBet.Data;
+using SportBet.Core.Entities;
 
 namespace SportBet.Services.Providers
 {
@@ -55,6 +56,27 @@ namespace SportBet.Services.Providers
             try
             {
                 unitOfWork.Accounts.RegisterClient(clientRegister);
+
+                UserEntity userEntity = new UserEntity
+                {
+                    Login = clientRegister.Login,
+                    Role = unitOfWork.Roles.Get(5)
+                };
+                unitOfWork.Users.Add(userEntity);
+                unitOfWork.Commit();
+
+                ClientEntity clientEntity = new ClientEntity
+                {
+                    Id = userEntity.Id,
+                    FirstName = clientRegister.FirstName,
+                    LastName = clientRegister.LastName,
+                    PhoneNumber = clientRegister.PhoneNumber,
+                    DateOfBirth = clientRegister.DateOfBirth,
+                    DateOfRegistration = clientRegister.DateOfRegistration
+                };
+                unitOfWork.Clients.Add(clientEntity);
+
+                unitOfWork.Commit();
             }
             catch (Exception ex)
             {

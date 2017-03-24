@@ -18,7 +18,9 @@ namespace SportBet.Data.Configurations
                 HasColumnName("ClientNo");
 
             //Primary Keys
-            this.HasKey(client => client.Id);
+            this.HasKey(client => client.Id).
+                Property(client => client.Id).
+                HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
 
             //Other Settings
             this.Property(client => client.FirstName).

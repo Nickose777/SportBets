@@ -81,8 +81,10 @@
     <Compile Include="Contracts\Repositories\IParticipantRepository.cs" />
     <Compile Include="Contracts\Repositories\IParticipationRepository.cs" />
     <Compile Include="Contracts\Repositories\IRepository.cs" />
+    <Compile Include="Contracts\Repositories\IRoleRepository.cs" />
     <Compile Include="Contracts\Repositories\ISportRepository.cs" />
     <Compile Include="Contracts\Repositories\ITournamentRepository.cs" />
+    <Compile Include="Contracts\Repositories\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\BetRepository.cs" />
@@ -94,8 +96,10 @@
     <Compile Include="Repositories\ParticipantRepository.cs" />
     <Compile Include="Repositories\ParticipationRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\SportRepository.cs" />
     <Compile Include="Repositories\TournamentRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="SportBetDbContext.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
@@ -106,7 +110,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

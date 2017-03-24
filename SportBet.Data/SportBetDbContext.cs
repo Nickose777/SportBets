@@ -26,7 +26,7 @@ namespace SportBet.Data
         public DbSet<TournamentEntity> Tournaments { get; set; }
 
         public SportBetDbContext()
-            : base("SportBetConnection") { }
+            : base("Server=127.0.0.1;Port=5432;Database=Bets;User Id=admin;Password=admin;") { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
