@@ -13,6 +13,7 @@ namespace SportBet.Data
     {
         private readonly SportBetDbContext context;
 
+        private IAccountRepository accounts;
         private IBetRepository bets;
         private IBookmakerRepository bookmakers;
         private IClientRepository clients;
@@ -24,6 +25,10 @@ namespace SportBet.Data
         private ISportRepository sports;
         private ITournamentRepository tournaments;
 
+        public IAccountRepository Accounts
+        {
+            get { return accounts ?? (accounts = new AccountRepository(context)); }
+        }
         public IBetRepository Bets
         {
             get { return bets ?? (bets = new BetRepository(context)); }

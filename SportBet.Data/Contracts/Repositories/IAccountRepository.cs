@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportBet.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace SportBet.Data.Contracts.Repositories
 {
     public interface IAccountRepository
     {
-        void RegisterClient(string login, string password);
+        void RegisterClient(ClientRegister clientRegister);
     }
 }

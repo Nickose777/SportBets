@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientRegister.cs" />
     <Compile Include="Entities\BetEntity.cs" />
     <Compile Include="Entities\BookmakerEntity.cs" />
     <Compile Include="Entities\ClientEntity.cs" />
