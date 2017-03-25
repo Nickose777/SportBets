@@ -9,6 +9,7 @@ namespace SportBet.Data.Contracts.Repositories
 {
     public interface IAccountRepository
     {
+        void CreateDefaultSuperuserIfNotExists(string password);
         void RegisterClient(string login, string password);
     }
 }

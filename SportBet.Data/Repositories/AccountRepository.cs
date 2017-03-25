@@ -18,6 +18,18 @@ namespace SportBet.Data.Repositories
             this.context = context;
         }
 
+        public void CreateDefaultSuperuserIfNotExists(string password)
+        {
+            string checkQuery = "SELECT rolname FROM pg_roles;";
+            var roleNames = context.Database.SqlQuery<string>(checkQuery);
+            
+            if (!roleNames.Contains("admin"))
+            {
+                string query = String.Format("CREATE ROLE admin PASSWORD '{0}' LOGIN SUPERUSER", password);
+                context.Database.ExecuteSqlCommand(query);
+            }
+        }
+
         public void RegisterClient(string login, string password)
         {
             string query = String.Format("DO $$ BEGIN PERFORM register_client('{0}', '{1}'); END $$;", login, password);

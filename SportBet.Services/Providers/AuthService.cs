@@ -23,6 +23,16 @@ namespace SportBet.Services.Providers
         public AuthService()
         {
             this.unitOfWork = new UnitOfWork();
+
+            try
+            {
+                string hashedPassword = StringCipher.Encrypt("admin", KeyPhrase.Key);
+                unitOfWork.Accounts.CreateDefaultSuperuserIfNotExists(hashedPassword);
+            }
+            catch
+            {
+
+            }
         }
 
         public AuthResult Register(ClientRegisterDTO clientRegisterDTO)
