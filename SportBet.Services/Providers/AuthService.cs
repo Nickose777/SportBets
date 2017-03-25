@@ -13,16 +13,20 @@ using SportBet.Core.Entities;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.Factories;
 using SportBet.Services.Encryption;
+using SportBet.Services.Contracts.Validators;
+using SportBet.Services.Validators;
 
 namespace SportBet.Services.Providers
 {
     public class AuthService : IAuthService
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IRegisterValidator registerValidator;
 
         public AuthService()
         {
             this.unitOfWork = new UnitOfWork();
+            this.registerValidator = new RegisterValidator();
 
             try
             {
@@ -40,14 +44,9 @@ namespace SportBet.Services.Providers
             string message = "";
             bool success = true;
 
-            if (!ValidateClient(clientRegisterDTO, ref message))
+            if (!Validate(clientRegisterDTO, ref message))
                 success = false;
-            else if (clientRegisterDTO.Password != clientRegisterDTO.ConfirmPassword)
-            {
-                success = false;
-                message = "Passwords are not same";
-            }
-            else if (!ValidatePassword(clientRegisterDTO.Password, ref message))
+            else if (!registerValidator.Validate(clientRegisterDTO, ref message))
                 success = false;
             else if (unitOfWork.Users.GetAll(user => user.Login == clientRegisterDTO.Login).Count() > 0)
             {
@@ -96,7 +95,7 @@ namespace SportBet.Services.Providers
 
             return new AuthResult(message, success);
         }
-        private bool ValidateClient(ClientRegisterDTO clientRegisterDTO, ref string message)
+        private bool Validate(ClientRegisterDTO clientRegisterDTO, ref string message)
         {
             bool isValid = true;
 
@@ -128,53 +127,89 @@ namespace SportBet.Services.Providers
 
             return isValid;
         }
-        private bool ValidatePassword(string password, ref string message)
+
+        public AuthResult Register(BookmakerRegisterDTO bookmakerRegisterDTO)
         {
-            const int MIN_LENGTH = 6;
-            const int MAX_LENGTH = 15;
+            string message = "";
+            bool success = true;
 
-            bool isValid = true;
-
-            if (String.IsNullOrEmpty(password))
+            if (!Validate(bookmakerRegisterDTO, ref message))
+                success = false;
+            else if (!registerValidator.Validate(bookmakerRegisterDTO, ref message))
+                success = false;
+            else if (unitOfWork.Users.GetAll(user => user.Login == bookmakerRegisterDTO.Login).Count() > 0)
             {
-                message = "Enter the password";
-                isValid = false;
-            }
-            else if (password.Length < MIN_LENGTH || password.Length > MAX_LENGTH)
-            {
-                message = "Password must consist of 6-15 characters";
-                isValid = false;
+                success = false;
+                message = "Such login already exists. Try another one";
             }
             else
             {
-                bool hasUpperCaseLetter = false;
-                bool hasLowerCaseLetter = false;
-                bool hasDigit = false;
+                string hashedPassword = Hasher.EncodePassword(bookmakerRegisterDTO.Password);
 
-                foreach (char c in password)
+                try
                 {
-                    if (char.IsUpper(c)) hasUpperCaseLetter = true;
-                    else if (char.IsLower(c)) hasLowerCaseLetter = true;
-                    else if (char.IsDigit(c)) hasDigit = true;
+                    unitOfWork.Accounts.RegisterBookmaker(bookmakerRegisterDTO.Login, hashedPassword);
+
+                    UserEntity userEntity = new UserEntity
+                    {
+                        Login = bookmakerRegisterDTO.Login,
+                        Role = unitOfWork.Roles.Get(5)
+                    };
+                    unitOfWork.Users.Add(userEntity);
+                    unitOfWork.Commit();
+
+                    BookmakerEntity bookmakerEntity = new BookmakerEntity
+                    {
+                        Id = userEntity.Id,
+                        FirstName = bookmakerRegisterDTO.FirstName,
+                        LastName = bookmakerRegisterDTO.LastName,
+                        PhoneNumber = bookmakerRegisterDTO.PhoneNumber
+                    };
+                    unitOfWork.Bookmakers.Add(bookmakerEntity);
+
+                    unitOfWork.Commit();
                 }
+                catch (Exception ex)
+                {
+                    message = ex.Message;
+                    success = false;
+                }
+                finally
+                {
+                    unitOfWork.Dispose();
+                }
+            }
 
-                isValid =
-                    hasUpperCaseLetter &&
-                    hasLowerCaseLetter &&
-                    hasDigit;
+            return new AuthResult(message, success);
+        }
+        private bool Validate(BookmakerRegisterDTO bookmakerRegisterDTO, ref string message)
+        {
+            bool isValid = true;
 
-                if (!isValid)
-                    message = "Password must consist at least of 1 upper case, 1 lower case character and 1 digit";
+            if (String.IsNullOrEmpty(bookmakerRegisterDTO.LastName))
+            {
+                message = "Last name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(bookmakerRegisterDTO.FirstName))
+            {
+                message = "First name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(bookmakerRegisterDTO.PhoneNumber))
+            {
+                message = "Phone number name must not be empty";
+                isValid = false;
             }
 
             return isValid;
         }
-        //TODO PasswordValidator
 
         public AuthServiceFactoryResult Login(UserLoginDTO userLoginDTO)
         {
             string message = "Successful login";
             bool success = true;
+            LoginType loginType = LoginType.NoLogin;
             ServiceFactory factory = null;
 
             string login = userLoginDTO.Login;
@@ -195,6 +230,7 @@ namespace SportBet.Services.Providers
                     {
                         case "Superuser":
                             factory = new SuperUserServiceFactory(connectionString);
+                            loginType = LoginType.Superuser;
                             break;
                         case "Admin":
                             break;
@@ -202,9 +238,11 @@ namespace SportBet.Services.Providers
                             break;
                         case "Bookmaker":
                             factory = new BookmakerServiceFactory(connectionString);
+                            loginType = LoginType.Bookmaker;
                             break;
                         case "Client":
                             factory = new ClientServiceFactory(connectionString);
+                            loginType = LoginType.Client;
                             break;
                         default:
                             break;
@@ -217,7 +255,7 @@ namespace SportBet.Services.Providers
                 message = ex.Message;
             }
 
-            return new AuthServiceFactoryResult(factory, message, success);
+            return new AuthServiceFactoryResult(factory, loginType, message, success);
         }
 
         public void Dispose()

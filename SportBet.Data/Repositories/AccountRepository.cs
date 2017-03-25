@@ -32,7 +32,16 @@ namespace SportBet.Data.Repositories
 
         public void RegisterClient(string login, string password)
         {
-            string query = String.Format("DO $$ BEGIN PERFORM register_client('{0}', '{1}'); END $$;", login, password);
+            Register("register_client", login, password);
+        }
+        public void RegisterBookmaker(string login, string password)
+        {
+            Register("register_bookmaker", login, password);
+        }
+
+        private void Register(string functionName, string login, string password)
+        {
+            string query = String.Format("DO $$ BEGIN PERFORM {0}('{1}', '{2}'); END $$;", functionName, login, password);
             context.Database.ExecuteSqlCommand(query);
         }
     }

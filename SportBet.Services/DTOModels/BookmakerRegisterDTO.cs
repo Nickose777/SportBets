@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.DTOModels
 {
-    public class ClientRegisterDTO : RegisterBaseDTO
+    public class BookmakerRegisterDTO : RegisterBaseDTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
-        public DateTime DateOfBirth { get; set; }
     }
 }

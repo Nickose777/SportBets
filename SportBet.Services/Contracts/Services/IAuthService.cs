@@ -12,6 +12,7 @@ namespace SportBet.Services.Contracts.Services
     public interface IAuthService : IDisposable
     {
         AuthResult Register(ClientRegisterDTO clientRegisterDTO);
+        AuthResult Register(BookmakerRegisterDTO bookmakerRegisterDTO);
         AuthServiceFactoryResult Login(UserLoginDTO userLoginDTO);
     }
 }

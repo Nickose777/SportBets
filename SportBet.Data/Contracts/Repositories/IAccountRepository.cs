@@ -11,5 +11,6 @@ namespace SportBet.Data.Contracts.Repositories
     {
         void CreateDefaultSuperuserIfNotExists(string password);
         void RegisterClient(string login, string password);
+        void RegisterBookmaker(string login, string password);
     }
 }
