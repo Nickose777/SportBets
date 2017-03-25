@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.Factories
 {
-    class ClientServiceFactory : ServiceFactory
+    class BookmakerServiceFactory : ServiceFactory
     {
-        public ClientServiceFactory(string connectionString)
+        public BookmakerServiceFactory(string connectionString)
             : base(connectionString) { }
     }
 }

@@ -28,40 +28,20 @@ namespace SportBet
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Login_Click(object sender, RoutedEventArgs e)
         {
-            IAuthService authService = new AuthService();
-
-            AuthServiceFactoryResult result = authService.Login(new UserLoginDTO 
-            {
-                Login = "Nickose777",
-                Password = "Nick2397"
-            });
-
-            if (result.IsSuccessful)
-            {
-                MessageBox.Show("Success!");
-            }
-            else
-            {
-                MessageBox.Show(result.Message);
-            }
+            Login();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Login()
         {
             IAuthService authService = new AuthService();
-            var user = new ClientRegisterDTO
+
+            AuthServiceFactoryResult result = authService.Login(new UserLoginDTO
             {
-                Login = "Nickose777",
-                Password = "Nick2397",
-                ConfirmPassword = "Nick2397",
-                FirstName = "1",
-                LastName = "2",
-                PhoneNumber = "3",
-                DateOfBirth = new DateTime(1997, 07, 07)
-            };
-            AuthResult result = authService.Register(user);
+                Login = loginTxt.Text,
+                Password = passwordTxt.Password
+            });
 
             if (result.IsSuccessful)
             {

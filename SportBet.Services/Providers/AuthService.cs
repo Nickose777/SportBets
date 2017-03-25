@@ -77,7 +77,7 @@ namespace SportBet.Services.Providers
                 }
                 finally
                 {
-
+                    unitOfWork.Dispose();
                 }
             }
 
@@ -162,7 +162,7 @@ namespace SportBet.Services.Providers
         {
             string message = "Successful login";
             bool success = true;
-            IServiceFactory factory = null;
+            ServiceFactory factory = null;
 
             string login = userLoginDTO.Login;
             string password = userLoginDTO.Password;
@@ -182,6 +182,8 @@ namespace SportBet.Services.Providers
                     {
                         case "Client":
                             factory = new ClientServiceFactory(connectionString);
+                            break;
+                        case "Bookmaker":
                             break;
                         default:
                             break;

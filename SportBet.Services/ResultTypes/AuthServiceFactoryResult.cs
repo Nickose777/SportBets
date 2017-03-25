@@ -9,11 +9,11 @@ namespace SportBet.Services.ResultTypes
 {
     public class AuthServiceFactoryResult : AuthResult
     {
-        public IServiceFactory Factory { get; set; }
+        public ServiceFactory Factory { get; set; }
 
         public AuthServiceFactoryResult(string message, bool success)
             : this(null, message, success) { }
-        public AuthServiceFactoryResult(IServiceFactory factory, string message, bool success)
+        public AuthServiceFactoryResult(ServiceFactory factory, string message, bool success)
             : base(message, success)
         {
             this.Factory = factory;
