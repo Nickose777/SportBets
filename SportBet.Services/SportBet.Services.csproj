@@ -42,6 +42,7 @@
     <Compile Include="Contracts\IAuthService.cs" />
     <Compile Include="DTOModels\UserLoginDTO.cs" />
     <Compile Include="DTOModels\ClientRegisterDTO.cs" />
+    <Compile Include="Factories\IServiceFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthService.cs" />
     <Compile Include="ResultTypes\AuthResult.cs" />

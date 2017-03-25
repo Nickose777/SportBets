@@ -18,9 +18,10 @@ namespace SportBet.Data.Repositories
             this.context = context;
         }
 
-        public void RegisterClient(ClientRegister clientRegister)
+        public void RegisterClient(string login, string password)
         {
-            context.Database.ExecuteSqlCommand("CREATE USER " + clientRegister.Login + " PASSWORD '" + clientRegister.Password + "'");
+            string query = String.Format("CREATE USER {0} PASSWORD '{1}'", login, password);
+            context.Database.ExecuteSqlCommand(query);
         }
     }
 }

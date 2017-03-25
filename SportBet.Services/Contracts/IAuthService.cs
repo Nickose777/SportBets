@@ -1,4 +1,5 @@
 ﻿using SportBet.Services.DTOModels;
+using SportBet.Services.Factories;
 using SportBet.Services.ResultTypes;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,9 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.Contracts
 {
-    public interface IAuthService
+    public interface IAuthService : IDisposable
     {
         AuthResult Register(ClientRegisterDTO clientRegisterDTO);
-        AuthResult LoginAsSuperUser(UserLoginDTO adminLoginDTO);
-        AuthResult LoginAsAdmin(UserLoginDTO adminLoginDTO);
-        AuthResult LoginAsAnalyst(UserLoginDTO adminLoginDTO);
-        AuthResult LoginAsBookmaker(UserLoginDTO clientLoginDTO);
-        AuthResult LoginAsClient(UserLoginDTO clientLoginDTO);
+        IServiceFactory Login(UserLoginDTO userLoginDTO);
     }
 }

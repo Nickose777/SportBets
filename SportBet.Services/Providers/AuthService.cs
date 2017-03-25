@@ -10,6 +10,7 @@ using SportBet.Data.Contracts;
 using SportBet.Core;
 using SportBet.Data;
 using SportBet.Core.Entities;
+using SportBet.Services.Factories;
 
 namespace SportBet.Services.Providers
 {
@@ -36,56 +37,46 @@ namespace SportBet.Services.Providers
             }
             else if (!ValidatePassword(clientRegisterDTO.Password, ref message))
                 success = false;
-
-            //TODO
-            //Check for such login in DB
-            //Hash password
-
-            ClientRegister clientRegister = new ClientRegister
+            else
             {
-                FirstName = clientRegisterDTO.FirstName,
-                LastName = clientRegisterDTO.LastName,
-                PhoneNumber = clientRegisterDTO.PhoneNumber,
-                DateOfBirth = clientRegisterDTO.DateOfBirth,
-                DateOfRegistration = DateTime.Now,
-                
-                Login = clientRegisterDTO.Login,
-                Password = clientRegisterDTO.Password
-            };
+                //TODO
+                //Check for such login in DB
+                //Hash password
 
-            try
-            {
-                unitOfWork.Accounts.RegisterClient(clientRegister);
-
-                UserEntity userEntity = new UserEntity
+                try
                 {
-                    Login = clientRegister.Login,
-                    Role = unitOfWork.Roles.Get(5)
-                };
-                unitOfWork.Users.Add(userEntity);
-                unitOfWork.Commit();
+                    unitOfWork.Accounts.RegisterClient(clientRegisterDTO.Login, clientRegisterDTO.Password);
 
-                ClientEntity clientEntity = new ClientEntity
+                    UserEntity userEntity = new UserEntity
+                    {
+                        Login = clientRegisterDTO.Login,
+                        Role = unitOfWork.Roles.Get(5)
+                    };
+                    unitOfWork.Users.Add(userEntity);
+                    unitOfWork.Commit();
+
+                    ClientEntity clientEntity = new ClientEntity
+                    {
+                        Id = userEntity.Id,
+                        FirstName = clientRegisterDTO.FirstName,
+                        LastName = clientRegisterDTO.LastName,
+                        PhoneNumber = clientRegisterDTO.PhoneNumber,
+                        DateOfBirth = clientRegisterDTO.DateOfBirth,
+                        DateOfRegistration = DateTime.Now
+                    };
+                    unitOfWork.Clients.Add(clientEntity);
+
+                    unitOfWork.Commit();
+                }
+                catch (Exception ex)
                 {
-                    Id = userEntity.Id,
-                    FirstName = clientRegister.FirstName,
-                    LastName = clientRegister.LastName,
-                    PhoneNumber = clientRegister.PhoneNumber,
-                    DateOfBirth = clientRegister.DateOfBirth,
-                    DateOfRegistration = clientRegister.DateOfRegistration
-                };
-                unitOfWork.Clients.Add(clientEntity);
+                    message = ex.Message;
+                    success = false;
+                }
+                finally
+                {
 
-                unitOfWork.Commit();
-            }
-            catch (Exception ex)
-            {
-                message = ex.Message;
-                success = false;
-            }
-            finally
-            {
-
+                }
             }
 
             return new AuthResult(message, success);
@@ -164,25 +155,14 @@ namespace SportBet.Services.Providers
             return isValid;
         }
 
-        public AuthResult LoginAsSuperUser(UserLoginDTO adminLoginDTO)
+        public IServiceFactory Login(UserLoginDTO userLoginDTO)
         {
             throw new NotImplementedException();
         }
-        public AuthResult LoginAsAdmin(UserLoginDTO adminLoginDTO)
+
+        public void Dispose()
         {
-            throw new NotImplementedException();
-        }
-        public AuthResult LoginAsAnalyst(UserLoginDTO adminLoginDTO)
-        {
-            throw new NotImplementedException();
-        }
-        public AuthResult LoginAsBookmaker(UserLoginDTO clientLoginDTO)
-        {
-            throw new NotImplementedException();
-        }
-        public AuthResult LoginAsClient(UserLoginDTO clientLoginDTO)
-        {
-            throw new NotImplementedException();
+            unitOfWork.Dispose();
         }
     }
 }

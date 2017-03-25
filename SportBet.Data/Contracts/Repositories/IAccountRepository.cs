@@ -9,6 +9,6 @@ namespace SportBet.Data.Contracts.Repositories
 {
     public interface IAccountRepository
     {
-        void RegisterClient(ClientRegister clientRegister);
+        void RegisterClient(string login, string password);
     }
 }
