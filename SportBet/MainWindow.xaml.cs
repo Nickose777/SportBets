@@ -1,4 +1,4 @@
-﻿using SportBet.Services.Contracts;
+﻿using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels;
 using SportBet.Services.Providers;
 using SportBet.Services.ResultTypes;
