@@ -84,6 +84,10 @@ namespace SportBet.Data
         {
             this.context = new SportBetDbContext();
         }
+        public UnitOfWork(string connectionString)
+        {
+            this.context = new SportBetDbContext(connectionString);
+        }
 
         public void Commit()
         {
