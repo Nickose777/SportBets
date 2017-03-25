@@ -20,8 +20,13 @@ namespace SportBet.Data.Repositories
 
         public void RegisterClient(string login, string password)
         {
-            string query = String.Format("CREATE USER \"{0}\" PASSWORD '{1}'", login, password);
-            context.Database.ExecuteSqlCommand(query);
+            string createQuery = String.Format("CREATE USER \"{0}\" PASSWORD '{1}';", login, password);
+            string grantsQuery1 = String.Format("GRANT USAGE ON SCHEMA public TO \"{0}\";", login);
+            string grantsQuery2 = String.Format("GRANT SELECT ON TABLE \"Users\", \"Roles\" TO \"{0}\";", login);
+
+            context.Database.ExecuteSqlCommand(createQuery);
+            context.Database.ExecuteSqlCommand(grantsQuery1);
+            context.Database.ExecuteSqlCommand(grantsQuery2);
         }
     }
 }

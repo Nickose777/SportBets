@@ -1,4 +1,5 @@
-﻿using SportBet.Services.Contracts.Factories;
+﻿using SportBet.Data.Contracts;
+using SportBet.Services.Contracts.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,11 @@ namespace SportBet.Services.Factories
 {
     class ClientServiceFactory : IServiceFactory
     {
+        private string connectionString;
+
+        public ClientServiceFactory(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
     }
 }

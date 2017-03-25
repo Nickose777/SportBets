@@ -1,0 +1,10 @@
+﻿<Window x:Class="SportBet.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LoginWindow" Height="300" Width="300">
+    <Grid>
+        <Button Click="Button_Click" Content="Log" HorizontalAlignment="Left" Margin="72,98,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Click="Button_Click_1" Content="Button" HorizontalAlignment="Left" Margin="102,141,0,0" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
+</Window>

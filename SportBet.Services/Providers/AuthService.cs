@@ -11,6 +11,7 @@ using SportBet.Core;
 using SportBet.Data;
 using SportBet.Core.Entities;
 using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Factories;
 
 namespace SportBet.Services.Providers
 {
@@ -42,10 +43,11 @@ namespace SportBet.Services.Providers
                 //TODO
                 //Check for such login in DB
                 //Hash password
+                string hashedPassword = clientRegisterDTO.Password;
 
                 try
                 {
-                    unitOfWork.Accounts.RegisterClient(clientRegisterDTO.Login, clientRegisterDTO.Password);
+                    unitOfWork.Accounts.RegisterClient(clientRegisterDTO.Login, hashedPassword);
 
                     UserEntity userEntity = new UserEntity
                     {
@@ -154,10 +156,45 @@ namespace SportBet.Services.Providers
 
             return isValid;
         }
+        //TODO PasswordValidator
 
-        public IServiceFactory Login(UserLoginDTO userLoginDTO)
+        public AuthServiceFactoryResult Login(UserLoginDTO userLoginDTO)
         {
-            throw new NotImplementedException();
+            string message = "Successful login";
+            bool success = true;
+            IServiceFactory factory = null;
+
+            string login = userLoginDTO.Login;
+            string password = userLoginDTO.Password;
+
+            string hashedPassword = password; //TODO hash password
+
+            string connectionString = String.Format("Server=127.0.0.1;Port=5432;Database=Bets;User Id={0};Password={1};", login, hashedPassword);
+
+            try
+            {
+                using (IUnitOfWork unitOfWork = new UnitOfWork(connectionString))
+                {
+                    UserEntity userEntity = unitOfWork.Users.GetAll(user => user.Login == login).FirstOrDefault();
+                    string roleName = userEntity.Role.Name;
+
+                    switch (roleName)
+                    {
+                        case "Client":
+                            factory = new ClientServiceFactory(connectionString);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                message = ex.Message;
+            }
+
+            return new AuthServiceFactoryResult(factory, message, success);
         }
 
         public void Dispose()
