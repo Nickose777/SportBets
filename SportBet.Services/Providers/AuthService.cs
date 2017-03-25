@@ -38,10 +38,14 @@ namespace SportBet.Services.Providers
             }
             else if (!ValidatePassword(clientRegisterDTO.Password, ref message))
                 success = false;
+            else if (unitOfWork.Users.GetAll(user => user.Login == clientRegisterDTO.Login).Count() > 0)
+            {
+                success = false;
+                message = "Such login already exists. Try another one";
+            }
             else
             {
                 //TODO
-                //Check for such login in DB
                 //Hash password
                 string hashedPassword = clientRegisterDTO.Password;
 
@@ -180,10 +184,18 @@ namespace SportBet.Services.Providers
 
                     switch (roleName)
                     {
-                        case "Client":
-                            factory = new ClientServiceFactory(connectionString);
+                        case "Superuser":
+                            factory = new SuperUserServiceFactory(connectionString);
+                            break;
+                        case "Admin":
+                            break;
+                        case "Analytic":
                             break;
                         case "Bookmaker":
+                            factory = new BookmakerServiceFactory(connectionString);
+                            break;
+                        case "Client":
+                            factory = new ClientServiceFactory(connectionString);
                             break;
                         default:
                             break;
