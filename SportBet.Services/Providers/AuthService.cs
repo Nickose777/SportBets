@@ -26,7 +26,7 @@ namespace SportBet.Services.Providers
 
             try
             {
-                string hashedPassword = StringCipher.Encrypt("admin", KeyPhrase.Key);
+                string hashedPassword = Hasher.EncodePassword("admin");
                 unitOfWork.Accounts.CreateDefaultSuperuserIfNotExists(hashedPassword);
             }
             catch
@@ -56,7 +56,7 @@ namespace SportBet.Services.Providers
             }
             else
             {
-                string hashedPassword = StringCipher.Encrypt(clientRegisterDTO.Password, KeyPhrase.Key);
+                string hashedPassword = Hasher.EncodePassword(clientRegisterDTO.Password);
 
                 try
                 {
@@ -180,7 +180,7 @@ namespace SportBet.Services.Providers
             string login = userLoginDTO.Login;
             string password = userLoginDTO.Password;
 
-            string hashedPassword = StringCipher.Encrypt(password, KeyPhrase.Key);
+            string hashedPassword = Hasher.EncodePassword(password);
 
             string connectionString = String.Format("Server=127.0.0.1;Port=5432;Database=Bets;User Id={0};Password={1};", login, hashedPassword);
 

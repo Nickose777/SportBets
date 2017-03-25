@@ -43,8 +43,7 @@
     <Compile Include="DTOModels\UserLoginDTO.cs" />
     <Compile Include="DTOModels\ClientRegisterDTO.cs" />
     <Compile Include="Contracts\Factories\ServiceFactory.cs" />
-    <Compile Include="Encryption\KeyPhrase.cs" />
-    <Compile Include="Encryption\StringCipher.cs" />
+    <Compile Include="Encryption\Hasher.cs" />
     <Compile Include="Factories\BookmakerServiceFactory.cs" />
     <Compile Include="Factories\ClientServiceFactory.cs" />
     <Compile Include="Factories\SuperUserServiceFactory.cs" />
