@@ -29,18 +29,23 @@ namespace SportBet
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void Register_Clicked(object sender, EventArgs e)
+        {
+            Register();
+        }
+
+        private void Register()
         {
             IAuthService service = new AuthService();
             AuthResult result = service.Register(new ClientRegisterDTO
             {
-                Login = "Nickose777",
-                Password = "needforNick2397",
-                ConfirmPassword = "needforNick2397",
-                FirstName = "Николай",
-                LastName = "Яковлев",
-                PhoneNumber = "0631153929",
-                DateOfBirth = new DateTime(1997, 07, 23)
+                Login = loginTxt.Text,
+                Password = passwordTxt.Password,
+                ConfirmPassword = passwordConfirmTxt.Password,
+                FirstName = firstNameTxt.Text,
+                LastName = lastNameTxt.Text,
+                PhoneNumber = phoneTxt.Text,
+                DateOfBirth = DateTime.Parse(dateOfBirthTxt.Text) //TODO validate date of birth
             });
 
             if (!result.IsSuccessful)
