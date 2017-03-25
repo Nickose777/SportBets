@@ -12,6 +12,7 @@ using SportBet.Data;
 using SportBet.Core.Entities;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.Factories;
+using SportBet.Services.Encryption;
 
 namespace SportBet.Services.Providers
 {
@@ -45,9 +46,7 @@ namespace SportBet.Services.Providers
             }
             else
             {
-                //TODO
-                //Hash password
-                string hashedPassword = clientRegisterDTO.Password;
+                string hashedPassword = StringCipher.Encrypt(clientRegisterDTO.Password, KeyPhrase.Key);
 
                 try
                 {
@@ -171,7 +170,7 @@ namespace SportBet.Services.Providers
             string login = userLoginDTO.Login;
             string password = userLoginDTO.Password;
 
-            string hashedPassword = password; //TODO hash password
+            string hashedPassword = StringCipher.Encrypt(password, KeyPhrase.Key);
 
             string connectionString = String.Format("Server=127.0.0.1;Port=5432;Database=Bets;User Id={0};Password={1};", login, hashedPassword);
 
