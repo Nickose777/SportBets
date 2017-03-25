@@ -74,6 +74,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
+    <Compile Include="EventHandlers\BookmakerRegisterEventHandler.cs" />
+    <Compile Include="Models\BookmakerRegisterModel.cs" />
+    <Compile Include="Models\RegisterBaseModel.cs" />
+    <Compile Include="ObservableObject.cs" />
+    <Compile Include="RegisterObservableObject.cs" />
+    <Compile Include="SuperuserControls\UserControls\RegisterBookmakerViewModel.xaml.cs">
+      <DependentUpon>RegisterBookmakerViewModel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SuperuserControls\ViewModels\BookmakerRegisterViewModel.cs" />
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -93,6 +104,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SuperuserControls\UserControls\RegisterBookmakerViewModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -128,6 +143,7 @@
       <Name>SportBet.Services</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
