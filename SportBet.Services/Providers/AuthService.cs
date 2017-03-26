@@ -51,7 +51,7 @@ namespace SportBet.Services.Providers
 
             try
             {
-                using (IUnitOfWork unitOfWork = new UnitOfWork(login, password))
+                using (IUnitOfWork unitOfWork = new UnitOfWork(login, hashedPassword))
                 {
                     UserEntity userEntity = unitOfWork.Users.GetAll(user => user.Login == login).FirstOrDefault();
                     string roleName = userEntity.Role.Name;
