@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportBet.SuperuserControls.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,12 @@ namespace SportBet.SuperuserControls.UserControls
     /// <summary>
     /// Interaction logic for RegisterBookmakerViewModel.xaml
     /// </summary>
-    public partial class RegisterBookmakerViewModel : UserControl
+    public partial class RegisterBookmakerControl : UserControl
     {
-        public RegisterBookmakerViewModel()
+        public RegisterBookmakerControl(BookmakerRegisterViewModel viewModel)
         {
             InitializeComponent();
+            this.DataContext = viewModel;
         }
     }
 }

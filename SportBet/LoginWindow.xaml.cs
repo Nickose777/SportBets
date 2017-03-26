@@ -27,6 +27,7 @@ namespace SportBet
         public LoginWindow()
         {
             InitializeComponent();
+            this.loginTxt.Focus();
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SportBet.DesignTimeViewModels
 {
-    class BookmakerRegisterDTViewModel : BookmakerRegisterViewModel
+    public class BookmakerRegisterDTViewModel : BookmakerRegisterViewModel
     {
         public BookmakerRegisterDTViewModel()
             : base(null) { }

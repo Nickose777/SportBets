@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace SportBet.SuperuserControls.ViewModels
 {
-    class BookmakerRegisterViewModel : RegisterObservableObject
+    public class BookmakerRegisterViewModel : RegisterObservableObject
     {
         public event BookmakerRegisterEventHandler BookmakerCreated;
 

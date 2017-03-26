@@ -1,4 +1,10 @@
-﻿using SportBet.Services.Contracts.Factories;
+﻿using SportBet.Models;
+using SportBet.Services.Contracts.Factories;
+using SportBet.Services.DTOModels;
+using SportBet.Services.ResultTypes;
+using SportBet.SuperuserControls.UserControls;
+using SportBet.SuperuserControls.ViewModels;
+using SportBet.WindowFactories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +34,38 @@ namespace SportBet.SuperuserControls
         {
             InitializeComponent();
             this.factory = factory;
+        }
+
+        private void RegisterBookmaker_Click(object sender, RoutedEventArgs e)
+        {
+            BookmakerRegisterViewModel viewModel = new BookmakerRegisterViewModel(new BookmakerRegisterModel());
+            RegisterBookmakerControl control = new RegisterBookmakerControl(viewModel);
+
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.BookmakerCreated += (s, ea) =>
+            {
+                BookmakerRegisterModel bookmaker = ea.Bookmaker;
+                BookmakerRegisterDTO bookmakerDTO = new BookmakerRegisterDTO();
+
+                var service = factory.CreateAccountService();
+                AuthResult result = service.Register(bookmakerDTO);
+
+                string message;
+                if (result.IsSuccessful)
+                {
+                    message = "Successfully registered new bookmaker!";
+                    window.Close();
+                }
+                else
+                {
+                    message = result.Message;
+                }
+
+                MessageBox.Show(message);
+            };
+
+            window.ShowDialog();
         }
     }
 }

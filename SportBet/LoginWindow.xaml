@@ -25,6 +25,7 @@
             Grid.Column="1"
             Grid.Row="3"
             Content="Login"
+            IsDefault="True"
             Click="Login_Click" />
     </Grid>
 </Window>

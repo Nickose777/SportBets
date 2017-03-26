@@ -85,10 +85,11 @@
     <Compile Include="SuperuserControls\SuperuserMainWindow.xaml.cs">
       <DependentUpon>SuperuserMainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SuperuserControls\UserControls\RegisterBookmakerViewModel.xaml.cs">
-      <DependentUpon>RegisterBookmakerViewModel.xaml</DependentUpon>
+    <Compile Include="SuperuserControls\UserControls\RegisterBookmakerControl.xaml.cs">
+      <DependentUpon>RegisterBookmakerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SuperuserControls\ViewModels\BookmakerRegisterViewModel.cs" />
+    <Compile Include="WindowFactories\WindowFactory.cs" />
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -112,7 +113,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SuperuserControls\UserControls\RegisterBookmakerViewModel.xaml">
+    <Page Include="SuperuserControls\UserControls\RegisterBookmakerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

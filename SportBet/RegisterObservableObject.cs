@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SportBet
 {
-    class RegisterObservableObject : ObservableObject
+    public class RegisterObservableObject : ObservableObject
     {
         private readonly RegisterBaseModel model;
 
