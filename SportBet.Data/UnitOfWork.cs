@@ -84,8 +84,9 @@ namespace SportBet.Data
         {
             this.context = new SportBetDbContext();
         }
-        public UnitOfWork(string connectionString)
+        public UnitOfWork(string login, string password)
         {
+            string connectionString = String.Format("Server=127.0.0.1;Port=5432;Database=Bets;User Id={0};Password={1};", login, password);
             this.context = new SportBetDbContext(connectionString);
         }
 

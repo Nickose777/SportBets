@@ -36,22 +36,22 @@ namespace SportBet
 
         private void Register()
         {
-            IAuthService service = new AuthService();
-            AuthResult result = service.Register(new ClientRegisterDTO
-            {
-                Login = loginTxt.Text,
-                Password = passwordTxt.Password,
-                ConfirmPassword = passwordConfirmTxt.Password,
-                FirstName = firstNameTxt.Text,
-                LastName = lastNameTxt.Text,
-                PhoneNumber = phoneTxt.Text,
-                DateOfBirth = DateTime.Parse(dateOfBirthTxt.Text) //TODO validate date of birth
-            });
+            //IAuthService service = new AuthService();
+            //AuthResult result = service.Register(new ClientRegisterDTO
+            //{
+            //    Login = loginTxt.Text,
+            //    Password = passwordTxt.Password,
+            //    ConfirmPassword = passwordConfirmTxt.Password,
+            //    FirstName = firstNameTxt.Text,
+            //    LastName = lastNameTxt.Text,
+            //    PhoneNumber = phoneTxt.Text,
+            //    DateOfBirth = DateTime.Parse(dateOfBirthTxt.Text) //TODO validate date of birth
+            //});
 
-            if (!result.IsSuccessful)
-                MessageBox.Show(result.Message);
-            else
-                MessageBox.Show("Success!");
+            //if (!result.IsSuccessful)
+            //    MessageBox.Show(result.Message);
+            //else
+            //    MessageBox.Show("Success!");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportBet.Services.Contracts.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,15 @@ namespace SportBet.Services.Contracts.Factories
 {
     public abstract class ServiceFactory
     {
-        protected readonly string connectionString;
+        protected readonly string login;
+        protected readonly string password;
 
-        public ServiceFactory(string connectionString)
+        public ServiceFactory(string login, string password)
         {
-            this.connectionString = connectionString;
+            this.login = login;
+            this.password = password;
         }
+
+        public abstract IAccountService CreateAccountService();
     }
 }
