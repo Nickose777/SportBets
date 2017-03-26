@@ -1,6 +1,7 @@
 ﻿using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.Contracts.Services;
+using SportBet.Services.Providers.AccountServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,7 @@ namespace SportBet.Services.Factories
 
         public override IAccountService CreateAccountService()
         {
-            //TODO a stub
-            throw new NotImplementedException();
+            return new ClientAccountService();
         }
     }
 }

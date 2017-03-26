@@ -3,7 +3,7 @@ using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
-using SportBet.Services.Providers;
+using SportBet.Services.Providers.AccountServices;
 using SportBet.Services.Validators;
 using System;
 using System.Collections.Generic;
@@ -24,15 +24,6 @@ namespace SportBet.Services.Factories
             IRegisterValidator registerValidator = CreateRegisterValidator();
 
             return new SuperuserAccountService(unitOfWork, registerValidator);
-        }
-
-        private IUnitOfWork CreateUnitOfWork()
-        {
-            return new UnitOfWork(login, password);
-        }
-        private IRegisterValidator CreateRegisterValidator()
-        {
-            return new RegisterValidator();
         }
     }
 }

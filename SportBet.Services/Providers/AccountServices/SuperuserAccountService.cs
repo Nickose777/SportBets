@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SportBet.Services.Providers
+namespace SportBet.Services.Providers.AccountServices
 {
     public class SuperuserAccountService : IAccountService
     {

@@ -1,4 +1,8 @@
-﻿using SportBet.Services.Contracts.Services;
+﻿using SportBet.Data;
+using SportBet.Data.Contracts;
+using SportBet.Services.Contracts.Services;
+using SportBet.Services.Contracts.Validators;
+using SportBet.Services.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +23,14 @@ namespace SportBet.Services.Contracts.Factories
         }
 
         public abstract IAccountService CreateAccountService();
+
+        protected IUnitOfWork CreateUnitOfWork()
+        {
+            return new UnitOfWork(login, password);
+        }
+        protected IRegisterValidator CreateRegisterValidator()
+        {
+            return new RegisterValidator();
+        }
     }
 }

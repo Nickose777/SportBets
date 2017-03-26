@@ -1,6 +1,8 @@
 ﻿using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.Contracts.Services;
+using SportBet.Services.Contracts.Validators;
+using SportBet.Services.Providers.AccountServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +18,10 @@ namespace SportBet.Services.Factories
 
         public override IAccountService CreateAccountService()
         {
-            //TODO create BookmakerAccountService
-            throw new NotImplementedException();
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+            IRegisterValidator registerValidator = CreateRegisterValidator();
+
+            return new BookmakerAccountService(unitOfWork, registerValidator);
         }
     }
 }
