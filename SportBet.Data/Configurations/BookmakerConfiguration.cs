@@ -18,7 +18,9 @@ namespace SportBet.Data.Configurations
                 HasColumnName("BookmakerNo");
 
             //Primary Keys
-            this.HasKey(bookmaker => bookmaker.Id);
+            this.HasKey(bookmaker => bookmaker.Id).
+                Property(bookmaker => bookmaker.Id).
+                HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
 
             //Other Settings
             this.Property(bookmaker => bookmaker.FirstName).

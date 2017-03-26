@@ -59,7 +59,7 @@ namespace SportBet.Services.Providers
                     switch (roleName)
                     {
                         case "Superuser":
-                            factory = new SuperuserServiceFactory(login, password);
+                            factory = new SuperuserServiceFactory(login, hashedPassword);
                             loginType = LoginType.Superuser;
                             break;
                         case "Admin":
@@ -67,11 +67,11 @@ namespace SportBet.Services.Providers
                         case "Analytic":
                             break;
                         case "Bookmaker":
-                            factory = new BookmakerServiceFactory(login, password);
+                            factory = new BookmakerServiceFactory(login, hashedPassword);
                             loginType = LoginType.Bookmaker;
                             break;
                         case "Client":
-                            factory = new ClientServiceFactory(login, password);
+                            factory = new ClientServiceFactory(login, hashedPassword);
                             loginType = LoginType.Client;
                             break;
                         default:

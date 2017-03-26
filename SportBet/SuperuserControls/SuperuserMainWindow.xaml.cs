@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AutoMapper;
 
 namespace SportBet.SuperuserControls
 {
@@ -46,7 +47,7 @@ namespace SportBet.SuperuserControls
             viewModel.BookmakerCreated += (s, ea) =>
             {
                 BookmakerRegisterModel bookmaker = ea.Bookmaker;
-                BookmakerRegisterDTO bookmakerDTO = new BookmakerRegisterDTO();
+                BookmakerRegisterDTO bookmakerDTO = Mapper.Map<BookmakerRegisterModel, BookmakerRegisterDTO>(bookmaker);
 
                 var service = factory.CreateAccountService();
                 AuthResult result = service.Register(bookmakerDTO);
