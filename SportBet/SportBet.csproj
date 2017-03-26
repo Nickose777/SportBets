@@ -77,6 +77,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BookmakerControls\BookmakerMainWindow.xaml.cs">
+      <DependentUpon>BookmakerMainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
     <Compile Include="EventHandlers\BookmakerRegisterEventHandler.cs" />
@@ -95,6 +98,10 @@
     </Compile>
     <Compile Include="SuperuserControls\ViewModels\BookmakerRegisterViewModel.cs" />
     <Compile Include="WindowFactories\WindowFactory.cs" />
+    <Page Include="BookmakerControls\BookmakerMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

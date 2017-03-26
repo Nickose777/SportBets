@@ -68,5 +68,22 @@ namespace SportBet.SuperuserControls
 
             window.ShowDialog();
         }
+
+        private void SignOut_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+            //MessageBox for question
+            RaiseSignedOutEvent();
+        }
+
+        private void RaiseSignedOutEvent()
+        {
+            var handler = SignedOut;
+            if (handler != null)
+            {
+                EventArgs e = new EventArgs();
+                handler(this, e);
+            }
+        }
     }
 }

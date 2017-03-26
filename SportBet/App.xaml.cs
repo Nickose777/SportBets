@@ -16,8 +16,10 @@ namespace SportBet
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            AutoMapperConfiguration.Configure();
             base.OnStartup(e);
+
+            AutoMapperConfiguration.Configure();
+            this.ShutdownMode = System.Windows.ShutdownMode.OnMainWindowClose;
         }
     }
 }

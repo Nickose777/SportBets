@@ -24,6 +24,8 @@ namespace SportBet
     /// </summary>
     public partial class LoginWindow : Window
     {
+        private bool shouldBeClosed = false;
+
         public LoginWindow()
         {
             InitializeComponent();
@@ -59,10 +61,11 @@ namespace SportBet
 
                     logoutWindow.SignedOut += (s, e) =>
                     {
-                        logoutWindow.Close();
                         this.Show();
+                        shouldBeClosed = false;
+                        logoutWindow.Close();
                     };
-                    logoutWindow.Closed += (s, e) => this.Close();
+                    logoutWindow.Closed += (s, e) => shouldBeClosed = true;
 
                     logoutWindow.Show();
                     this.Hide();
@@ -88,6 +91,7 @@ namespace SportBet
                 case LoginType.Analytic:
                     break;
                 case LoginType.Bookmaker:
+                    window = new BookmakerControls.BookmakerMainWindow(factory);
                     break;
                 case LoginType.Client:
                     break;
@@ -98,6 +102,12 @@ namespace SportBet
             }
 
             return window;
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = !shouldBeClosed;
+            base.OnClosing(e);
         }
     }
 }
