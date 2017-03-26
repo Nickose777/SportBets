@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SportBet.Services.DTOModels;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.Contracts.Factories;
 
 namespace SportBet
 {
@@ -35,22 +36,67 @@ namespace SportBet
 
         private void Login()
         {
-            IAuthService authService = new AuthService();
+            using (IAuthService authService = new AuthService())
+            {
+                UserLoginDTO userLogin = new UserLoginDTO
+                {
+                    Login = loginTxt.Text,
+                    Password = passwordTxt.Password
+                };
 
-            AuthServiceFactoryResult result = authService.Login(new UserLoginDTO
-            {
-                Login = loginTxt.Text,
-                Password = passwordTxt.Password
-            });
+                AuthServiceFactoryResult result = authService.Login(userLogin);
 
-            if (result.IsSuccessful)
-            {
-                MessageBox.Show("Success!");
+                if (result.IsSuccessful)
+                {
+                    loginTxt.Clear();
+                    passwordTxt.Clear();
+
+                    LoginType loginType = result.LoginType;
+                    ServiceFactory factory = result.Factory;
+
+                    ILogoutWindow logoutWindow = Create(loginType, factory);
+
+                    logoutWindow.SignedOut += (s, e) =>
+                    {
+                        logoutWindow.Close();
+                        this.Show();
+                    };
+                    logoutWindow.Closed += (s, e) => this.Close();
+
+                    logoutWindow.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Could not login: " + result.Message);
+                }
             }
-            else
+        }
+
+        private ILogoutWindow Create(LoginType loginType, ServiceFactory factory)
+        {
+            ILogoutWindow window = null;
+
+            switch (loginType)
             {
-                MessageBox.Show(result.Message);
+                case LoginType.Superuser:
+                    window = new SuperuserControls.SuperuserMainWindow(factory);
+                    break;
+                case LoginType.Admin:
+                    break;
+                case LoginType.Analytic:
+                    break;
+                case LoginType.Bookmaker:
+                    break;
+                case LoginType.Client:
+                    break;
+                case LoginType.NoLogin:
+                    break;
+                default:
+                    break;
             }
+
+            return window;
         }
     }
 }

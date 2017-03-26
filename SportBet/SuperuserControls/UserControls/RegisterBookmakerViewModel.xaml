@@ -35,9 +35,9 @@
                 <TextBlock Grid.Row="3" Text="Password:" />
                 <TextBlock Grid.Row="5" Text="Confirm password:" />
 
-                <TextBox Grid.Row="2" Text="{Binding Login}" />
-                <TextBox Grid.Row="4" Text="{Binding Password}" />
-                <TextBox Grid.Row="6" Text="{Binding ConfirmPassword}" />
+                <TextBox Grid.Row="2" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="4" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="6" Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="Bookmaker's info">
@@ -57,9 +57,9 @@
                 <TextBlock Grid.Row="3" Text="First name:" />
                 <TextBlock Grid.Row="5" Text="Phone number:" />
 
-                <TextBox Grid.Row="2" Text="{Binding LastName}" />
-                <TextBox Grid.Row="4" Text="{Binding FirstName}" />
-                <TextBox Grid.Row="6" Text="{Binding PhoneNumber}" />
+                <TextBox Grid.Row="2" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="4" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="6" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </GroupBox>
         
