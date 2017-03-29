@@ -10,8 +10,8 @@ namespace SportBet.Data.Repositories
 {
     class ParticipationRepository : RepositoryBase<ParticipationEntity>, IParticipationRepository
     {
-        public ParticipationRepository(SportBetDbContext context)
-            : base(context) { }
+        public ParticipationRepository(Func<SportBetDbContext> GetContext)
+            : base(GetContext) { }
 
         public override ParticipationEntity Get(int id)
         {

@@ -10,7 +10,7 @@ namespace SportBet.Data.Repositories
 {
     class UserRepository : RepositoryBase<UserEntity>, IUserRepository
     {
-        public UserRepository(SportBetDbContext context)
-            : base(context) { }
+        public UserRepository(Func<SportBetDbContext> GetContext)
+            : base(GetContext) { }
     }
 }

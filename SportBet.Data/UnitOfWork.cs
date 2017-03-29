@@ -11,7 +11,7 @@ namespace SportBet.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly SportBetDbContext context;
+        private SportBetDbContext context;
 
         private IAccountRepository accounts;
         private IUserRepository users;
@@ -29,55 +29,55 @@ namespace SportBet.Data
 
         public IAccountRepository Accounts
         {
-            get { return accounts ?? (accounts = new AccountRepository(context)); }
+            get { return accounts ?? (accounts = new AccountRepository(() => context)); }
         }
         public IUserRepository Users
         {
-            get { return users ?? (users = new UserRepository(context)); }
+            get { return users ?? (users = new UserRepository(() => context)); }
         }
         public IRoleRepository Roles
         {
-            get { return roles ?? (roles = new RoleRepository(context)); }
+            get { return roles ?? (roles = new RoleRepository(() => context)); }
         }
         public IBetRepository Bets
         {
-            get { return bets ?? (bets = new BetRepository(context)); }
+            get { return bets ?? (bets = new BetRepository(() => context)); }
         }
         public IBookmakerRepository Bookmakers
         {
-            get { return bookmakers ?? (bookmakers = new BookmakerRepository(context)); }
+            get { return bookmakers ?? (bookmakers = new BookmakerRepository(() => context)); }
         }
         public IClientRepository Clients
         {
-            get { return clients ?? (clients = new ClientRepository(context)); }
+            get { return clients ?? (clients = new ClientRepository(() => context)); }
         }
         public ICoefficientRepository Coefficients
         {
-            get { return coefficients ?? (coefficients = new CoefficientRepository(context)); }
+            get { return coefficients ?? (coefficients = new CoefficientRepository(() => context)); }
         }
         public ICountryRepository Countries
         {
-            get { return countries ?? (countries = new CountryRepository(context)); }
+            get { return countries ?? (countries = new CountryRepository(() => context)); }
         }
         public IEventRepository Events
         {
-            get { return events ?? (events = new EventRepository(context)); }
+            get { return events ?? (events = new EventRepository(() => context)); }
         }
         public IParticipantRepository Participants
         {
-            get { return participants ?? (participants = new ParticipantRepository(context)); }
+            get { return participants ?? (participants = new ParticipantRepository(() => context)); }
         }
         public IParticipationRepository Participations
         {
-            get { return participations ?? (participations = new ParticipationRepository(context)); }
+            get { return participations ?? (participations = new ParticipationRepository(() => context)); }
         }
         public ISportRepository Sports
         {
-            get { return sports ?? (sports = new SportRepository(context)); }
+            get { return sports ?? (sports = new SportRepository(() => context)); }
         }
         public ITournamentRepository Tournaments
         {
-            get { return tournaments ?? (tournaments = new TournamentRepository(context)); }
+            get { return tournaments ?? (tournaments = new TournamentRepository(() => context)); }
         }
 
         public UnitOfWork()
@@ -86,8 +86,16 @@ namespace SportBet.Data
         }
         public UnitOfWork(string login, string password)
         {
+            Reconnect(login, password);
+        }
+
+        public void Reconnect(string login, string password)
+        {
+            if (context != null)
+                context.Dispose();
+
             string connectionString = String.Format("Server=127.0.0.1;Port=5432;Database=Bets;User Id={0};Password={1};", login, password);
-            this.context = new SportBetDbContext(connectionString);
+            context = new SportBetDbContext(connectionString);
         }
 
         public void Commit()

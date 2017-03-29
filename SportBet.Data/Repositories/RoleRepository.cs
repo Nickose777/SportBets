@@ -10,7 +10,7 @@ namespace SportBet.Data.Repositories
 {
     class RoleRepository : RepositoryBase<RoleEntity>, IRoleRepository
     {
-        public RoleRepository(SportBetDbContext context)
-            : base(context) { }
+        public RoleRepository(Func<SportBetDbContext> GetContext)
+            : base(GetContext) { }
     }
 }

@@ -23,6 +23,7 @@ namespace SportBet.Data.Contracts
         ISportRepository Sports { get; }
         ITournamentRepository Tournaments { get; }
 
+        void Reconnect(string login, string password);
         void Commit();
     }
 }

@@ -10,7 +10,7 @@ namespace SportBet.Data.Repositories
 {
     class TournamentRepository : RepositoryBase<TournamentEntity>, ITournamentRepository
     {
-        public TournamentRepository(SportBetDbContext context)
-            : base(context) { }
+        public TournamentRepository(Func<SportBetDbContext> GetContext)
+            : base(GetContext) { }
     }
 }

@@ -25,16 +25,30 @@ namespace SportBet.Services.Providers
         public AuthService()
         {
             this.unitOfWork = new UnitOfWork();
+        }
+        public AuthService(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
+
+        public bool EstablishConnection()
+        {
+            bool established = true;
 
             try
             {
                 string hashedPassword = Hasher.EncodePassword("admin");
-                unitOfWork.Accounts.CreateDefaultSuperuserIfNotExists(hashedPassword);
+                bool hasAdmin = unitOfWork.Users.GetAll(user => user.Login == "admin").Count() == 1;
+
+                if (!hasAdmin)
+                    unitOfWork.Accounts.CreateDefaultSuperuser(hashedPassword);
             }
             catch
             {
-
+                established = false;
             }
+
+            return established;
         }
 
         public AuthServiceFactoryResult Login(UserLoginDTO userLoginDTO)
@@ -51,32 +65,31 @@ namespace SportBet.Services.Providers
 
             try
             {
-                using (IUnitOfWork unitOfWork = new UnitOfWork(login, hashedPassword))
-                {
-                    UserEntity userEntity = unitOfWork.Users.GetAll(user => user.Login == login).FirstOrDefault();
-                    string roleName = userEntity.Role.Name;
+                unitOfWork.Reconnect(login, hashedPassword);
 
-                    switch (roleName)
-                    {
-                        case "Superuser":
-                            factory = new SuperuserServiceFactory(login, hashedPassword);
-                            loginType = LoginType.Superuser;
-                            break;
-                        case "Admin":
-                            break;
-                        case "Analytic":
-                            break;
-                        case "Bookmaker":
-                            factory = new BookmakerServiceFactory(login, hashedPassword);
-                            loginType = LoginType.Bookmaker;
-                            break;
-                        case "Client":
-                            factory = new ClientServiceFactory(login, hashedPassword);
-                            loginType = LoginType.Client;
-                            break;
-                        default:
-                            break;
-                    }
+                UserEntity userEntity = unitOfWork.Users.GetAll(user => user.Login == login).FirstOrDefault();
+                string roleName = userEntity.Role.Name;
+
+                switch (roleName)
+                {
+                    case "Superuser":
+                        factory = new SuperuserServiceFactory(login, hashedPassword);
+                        loginType = LoginType.Superuser;
+                        break;
+                    case "Admin":
+                        break;
+                    case "Analytic":
+                        break;
+                    case "Bookmaker":
+                        factory = new BookmakerServiceFactory(login, hashedPassword);
+                        loginType = LoginType.Bookmaker;
+                        break;
+                    case "Client":
+                        factory = new ClientServiceFactory(login, hashedPassword);
+                        loginType = LoginType.Client;
+                        break;
+                    default:
+                        break;
                 }
             }
             catch (Exception ex)

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBet.Data", "SportBet.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBet.Services", "SportBet.Services\SportBet.Services.csproj", "{198E2555-6495-4ACF-A03D-59CD11F811C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBet.Services.Tests", "SportBet.Services.Tests\SportBet.Services.Tests.csproj", "{1B7FA735-B3D7-46B8-AF1D-9A3C3FBD3EB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{198E2555-6495-4ACF-A03D-59CD11F811C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{198E2555-6495-4ACF-A03D-59CD11F811C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{198E2555-6495-4ACF-A03D-59CD11F811C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B7FA735-B3D7-46B8-AF1D-9A3C3FBD3EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B7FA735-B3D7-46B8-AF1D-9A3C3FBD3EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B7FA735-B3D7-46B8-AF1D-9A3C3FBD3EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B7FA735-B3D7-46B8-AF1D-9A3C3FBD3EB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

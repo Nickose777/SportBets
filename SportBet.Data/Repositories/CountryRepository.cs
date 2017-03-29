@@ -10,7 +10,7 @@ namespace SportBet.Data.Repositories
 {
     class CountryRepository : RepositoryBase<CountryEntity>, ICountryRepository
     {
-        public CountryRepository(SportBetDbContext context)
-            : base(context) { }
+        public CountryRepository(Func<SportBetDbContext> GetContext)
+            : base(GetContext) { }
     }
 }

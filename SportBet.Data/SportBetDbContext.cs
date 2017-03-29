@@ -25,7 +25,7 @@ namespace SportBet.Data
         public DbSet<SportEntity> Sports { get; set; }
         public DbSet<TournamentEntity> Tournaments { get; set; }
 
-        public SportBetDbContext()
+        public SportBetDbContext() //TODO "SportBetConnection"
             : base("Server=127.0.0.1;Port=5432;Database=Bets;User Id=postgres;Password=Nick2397;") { }
         public SportBetDbContext(string connectionString)
             : base(connectionString) { }

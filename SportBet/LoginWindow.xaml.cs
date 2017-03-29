@@ -24,7 +24,7 @@ namespace SportBet
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private bool shouldBeClosed = false;
+        private bool shouldBeClosed = true;
 
         public LoginWindow()
         {
@@ -32,11 +32,25 @@ namespace SportBet
             this.loginTxt.Focus();
         }
 
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            using (IAuthService service = new AuthService())
+            {
+                bool connectionEstablished = service.EstablishConnection();
+                if (!connectionEstablished)
+                {
+                    MessageBox.Show("Cannot establish connection to database! The program will be closed");
+                    this.Close();
+                }
+            }
+        }
+
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             Login();
         }
-
         private void Login()
         {
             using (IAuthService authService = new AuthService())

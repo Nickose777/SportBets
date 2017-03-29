@@ -10,7 +10,7 @@ namespace SportBet.Data.Repositories
 {
     class BookmakerRepository : RepositoryBase<BookmakerEntity>, IBookmakerRepository
     {
-        public BookmakerRepository(SportBetDbContext context)
-            : base(context) { }
+        public BookmakerRepository(Func<SportBetDbContext> GetContext)
+            : base(GetContext) { }
     }
 }

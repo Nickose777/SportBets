@@ -11,6 +11,7 @@ namespace SportBet.Services.Contracts.Services
 {
     public interface IAuthService : IDisposable
     {
+        bool EstablishConnection();
         AuthServiceFactoryResult Login(UserLoginDTO userLoginDTO);
     }
 }

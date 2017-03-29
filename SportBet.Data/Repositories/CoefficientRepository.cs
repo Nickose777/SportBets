@@ -10,8 +10,8 @@ namespace SportBet.Data.Repositories
 {
     class CoefficientRepository : RepositoryBase<CoefficientEntity>, ICoefficientRepository
     {
-        public CoefficientRepository(SportBetDbContext context)
-            : base(context) { }
+        public CoefficientRepository(Func<SportBetDbContext> GetContext)
+            : base(GetContext) { }
 
         public override CoefficientEntity Get(int id)
         {

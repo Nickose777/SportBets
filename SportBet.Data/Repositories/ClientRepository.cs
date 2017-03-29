@@ -10,7 +10,7 @@ namespace SportBet.Data.Repositories
 {
     class ClientRepository : RepositoryBase<ClientEntity>, IClientRepository
     {
-        public ClientRepository(SportBetDbContext context)
-            : base(context) { }
+        public ClientRepository(Func<SportBetDbContext> GetContext)
+            : base(GetContext) { }
     }
 }

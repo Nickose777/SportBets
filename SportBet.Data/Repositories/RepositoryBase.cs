@@ -11,34 +11,42 @@ namespace SportBet.Data.Repositories
 {
     public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly SportBetDbContext context;
-        protected readonly DbSet<TEntity> dbSet;
+        protected readonly Func<SportBetDbContext> GetContext;
 
-        public RepositoryBase(SportBetDbContext context)
+        public RepositoryBase(Func<SportBetDbContext> GetContext)
         {
-            this.context = context;
-            this.dbSet = context.Set<TEntity>();
+            this.GetContext = GetContext;
         }
 
         public void Add(TEntity entity)
         {
+            SportBetDbContext context = GetContext();
+            DbSet<TEntity> dbSet = context.Set<TEntity>();
             dbSet.Add(entity);
         }
         public void Remove(TEntity entity)
         {
+            SportBetDbContext context = GetContext();
+            DbSet<TEntity> dbSet = context.Set<TEntity>();
             dbSet.Remove(entity);
         }
 
         public virtual TEntity Get(int id)
         {
+            SportBetDbContext context = GetContext();
+            DbSet<TEntity> dbSet = context.Set<TEntity>();
             return dbSet.Find(id);
         }
         public IEnumerable<TEntity> GetAll()
         {
+            SportBetDbContext context = GetContext();
+            DbSet<TEntity> dbSet = context.Set<TEntity>();
             return dbSet;
         }
         public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate)
         {
+            SportBetDbContext context = GetContext();
+            DbSet<TEntity> dbSet = context.Set<TEntity>();
             return dbSet.Where(predicate);
         }
     }

@@ -11,23 +11,19 @@ namespace SportBet.Data.Repositories
 {
     class AccountRepository : IAccountRepository
     {
-        private SportBetDbContext context;
+        private Func<SportBetDbContext> GetContext;
 
-        public AccountRepository(SportBetDbContext context)
+        public AccountRepository(Func<SportBetDbContext> GetContext)
         {
-            this.context = context;
+            this.GetContext = GetContext;
         }
 
-        public void CreateDefaultSuperuserIfNotExists(string password)
+        public void CreateDefaultSuperuser(string password)
         {
-            string checkQuery = "SELECT rolname FROM pg_roles;";
-            var roleNames = context.Database.SqlQuery<string>(checkQuery);
-            
-            if (!roleNames.Contains("admin"))
-            {
-                string query = String.Format("CREATE ROLE admin PASSWORD '{0}' LOGIN SUPERUSER", password);
-                context.Database.ExecuteSqlCommand(query);
-            }
+            SportBetDbContext context = GetContext();
+
+            string query = String.Format("CREATE ROLE admin PASSWORD '{0}' LOGIN SUPERUSER", password);
+            context.Database.ExecuteSqlCommand(query);
         }
 
         public void RegisterClient(string login, string password)
@@ -41,6 +37,7 @@ namespace SportBet.Data.Repositories
 
         private void Register(string functionName, string login, string password)
         {
+            SportBetDbContext context = GetContext();
             string query = String.Format("DO $$ BEGIN PERFORM {0}('{1}', '{2}'); END $$;", functionName, login, password);
             context.Database.ExecuteSqlCommand(query);
         }
