@@ -10,6 +10,9 @@ using SportBet.Core.Entities;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 using SportBet.Services.Encryption;
+using SportBet.Services.DTOModels;
+using SportBet.Services.ResultTypes;
+using SportBet.Services.Factories;
 
 namespace SportBet.Services.Tests
 {
@@ -41,6 +44,7 @@ namespace SportBet.Services.Tests
 
             unitOfWork.Verify(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>()), Times.Once());
         }
+
         [TestMethod]
         public void EstablishConnectionWithAdminNoCreateDefaultSuperuser()
         {
@@ -53,6 +57,7 @@ namespace SportBet.Services.Tests
 
             unitOfWork.Verify(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>()), Times.Never());
         }
+
         [TestMethod]
         public void EstablishConnectionWithoutAdminCreateDefaultSuperuserReturnsTrue()
         {
@@ -65,6 +70,7 @@ namespace SportBet.Services.Tests
 
             Assert.IsTrue(established);
         }
+
         [TestMethod]
         public void EstablishConnectionUnitOfWorkThrowsExceptionReturnsFalse()
         {
@@ -79,9 +85,123 @@ namespace SportBet.Services.Tests
         }
 
         [TestMethod]
-        public void MyTestMethod()
+        public void DefaultPasswordToEncryptIsAdmin()
         {
-            
+            List<UserEntity> emptyList = new List<UserEntity>();
+            unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>()))
+                .Returns(emptyList);
+            encryptor.Setup(e => e.Encrypt(It.Is<string>(password => password == "admin"))).Verifiable("Encrypt method was not called");
+
+            service.EstablishConnection();
+
+            encryptor.Verify();
+        }
+
+        [TestMethod]
+        public void LoginPasswordIsEncrypted()
+        {
+            UserLoginDTO userLogin = new UserLoginDTO();
+            encryptor.Setup(e => e.Encrypt(It.IsAny<string>())).Verifiable("Encrypt method was not called");
+
+            service.Login(userLogin);
+
+            encryptor.VerifyAll();
+        }
+
+        [TestMethod]
+        public void LoginUnitOfWorkReconnectThrowsExceptionReturnsFalse()
+        {
+            UserLoginDTO userLogin = new UserLoginDTO();
+            unitOfWork.Setup(u => u.Reconnect(It.IsAny<string>(), It.IsAny<string>())).Throws(new Exception());
+
+            AuthServiceFactoryResult result = service.Login(userLogin);
+
+            Assert.IsFalse(result.IsSuccessful);
+        }
+
+        [TestMethod]
+        public void LoginAsSuperuserReturnsResultForSuperuser()
+        {
+            UserLoginDTO userLogin = new UserLoginDTO();
+            UserEntity userEntity = new UserEntity
+            {
+                Role = new RoleEntity { Name = "Superuser" }
+            };
+            unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>())).Returns(new List<UserEntity>() { userEntity });
+
+            AuthServiceFactoryResult result = service.Login(userLogin);
+
+            Assert.IsTrue(result.IsSuccessful);
+            Assert.AreEqual<LoginType>(result.LoginType, LoginType.Superuser);
+            Assert.IsInstanceOfType(result.Factory, typeof(SuperuserServiceFactory));
+        }
+
+        [TestMethod]
+        public void LoginAsAdminReturnsResultForAdmin()
+        {
+            UserLoginDTO userLogin = new UserLoginDTO();
+            UserEntity userEntity = new UserEntity
+            {
+                Role = new RoleEntity { Name = "Admin" }
+            };
+            unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>())).Returns(new List<UserEntity>() { userEntity });
+
+            AuthServiceFactoryResult result = service.Login(userLogin);
+
+            Assert.IsTrue(result.IsSuccessful);
+            Assert.AreEqual<LoginType>(result.LoginType, LoginType.Admin);
+            Assert.IsInstanceOfType(result.Factory, typeof(AdminServiceFactory));
+        }
+
+        [TestMethod]
+        public void LoginAsAnalyticReturnsResultForAnalytic()
+        {
+            UserLoginDTO userLogin = new UserLoginDTO();
+            UserEntity userEntity = new UserEntity
+            {
+                Role = new RoleEntity { Name = "Analytic" }
+            };
+            unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>())).Returns(new List<UserEntity>() { userEntity });
+
+            AuthServiceFactoryResult result = service.Login(userLogin);
+
+            Assert.IsTrue(result.IsSuccessful);
+            Assert.AreEqual<LoginType>(result.LoginType, LoginType.Analytic);
+            Assert.IsInstanceOfType(result.Factory, typeof(AnalyticServiceFactory));
+        }
+
+        [TestMethod]
+        public void LoginAsBookmakerReturnsResultForBookmaker()
+        {
+            UserLoginDTO userLogin = new UserLoginDTO();
+            UserEntity userEntity = new UserEntity
+            {
+                Role = new RoleEntity { Name = "Bookmaker" }
+            };
+            unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>())).Returns(new List<UserEntity>() { userEntity });
+
+            AuthServiceFactoryResult result = service.Login(userLogin);
+
+            Assert.IsTrue(result.IsSuccessful);
+            Assert.AreEqual<LoginType>(result.LoginType, LoginType.Bookmaker);
+            Assert.IsInstanceOfType(result.Factory, typeof(BookmakerServiceFactory));
+        }
+
+        [TestMethod]
+        public void LoginAsClientReturnsResultForClient()
+        {
+            UserLoginDTO userLogin = new UserLoginDTO();
+            UserEntity userEntity = new UserEntity
+            {
+                Role = new RoleEntity { Name = "Client" }
+            };
+            unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>())).Returns(new List<UserEntity>() { userEntity });
+
+            AuthServiceFactoryResult result = service.Login(userLogin);
+
+            Assert.IsTrue(result.IsSuccessful);
+            Assert.AreEqual<LoginType>(result.LoginType, LoginType.Client);
+            Assert.IsInstanceOfType(result.Factory, typeof(ClientServiceFactory));
         }
 
         [TestMethod]

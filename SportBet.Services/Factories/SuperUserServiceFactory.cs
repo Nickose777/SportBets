@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.Factories
 {
-    class SuperuserServiceFactory : ServiceFactory
+    public class SuperuserServiceFactory : ServiceFactory
     {
         public SuperuserServiceFactory(string login, string password)
             : base(login, password) { }

@@ -3,7 +3,6 @@ using SportBet.Services.Contracts.Factories;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
 using SportBet.Services.Encryption;
-using SportBet.Services.Providers.AccountServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.Factories
 {
-    public class BookmakerServiceFactory : ServiceFactory
+    public class AnalyticServiceFactory : ServiceFactory
     {
-        public BookmakerServiceFactory(string login, string password)
+        public AnalyticServiceFactory(string login, string password)
             : base(login, password) { }
 
         public override IAccountService CreateAccountService()
@@ -23,7 +22,7 @@ namespace SportBet.Services.Factories
             IRegisterValidator registerValidator = CreateRegisterValidator();
             IEncryptor encryptor = CreateEncryptor();
 
-            return new BookmakerAccountService(unitOfWork, registerValidator, encryptor);
+            return null;//TODO new AdminAccountService(unitOfWork, registerValidator, encryptor);
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.Factories
 {
-    class ClientServiceFactory : ServiceFactory
+    public class ClientServiceFactory : ServiceFactory
     {
         public ClientServiceFactory(string login, string password)
             : base(login, password) { }

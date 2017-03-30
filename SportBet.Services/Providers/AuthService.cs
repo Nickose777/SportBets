@@ -80,8 +80,12 @@ namespace SportBet.Services.Providers
                         loginType = LoginType.Superuser;
                         break;
                     case "Admin":
+                        factory = new AdminServiceFactory(login, hashedPassword);
+                        loginType = LoginType.Admin;
                         break;
                     case "Analytic":
+                        factory = new AnalyticServiceFactory(login, hashedPassword);
+                        loginType = LoginType.Analytic;
                         break;
                     case "Bookmaker":
                         factory = new BookmakerServiceFactory(login, hashedPassword);
