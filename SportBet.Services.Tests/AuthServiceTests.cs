@@ -9,6 +9,7 @@ using SportBet.Services.Providers;
 using SportBet.Core.Entities;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using SportBet.Services.Encryption;
 
 namespace SportBet.Services.Tests
 {
@@ -16,13 +17,16 @@ namespace SportBet.Services.Tests
     public class AuthServiceTests
     {
         private Mock<IUnitOfWork> unitOfWork;
+        private Mock<IEncryptor> encryptor;
         private IAuthService service;
 
         [TestInitialize]
         public void Initialize()
         {
             unitOfWork = new Mock<IUnitOfWork>();
-            service = new AuthService(unitOfWork.Object);
+            encryptor = new Mock<IEncryptor>();
+
+            service = new AuthService(unitOfWork.Object, encryptor.Object);
         }
 
         [TestMethod]
@@ -72,6 +76,12 @@ namespace SportBet.Services.Tests
             bool established = service.EstablishConnection();
 
             Assert.IsFalse(established);
+        }
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            
         }
 
         [TestMethod]

@@ -17,11 +17,13 @@ namespace SportBet.Services.Providers.AccountServices
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRegisterValidator registerValidator;
+        private readonly IEncryptor encryptor;
 
-        public BookmakerAccountService(IUnitOfWork unitOfWork, IRegisterValidator registerValidator)
+        public BookmakerAccountService(IUnitOfWork unitOfWork, IRegisterValidator registerValidator, IEncryptor encryptor)
         {
             this.unitOfWork = unitOfWork;
             this.registerValidator = registerValidator;
+            this.encryptor = encryptor;
         }
 
         public AuthResult Register(ClientRegisterDTO clientRegisterDTO)
@@ -40,7 +42,7 @@ namespace SportBet.Services.Providers.AccountServices
             }
             else
             {
-                string hashedPassword = Hasher.EncodePassword(clientRegisterDTO.Password);
+                string hashedPassword = encryptor.Encrypt(clientRegisterDTO.Password);
 
                 try
                 {

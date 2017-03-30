@@ -3,6 +3,7 @@ using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
+using SportBet.Services.Encryption;
 using SportBet.Services.Providers.AccountServices;
 using SportBet.Services.Validators;
 using System;
@@ -22,8 +23,9 @@ namespace SportBet.Services.Factories
         {
             IUnitOfWork unitOfWork = CreateUnitOfWork();
             IRegisterValidator registerValidator = CreateRegisterValidator();
+            IEncryptor encryptor = CreateEncryptor();
 
-            return new SuperuserAccountService(unitOfWork, registerValidator);
+            return new SuperuserAccountService(unitOfWork, registerValidator, encryptor);
         }
     }
 }

@@ -21,14 +21,17 @@ namespace SportBet.Services.Providers
     public class AuthService : IAuthService
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IEncryptor encryptor;
 
         public AuthService()
         {
             this.unitOfWork = new UnitOfWork();
+            this.encryptor = new Encryptor();
         }
-        public AuthService(IUnitOfWork unitOfWork)
+        public AuthService(IUnitOfWork unitOfWork, IEncryptor encryptor)
         {
             this.unitOfWork = unitOfWork;
+            this.encryptor = encryptor;
         }
 
         public bool EstablishConnection()
@@ -37,7 +40,7 @@ namespace SportBet.Services.Providers
 
             try
             {
-                string hashedPassword = Hasher.EncodePassword("admin");
+                string hashedPassword = encryptor.Encrypt("admin");
                 bool hasAdmin = unitOfWork.Users.GetAll(user => user.Login == "admin").Count() == 1;
 
                 if (!hasAdmin)
@@ -61,7 +64,7 @@ namespace SportBet.Services.Providers
             string login = userLoginDTO.Login;
             string password = userLoginDTO.Password;
 
-            string hashedPassword = Hasher.EncodePassword(password);
+            string hashedPassword = encryptor.Encrypt(password);
 
             try
             {

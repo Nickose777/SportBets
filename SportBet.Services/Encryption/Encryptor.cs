@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.Encryption
 {
-    static class Hasher
+    public class Encryptor : IEncryptor
     {
         private const string Salt = "AGSF12ryb1*&T8&GTg8T";
 
-        public static string EncodePassword(string password)
+        public string Encrypt(string password)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(password);
             byte[] src = Encoding.Unicode.GetBytes(Salt);
