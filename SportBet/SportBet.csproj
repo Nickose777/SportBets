@@ -115,23 +115,30 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientRegisterDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
+    <Compile Include="EventHandlers\BookmakerDisplayEventArgs.cs" />
     <Compile Include="EventHandlers\BookmakerRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\ClientRegisterEventHandler.cs" />
     <Compile Include="ILogoutWindow.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\BookmakerRegisterModelToDTOProfile.cs" />
-    <Compile Include="Models\BookmakerRegisterModel.cs" />
-    <Compile Include="Models\ClientRegisterModel.cs" />
-    <Compile Include="Models\RegisterBaseModel.cs" />
+    <Compile Include="Models\Display\BookmakerDisplayModel.cs" />
+    <Compile Include="Models\Registers\BookmakerRegisterModel.cs" />
+    <Compile Include="Models\Registers\ClientRegisterModel.cs" />
+    <Compile Include="Models\Registers\RegisterBaseModel.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="RegisterObservableObject.cs" />
     <Compile Include="SuperuserControls\SuperuserMainWindow.xaml.cs">
       <DependentUpon>SuperuserMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SuperuserControls\UserControls\ManageBookmakersControl.xaml.cs">
+      <DependentUpon>ManageBookmakersControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SuperuserControls\UserControls\RegisterBookmakerControl.xaml.cs">
       <DependentUpon>RegisterBookmakerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SuperuserControls\ViewModels\BookmakerRegisterViewModel.cs" />
+    <Compile Include="SuperuserControls\ViewModels\ManageBookmakersViewModel.cs" />
     <Compile Include="WindowFactories\WindowFactory.cs" />
     <Page Include="BookmakerControls\BookmakerMainWindow.xaml">
       <SubType>Designer</SubType>
@@ -165,6 +172,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SuperuserControls\SuperuserMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SuperuserControls\UserControls\ManageBookmakersControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

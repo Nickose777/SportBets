@@ -2,6 +2,7 @@
 using SportBet.BookmakerControls.UserControls;
 using SportBet.BookmakerControls.ViewModels;
 using SportBet.Models;
+using SportBet.Models.Registers;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.DTOModels;
 using SportBet.Services.ResultTypes;

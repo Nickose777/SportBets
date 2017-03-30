@@ -1,4 +1,4 @@
-﻿using SportBet.Models;
+﻿using SportBet.Models.Registers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

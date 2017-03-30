@@ -1,4 +1,4 @@
-﻿using SportBet.Models;
+﻿using SportBet.Models.Registers;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.DTOModels;
 using SportBet.Services.ResultTypes;
@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AutoMapper;
+using SportBet.Models.Display;
 
 namespace SportBet.SuperuserControls
 {
@@ -69,6 +70,36 @@ namespace SportBet.SuperuserControls
             window.ShowDialog();
         }
 
+        private void ManageBookmakers_Click(object sender, RoutedEventArgs e)
+        {
+            ManageBookmakers();
+        }
+        private void ManageBookmakers()
+        {
+            //TODO
+            //get from service
+            List<BookmakerDisplayModel> bookmakers = new List<BookmakerDisplayModel>()
+            {
+                new BookmakerDisplayModel { FirstName = "FirstName1", LastName = "LastName1", PhoneNumber = "PhoneNumber1", Login = "Login1"},
+                new BookmakerDisplayModel { FirstName = "FirstName2", LastName = "LastName2", PhoneNumber = "PhoneNumber2", Login = "Login2"},
+                new BookmakerDisplayModel { FirstName = "FirstName3", LastName = "LastName3", PhoneNumber = "PhoneNumber3", Login = "Login3"}
+            };
+            ManageBookmakersViewModel viewModel = new ManageBookmakersViewModel(bookmakers);
+            ManageBookmakersControl control = new ManageBookmakersControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.BookmakerDeleted += (s, e) =>
+            {
+                //TODO
+                //service.delete
+
+                bookmakers.Remove(e.Bookmaker);
+                viewModel.Refresh(bookmakers);
+            };
+
+            window.ShowDialog();
+        }
+        
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
             //TODO

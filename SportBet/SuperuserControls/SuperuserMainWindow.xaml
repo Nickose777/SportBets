@@ -12,6 +12,9 @@
             <MenuItem Header="Register">
                 <MenuItem Header="Bookmaker" Click="RegisterBookmaker_Click"/>
             </MenuItem>
+            <MenuItem Header="Manage">
+                <MenuItem Header="Bookmakers" Click="ManageBookmakers_Click"/>
+            </MenuItem>
             <MenuItem Header="Sign out" Click="SignOut_Click"/>
         </Menu>
     </Grid>

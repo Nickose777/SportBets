@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
 using SportBet.Models;
+using SportBet.Models.Registers;
 using SportBet.Services.DTOModels;
 using System;
 using System.Collections.Generic;

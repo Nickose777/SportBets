@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SportBet.Models
+namespace SportBet.Models.Registers
 {
     public class BookmakerRegisterModel : RegisterBaseModel
     {
