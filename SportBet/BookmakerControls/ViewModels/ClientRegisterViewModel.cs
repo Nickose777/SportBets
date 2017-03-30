@@ -27,9 +27,10 @@ namespace SportBet.BookmakerControls.ViewModels
         {
             return
                 CanCreateModel() &&
-                !String.IsNullOrEmpty(client.FirstName) &&
-                !String.IsNullOrEmpty(client.LastName) &&
-                !String.IsNullOrEmpty(client.PhoneNumber);
+                !String.IsNullOrEmpty(FirstName) &&
+                !String.IsNullOrEmpty(LastName) &&
+                !String.IsNullOrEmpty(PhoneNumber) &&
+                DateOfBirth != null;
         }
 
         public string LastName

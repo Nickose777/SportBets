@@ -1,6 +1,11 @@
-﻿using SportBet.BookmakerControls.ViewModels;
+﻿using AutoMapper;
+using SportBet.BookmakerControls.UserControls;
+using SportBet.BookmakerControls.ViewModels;
 using SportBet.Models;
 using SportBet.Services.Contracts.Factories;
+using SportBet.Services.DTOModels;
+using SportBet.Services.ResultTypes;
+using SportBet.WindowFactories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +44,34 @@ namespace SportBet.BookmakerControls
         
         private void RegisterClient()
         {
-            ClientRegisterViewModel viewModel = new ClientRegisterViewModel(new ClientRegisterModel());
+            ClientRegisterViewModel viewModel = new ClientRegisterViewModel(new ClientRegisterModel() { DateOfBirth = new DateTime(1990, 01, 01) });
+            RegisterClientControl control = new RegisterClientControl(viewModel);
+
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.ClientCreated += (s, e) =>
+            {
+                ClientRegisterModel client = e.Client;
+                ClientRegisterDTO clientDTO = Mapper.Map<ClientRegisterModel, ClientRegisterDTO>(client);
+
+                var service = factory.CreateAccountService();
+                AuthResult result = service.Register(clientDTO);
+
+                string message;
+                if (result.IsSuccessful)
+                {
+                    message = "Successfully registered new client!";
+                    window.Close();
+                }
+                else
+                {
+                    message = result.Message;
+                }
+
+                MessageBox.Show(message);
+            };
+
+            window.ShowDialog();
         }
 
         private void SignOut_Click(object sender, RoutedEventArgs e)

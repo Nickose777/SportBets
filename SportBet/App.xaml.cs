@@ -19,7 +19,6 @@ namespace SportBet
             base.OnStartup(e);
 
             AutoMapperConfiguration.Configure();
-            this.ShutdownMode = System.Windows.ShutdownMode.OnMainWindowClose;
         }
     }
 }

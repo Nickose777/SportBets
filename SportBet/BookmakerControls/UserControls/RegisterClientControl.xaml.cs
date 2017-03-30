@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportBet.BookmakerControls.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace SportBet.BookmakerControls.UserControls
     /// </summary>
     public partial class RegisterClientControl : UserControl
     {
-        public RegisterClientControl()
+        public RegisterClientControl(ClientRegisterViewModel viewModel)
         {
             InitializeComponent();
+            this.DataContext = viewModel;
         }
     }
 }

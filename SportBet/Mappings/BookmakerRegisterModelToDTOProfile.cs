@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace SportBet.Mappings
 {
-    class BookmakerRegisterModelToDTOProfile : Profile
+    class ModelsToDTOs : Profile
     {
-        public BookmakerRegisterModelToDTOProfile()
+        public ModelsToDTOs()
         {
             CreateMap<BookmakerRegisterModel, BookmakerRegisterDTO>();
+            CreateMap<ClientRegisterModel, ClientRegisterDTO>();
         }
     }
 }

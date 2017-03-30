@@ -79,7 +79,7 @@ namespace SportBet
                         shouldBeClosed = false;
                         logoutWindow.Close();
                     };
-                    logoutWindow.Closed += (s, e) => shouldBeClosed = true;
+                    logoutWindow.Closed += (s, e) => this.Close();
 
                     logoutWindow.Show();
                     this.Hide();
@@ -108,6 +108,7 @@ namespace SportBet
                     window = new BookmakerControls.BookmakerMainWindow(factory);
                     break;
                 case LoginType.Client:
+                    window = new ClientControls.ClientMainWindow(factory);
                     break;
                 case LoginType.NoLogin:
                     break;
@@ -121,6 +122,7 @@ namespace SportBet
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = !shouldBeClosed;
+            shouldBeClosed = true;
             base.OnClosing(e);
         }
     }

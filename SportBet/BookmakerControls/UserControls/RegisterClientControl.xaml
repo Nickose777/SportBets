@@ -79,13 +79,16 @@
                 <TextBlock
                     Grid.Row="7"
                     Text="Date of Birth:" />
-                <DatePicker SelectedDateFormat="Short" Text="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" Grid.Row="8" />
+                <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" Grid.Row="8" />
             </Grid>
         </GroupBox>
 
         <Button
-            Grid.Column="1"
+            Grid.Column="0"
             Grid.Row="1"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            Padding="20,0"
             Content="Register"
             Command="{Binding CreateClientCommand}" />
     </Grid>
