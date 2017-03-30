@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.Providers.AccountServices
 {
-    class BookmakerAccountService : IAccountService
+    public class BookmakerAccountService : IAccountService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRegisterValidator registerValidator;

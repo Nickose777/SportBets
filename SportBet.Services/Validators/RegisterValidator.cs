@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.Validators
 {
-    class RegisterValidator : IRegisterValidator
+    public class RegisterValidator : IRegisterValidator
     {
         private const int MinLength = 6;
         private const int MaxLength = 15;

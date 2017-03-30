@@ -9,7 +9,10 @@
         </Grid.RowDefinitions>
 
         <Menu>
-            <MenuItem Header="Sign out" Click="SignOut_Click"/>
+            <MenuItem Header="Register">
+                <MenuItem Header="Client" Click="RegisterClient_Click" />
+            </MenuItem>
+            <MenuItem Header="Sign out" Click="SignOut_Click" />
         </Menu>
     </Grid>
 </Window>

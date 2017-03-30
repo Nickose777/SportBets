@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.Providers.AccountServices
 {
-    class ClientAccountService : IAccountService
+    public class ClientAccountService : IAccountService
     {
         public AuthResult Register(ClientRegisterDTO clientRegisterDTO)
         {

@@ -1,4 +1,6 @@
-﻿using SportBet.Services.Contracts.Factories;
+﻿using SportBet.BookmakerControls.ViewModels;
+using SportBet.Models;
+using SportBet.Services.Contracts.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,16 @@ namespace SportBet.BookmakerControls
         {
             InitializeComponent();
             this.factory = factory;
+        }
+
+        private void RegisterClient_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterClient();
+        }
+        
+        private void RegisterClient()
+        {
+            ClientRegisterViewModel viewModel = new ClientRegisterViewModel(new ClientRegisterModel());
         }
 
         private void SignOut_Click(object sender, RoutedEventArgs e)
