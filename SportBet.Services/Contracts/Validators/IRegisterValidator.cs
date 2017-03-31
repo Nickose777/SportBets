@@ -1,4 +1,5 @@
 ﻿using SportBet.Services.DTOModels;
+using SportBet.Services.DTOModels.Register;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,4 @@
 ﻿using SportBet.Services.DTOModels;
-using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using System;
 using System.Collections.Generic;
@@ -9,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.Contracts.Services
 {
-    public interface IAccountService : IDisposable
+    public interface IBookmakerService : IDisposable
     {
-        ServiceMessage Register(ClientRegisterDTO clientRegisterDTO);
-        ServiceMessage Register(BookmakerRegisterDTO bookmakerRegisterDTO);
+        ServiceMessage Delete(BookmakerDisplayDTO bookmaker);
+
+        DataServiceMessage<IEnumerable<BookmakerDisplayDTO>> GetAll();
     }
 }

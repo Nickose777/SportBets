@@ -25,5 +25,10 @@ namespace SportBet.Services.Factories
 
             return new BookmakerAccountService(unitOfWork, registerValidator, encryptor);
         }
+
+        public override IBookmakerService CreateBookmakerService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

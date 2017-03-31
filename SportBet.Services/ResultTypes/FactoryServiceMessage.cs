@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.ResultTypes
 {
-    public class AuthServiceFactoryResult : AuthResult
+    public class FactoryServiceMessage : ServiceMessage
     {
         public ServiceFactory Factory { get; private set; }
         public LoginType LoginType { get; private set; }
 
-        public AuthServiceFactoryResult(ServiceFactory factory, LoginType loginType, string message, bool success)
+        public FactoryServiceMessage(ServiceFactory factory, LoginType loginType, string message, bool success)
             : base(message, success)
         {
             this.Factory = factory;

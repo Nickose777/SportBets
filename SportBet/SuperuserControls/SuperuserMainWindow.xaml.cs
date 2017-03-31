@@ -1,4 +1,5 @@
 ﻿using SportBet.Models.Registers;
+using SportBet.Services.Providers.BookmakerServices;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.DTOModels;
 using SportBet.Services.ResultTypes;
@@ -20,6 +21,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AutoMapper;
 using SportBet.Models.Display;
+using SportBet.Services.DTOModels.Register;
+using SportBet.Services.Contracts.Services;
 
 namespace SportBet.SuperuserControls
 {
@@ -51,7 +54,7 @@ namespace SportBet.SuperuserControls
                 BookmakerRegisterDTO bookmakerDTO = Mapper.Map<BookmakerRegisterModel, BookmakerRegisterDTO>(bookmaker);
 
                 var service = factory.CreateAccountService();
-                AuthResult result = service.Register(bookmakerDTO);
+                ServiceMessage result = service.Register(bookmakerDTO);
 
                 string message;
                 if (result.IsSuccessful)
@@ -76,30 +79,41 @@ namespace SportBet.SuperuserControls
         }
         private void ManageBookmakers()
         {
-            //TODO
-            //get from service
-            List<BookmakerDisplayModel> bookmakers = new List<BookmakerDisplayModel>()
+            DataServiceMessage<IEnumerable<BookmakerDisplayDTO>> resultMessage;
+            using (IBookmakerService service = factory.CreateBookmakerService())
             {
-                new BookmakerDisplayModel { FirstName = "FirstName1", LastName = "LastName1", PhoneNumber = "PhoneNumber1", Login = "Login1"},
-                new BookmakerDisplayModel { FirstName = "FirstName2", LastName = "LastName2", PhoneNumber = "PhoneNumber2", Login = "Login2"},
-                new BookmakerDisplayModel { FirstName = "FirstName3", LastName = "LastName3", PhoneNumber = "PhoneNumber3", Login = "Login3"}
-            };
-            ManageBookmakersViewModel viewModel = new ManageBookmakersViewModel(bookmakers);
-            ManageBookmakersControl control = new ManageBookmakersControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
+                resultMessage = service.GetAll();
+            }
 
-            viewModel.BookmakerDeleted += (s, e) =>
+            if (resultMessage.IsSuccessful)
             {
-                //TODO
-                //service.delete
+                IEnumerable<BookmakerDisplayDTO> bookmakerDTOs = resultMessage.Data;
+                IEnumerable<BookmakerDisplayModel> bookmakers = bookmakerDTOs
+                    .Select(dto => Mapper.Map<BookmakerDisplayDTO, BookmakerDisplayModel>(dto));
 
-                bookmakers.Remove(e.Bookmaker);
-                viewModel.Refresh(bookmakers);
-            };
+                ManageBookmakersViewModel viewModel = new ManageBookmakersViewModel(bookmakers);
+                ManageBookmakersControl control = new ManageBookmakersControl(viewModel);
+                Window window = WindowFactory.CreateByContentsSize(control);
 
-            window.ShowDialog();
+                viewModel.BookmakerDeleted += (s, e) =>
+                {
+                    using (IBookmakerService service = factory.CreateBookmakerService())
+                    {
+                        BookmakerDisplayDTO deletedBookmaker = Mapper.Map<BookmakerDisplayModel, BookmakerDisplayDTO>(e.Bookmaker);
+                        ServiceMessage result = service.Delete(deletedBookmaker);
+
+                        MessageBox.Show(result.Message);
+                    }
+                };
+
+                window.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show(resultMessage.Message);
+            }
         }
-        
+
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
             //TODO

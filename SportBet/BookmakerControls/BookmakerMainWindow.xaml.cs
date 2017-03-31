@@ -5,6 +5,7 @@ using SportBet.Models;
 using SportBet.Models.Registers;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.DTOModels;
+using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
 using System;
@@ -56,7 +57,7 @@ namespace SportBet.BookmakerControls
                 ClientRegisterDTO clientDTO = Mapper.Map<ClientRegisterModel, ClientRegisterDTO>(client);
 
                 var service = factory.CreateAccountService();
-                AuthResult result = service.Register(clientDTO);
+                ServiceMessage result = service.Register(clientDTO);
 
                 string message;
                 if (result.IsSuccessful)

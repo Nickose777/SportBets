@@ -30,6 +30,7 @@ namespace SportBet.Data.Repositories
         {
             Register("register_client", login, password);
         }
+
         public void RegisterBookmaker(string login, string password)
         {
             Register("register_bookmaker", login, password);
@@ -39,6 +40,18 @@ namespace SportBet.Data.Repositories
         {
             SportBetDbContext context = GetContext();
             string query = String.Format("DO $$ BEGIN PERFORM {0}('{1}', '{2}'); END $$;", functionName, login, password);
+            context.Database.ExecuteSqlCommand(query);
+        }
+
+        public void DeleteBookmaker(string login)
+        {
+            Delete("delete_bookmaker_role", login);
+        }
+
+        private void Delete(string functionName, string login)
+        {
+            SportBetDbContext context = GetContext();
+            string query = String.Format("DO $$ BEGIN PERFORM {0}('{1}'); END $$;", functionName, login);
             context.Database.ExecuteSqlCommand(query);
         }
     }

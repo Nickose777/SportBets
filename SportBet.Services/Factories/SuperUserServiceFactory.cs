@@ -5,6 +5,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
 using SportBet.Services.Encryption;
 using SportBet.Services.Providers.AccountServices;
+using SportBet.Services.Providers.BookmakerServices;
 using SportBet.Services.Validators;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,13 @@ namespace SportBet.Services.Factories
             IEncryptor encryptor = CreateEncryptor();
 
             return new SuperuserAccountService(unitOfWork, registerValidator, encryptor);
+        }
+
+        public override IBookmakerService CreateBookmakerService()
+        {
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+
+            return new SuperuserBookmakerService(unitOfWork);
         }
     }
 }

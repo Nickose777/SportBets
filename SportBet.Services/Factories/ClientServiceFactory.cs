@@ -19,5 +19,10 @@ namespace SportBet.Services.Factories
         {
             return new ClientAccountService();
         }
+
+        public override IBookmakerService CreateBookmakerService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

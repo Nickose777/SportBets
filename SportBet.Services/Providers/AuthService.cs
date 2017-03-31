@@ -54,7 +54,7 @@ namespace SportBet.Services.Providers
             return established;
         }
 
-        public AuthServiceFactoryResult Login(UserLoginDTO userLoginDTO)
+        public FactoryServiceMessage Login(UserLoginDTO userLoginDTO)
         {
             string message = "Successful login";
             bool success = true;
@@ -105,7 +105,7 @@ namespace SportBet.Services.Providers
                 message = ex.Message;
             }
 
-            return new AuthServiceFactoryResult(factory, loginType, message, success);
+            return new FactoryServiceMessage(factory, loginType, message, success);
         }
 
         public void Dispose()

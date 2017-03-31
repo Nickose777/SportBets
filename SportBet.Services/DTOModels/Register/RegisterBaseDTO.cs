@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SportBet.Services.DTOModels
+namespace SportBet.Services.DTOModels.Register
 {
     public abstract class RegisterBaseDTO
     {

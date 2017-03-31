@@ -41,11 +41,13 @@
   <ItemGroup>
     <Compile Include="Contracts\Services\IAccountService.cs" />
     <Compile Include="Contracts\Services\IAuthService.cs" />
+    <Compile Include="Contracts\Services\IBookmakerService.cs" />
     <Compile Include="Contracts\Validators\IRegisterValidator.cs" />
-    <Compile Include="DTOModels\BookmakerRegisterDTO.cs" />
-    <Compile Include="DTOModels\RegisterBaseDTO.cs" />
+    <Compile Include="DTOModels\BookmakerDisplayDTO.cs" />
+    <Compile Include="DTOModels\Register\BookmakerRegisterDTO.cs" />
+    <Compile Include="DTOModels\Register\RegisterBaseDTO.cs" />
     <Compile Include="DTOModels\UserLoginDTO.cs" />
-    <Compile Include="DTOModels\ClientRegisterDTO.cs" />
+    <Compile Include="DTOModels\Register\ClientRegisterDTO.cs" />
     <Compile Include="Contracts\Factories\ServiceFactory.cs" />
     <Compile Include="Encryption\Encryptor.cs" />
     <Compile Include="Encryption\IEncryptor.cs" />
@@ -59,8 +61,10 @@
     <Compile Include="Providers\AccountServices\ClientAccountService.cs" />
     <Compile Include="Providers\AccountServices\SuperuserAccountService.cs" />
     <Compile Include="Providers\AuthService.cs" />
-    <Compile Include="ResultTypes\AuthResult.cs" />
-    <Compile Include="ResultTypes\AuthServiceFactoryResult.cs" />
+    <Compile Include="Providers\BookmakerServices\SuperuserBookmakerService.cs" />
+    <Compile Include="ResultTypes\DataServiceMessage.cs" />
+    <Compile Include="ResultTypes\ServiceMessage.cs" />
+    <Compile Include="ResultTypes\FactoryServiceMessage.cs" />
     <Compile Include="ResultTypes\LoginType.cs" />
     <Compile Include="Validators\RegisterValidator.cs" />
   </ItemGroup>

@@ -41,13 +41,13 @@ namespace SportBet.Data.Repositories
         {
             SportBetDbContext context = GetContext();
             DbSet<TEntity> dbSet = context.Set<TEntity>();
-            return dbSet;
+            return dbSet.ToList();
         }
         public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate)
         {
             SportBetDbContext context = GetContext();
             DbSet<TEntity> dbSet = context.Set<TEntity>();
-            return dbSet.Where(predicate);
+            return dbSet.Where(predicate).ToList();
         }
     }
 }

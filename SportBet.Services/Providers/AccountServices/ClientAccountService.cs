@@ -1,5 +1,6 @@
 ﻿using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels;
+using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,18 @@ namespace SportBet.Services.Providers.AccountServices
 {
     public class ClientAccountService : IAccountService
     {
-        public AuthResult Register(ClientRegisterDTO clientRegisterDTO)
+        public ServiceMessage Register(ClientRegisterDTO clientRegisterDTO)
         {
-            return new AuthResult("No permissions to register clients", false);
+            return new ServiceMessage("No permissions to register clients", false);
         }
-        public AuthResult Register(BookmakerRegisterDTO bookmakerRegisterDTO)
+        public ServiceMessage Register(BookmakerRegisterDTO bookmakerRegisterDTO)
         {
-            return new AuthResult("No permissions to register bookmaker", false);
+            return new ServiceMessage("No permissions to register bookmaker", false);
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }

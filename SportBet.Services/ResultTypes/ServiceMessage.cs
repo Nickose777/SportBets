@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SportBet.Services.ResultTypes
 {
-    public class AuthResult
+    public class ServiceMessage
     {
         public string Message { get; private set; }
         public bool IsSuccessful { get; private set; }
 
-        public AuthResult(string message, bool success)
+        public ServiceMessage(string message, bool success)
         {
             this.Message = message;
             this.IsSuccessful = success;

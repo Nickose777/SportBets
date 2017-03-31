@@ -25,14 +25,18 @@ namespace SportBet.Services.Contracts.Factories
 
         public abstract IAccountService CreateAccountService();
 
+        public abstract IBookmakerService CreateBookmakerService();
+
         protected IUnitOfWork CreateUnitOfWork()
         {
             return new UnitOfWork(login, password);
         }
+
         protected IRegisterValidator CreateRegisterValidator()
         {
             return new RegisterValidator();
         }
+
         protected IEncryptor CreateEncryptor()
         {
             return new Encryptor();

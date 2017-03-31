@@ -3,6 +3,7 @@ using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
 using SportBet.Services.DTOModels;
+using SportBet.Services.DTOModels.Register;
 using SportBet.Services.Encryption;
 using SportBet.Services.ResultTypes;
 using System;
@@ -26,7 +27,7 @@ namespace SportBet.Services.Providers.AccountServices
             this.encryptor = encryptor;
         }
 
-        public AuthResult Register(ClientRegisterDTO clientRegisterDTO)
+        public ServiceMessage Register(ClientRegisterDTO clientRegisterDTO)
         {
             string message = "";
             bool success = true;
@@ -80,7 +81,7 @@ namespace SportBet.Services.Providers.AccountServices
                 }
             }
 
-            return new AuthResult(message, success);
+            return new ServiceMessage(message, success);
         }
         private bool Validate(ClientRegisterDTO clientRegisterDTO, ref string message)
         {
@@ -115,9 +116,14 @@ namespace SportBet.Services.Providers.AccountServices
             return isValid;
         }
 
-        public AuthResult Register(BookmakerRegisterDTO bookmakerRegisterDTO)
+        public ServiceMessage Register(BookmakerRegisterDTO bookmakerRegisterDTO)
         {
-            return new AuthResult("No permissions to register bookmaker", false);
+            return new ServiceMessage("No permissions to register bookmaker", false);
+        }
+
+        public void Dispose()
+        {
+            unitOfWork.Dispose();
         }
     }
 }
