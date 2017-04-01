@@ -11,10 +11,10 @@
         </Grid.RowDefinitions>
         
         <Menu>
-            <MenuItem Header="Register">
+            <MenuItem Header="Register...">
                 <MenuItem Header="Bookmaker" Click="RegisterBookmaker_Click"/>
             </MenuItem>
-            <MenuItem Header="Manage">
+            <MenuItem Header="Manage...">
                 <MenuItem Header="Bookmakers" Click="ManageBookmakers_Click"/>
                 <MenuItem Header="Clients" Click="ManageClients_Click"/>
             </MenuItem>

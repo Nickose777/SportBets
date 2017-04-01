@@ -1,18 +1,22 @@
 ﻿<Window x:Class="SportBet.BookmakerControls.BookmakerMainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Footer="clr-namespace:SportBet.CommonControls"
         Title="BookmakerMainWindow" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Menu>
-            <MenuItem Header="Register">
+            <MenuItem Header="Register...">
                 <MenuItem Header="Client" Click="RegisterClient_Click" />
             </MenuItem>
             <MenuItem Header="Sign out" Click="SignOut_Click" />
         </Menu>
+        
+        <Footer:Footer Grid.Row="2" x:Name="footer" />
     </Grid>
 </Window>

@@ -28,7 +28,16 @@ namespace SportBet.ClientControls
         {
             InitializeComponent();
             this.factory = factory;
+
+            SetFooterMessage(true, String.Format("Welcome, {0} (client)", login));
         }
+
+        private void SetFooterMessage(bool success, string message)
+        {
+            footer.StatusText = success ? "Success!" : "Fail or error!";
+            footer.MessageText = message;
+        }
+
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
             //TODO

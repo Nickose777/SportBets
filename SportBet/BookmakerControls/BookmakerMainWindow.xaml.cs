@@ -4,6 +4,7 @@ using SportBet.BookmakerControls.ViewModels;
 using SportBet.Models;
 using SportBet.Models.Registers;
 using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
@@ -37,13 +38,14 @@ namespace SportBet.BookmakerControls
         {
             InitializeComponent();
             this.factory = factory;
+
+            SetFooterMessage(true, String.Format("Welcome, {0} (bookmaker)", login));
         }
 
         private void RegisterClient_Click(object sender, RoutedEventArgs e)
         {
             RegisterClient();
         }
-        
         private void RegisterClient()
         {
             ClientRegisterViewModel viewModel = new ClientRegisterViewModel(new ClientRegisterModel() { DateOfBirth = new DateTime(1990, 01, 01) });
@@ -56,24 +58,25 @@ namespace SportBet.BookmakerControls
                 ClientRegisterModel client = e.Client;
                 ClientRegisterDTO clientDTO = Mapper.Map<ClientRegisterModel, ClientRegisterDTO>(client);
 
-                var service = factory.CreateAccountService();
-                ServiceMessage result = service.Register(clientDTO);
+                ServiceMessage result;
+                using (IAccountService service = factory.CreateAccountService())
+                {
+                    result = service.Register(clientDTO);
+                }
 
-                string message;
                 if (result.IsSuccessful)
-                {
-                    message = "Successfully registered new client!";
                     window.Close();
-                }
-                else
-                {
-                    message = result.Message;
-                }
 
-                MessageBox.Show(message);
+                SetFooterMessage(result.IsSuccessful, result.Message);
             };
 
             window.ShowDialog();
+        }
+
+        private void SetFooterMessage(bool success, string message)
+        {
+            footer.StatusText = success ? "Success!" : "Fail or error!";
+            footer.MessageText = message;
         }
 
         private void SignOut_Click(object sender, RoutedEventArgs e)

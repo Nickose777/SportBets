@@ -182,6 +182,7 @@ namespace SportBet.Services.Providers.AccountServices
                         unitOfWork.Bookmakers.Add(bookmakerEntity);
 
                         unitOfWork.Commit();
+                        message = "Successfully registered bookmaker!";
                     }
                     catch (Exception ex)
                     {

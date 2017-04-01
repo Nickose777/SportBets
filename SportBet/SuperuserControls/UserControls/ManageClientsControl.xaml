@@ -51,7 +51,7 @@
                 </TextBlock>
                 <TextBlock Grid.Row="1" Text="{Binding SelectedClient.PhoneNumber, StringFormat='Phone number: {0}'}" />
                 <TextBlock Grid.Row="2" Text="{Binding SelectedClient.DateOfBirth, StringFormat='Date of birth: {0:dd/MM/yyyy}'}" />
-                <TextBlock Grid.Row="3" Text="{Binding SelectedClient.RegistrationDate, StringFormat='Date of registration: {0:dd/MM/yyyy}'}" />
+                <TextBlock Grid.Row="3" Text="{Binding SelectedClient.DateOfRegistration, StringFormat='Date of registration: {0:dd/MM/yyyy}'}" />
 
                 <Button
                     Grid.Row="4" 

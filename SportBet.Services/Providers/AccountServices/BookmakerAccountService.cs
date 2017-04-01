@@ -69,6 +69,7 @@ namespace SportBet.Services.Providers.AccountServices
                     unitOfWork.Clients.Add(clientEntity);
 
                     unitOfWork.Commit();
+                    message = "Successfully registered new client!";
                 }
                 catch (Exception ex)
                 {

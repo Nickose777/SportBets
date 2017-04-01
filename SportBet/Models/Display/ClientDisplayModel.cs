@@ -16,7 +16,7 @@ namespace SportBet.Models.Display
 
         public string PhoneNumber { get; set; }
 
-        public DateTime RegistrationDate { get; set; }
+        public DateTime DateOfRegistration { get; set; }
 
         public DateTime DateOfBirth { get; set; }
     }
