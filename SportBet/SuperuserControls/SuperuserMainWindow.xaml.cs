@@ -35,13 +35,18 @@ namespace SportBet.SuperuserControls
 
         private readonly ServiceFactory factory;
 
-        public SuperuserMainWindow(ServiceFactory factory)
+        public SuperuserMainWindow(ServiceFactory factory, string login)
         {
             InitializeComponent();
             this.factory = factory;
+            SetFooterMessage(true, String.Format("Welcome, {0} (superuser)", login));
         }
 
         private void RegisterBookmaker_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterBookmaker();
+        }
+        private void RegisterBookmaker()
         {
             BookmakerRegisterViewModel viewModel = new BookmakerRegisterViewModel(new BookmakerRegisterModel());
             RegisterBookmakerControl control = new RegisterBookmakerControl(viewModel);
@@ -52,22 +57,17 @@ namespace SportBet.SuperuserControls
             {
                 BookmakerRegisterModel bookmaker = ea.Bookmaker;
                 BookmakerRegisterDTO bookmakerDTO = Mapper.Map<BookmakerRegisterModel, BookmakerRegisterDTO>(bookmaker);
+                ServiceMessage result;
 
-                var service = factory.CreateAccountService();
-                ServiceMessage result = service.Register(bookmakerDTO);
+                using (IAccountService service = factory.CreateAccountService())
+                {
+                    result = service.Register(bookmakerDTO);
+                }
 
-                string message;
                 if (result.IsSuccessful)
-                {
-                    message = "Successfully registered new bookmaker!";
                     window.Close();
-                }
-                else
-                {
-                    message = result.Message;
-                }
 
-                MessageBox.Show(message);
+                SetFooterMessage(result.IsSuccessful, result.Message);
             };
 
             window.ShowDialog();
@@ -84,6 +84,8 @@ namespace SportBet.SuperuserControls
             {
                 resultMessage = service.GetAll();
             }
+
+            SetFooterMessage(resultMessage.IsSuccessful, resultMessage.Message);
 
             if (resultMessage.IsSuccessful)
             {
@@ -102,15 +104,11 @@ namespace SportBet.SuperuserControls
                         BookmakerDisplayDTO deletedBookmaker = Mapper.Map<BookmakerDisplayModel, BookmakerDisplayDTO>(e.Bookmaker);
                         ServiceMessage result = service.Delete(deletedBookmaker);
 
-                        MessageBox.Show(result.Message);
+                        SetFooterMessage(result.IsSuccessful, result.Message);
                     }
                 };
 
                 window.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show(resultMessage.Message);
             }
         }
 
@@ -125,6 +123,8 @@ namespace SportBet.SuperuserControls
             {
                 resultMessage = service.GetAll();
             }
+
+            SetFooterMessage(resultMessage.IsSuccessful, resultMessage.Message);
 
             if (resultMessage.IsSuccessful)
             {
@@ -143,7 +143,7 @@ namespace SportBet.SuperuserControls
                         ClientDisplayDTO deletedClient = Mapper.Map<ClientDisplayModel, ClientDisplayDTO>(e.Client);
                         ServiceMessage result = service.Delete(deletedClient);
 
-                        MessageBox.Show(result.Message);
+                        SetFooterMessage(result.IsSuccessful, result.Message);
                     }
                 };
 
@@ -153,6 +153,12 @@ namespace SportBet.SuperuserControls
             {
                 MessageBox.Show(resultMessage.Message);
             }
+        }
+
+        private void SetFooterMessage(bool success, string message)
+        {
+            footer.StatusText = success ? "Success!" : "Fail or error!";
+            footer.MessageText = message;
         }
 
         private void SignOut_Click(object sender, RoutedEventArgs e)

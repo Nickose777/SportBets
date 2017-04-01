@@ -33,7 +33,7 @@ namespace SportBet.BookmakerControls
 
         private ServiceFactory factory;
 
-        public BookmakerMainWindow(ServiceFactory factory)
+        public BookmakerMainWindow(ServiceFactory factory, string login)
         {
             InitializeComponent();
             this.factory = factory;

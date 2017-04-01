@@ -24,7 +24,7 @@ namespace SportBet.ClientControls
 
         private readonly ServiceFactory factory;
 
-        public ClientMainWindow(ServiceFactory factory)
+        public ClientMainWindow(ServiceFactory factory, string login)
         {
             InitializeComponent();
             this.factory = factory;

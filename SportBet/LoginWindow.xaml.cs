@@ -55,10 +55,13 @@ namespace SportBet
         {
             using (IAuthService authService = new AuthService())
             {
+                string login = loginTxt.Text;
+                string password = passwordTxt.Password;
+
                 UserLoginDTO userLogin = new UserLoginDTO
                 {
-                    Login = loginTxt.Text,
-                    Password = passwordTxt.Password
+                    Login = login,
+                    Password = password
                 };
 
                 FactoryServiceMessage result = authService.Login(userLogin);
@@ -71,7 +74,7 @@ namespace SportBet
                     LoginType loginType = result.LoginType;
                     ServiceFactory factory = result.Factory;
 
-                    ILogoutWindow logoutWindow = Create(loginType, factory);
+                    ILogoutWindow logoutWindow = Create(factory, loginType, login);
 
                     logoutWindow.SignedOut += (s, e) =>
                     {
@@ -91,24 +94,24 @@ namespace SportBet
             }
         }
 
-        private ILogoutWindow Create(LoginType loginType, ServiceFactory factory)
+        private ILogoutWindow Create(ServiceFactory factory, LoginType loginType, string login)
         {
             ILogoutWindow window = null;
 
             switch (loginType)
             {
                 case LoginType.Superuser:
-                    window = new SuperuserControls.SuperuserMainWindow(factory);
+                    window = new SuperuserControls.SuperuserMainWindow(factory, login);
                     break;
                 case LoginType.Admin:
                     break;
                 case LoginType.Analytic:
                     break;
                 case LoginType.Bookmaker:
-                    window = new BookmakerControls.BookmakerMainWindow(factory);
+                    window = new BookmakerControls.BookmakerMainWindow(factory, login);
                     break;
                 case LoginType.Client:
-                    window = new ClientControls.ClientMainWindow(factory);
+                    window = new ClientControls.ClientMainWindow(factory, login);
                     break;
                 case LoginType.NoLogin:
                     break;

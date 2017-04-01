@@ -112,6 +112,9 @@
     <Compile Include="ClientControls\ClientMainWindow.xaml.cs">
       <DependentUpon>ClientMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Footer.xaml.cs">
+      <DependentUpon>Footer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientRegisterDTViewModel.cs" />
@@ -156,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClientControls\ClientMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Footer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
