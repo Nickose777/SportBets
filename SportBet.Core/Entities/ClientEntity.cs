@@ -14,6 +14,7 @@ namespace SportBet.Core.Entities
         public DateTime DateOfBirth { get; set; }
         public DateTime DateOfRegistration { get; set; }
         public string PhoneNumber { get; set; }
+        public bool IsDeleted { get; set; }
 
         public virtual ICollection<BetEntity> Bets { get; set; }
     }

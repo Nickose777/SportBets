@@ -47,6 +47,10 @@ namespace SportBet.Data.Repositories
         {
             Delete("delete_bookmaker_role", login);
         }
+        public void DeleteClient(string login)
+        {
+            Delete("delete_client_role", login);
+        }
 
         private void Delete(string functionName, string login)
         {

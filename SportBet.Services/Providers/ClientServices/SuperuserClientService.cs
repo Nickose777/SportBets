@@ -9,23 +9,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SportBet.Services.Providers.BookmakerServices
+namespace SportBet.Services.Providers.ClientServices
 {
-    public class SuperuserBookmakerService : IBookmakerService
+    public class SuperuserClientService : IClientService
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public SuperuserBookmakerService(IUnitOfWork unitOfWork)
+        public SuperuserClientService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
-        public ServiceMessage Delete(BookmakerDisplayDTO bookmaker)
+        public ServiceMessage Delete(ClientDisplayDTO clientDisplayDTO)
         {
             string message = "";
             bool success = true;
 
-            string login = bookmaker.Login;
+            string login = clientDisplayDTO.Login;
 
             try
             {
@@ -34,12 +34,16 @@ namespace SportBet.Services.Providers.BookmakerServices
 
                 if (userEntity != null)
                 {
+                    //TODO
+                    //some refactoring
+                    //ClientDisplayDTO and BookmakerDisplayDTO to LoginDTO or just string login
+
                     int id = userEntity.Id;
-                    BookmakerEntity bookmakerEntity = unitOfWork.Bookmakers.Get(id);
-                    bookmakerEntity.IsDeleted = true;
+                    ClientEntity clientEntity = unitOfWork.Clients.Get(id);
+                    clientEntity.IsDeleted = true;
 
                     unitOfWork.Users.Remove(userEntity);
-                    unitOfWork.Accounts.DeleteBookmaker(login);
+                    unitOfWork.Accounts.DeleteClient(login);
 
                     unitOfWork.Commit();
 
@@ -67,30 +71,32 @@ namespace SportBet.Services.Providers.BookmakerServices
             return new ServiceMessage(message, success);
         }
 
-        public DataServiceMessage<IEnumerable<BookmakerDisplayDTO>> GetAll()
+        public DataServiceMessage<IEnumerable<ClientDisplayDTO>> GetAll()
         {
             string message = "";
             bool success = true;
-            IEnumerable<BookmakerDisplayDTO> bookmakers = null;
+            IEnumerable<ClientDisplayDTO> clients = null;
 
             try
             {
-                IEnumerable<BookmakerEntity> bookmakerEntities = unitOfWork.Bookmakers.GetAll(b => !b.IsDeleted);
+                IEnumerable<ClientEntity> clientEntities = unitOfWork.Clients.GetAll(c => !c.IsDeleted);
                 IEnumerable<UserEntity> users = unitOfWork.Users.GetAll();
 
-                bookmakers = bookmakerEntities.Select(bookmakerEntity =>
+                clients = clientEntities.Select(clientEntity =>
                 {
-                    string login = users.Single(user => user.Id == bookmakerEntity.Id).Login;
-                    return new BookmakerDisplayDTO
+                    string login = users.Single(user => user.Id == clientEntity.Id).Login;
+                    return new ClientDisplayDTO
                     {
                         Login = login,
-                        FirstName = bookmakerEntity.FirstName,
-                        LastName = bookmakerEntity.LastName,
-                        PhoneNumber = bookmakerEntity.PhoneNumber
+                        FirstName = clientEntity.FirstName,
+                        LastName = clientEntity.LastName,
+                        PhoneNumber = clientEntity.PhoneNumber,
+                        DateOfBirth = clientEntity.DateOfBirth,
+                        DateOfRegistration = clientEntity.DateOfRegistration
                     };
-                }).ToList();
+                });
 
-                message = "Successfully got all bookmakers!";
+                message = "Successfully got all clients!";
             }
             catch (Exception ex)
             {
@@ -105,7 +111,7 @@ namespace SportBet.Services.Providers.BookmakerServices
                 success = false;
             }
 
-            return new DataServiceMessage<IEnumerable<BookmakerDisplayDTO>>(bookmakers, message, success);
+            return new DataServiceMessage<IEnumerable<ClientDisplayDTO>>(clients, message, success);
         }
 
         public void Dispose()

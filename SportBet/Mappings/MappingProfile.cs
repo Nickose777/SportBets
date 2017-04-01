@@ -13,14 +13,18 @@ using System.Threading.Tasks;
 
 namespace SportBet.Mappings
 {
-    class ModelsToDTOs : Profile
+    class MappingProfile : Profile
     {
-        public ModelsToDTOs()
+        public MappingProfile()
         {
             CreateMap<BookmakerRegisterModel, BookmakerRegisterDTO>();
             CreateMap<ClientRegisterModel, ClientRegisterDTO>();
+
             CreateMap<BookmakerDisplayModel, BookmakerDisplayDTO>();
             CreateMap<BookmakerDisplayDTO, BookmakerDisplayModel>();
+
+            CreateMap<ClientDisplayModel, ClientDisplayDTO>();
+            CreateMap<ClientDisplayDTO, ClientDisplayModel>();
         }
     }
 }

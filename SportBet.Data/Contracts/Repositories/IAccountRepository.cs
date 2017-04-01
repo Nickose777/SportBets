@@ -14,5 +14,6 @@ namespace SportBet.Data.Contracts.Repositories
         void RegisterBookmaker(string login, string password);
 
         void DeleteBookmaker(string login);
+        void DeleteClient(string login);
     }
 }

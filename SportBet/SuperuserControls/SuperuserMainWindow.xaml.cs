@@ -114,6 +114,47 @@ namespace SportBet.SuperuserControls
             }
         }
 
+        private void ManageClients_Click(object sender, RoutedEventArgs e)
+        {
+            ManageClients();
+        }
+        private void ManageClients()
+        {
+            DataServiceMessage<IEnumerable<ClientDisplayDTO>> resultMessage;
+            using (IClientService service = factory.CreateClientService())
+            {
+                resultMessage = service.GetAll();
+            }
+
+            if (resultMessage.IsSuccessful)
+            {
+                IEnumerable<ClientDisplayDTO> clientDTOs = resultMessage.Data;
+                IEnumerable<ClientDisplayModel> clients = clientDTOs
+                    .Select(dto => Mapper.Map<ClientDisplayDTO, ClientDisplayModel>(dto));
+
+                ManageClientsViewModel viewModel = new ManageClientsViewModel(clients);
+                ManageClientsControl control = new ManageClientsControl(viewModel);
+                Window window = WindowFactory.CreateByContentsSize(control);
+
+                viewModel.ClientDeleted += (s, e) =>
+                {
+                    using (IClientService service = factory.CreateClientService())
+                    {
+                        ClientDisplayDTO deletedClient = Mapper.Map<ClientDisplayModel, ClientDisplayDTO>(e.Client);
+                        ServiceMessage result = service.Delete(deletedClient);
+
+                        MessageBox.Show(result.Message);
+                    }
+                };
+
+                window.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show(resultMessage.Message);
+            }
+        }
+
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
             //TODO

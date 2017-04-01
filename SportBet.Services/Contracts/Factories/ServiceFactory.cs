@@ -27,6 +27,8 @@ namespace SportBet.Services.Contracts.Factories
 
         public abstract IBookmakerService CreateBookmakerService();
 
+        public abstract IClientService CreateClientService();
+
         protected IUnitOfWork CreateUnitOfWork()
         {
             return new UnitOfWork(login, password);

@@ -29,5 +29,10 @@ namespace SportBet.Services.Factories
         {
             throw new NotImplementedException();
         }
+
+        public override IClientService CreateClientService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

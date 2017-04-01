@@ -13,7 +13,7 @@ namespace SportBet.Mappings
         {
             Mapper.Initialize(config =>
             {
-                config.AddProfile<ModelsToDTOs>();
+                config.AddProfile<MappingProfile>();
             });
         }
     }

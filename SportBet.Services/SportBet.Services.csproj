@@ -42,8 +42,10 @@
     <Compile Include="Contracts\Services\IAccountService.cs" />
     <Compile Include="Contracts\Services\IAuthService.cs" />
     <Compile Include="Contracts\Services\IBookmakerService.cs" />
+    <Compile Include="Contracts\Services\IClientService.cs" />
     <Compile Include="Contracts\Validators\IRegisterValidator.cs" />
     <Compile Include="DTOModels\BookmakerDisplayDTO.cs" />
+    <Compile Include="DTOModels\ClientDisplayDTO.cs" />
     <Compile Include="DTOModels\Register\BookmakerRegisterDTO.cs" />
     <Compile Include="DTOModels\Register\RegisterBaseDTO.cs" />
     <Compile Include="DTOModels\UserLoginDTO.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Providers\AccountServices\SuperuserAccountService.cs" />
     <Compile Include="Providers\AuthService.cs" />
     <Compile Include="Providers\BookmakerServices\SuperuserBookmakerService.cs" />
+    <Compile Include="Providers\ClientServices\SuperuserClientService.cs" />
     <Compile Include="ResultTypes\DataServiceMessage.cs" />
     <Compile Include="ResultTypes\ServiceMessage.cs" />
     <Compile Include="ResultTypes\FactoryServiceMessage.cs" />
