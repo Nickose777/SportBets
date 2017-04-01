@@ -65,7 +65,7 @@ namespace SportBet.Services.Providers.AccountServices
                     UserEntity userEntity = new UserEntity
                     {
                         Login = clientRegisterDTO.Login,
-                        Role = unitOfWork.Roles.Get(5)
+                        Role = unitOfWork.Roles.Get(RolesCodes.ClientRole)
                     };
                     unitOfWork.Users.Add(userEntity);
                     unitOfWork.Commit();
@@ -167,7 +167,7 @@ namespace SportBet.Services.Providers.AccountServices
                         UserEntity userEntity = new UserEntity
                         {
                             Login = bookmakerRegisterDTO.Login,
-                            Role = unitOfWork.Roles.Get(4) //TODO remove this magic numbers
+                            Role = unitOfWork.Roles.Get(RolesCodes.BookmakerRole)
                         };
                         unitOfWork.Users.Add(userEntity);
                         unitOfWork.Commit();

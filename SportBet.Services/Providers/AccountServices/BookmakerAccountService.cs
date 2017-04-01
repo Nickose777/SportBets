@@ -1,4 +1,5 @@
 ﻿using SportBet.Core.Entities;
+using SportBet.Data;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
@@ -52,7 +53,7 @@ namespace SportBet.Services.Providers.AccountServices
                     UserEntity userEntity = new UserEntity
                     {
                         Login = clientRegisterDTO.Login,
-                        Role = unitOfWork.Roles.Get(5)
+                        Role = unitOfWork.Roles.Get(RolesCodes.ClientRole)
                     };
                     unitOfWork.Users.Add(userEntity);
                     unitOfWork.Commit();

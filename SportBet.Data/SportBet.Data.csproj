@@ -100,6 +100,7 @@
     <Compile Include="Repositories\SportRepository.cs" />
     <Compile Include="Repositories\TournamentRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="RolesCodes.cs" />
     <Compile Include="SportBetDbContext.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
