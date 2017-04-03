@@ -123,6 +123,11 @@ namespace SportBet.Services.Providers.AccountServices
             return new ServiceMessage("No permissions to register bookmaker", false);
         }
 
+        public ServiceMessage Register(AdminRegisterDTO adminRegisterDTO)
+        {
+            return new ServiceMessage("No permissions to register admin", false);
+        }
+
         public void Dispose()
         {
             unitOfWork.Dispose();

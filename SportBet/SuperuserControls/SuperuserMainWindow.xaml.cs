@@ -73,6 +73,37 @@ namespace SportBet.SuperuserControls
             window.ShowDialog();
         }
 
+        private void RegisterAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterAdmin();
+        }
+        private void RegisterAdmin()
+        {
+            AdminRegisterViewModel viewModel = new AdminRegisterViewModel(new AdminRegisterModel());
+            RegisterAdminControl control = new RegisterAdminControl(viewModel);
+
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.AdminCreated += (s, ea) =>
+            {
+                AdminRegisterModel admin = ea.Admin;
+                AdminRegisterDTO adminDTO = Mapper.Map<AdminRegisterModel, AdminRegisterDTO>(admin);
+                ServiceMessage result;
+
+                using (IAccountService service = factory.CreateAccountService())
+                {
+                    result = service.Register(adminDTO);
+                }
+
+                if (result.IsSuccessful)
+                    window.Close();
+
+                SetFooterMessage(result.IsSuccessful, result.Message);
+            };
+
+            window.ShowDialog();
+        }
+
         private void ManageBookmakers_Click(object sender, RoutedEventArgs e)
         {
             ManageBookmakers();

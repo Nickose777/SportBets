@@ -88,10 +88,6 @@ namespace SportBet.Services.Providers.AccountServices
                     message = ex.Message;
                     success = false;
                 }
-                finally
-                {
-                    unitOfWork.Dispose();
-                }
             }
 
             return new ServiceMessage(message, success);
@@ -189,10 +185,6 @@ namespace SportBet.Services.Providers.AccountServices
                         message = ex.Message;
                         success = false;
                     }
-                    finally
-                    {
-                        unitOfWork.Dispose();
-                    }
                 }
             }
 
@@ -219,6 +211,60 @@ namespace SportBet.Services.Providers.AccountServices
             }
 
             return isValid;
+        }
+
+        public ServiceMessage Register(AdminRegisterDTO adminRegisterDTO)
+        {
+            string message = "";
+            bool success = true;
+            IEnumerable<string> logins = null;
+
+            try
+            {
+                logins = unitOfWork.Users.GetAll().Select(user => user.Login);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                success = false;
+            }
+
+            if (success)
+            {
+                if (!registerValidator.Validate(adminRegisterDTO, ref message))
+                    success = false;
+                else if (logins.Contains(adminRegisterDTO.Login))
+                {
+                    success = false;
+                    message = "Such login already exists. Try another one";
+                }
+                else
+                {
+                    string hashedPassword = encryptor.Encrypt(adminRegisterDTO.Password);
+
+                    try
+                    {
+                        unitOfWork.Accounts.RegisterAdmin(adminRegisterDTO.Login, hashedPassword);
+
+                        UserEntity userEntity = new UserEntity
+                        {
+                            Login = adminRegisterDTO.Login,
+                            Role = unitOfWork.Roles.Get(RolesCodes.AdminRole)
+                        };
+                        unitOfWork.Users.Add(userEntity);
+                        unitOfWork.Commit();
+
+                        message = "Successfully registered admin!";
+                    }
+                    catch (Exception ex)
+                    {
+                        message = ex.Message;
+                        success = false;
+                    }
+                }
+            }
+
+            return new ServiceMessage(message, success);
         }
 
         public void Dispose()

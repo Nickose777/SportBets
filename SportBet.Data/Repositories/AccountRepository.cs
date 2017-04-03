@@ -18,12 +18,9 @@ namespace SportBet.Data.Repositories
             this.GetContext = GetContext;
         }
 
-        public void CreateDefaultSuperuser(string password)
+        public void CreateDefaultSuperuser(string login, string password)
         {
-            SportBetDbContext context = GetContext();
-
-            string query = String.Format("CREATE ROLE admin PASSWORD '{0}' LOGIN SUPERUSER", password);
-            context.Database.ExecuteSqlCommand(query);
+            Register("register_superuser", login, password);
         }
 
         public void RegisterClient(string login, string password)
@@ -34,6 +31,11 @@ namespace SportBet.Data.Repositories
         public void RegisterBookmaker(string login, string password)
         {
             Register("register_bookmaker", login, password);
+        }
+
+        public void RegisterAdmin(string login, string password)
+        {
+            Register("register_admin", login, password);
         }
 
         private void Register(string functionName, string login, string password)

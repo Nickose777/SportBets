@@ -44,7 +44,11 @@ namespace SportBet.Services.Providers
                 bool hasAdmin = unitOfWork.Users.GetAll(user => user.Login == "admin").Count() == 1;
 
                 if (!hasAdmin)
-                    unitOfWork.Accounts.CreateDefaultSuperuser(hashedPassword);
+                {
+                    unitOfWork.Accounts.CreateDefaultSuperuser("admin", hashedPassword);
+                    unitOfWork.Users.Add(new UserEntity { Login = "admin", RoleId = RolesCodes.SuperuserRole });
+                    unitOfWork.Commit();
+                }
             }
             catch
             {
