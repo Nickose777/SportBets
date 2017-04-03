@@ -21,23 +21,25 @@ namespace SportBet.SuperuserControls.ViewModels
             this.Bookmakers = new ObservableCollection<BookmakerDisplayModel>(bookmakers);
 
             this.DeleteSelectedBookmakerCommand = new DelegateCommand(
-                () => DeleteBookmaker(SelectedBookmaker),
+                () => RaiseBookmakerDeletedEvent(SelectedBookmaker),
                 obj => SelectedBookmaker != null);
 
             RaisePropertyChangedEvent("Bookmakers");
             RaisePropertyChangedEvent("SelectedBookmaker");
         }
 
-        public ICommand DeleteSelectedBookmakerCommand { get; private set; }
-
-        private void DeleteBookmaker(BookmakerDisplayModel bookmaker)
+        public void Refresh(IEnumerable<BookmakerDisplayModel> bookmakers)
         {
-            RaiseBookmakerDeletedEvent(bookmaker);
-            Bookmakers.Remove(bookmaker);
+            Bookmakers.Clear();
+            foreach (BookmakerDisplayModel bookmaker in bookmakers)
+            {
+                Bookmakers.Add(bookmaker);
+            }
 
-            RaisePropertyChangedEvent("Bookmakers");
             RaisePropertyChangedEvent("SelectedBookmaker");
         }
+
+        public ICommand DeleteSelectedBookmakerCommand { get; private set; }
 
         public BookmakerDisplayModel SelectedBookmaker
         {

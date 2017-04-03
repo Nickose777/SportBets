@@ -136,6 +136,16 @@ namespace SportBet.SuperuserControls
                         ServiceMessage result = service.Delete(deletedBookmaker);
 
                         SetFooterMessage(result.IsSuccessful, result.Message);
+
+                        if (result.IsSuccessful)
+                        {
+                            DataServiceMessage<IEnumerable<BookmakerDisplayDTO>> serviceMessage = service.GetAll();
+                            bookmakerDTOs = serviceMessage.Data;
+                            bookmakers = bookmakerDTOs
+                                .Select(dto => Mapper.Map<BookmakerDisplayDTO, BookmakerDisplayModel>(dto));
+
+                            viewModel.Refresh(bookmakers);
+                        }
                     }
                 };
 
@@ -175,6 +185,16 @@ namespace SportBet.SuperuserControls
                         ServiceMessage result = service.Delete(deletedClient);
 
                         SetFooterMessage(result.IsSuccessful, result.Message);
+
+                        if (result.IsSuccessful)
+                        {
+                            DataServiceMessage<IEnumerable<ClientDisplayDTO>> serviceMessage = service.GetAll();
+                            IEnumerable<ClientDisplayDTO> clientsDTOs = serviceMessage.Data;
+                            clients = clientDTOs
+                                .Select(dto => Mapper.Map<ClientDisplayDTO, ClientDisplayModel>(dto));
+
+                            viewModel.Refresh(clients);
+                        }
                     }
                 };
 

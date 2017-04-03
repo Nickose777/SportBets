@@ -21,23 +21,25 @@ namespace SportBet.SuperuserControls.ViewModels
             this.Clients = new ObservableCollection<ClientDisplayModel>(clients);
 
             this.DeleteSelectedClientCommand = new DelegateCommand(
-                () => DeleteClient(SelectedClient),
+                () => RaiseClientDeletedEvent(SelectedClient),
                 obj => SelectedClient != null);
 
             RaisePropertyChangedEvent("Clients");
             RaisePropertyChangedEvent("SelectedClient");
         }
 
-        public ICommand DeleteSelectedClientCommand { get; private set; }
-
-        private void DeleteClient(ClientDisplayModel client)
+        public void Refresh(IEnumerable<ClientDisplayModel> clients)
         {
-            RaiseClientDeletedEvent(client);
-            Clients.Remove(client);
+            Clients.Clear();
+            foreach (ClientDisplayModel client in clients)
+            {
+                Clients.Add(client);
+            }
 
-            RaisePropertyChangedEvent("Clients");
             RaisePropertyChangedEvent("SelectedClient");
         }
+
+        public ICommand DeleteSelectedClientCommand { get; private set; }
 
         public ClientDisplayModel SelectedClient
         {

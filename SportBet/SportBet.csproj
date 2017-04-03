@@ -102,6 +102,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdminControls\AdminMainWindow.xaml.cs">
+      <DependentUpon>AdminMainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BookmakerControls\BookmakerMainWindow.xaml.cs">
       <DependentUpon>BookmakerMainWindow.xaml</DependentUpon>
     </Compile>
@@ -157,6 +160,10 @@
     <Compile Include="SuperuserControls\ViewModels\ManageBookmakersViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageClientsViewModel.cs" />
     <Compile Include="WindowFactories\WindowFactory.cs" />
+    <Page Include="AdminControls\AdminMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BookmakerControls\BookmakerMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -38,11 +38,11 @@ namespace SportBet.Services.Tests
             List<UserEntity> emptyList = new List<UserEntity>();
             unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>()))
                 .Returns(emptyList);
-            unitOfWork.Setup(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>()));
+            unitOfWork.Setup(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>(), It.IsAny<string>()));
 
             service.EstablishConnection();
 
-            unitOfWork.Verify(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>()), Times.Once());
+            unitOfWork.Verify(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>(), It.IsAny<string>()), Times.Once());
         }
 
         [TestMethod]
@@ -51,11 +51,11 @@ namespace SportBet.Services.Tests
             List<UserEntity> listWithOneUser = new List<UserEntity>() { new UserEntity() };
             unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>()))
                 .Returns(listWithOneUser);
-            unitOfWork.Setup(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>()));
+            unitOfWork.Setup(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>(), It.IsAny<string>()));
 
             service.EstablishConnection();
 
-            unitOfWork.Verify(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>()), Times.Never());
+            unitOfWork.Verify(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>(), It.IsAny<string>()), Times.Never());
         }
 
         [TestMethod]
@@ -64,7 +64,7 @@ namespace SportBet.Services.Tests
             List<UserEntity> emptyList = new List<UserEntity>();
             unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>()))
                 .Returns(emptyList);
-            unitOfWork.Setup(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>()));
+            unitOfWork.Setup(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>(), It.IsAny<string>()));
 
             bool established = service.EstablishConnection();
 
@@ -77,7 +77,7 @@ namespace SportBet.Services.Tests
             List<UserEntity> emptyList = new List<UserEntity>();
             unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>()))
                 .Returns(emptyList);
-            unitOfWork.Setup(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>())).Throws(new Exception());
+            unitOfWork.Setup(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>(), It.IsAny<string>())).Throws(new Exception());
 
             bool established = service.EstablishConnection();
 
