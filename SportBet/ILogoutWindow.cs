@@ -8,6 +8,8 @@ using System.Windows;
 
 namespace SportBet
 {
+    //TODO
+    //Refactore to SignOutBaseWindow
     public interface ILogoutWindow
     {
         event EventHandler SignedOut;

@@ -107,6 +107,7 @@ namespace SportBet
                     window = new AdminControls.AdminMainWindow(factory, login);
                     break;
                 case LoginType.Analytic:
+                    window = new AnalyticControls.AnalyticMainWindow(factory, login);
                     break;
                 case LoginType.Bookmaker:
                     window = new BookmakerControls.BookmakerMainWindow(factory, login);

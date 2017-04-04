@@ -27,6 +27,11 @@ namespace SportBet.Services.Providers.AccountServices
             return new ServiceMessage("No permissions to register admin", false);
         }
 
+        public ServiceMessage Register(AnalyticRegisterDTO analyticRegisterDTO)
+        {
+            return new ServiceMessage("No permissions to register analytic", false);
+        }
+
         public void Dispose()
         {
 

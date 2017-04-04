@@ -13,8 +13,11 @@ namespace SportBet.Data.Contracts.Repositories
         void RegisterClient(string login, string password);
         void RegisterBookmaker(string login, string password);
         void RegisterAdmin(string login, string password);
+        void RegisterAnalytic(string login, string password);
 
         void DeleteBookmaker(string login);
         void DeleteClient(string login);
+        void DeleteAdmin(string login);
+        void DeleteAnalytic(string login);
     }
 }

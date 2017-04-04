@@ -47,6 +47,7 @@
     <Compile Include="DTOModels\BookmakerDisplayDTO.cs" />
     <Compile Include="DTOModels\ClientDisplayDTO.cs" />
     <Compile Include="DTOModels\Register\AdminRegisterDTO.cs" />
+    <Compile Include="DTOModels\Register\AnalyticRegisterDTO.cs" />
     <Compile Include="DTOModels\Register\BookmakerRegisterDTO.cs" />
     <Compile Include="DTOModels\Register\RegisterBaseDTO.cs" />
     <Compile Include="DTOModels\UserLoginDTO.cs" />

@@ -105,6 +105,9 @@
     <Compile Include="AdminControls\AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AnalyticControls\AnalyticMainWindow.xaml.cs">
+      <DependentUpon>AnalyticMainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BookmakerControls\BookmakerMainWindow.xaml.cs">
       <DependentUpon>BookmakerMainWindow.xaml</DependentUpon>
     </Compile>
@@ -120,11 +123,13 @@
     </Compile>
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageClientsDTViewModel.cs" />
     <Compile Include="EventHandlers\AdminRegisterEventHandler.cs" />
+    <Compile Include="EventHandlers\AnalyticRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\BookmakerDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\BookmakerRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\ClientDisplayEventHandler.cs" />
@@ -135,6 +140,7 @@
     <Compile Include="Models\Display\BookmakerDisplayModel.cs" />
     <Compile Include="Models\Display\ClientDisplayModel.cs" />
     <Compile Include="Models\Registers\AdminRegisterModel.cs" />
+    <Compile Include="Models\Registers\AnalyticRegisterModel.cs" />
     <Compile Include="Models\Registers\BookmakerRegisterModel.cs" />
     <Compile Include="Models\Registers\ClientRegisterModel.cs" />
     <Compile Include="Models\Registers\RegisterBaseModel.cs" />
@@ -152,15 +158,23 @@
     <Compile Include="SuperuserControls\UserControls\RegisterAdminControl.xaml.cs">
       <DependentUpon>RegisterAdminControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SuperuserControls\UserControls\RegisterAnalyticControl.xaml.cs">
+      <DependentUpon>RegisterAnalyticControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SuperuserControls\UserControls\RegisterBookmakerControl.xaml.cs">
       <DependentUpon>RegisterBookmakerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SuperuserControls\ViewModels\AdminRegisterViewModel.cs" />
+    <Compile Include="SuperuserControls\ViewModels\AnalyticRegisterViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\BookmakerRegisterViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageBookmakersViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageClientsViewModel.cs" />
     <Compile Include="WindowFactories\WindowFactory.cs" />
     <Page Include="AdminControls\AdminMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AnalyticControls\AnalyticMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -212,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SuperuserControls\UserControls\RegisterAdminControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SuperuserControls\UserControls\RegisterAnalyticControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

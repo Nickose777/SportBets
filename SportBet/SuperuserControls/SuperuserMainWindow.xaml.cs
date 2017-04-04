@@ -104,6 +104,37 @@ namespace SportBet.SuperuserControls
             window.ShowDialog();
         }
 
+        private void RegisterAnalytic_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterAnalytic();
+        }
+        private void RegisterAnalytic()
+        {
+            AnalyticRegisterViewModel viewModel = new AnalyticRegisterViewModel(new AnalyticRegisterModel());
+            RegisterAnalyticControl control = new RegisterAnalyticControl(viewModel);
+
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.AnalyticCreated += (s, ea) =>
+            {
+                AnalyticRegisterModel analytic = ea.Analytic;
+                AnalyticRegisterDTO analyticDTO = Mapper.Map<AnalyticRegisterModel, AnalyticRegisterDTO>(analytic);
+                ServiceMessage result;
+
+                using (IAccountService service = factory.CreateAccountService())
+                {
+                    result = service.Register(analyticDTO);
+                }
+
+                if (result.IsSuccessful)
+                    window.Close();
+
+                SetFooterMessage(result.IsSuccessful, result.Message);
+            };
+
+            window.ShowDialog();
+        }
+
         private void ManageBookmakers_Click(object sender, RoutedEventArgs e)
         {
             ManageBookmakers();

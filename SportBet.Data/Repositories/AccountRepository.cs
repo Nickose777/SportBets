@@ -38,6 +38,11 @@ namespace SportBet.Data.Repositories
             Register("register_admin", login, password);
         }
 
+        public void RegisterAnalytic(string login, string password)
+        {
+            Register("register_analytic", login, password);
+        }
+
         private void Register(string functionName, string login, string password)
         {
             SportBetDbContext context = GetContext();
@@ -49,9 +54,20 @@ namespace SportBet.Data.Repositories
         {
             Delete("delete_bookmaker_role", login);
         }
+
         public void DeleteClient(string login)
         {
             Delete("delete_client_role", login);
+        }
+
+        public void DeleteAdmin(string login)
+        {
+            Delete("delete_admin_role", login);
+        }
+
+        public void DeleteAnalytic(string login)
+        {
+            Delete("delete_analytic_role", login);
         }
 
         private void Delete(string functionName, string login)

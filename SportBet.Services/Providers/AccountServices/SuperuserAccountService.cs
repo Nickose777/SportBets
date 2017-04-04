@@ -267,6 +267,60 @@ namespace SportBet.Services.Providers.AccountServices
             return new ServiceMessage(message, success);
         }
 
+        public ServiceMessage Register(AnalyticRegisterDTO analyticRegisterDTO)
+        {
+            string message = "";
+            bool success = true;
+            IEnumerable<string> logins = null;
+
+            try
+            {
+                logins = unitOfWork.Users.GetAll().Select(user => user.Login);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                success = false;
+            }
+
+            if (success)
+            {
+                if (!registerValidator.Validate(analyticRegisterDTO, ref message))
+                    success = false;
+                else if (logins.Contains(analyticRegisterDTO.Login))
+                {
+                    success = false;
+                    message = "Such login already exists. Try another one";
+                }
+                else
+                {
+                    string hashedPassword = encryptor.Encrypt(analyticRegisterDTO.Password);
+
+                    try
+                    {
+                        unitOfWork.Accounts.RegisterAdmin(analyticRegisterDTO.Login, hashedPassword);
+
+                        UserEntity userEntity = new UserEntity
+                        {
+                            Login = analyticRegisterDTO.Login,
+                            Role = unitOfWork.Roles.Get(RolesCodes.AnalyticRole)
+                        };
+                        unitOfWork.Users.Add(userEntity);
+                        unitOfWork.Commit();
+
+                        message = "Successfully registered analytic!";
+                    }
+                    catch (Exception ex)
+                    {
+                        message = ex.Message;
+                        success = false;
+                    }
+                }
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
         public void Dispose()
         {
             unitOfWork.Dispose();
