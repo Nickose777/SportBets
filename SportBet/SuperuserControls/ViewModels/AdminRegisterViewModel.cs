@@ -1,4 +1,4 @@
-﻿using SportBet.EventHandlers;
+﻿using SportBet.EventHandlers.Register;
 using SportBet.Models.Registers;
 using System;
 using System.Collections.Generic;

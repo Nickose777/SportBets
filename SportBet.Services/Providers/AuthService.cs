@@ -102,6 +102,8 @@ namespace SportBet.Services.Providers
                     default:
                         break;
                 }
+
+                Session.CurrentUserLogin = login;
             }
             catch (Exception ex)
             {

@@ -56,7 +56,7 @@ namespace SportBet.Services.Providers.BookmakerServices
                 StringBuilder builder = new StringBuilder();
                 do
                 {
-                    builder.AppendLine(ex.Message);
+                    builder.Append(ex.Message + "; ");
                     ex = ex.InnerException;
                 } while (ex != null);
 
@@ -97,7 +97,7 @@ namespace SportBet.Services.Providers.BookmakerServices
                 StringBuilder builder = new StringBuilder();
                 do
                 {
-                    builder.AppendLine(ex.Message);
+                    builder.Append(ex.Message + "; ");
                     ex = ex.InnerException;
                 } while (ex != null);
 

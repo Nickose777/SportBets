@@ -118,6 +118,10 @@
     <Compile Include="ClientControls\ClientMainWindow.xaml.cs">
       <DependentUpon>ClientMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ClientControls\UserControls\ClientInfoControl.xaml.cs">
+      <DependentUpon>ClientInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ClientControls\ViewModels\ClientInfoViewModel.cs" />
     <Compile Include="CommonControls\Footer.xaml.cs">
       <DependentUpon>Footer.xaml</DependentUpon>
     </Compile>
@@ -125,20 +129,23 @@
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\ClientInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageClientsDTViewModel.cs" />
-    <Compile Include="EventHandlers\AdminRegisterEventHandler.cs" />
-    <Compile Include="EventHandlers\AnalyticRegisterEventHandler.cs" />
+    <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
+    <Compile Include="EventHandlers\Register\AdminRegisterEventHandler.cs" />
+    <Compile Include="EventHandlers\Register\AnalyticRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\BookmakerDisplayEventHandler.cs" />
-    <Compile Include="EventHandlers\BookmakerRegisterEventHandler.cs" />
+    <Compile Include="EventHandlers\Register\BookmakerRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\ClientDisplayEventHandler.cs" />
-    <Compile Include="EventHandlers\ClientRegisterEventHandler.cs" />
+    <Compile Include="EventHandlers\Register\ClientRegisterEventHandler.cs" />
     <Compile Include="ILogoutWindow.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\MappingProfile.cs" />
     <Compile Include="Models\Display\BookmakerDisplayModel.cs" />
     <Compile Include="Models\Display\ClientDisplayModel.cs" />
+    <Compile Include="Models\Edit\ClientEditModel.cs" />
     <Compile Include="Models\Registers\AdminRegisterModel.cs" />
     <Compile Include="Models\Registers\AnalyticRegisterModel.cs" />
     <Compile Include="Models\Registers\BookmakerRegisterModel.cs" />
@@ -187,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClientControls\ClientMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientControls\UserControls\ClientInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

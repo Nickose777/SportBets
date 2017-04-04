@@ -2,6 +2,7 @@
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Providers.AccountServices;
+using SportBet.Services.Providers.ClientServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,8 @@ namespace SportBet.Services.Factories
 
         public override IClientService CreateClientService()
         {
-            throw new NotImplementedException();
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+            return new ClientClientService(unitOfWork);
         }
     }
 }

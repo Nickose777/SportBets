@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SportBet.EventHandlers
+namespace SportBet.EventHandlers.Register
 {
     public delegate void AnalyticRegisterEventHandler(object sender, AnalyticEventArgs e);
     public class AnalyticEventArgs : EventArgs

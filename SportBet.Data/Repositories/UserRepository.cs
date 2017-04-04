@@ -12,5 +12,12 @@ namespace SportBet.Data.Repositories
     {
         public UserRepository(Func<SportBetDbContext> GetContext)
             : base(GetContext) { }
+
+        public int GetIdByLogin(string login)
+        {
+            SportBetDbContext context = GetContext();
+            UserEntity userEntity = context.Users.Single(user => user.Login == login);
+            return userEntity.Id;
+        }
     }
 }

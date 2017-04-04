@@ -2,6 +2,7 @@
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels;
+using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 using System;
 using System.Collections.Generic;
@@ -112,6 +113,11 @@ namespace SportBet.Services.Providers.ClientServices
             }
 
             return new DataServiceMessage<IEnumerable<ClientDisplayDTO>>(clients, message, success);
+        }
+
+        public DataServiceMessage<ClientEditDTO> GetClientInfo(string login)
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()
