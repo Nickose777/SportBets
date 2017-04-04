@@ -25,6 +25,7 @@ namespace SportBet.Mappings
             CreateMap<AnalyticRegisterModel, AnalyticRegisterDTO>();
 
             CreateMap<ClientEditDTO, ClientEditModel>();
+            CreateMap<ClientEditModel, ClientEditDTO>();
 
             CreateMap<BookmakerDisplayModel, BookmakerDisplayDTO>();
             CreateMap<BookmakerDisplayDTO, BookmakerDisplayModel>();

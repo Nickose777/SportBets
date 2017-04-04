@@ -11,6 +11,7 @@ namespace SportBet.Services.Contracts.Services
 {
     public interface IClientService : IDisposable
     {
+        ServiceMessage Update(ClientEditDTO clientEditDTO, string login);
         ServiceMessage Delete(ClientDisplayDTO clientDisplayDTO);
 
         DataServiceMessage<ClientEditDTO> GetClientInfo(string login);

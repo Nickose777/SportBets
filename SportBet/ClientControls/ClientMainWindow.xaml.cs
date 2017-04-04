@@ -61,7 +61,14 @@ namespace SportBet.ClientControls
 
                 viewModel.ClientEdited += (s, ea) =>
                 {
-                    MessageBox.Show("TODO - save changes");
+                    ServiceMessage response;
+                    clientDTO = Mapper.Map<ClientEditModel, ClientEditDTO>(ea.Client);
+                    using (IClientService service = factory.CreateClientService())
+                    {
+                        response = service.Update(clientDTO, login);
+                    }
+
+                    SetFooterMessage(response.IsSuccessful, response.Message);
                 };
 
                 Grid.SetRow(control, 1);

@@ -21,6 +21,11 @@ namespace SportBet.Services.Providers.ClientServices
             this.unitOfWork = unitOfWork;
         }
 
+        public ServiceMessage Update(ClientEditDTO clientEditDTO, string login)
+        {
+            throw new NotImplementedException();
+        }
+
         public ServiceMessage Delete(ClientDisplayDTO clientDisplayDTO)
         {
             string message = "";

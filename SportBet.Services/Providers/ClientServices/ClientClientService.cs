@@ -21,6 +21,49 @@ namespace SportBet.Services.Providers.ClientServices
             this.unitOfWork = unitOfWork;
         }
 
+        public ServiceMessage Update(ClientEditDTO clientEditDTO, string login)
+        {
+            string message = null;
+            bool success = true;
+
+            if (login == Session.CurrentUserLogin)
+            {
+                try
+                {
+                    int id = unitOfWork.Users.GetIdByLogin(login);
+                    ClientEntity clientEntity = unitOfWork.Clients.Get(id);
+
+                    clientEntity.FirstName = clientEditDTO.FirstName;
+                    clientEntity.LastName = clientEditDTO.LastName;
+                    clientEntity.PhoneNumber = clientEditDTO.PhoneNumber;
+                    clientEntity.DateOfBirth = clientEditDTO.DateOfBirth;
+
+                    unitOfWork.Commit();
+
+                    message = "Successfully changed client's information";
+                }
+                catch (Exception ex)
+                {
+                    StringBuilder builder = new StringBuilder();
+                    do
+                    {
+                        builder.Append(ex.Message + "; ");
+                        ex = ex.InnerException;
+                    } while (ex != null);
+
+                    message = "Internal server errors: " + builder.ToString();
+                    success = false;
+                }
+            }
+            else
+            {
+                message = "Session error: invalid session login. Access denied";
+                success = false;
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
         public ServiceMessage Delete(ClientDisplayDTO clientDisplayDTO)
         {
             return new ServiceMessage("No permissions to delete a client", false);

@@ -13,6 +13,8 @@ namespace SportBet.ClientControls.ViewModels
     {
         public event ClientEditEventHandler ClientEdited;
 
+        private bool isEditMode;
+
         private readonly ClientEditModel client;
         private readonly ClientEditModel clientForEdit;
 
@@ -26,6 +28,44 @@ namespace SportBet.ClientControls.ViewModels
                 PhoneNumber = client.PhoneNumber,
                 DateOfBirth = client.DateOfBirth
             };
+
+            IsEditMode = false;
+
+            StartEditClientCommand = new DelegateCommand(() => StartEdit(), obj => !isEditMode);
+            CancelEditClientCommand = new DelegateCommand(() => CancelEdit(), obj => isEditMode);
+            SaveClientCommand = new DelegateCommand(() => Save(), CanSave);
+        }
+
+        public ICommand StartEditClientCommand { get; private set; }
+        private void StartEdit()
+        {
+            IsEditMode = true;
+        }
+
+        public ICommand CancelEditClientCommand { get; private set; }
+        private void CancelEdit()
+        {
+            IsEditMode = false;
+            FirstName = client.FirstName;
+            LastName = client.LastName;
+            PhoneNumber = client.PhoneNumber;
+            DateOfBirth = client.DateOfBirth;
+        }
+
+        public ICommand SaveClientCommand { get; private set; }
+        private void Save()
+        {
+            RaiseClientEditedEvent(clientForEdit);
+            IsEditMode = false;
+        }
+        private bool CanSave(object parameter)
+        {
+            return
+                isEditMode &&
+                !String.IsNullOrEmpty(FirstName) &&
+                !String.IsNullOrEmpty(LastName) &&
+                !String.IsNullOrEmpty(PhoneNumber) &&
+                DateOfBirth != null;
         }
 
         public string LastName
@@ -62,6 +102,16 @@ namespace SportBet.ClientControls.ViewModels
             {
                 clientForEdit.DateOfBirth = value;
                 RaisePropertyChangedEvent("DateOfBirth");
+            }
+        }
+
+        public bool IsEditMode
+        {
+            get { return isEditMode; }
+            private set 
+            { 
+                isEditMode = value;
+                RaisePropertyChangedEvent("IsEditMode");
             }
         }
 
