@@ -184,6 +184,55 @@ namespace SportBet.SuperuserControls
             }
         }
 
+        private void ManageAnalytics_Click(object sender, RoutedEventArgs e)
+        {
+            ManageAnalytics();
+        }
+        private void ManageAnalytics()
+        {
+            DataServiceMessage<IEnumerable<AnalyticDisplayDTO>> resultMessage;
+            using (IAnalyticService service = factory.CreateAnalyticService())
+            {
+                resultMessage = service.GetAll();
+            }
+
+            SetFooterMessage(resultMessage.IsSuccessful, resultMessage.Message);
+
+            if (resultMessage.IsSuccessful)
+            {
+                IEnumerable<AnalyticDisplayDTO> adminDTOs = resultMessage.Data;
+                IEnumerable<AnalyticDisplayModel> admins = adminDTOs
+                    .Select(dto => Mapper.Map<AnalyticDisplayDTO, AnalyticDisplayModel>(dto));
+
+                ManageAnalyticsViewModel viewModel = new ManageAnalyticsViewModel(admins);
+                ManageAnalyticsControl control = new ManageAnalyticsControl(viewModel);
+                Window window = WindowFactory.CreateByContentsSize(control);
+
+                viewModel.AnalyticDeleted += (s, e) =>
+                {
+                    using (IAnalyticService service = factory.CreateAnalyticService())
+                    {
+                        AnalyticDisplayDTO deletedAnalytic = Mapper.Map<AnalyticDisplayModel, AnalyticDisplayDTO>(e.Analytic);
+                        ServiceMessage result = service.Delete(deletedAnalytic);
+
+                        SetFooterMessage(result.IsSuccessful, result.Message);
+
+                        if (result.IsSuccessful)
+                        {
+                            DataServiceMessage<IEnumerable<AnalyticDisplayDTO>> serviceMessage = service.GetAll();
+                            adminDTOs = serviceMessage.Data;
+                            admins = adminDTOs
+                                .Select(dto => Mapper.Map<AnalyticDisplayDTO, AnalyticDisplayModel>(dto));
+
+                            viewModel.Refresh(admins);
+                        }
+                    }
+                };
+
+                window.ShowDialog();
+            }
+        }
+
         private void ManageBookmakers_Click(object sender, RoutedEventArgs e)
         {
             ManageBookmakers();

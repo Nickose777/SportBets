@@ -6,6 +6,7 @@ using SportBet.Services.Contracts.Validators;
 using SportBet.Services.Encryption;
 using SportBet.Services.Providers.AccountServices;
 using SportBet.Services.Providers.AdminServices;
+using SportBet.Services.Providers.AnalyticServices;
 using SportBet.Services.Providers.BookmakerServices;
 using SportBet.Services.Providers.ClientServices;
 using SportBet.Services.Validators;
@@ -50,6 +51,13 @@ namespace SportBet.Services.Factories
             IUnitOfWork unitOfWork = CreateUnitOfWork();
 
             return new SuperuserAdminService(unitOfWork);
+        }
+
+        public override IAnalyticService CreateAnalyticService()
+        {
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+
+            return new SuperuserAnalyticService(unitOfWork);
         }
     }
 }

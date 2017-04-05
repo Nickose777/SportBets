@@ -41,11 +41,13 @@
   <ItemGroup>
     <Compile Include="Contracts\Services\IAccountService.cs" />
     <Compile Include="Contracts\Services\IAdminService.cs" />
+    <Compile Include="Contracts\Services\IAnalyticService.cs" />
     <Compile Include="Contracts\Services\IAuthService.cs" />
     <Compile Include="Contracts\Services\IBookmakerService.cs" />
     <Compile Include="Contracts\Services\IClientService.cs" />
     <Compile Include="Contracts\Validators\IRegisterValidator.cs" />
     <Compile Include="DTOModels\AdminDisplayDTO.cs" />
+    <Compile Include="DTOModels\AnalyticDisplayDTO.cs" />
     <Compile Include="DTOModels\BookmakerDisplayDTO.cs" />
     <Compile Include="DTOModels\ClientDisplayDTO.cs" />
     <Compile Include="DTOModels\Edit\ClientEditDTO.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="Providers\AccountServices\ClientAccountService.cs" />
     <Compile Include="Providers\AccountServices\SuperuserAccountService.cs" />
     <Compile Include="Providers\AdminServices\SuperuserAdminService.cs" />
+    <Compile Include="Providers\AnalyticServices\SuperuserAnalyticService.cs" />
     <Compile Include="Providers\AuthService.cs" />
     <Compile Include="Providers\BookmakerServices\SuperuserBookmakerService.cs" />
     <Compile Include="Providers\ClientServices\ClientClientService.cs" />

@@ -132,9 +132,11 @@
     <Compile Include="DesignTimeViewModels\ClientInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageAdminsDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\ManageAnalyticsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageClientsDTViewModel.cs" />
     <Compile Include="EventHandlers\AdminDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\AnalyticDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AdminRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AnalyticRegisterEventHandler.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\MappingProfile.cs" />
     <Compile Include="Models\Display\AdminDisplayModel.cs" />
+    <Compile Include="Models\Display\AnalyticDisplayModel.cs" />
     <Compile Include="Models\Display\BookmakerDisplayModel.cs" />
     <Compile Include="Models\Display\ClientDisplayModel.cs" />
     <Compile Include="Models\Edit\ClientEditModel.cs" />
@@ -161,6 +164,9 @@
     </Compile>
     <Compile Include="SuperuserControls\UserControls\ManageAdminsControl.xaml.cs">
       <DependentUpon>ManageAdminsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SuperuserControls\UserControls\ManageAnalyticsControl.xaml.cs">
+      <DependentUpon>ManageAnalyticsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SuperuserControls\UserControls\ManageBookmakersControl.xaml.cs">
       <DependentUpon>ManageBookmakersControl.xaml</DependentUpon>
@@ -181,6 +187,7 @@
     <Compile Include="SuperuserControls\ViewModels\AnalyticRegisterViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\BookmakerRegisterViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageAdminsViewModel.cs" />
+    <Compile Include="SuperuserControls\ViewModels\ManageAnalyticsViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageBookmakersViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageClientsViewModel.cs" />
     <Compile Include="ValueConverters\InverseBooleanConverter.cs" />
@@ -237,6 +244,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SuperuserControls\UserControls\ManageAdminsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SuperuserControls\UserControls\ManageAnalyticsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

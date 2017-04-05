@@ -39,5 +39,10 @@ namespace SportBet.Services.Factories
         {
             throw new NotImplementedException();
         }
+
+        public override IAnalyticService CreateAnalyticService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

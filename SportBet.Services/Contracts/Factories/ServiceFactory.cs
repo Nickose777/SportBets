@@ -27,6 +27,8 @@ namespace SportBet.Services.Contracts.Factories
 
         public abstract IAdminService CreateAdminService();
 
+        public abstract IAnalyticService CreateAnalyticService();
+
         public abstract IBookmakerService CreateBookmakerService();
 
         public abstract IClientService CreateClientService();
