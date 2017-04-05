@@ -10,8 +10,9 @@ namespace SportBet.Data.Contracts.Repositories
     public interface IAccountRepository
     {
         void CreateDefaultSuperuser(string login, string password);
-        void RegisterClient(string login, string password);
+
         void RegisterBookmaker(string login, string password);
+        void RegisterClient(string login, string password);
         void RegisterAdmin(string login, string password);
         void RegisterAnalytic(string login, string password);
 

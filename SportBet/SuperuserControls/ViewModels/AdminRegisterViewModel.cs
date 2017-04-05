@@ -19,10 +19,46 @@ namespace SportBet.SuperuserControls.ViewModels
             : base(model)
         {
             admin = model;
-            CreateAdminCommand = new DelegateCommand(() => RaiseAdminCreatedEvent(admin), obj => CanCreateModel());
+            CreateAdminCommand = new DelegateCommand(() => RaiseAdminCreatedEvent(admin), CanCreateAdmin);
         }
 
         public ICommand CreateAdminCommand { get; private set; }
+        private bool CanCreateAdmin(object obj)
+        {
+            return
+                CanCreateModel() &&
+                !String.IsNullOrEmpty(FirstName) &&
+                !String.IsNullOrEmpty(LastName) &&
+                !String.IsNullOrEmpty(PhoneNumber);
+        }
+
+        public string LastName
+        {
+            get { return admin.LastName; }
+            set
+            {
+                admin.LastName = value;
+                RaisePropertyChangedEvent("LastName");
+            }
+        }
+        public string FirstName
+        {
+            get { return admin.FirstName; }
+            set
+            {
+                admin.FirstName = value;
+                RaisePropertyChangedEvent("FirstName");
+            }
+        }
+        public string PhoneNumber
+        {
+            get { return admin.PhoneNumber; }
+            set
+            {
+                admin.PhoneNumber = value;
+                RaisePropertyChangedEvent("PhoneNumber");
+            }
+        }
 
         private void RaiseAdminCreatedEvent(AdminRegisterModel admin)
         {

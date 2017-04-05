@@ -19,10 +19,46 @@ namespace SportBet.SuperuserControls.ViewModels
             : base(model)
         {
             analytic = model;
-            CreateAnalyticCommand = new DelegateCommand(() => RaiseAnalyticCreatedEvent(analytic), obj => CanCreateModel());
+            CreateAnalyticCommand = new DelegateCommand(() => RaiseAnalyticCreatedEvent(analytic), CanCreateAnalytic);
         }
 
         public ICommand CreateAnalyticCommand { get; private set; }
+        private bool CanCreateAnalytic(object obj)
+        {
+            return
+                CanCreateModel() &&
+                !String.IsNullOrEmpty(FirstName) &&
+                !String.IsNullOrEmpty(LastName) &&
+                !String.IsNullOrEmpty(PhoneNumber);
+        }
+
+        public string LastName
+        {
+            get { return analytic.LastName; }
+            set
+            {
+                analytic.LastName = value;
+                RaisePropertyChangedEvent("LastName");
+            }
+        }
+        public string FirstName
+        {
+            get { return analytic.FirstName; }
+            set
+            {
+                analytic.FirstName = value;
+                RaisePropertyChangedEvent("FirstName");
+            }
+        }
+        public string PhoneNumber
+        {
+            get { return analytic.PhoneNumber; }
+            set
+            {
+                analytic.PhoneNumber = value;
+                RaisePropertyChangedEvent("PhoneNumber");
+            }
+        }
 
         private void RaiseAnalyticCreatedEvent(AnalyticRegisterModel analytic)
         {

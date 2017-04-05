@@ -11,6 +11,8 @@ namespace SportBet.Data.Contracts
     {
         IUserRepository Users { get; }
         IRoleRepository Roles { get; }
+        IAnalyticRepository Analytics { get; }
+        IAdminRepository Admins { get; }
         IAccountRepository Accounts { get; }
         IBetRepository Bets { get; }
         IBookmakerRepository Bookmakers { get; }

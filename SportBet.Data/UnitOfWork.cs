@@ -16,6 +16,8 @@ namespace SportBet.Data
         private IAccountRepository accounts;
         private IUserRepository users;
         private IRoleRepository roles;
+        private IAdminRepository admins;
+        private IAnalyticRepository analytics;
         private IBetRepository bets;
         private IBookmakerRepository bookmakers;
         private IClientRepository clients;
@@ -38,6 +40,14 @@ namespace SportBet.Data
         public IRoleRepository Roles
         {
             get { return roles ?? (roles = new RoleRepository(() => context)); }
+        }
+        public IAdminRepository Admins
+        {
+            get { return admins ?? (admins = new AdminRepository(() => context)); }
+        }
+        public IAnalyticRepository Analytics
+        {
+            get { return analytics ?? (analytics = new AnalyticRepository(() => context)); }
         }
         public IBetRepository Bets
         {

@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\AdminEntity.cs" />
+    <Compile Include="Entities\AnalyticEntity.cs" />
     <Compile Include="Entities\BetEntity.cs" />
     <Compile Include="Entities\BookmakerEntity.cs" />
     <Compile Include="Entities\ClientEntity.cs" />

@@ -9,6 +9,10 @@
              d:DataContext="{d:DesignInstance ViewModel:AnalyticRegisterDTViewModel}"
              Background="Orange">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="30" />
@@ -34,6 +38,34 @@
                 <TextBox Grid.Row="2" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Row="4" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Row="6" Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Analytic data"
+            Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="1"
+                    Text="Last name:" />
+                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" />
+                <TextBlock
+                    Grid.Row="3"
+                    Text="First name:" />
+                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" />
+                <TextBlock
+                    Grid.Row="5"
+                    Text="Phone Number:" />
+                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" />
             </Grid>
         </GroupBox>
 
