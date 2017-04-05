@@ -135,6 +135,55 @@ namespace SportBet.SuperuserControls
             window.ShowDialog();
         }
 
+        private void ManageAdmins_Click(object sender, RoutedEventArgs e)
+        {
+            ManageAdmins();
+        }
+        private void ManageAdmins()
+        {
+            DataServiceMessage<IEnumerable<AdminDisplayDTO>> resultMessage;
+            using (IAdminService service = factory.CreateAdminService())
+            {
+                resultMessage = service.GetAll();
+            }
+
+            SetFooterMessage(resultMessage.IsSuccessful, resultMessage.Message);
+
+            if (resultMessage.IsSuccessful)
+            {
+                IEnumerable<AdminDisplayDTO> adminDTOs = resultMessage.Data;
+                IEnumerable<AdminDisplayModel> admins = adminDTOs
+                    .Select(dto => Mapper.Map<AdminDisplayDTO, AdminDisplayModel>(dto));
+
+                ManageAdminsViewModel viewModel = new ManageAdminsViewModel(admins);
+                ManageAdminsControl control = new ManageAdminsControl(viewModel);
+                Window window = WindowFactory.CreateByContentsSize(control);
+
+                viewModel.AdminDeleted += (s, e) =>
+                {
+                    using (IAdminService service = factory.CreateAdminService())
+                    {
+                        AdminDisplayDTO deletedAdmin = Mapper.Map<AdminDisplayModel, AdminDisplayDTO>(e.Admin);
+                        ServiceMessage result = service.Delete(deletedAdmin);
+
+                        SetFooterMessage(result.IsSuccessful, result.Message);
+
+                        if (result.IsSuccessful)
+                        {
+                            DataServiceMessage<IEnumerable<AdminDisplayDTO>> serviceMessage = service.GetAll();
+                            adminDTOs = serviceMessage.Data;
+                            admins = adminDTOs
+                                .Select(dto => Mapper.Map<AdminDisplayDTO, AdminDisplayModel>(dto));
+
+                            viewModel.Refresh(admins);
+                        }
+                    }
+                };
+
+                window.ShowDialog();
+            }
+        }
+
         private void ManageBookmakers_Click(object sender, RoutedEventArgs e)
         {
             ManageBookmakers();

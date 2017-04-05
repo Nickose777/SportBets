@@ -17,6 +17,7 @@
                 <MenuItem Header="Analytic" Click="RegisterAnalytic_Click"/>
             </MenuItem>
             <MenuItem Header="Manage...">
+                <MenuItem Header="Admins" Click="ManageAdmins_Click"/>
                 <MenuItem Header="Bookmakers" Click="ManageBookmakers_Click"/>
                 <MenuItem Header="Clients" Click="ManageClients_Click"/>
             </MenuItem>

@@ -35,5 +35,10 @@ namespace SportBet.Services.Factories
         {
             throw new NotImplementedException();
         }
+
+        public override IAdminService CreateAdminService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -32,6 +32,9 @@ namespace SportBet.Mappings
 
             CreateMap<ClientDisplayModel, ClientDisplayDTO>();
             CreateMap<ClientDisplayDTO, ClientDisplayModel>();
+
+            CreateMap<AdminDisplayModel, AdminDisplayDTO>();
+            CreateMap<AdminDisplayDTO, AdminDisplayModel>();
         }
     }
 }
