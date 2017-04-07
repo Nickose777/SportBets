@@ -1,12 +1,7 @@
-﻿using SportBet.Models.Display;
-using SportBet.Models.Registers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using SportBet.Models.Display;
 
-namespace SportBet.EventHandlers
+namespace SportBet.EventHandlers.Display
 {
     public delegate void ClientDisplayEventHandler(object sender, ClientDisplayEventArgs e);
     public class ClientDisplayEventArgs : EventArgs

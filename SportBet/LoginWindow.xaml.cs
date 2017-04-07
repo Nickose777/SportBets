@@ -1,21 +1,10 @@
-﻿using SportBet.Services.Contracts.Services;
-using SportBet.Services.Providers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using SportBet.Services.DTOModels;
-using SportBet.Services.ResultTypes;
 using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts.Services;
+using SportBet.Services.DTOModels;
+using SportBet.Services.Providers;
+using SportBet.Services.ResultTypes;
 
 namespace SportBet
 {
@@ -74,7 +63,7 @@ namespace SportBet
                     LoginType loginType = result.LoginType;
                     ServiceFactory factory = result.Factory;
 
-                    ILogoutWindow logoutWindow = Create(factory, loginType, login);
+                    ISignOutWindow logoutWindow = Create(factory, loginType, login);
 
                     logoutWindow.SignedOut += (s, e) =>
                     {
@@ -94,9 +83,9 @@ namespace SportBet
             }
         }
 
-        private ILogoutWindow Create(ServiceFactory factory, LoginType loginType, string login)
+        private ISignOutWindow Create(ServiceFactory factory, LoginType loginType, string login)
         {
-            ILogoutWindow window = null;
+            ISignOutWindow window = null;
 
             switch (loginType)
             {
@@ -116,6 +105,8 @@ namespace SportBet
                     window = new ClientControls.ClientMainWindow(factory, login);
                     break;
                 case LoginType.NoLogin:
+                    MessageBox.Show("Your role wasn't recognized! The program will close");
+                    this.Close();
                     break;
                 default:
                     break;

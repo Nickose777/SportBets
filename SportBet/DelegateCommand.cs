@@ -24,6 +24,7 @@ namespace SportBet
         {
             return canExecute(parameter);
         }
+
         public void Execute(object parameter)
         {
             action();

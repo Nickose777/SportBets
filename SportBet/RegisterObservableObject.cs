@@ -1,9 +1,5 @@
-﻿using SportBet.Models.Registers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using SportBet.Models.Registers;
 
 namespace SportBet
 {
@@ -25,6 +21,7 @@ namespace SportBet
                 RaisePropertyChangedEvent("Login");
             }
         }
+
         public string Password
         {
             get { return model.Password; }
@@ -34,6 +31,7 @@ namespace SportBet
                 RaisePropertyChangedEvent("Password");
             }
         }
+
         public string ConfirmPassword
         {
             get { return model.ConfirmPassword; }

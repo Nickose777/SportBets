@@ -1,17 +1,10 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
-using SportBet.Models;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
 using SportBet.Models.Registers;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.DTOModels.Register;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportBet.Mappings
 {

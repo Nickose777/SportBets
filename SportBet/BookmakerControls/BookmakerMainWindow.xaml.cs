@@ -1,34 +1,21 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Windows;
+using AutoMapper;
 using SportBet.BookmakerControls.UserControls;
 using SportBet.BookmakerControls.ViewModels;
-using SportBet.Models;
 using SportBet.Models.Registers;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.Contracts.Services;
-using SportBet.Services.DTOModels;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SportBet.BookmakerControls
 {
     /// <summary>
     /// Interaction logic for BookmakerMainWindow.xaml
     /// </summary>
-    public partial class BookmakerMainWindow : Window, ILogoutWindow
+    public partial class BookmakerMainWindow : Window, ISignOutWindow
     {
         public event EventHandler SignedOut;
 

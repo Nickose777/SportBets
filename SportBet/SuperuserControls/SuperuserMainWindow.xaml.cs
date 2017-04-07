@@ -1,35 +1,25 @@
-﻿using SportBet.Models.Registers;
-using SportBet.Services.Providers.BookmakerServices;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using AutoMapper;
+using SportBet.Models.Display;
+using SportBet.Models.Registers;
 using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
+using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using SportBet.SuperuserControls.UserControls;
 using SportBet.SuperuserControls.ViewModels;
 using SportBet.WindowFactories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using AutoMapper;
-using SportBet.Models.Display;
-using SportBet.Services.DTOModels.Register;
-using SportBet.Services.Contracts.Services;
 
 namespace SportBet.SuperuserControls
 {
     /// <summary>
     /// Interaction logic for SuperuserMainWindow.xaml
     /// </summary>
-    public partial class SuperuserMainWindow : ILogoutWindow
+    public partial class SuperuserMainWindow : ISignOutWindow
     {
         public event EventHandler SignedOut;
 

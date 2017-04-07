@@ -135,16 +135,16 @@
     <Compile Include="DesignTimeViewModels\ManageAnalyticsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageClientsDTViewModel.cs" />
-    <Compile Include="EventHandlers\AdminDisplayEventHandler.cs" />
-    <Compile Include="EventHandlers\AnalyticDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Display\AdminDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Display\AnalyticDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AdminRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AnalyticRegisterEventHandler.cs" />
-    <Compile Include="EventHandlers\BookmakerDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Display\BookmakerDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Register\BookmakerRegisterEventHandler.cs" />
-    <Compile Include="EventHandlers\ClientDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Display\ClientDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Register\ClientRegisterEventHandler.cs" />
-    <Compile Include="ILogoutWindow.cs" />
+    <Compile Include="ISignOutWindow.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\MappingProfile.cs" />
     <Compile Include="Models\Display\AdminDisplayModel.cs" />
@@ -224,20 +224,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Page Include="SuperuserControls\SuperuserMainWindow.xaml">
       <SubType>Designer</SubType>
