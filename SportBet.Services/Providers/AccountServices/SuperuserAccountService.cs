@@ -1,22 +1,18 @@
-﻿using SportBet.Core.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using SportBet.Core.Entities;
 using SportBet.Data;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
-using SportBet.Services.DTOModels;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.Encryption;
 using SportBet.Services.ResultTypes;
-using SportBet.Services.Validators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportBet.Services.Providers.AccountServices
 {
-    public class SuperuserAccountService : IAccountService
+    class SuperuserAccountService : IAccountService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRegisterValidator registerValidator;
@@ -92,38 +88,6 @@ namespace SportBet.Services.Providers.AccountServices
 
             return new ServiceMessage(message, success);
         }
-        private bool Validate(ClientRegisterDTO clientRegisterDTO, ref string message)
-        {
-            bool isValid = true;
-
-            if (String.IsNullOrEmpty(clientRegisterDTO.LastName))
-            {
-                message = "Last name must not be empty";
-                isValid = false;
-            }
-            else if (String.IsNullOrEmpty(clientRegisterDTO.FirstName))
-            {
-                message = "First name must not be empty";
-                isValid = false;
-            }
-            else if (String.IsNullOrEmpty(clientRegisterDTO.PhoneNumber))
-            {
-                message = "Phone number name must not be empty";
-                isValid = false;
-            }
-            else if (clientRegisterDTO.DateOfBirth.Year < DateTime.Now.Year - 100)
-            {
-                message = "You are too old. Sorry";
-                isValid = false;
-            }
-            else if (clientRegisterDTO.DateOfBirth.Year > DateTime.Now.Year - 18)
-            {
-                message = "You are too young. Sorry";
-                isValid = false;
-            }
-
-            return isValid;
-        }
 
         public ServiceMessage Register(BookmakerRegisterDTO bookmakerRegisterDTO)
         {
@@ -189,28 +153,6 @@ namespace SportBet.Services.Providers.AccountServices
             }
 
             return new ServiceMessage(message, success);
-        }
-        private bool Validate(BookmakerRegisterDTO bookmakerRegisterDTO, ref string message)
-        {
-            bool isValid = true;
-
-            if (String.IsNullOrEmpty(bookmakerRegisterDTO.LastName))
-            {
-                message = "Last name must not be empty";
-                isValid = false;
-            }
-            else if (String.IsNullOrEmpty(bookmakerRegisterDTO.FirstName))
-            {
-                message = "First name must not be empty";
-                isValid = false;
-            }
-            else if (String.IsNullOrEmpty(bookmakerRegisterDTO.PhoneNumber))
-            {
-                message = "Phone number name must not be empty";
-                isValid = false;
-            }
-
-            return isValid;
         }
 
         public ServiceMessage Register(AdminRegisterDTO adminRegisterDTO)
@@ -278,28 +220,6 @@ namespace SportBet.Services.Providers.AccountServices
 
             return new ServiceMessage(message, success);
         }
-        private bool Validate(AdminRegisterDTO adminRegisterDTO, ref string message)
-        {
-            bool isValid = true;
-
-            if (String.IsNullOrEmpty(adminRegisterDTO.LastName))
-            {
-                message = "Last name must not be empty";
-                isValid = false;
-            }
-            else if (String.IsNullOrEmpty(adminRegisterDTO.FirstName))
-            {
-                message = "First name must not be empty";
-                isValid = false;
-            }
-            else if (String.IsNullOrEmpty(adminRegisterDTO.PhoneNumber))
-            {
-                message = "Phone number name must not be empty";
-                isValid = false;
-            }
-
-            return isValid;
-        }
 
         public ServiceMessage Register(AnalyticRegisterDTO analyticRegisterDTO)
         {
@@ -366,6 +286,91 @@ namespace SportBet.Services.Providers.AccountServices
 
             return new ServiceMessage(message, success);
         }
+
+        public void Dispose()
+        {
+            unitOfWork.Dispose();
+        }
+
+        private bool Validate(ClientRegisterDTO clientRegisterDTO, ref string message)
+        {
+            bool isValid = true;
+
+            if (String.IsNullOrEmpty(clientRegisterDTO.LastName))
+            {
+                message = "Last name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(clientRegisterDTO.FirstName))
+            {
+                message = "First name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(clientRegisterDTO.PhoneNumber))
+            {
+                message = "Phone number name must not be empty";
+                isValid = false;
+            }
+            else if (clientRegisterDTO.DateOfBirth.Year < DateTime.Now.Year - 100)
+            {
+                message = "You are too old. Sorry";
+                isValid = false;
+            }
+            else if (clientRegisterDTO.DateOfBirth.Year > DateTime.Now.Year - 18)
+            {
+                message = "You are too young. Sorry";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private bool Validate(BookmakerRegisterDTO bookmakerRegisterDTO, ref string message)
+        {
+            bool isValid = true;
+
+            if (String.IsNullOrEmpty(bookmakerRegisterDTO.LastName))
+            {
+                message = "Last name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(bookmakerRegisterDTO.FirstName))
+            {
+                message = "First name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(bookmakerRegisterDTO.PhoneNumber))
+            {
+                message = "Phone number name must not be empty";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private bool Validate(AdminRegisterDTO adminRegisterDTO, ref string message)
+        {
+            bool isValid = true;
+
+            if (String.IsNullOrEmpty(adminRegisterDTO.LastName))
+            {
+                message = "Last name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(adminRegisterDTO.FirstName))
+            {
+                message = "First name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(adminRegisterDTO.PhoneNumber))
+            {
+                message = "Phone number name must not be empty";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
         private bool Validate(AnalyticRegisterDTO analyticRegisterDTO, ref string message)
         {
             bool isValid = true;
@@ -387,11 +392,6 @@ namespace SportBet.Services.Providers.AccountServices
             }
 
             return isValid;
-        }
-
-        public void Dispose()
-        {
-            unitOfWork.Dispose();
         }
     }
 }

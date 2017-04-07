@@ -1,10 +1,4 @@
-﻿using SportBet.Services.DTOModels;
-using SportBet.Services.DTOModels.Register;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SportBet.Services.DTOModels.Register;
 
 namespace SportBet.Services.Contracts.Validators
 {

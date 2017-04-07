@@ -1,16 +1,10 @@
 ﻿using SportBet.Services.Contracts.Services;
-using SportBet.Services.DTOModels;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportBet.Services.Providers.AccountServices
 {
-    public class ClientAccountService : IAccountService
+    class ClientAccountService : IAccountService
     {
         public ServiceMessage Register(ClientRegisterDTO clientRegisterDTO)
         {

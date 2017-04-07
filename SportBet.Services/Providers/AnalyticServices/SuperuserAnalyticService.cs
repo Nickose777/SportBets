@@ -1,13 +1,12 @@
-﻿using SportBet.Core.Entities;
-using SportBet.Data.Contracts;
-using SportBet.Services.Contracts.Services;
-using SportBet.Services.DTOModels;
-using SportBet.Services.ResultTypes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using SportBet.Core.Entities;
+using SportBet.Data.Contracts;
+using SportBet.Services.Contracts.Services;
+using SportBet.Services.DTOModels.Display;
+using SportBet.Services.ResultTypes;
 
 namespace SportBet.Services.Providers.AnalyticServices
 {

@@ -1,20 +1,14 @@
-﻿using SportBet.Services.Contracts.Services;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SportBet.Services.ResultTypes;
-using SportBet.Services.DTOModels;
-using SportBet.Data.Contracts;
-using SportBet.Core;
-using SportBet.Data;
 using SportBet.Core.Entities;
+using SportBet.Data;
+using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Factories;
-using SportBet.Services.Factories;
+using SportBet.Services.Contracts.Services;
+using SportBet.Services.DTOModels;
 using SportBet.Services.Encryption;
-using SportBet.Services.Contracts.Validators;
-using SportBet.Services.Validators;
+using SportBet.Services.Factories;
+using SportBet.Services.ResultTypes;
 
 namespace SportBet.Services.Providers
 {

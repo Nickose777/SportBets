@@ -46,10 +46,10 @@
     <Compile Include="Contracts\Services\IBookmakerService.cs" />
     <Compile Include="Contracts\Services\IClientService.cs" />
     <Compile Include="Contracts\Validators\IRegisterValidator.cs" />
-    <Compile Include="DTOModels\AdminDisplayDTO.cs" />
-    <Compile Include="DTOModels\AnalyticDisplayDTO.cs" />
-    <Compile Include="DTOModels\BookmakerDisplayDTO.cs" />
-    <Compile Include="DTOModels\ClientDisplayDTO.cs" />
+    <Compile Include="DTOModels\Display\AdminDisplayDTO.cs" />
+    <Compile Include="DTOModels\Display\AnalyticDisplayDTO.cs" />
+    <Compile Include="DTOModels\Display\BookmakerDisplayDTO.cs" />
+    <Compile Include="DTOModels\Display\ClientDisplayDTO.cs" />
     <Compile Include="DTOModels\Edit\ClientEditDTO.cs" />
     <Compile Include="DTOModels\Register\AdminRegisterDTO.cs" />
     <Compile Include="DTOModels\Register\AnalyticRegisterDTO.cs" />

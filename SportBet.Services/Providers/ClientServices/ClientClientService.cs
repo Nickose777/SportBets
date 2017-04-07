@@ -1,18 +1,16 @@
-﻿using SportBet.Services.Contracts.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using SportBet.Services.ResultTypes;
-using SportBet.Services.DTOModels.Edit;
-using SportBet.Services.DTOModels;
-using SportBet.Data.Contracts;
 using SportBet.Core.Entities;
+using SportBet.Data.Contracts;
+using SportBet.Services.Contracts.Services;
+using SportBet.Services.DTOModels.Display;
+using SportBet.Services.DTOModels.Edit;
+using SportBet.Services.ResultTypes;
 
 namespace SportBet.Services.Providers.ClientServices
 {
-    public class ClientClientService : IClientService
+    class ClientClientService : IClientService
     {
         private readonly IUnitOfWork unitOfWork;
 

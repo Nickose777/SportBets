@@ -1,21 +1,17 @@
-﻿using SportBet.Core.Entities;
+﻿using System;
+using System.Linq;
+using SportBet.Core.Entities;
 using SportBet.Data;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
-using SportBet.Services.DTOModels;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.Encryption;
 using SportBet.Services.ResultTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportBet.Services.Providers.AccountServices
 {
-    public class BookmakerAccountService : IAccountService
+    class BookmakerAccountService : IAccountService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRegisterValidator registerValidator;
@@ -85,6 +81,27 @@ namespace SportBet.Services.Providers.AccountServices
 
             return new ServiceMessage(message, success);
         }
+
+        public ServiceMessage Register(BookmakerRegisterDTO bookmakerRegisterDTO)
+        {
+            return new ServiceMessage("No permissions to register bookmaker", false);
+        }
+
+        public ServiceMessage Register(AdminRegisterDTO adminRegisterDTO)
+        {
+            return new ServiceMessage("No permissions to register admin", false);
+        }
+
+        public ServiceMessage Register(AnalyticRegisterDTO analyticRegisterDTO)
+        {
+            return new ServiceMessage("No permissions to register analytic", false);
+        }
+
+        public void Dispose()
+        {
+            unitOfWork.Dispose();
+        }
+
         private bool Validate(ClientRegisterDTO clientRegisterDTO, ref string message)
         {
             bool isValid = true;
@@ -116,26 +133,6 @@ namespace SportBet.Services.Providers.AccountServices
             }
 
             return isValid;
-        }
-
-        public ServiceMessage Register(BookmakerRegisterDTO bookmakerRegisterDTO)
-        {
-            return new ServiceMessage("No permissions to register bookmaker", false);
-        }
-
-        public ServiceMessage Register(AdminRegisterDTO adminRegisterDTO)
-        {
-            return new ServiceMessage("No permissions to register admin", false);
-        }
-
-        public ServiceMessage Register(AnalyticRegisterDTO analyticRegisterDTO)
-        {
-            return new ServiceMessage("No permissions to register analytic", false);
-        }
-
-        public void Dispose()
-        {
-            unitOfWork.Dispose();
         }
     }
 }

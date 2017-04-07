@@ -1,7 +1,7 @@
 ﻿using SportBet.Models.Registers;
 using SportBet.Services.Providers.BookmakerServices;
 using SportBet.Services.Contracts.Factories;
-using SportBet.Services.DTOModels;
+using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
 using SportBet.SuperuserControls.UserControls;
 using SportBet.SuperuserControls.ViewModels;
