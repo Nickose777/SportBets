@@ -7,7 +7,7 @@ namespace SportBet.Services.Contracts.Services
 {
     public interface IAdminService : IDisposable
     {
-        ServiceMessage Delete(AdminDisplayDTO adminDisplayDTO);
+        ServiceMessage Delete(string login);
 
         DataServiceMessage<IEnumerable<AdminDisplayDTO>> GetAll();
     }

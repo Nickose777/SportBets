@@ -19,17 +19,14 @@ namespace SportBet.Services.Providers.AdminServices
             this.unitOfWork = unitOfWork;
         }
 
-        public ServiceMessage Delete(AdminDisplayDTO adminDisplayDTO)
+        public ServiceMessage Delete(string login)
         {
             string message = "";
             bool success = true;
 
-            string login = adminDisplayDTO.Login;
-
             try
             {
-                var users = unitOfWork.Users.GetAll(user => user.Login == login);
-                UserEntity userEntity = users.SingleOrDefault();
+                UserEntity userEntity = unitOfWork.Users.GetUserByLogin(login);
 
                 if (userEntity != null)
                 {
@@ -38,7 +35,7 @@ namespace SportBet.Services.Providers.AdminServices
                     adminEntity.IsDeleted = true;
 
                     unitOfWork.Users.Remove(userEntity);
-                    unitOfWork.Accounts.DeleteAdmin(login);
+                    unitOfWork.Accounts.DeleteAdminRole(login);
 
                     unitOfWork.Commit();
 
@@ -52,14 +49,7 @@ namespace SportBet.Services.Providers.AdminServices
             }
             catch (Exception ex)
             {
-                StringBuilder builder = new StringBuilder();
-                do
-                {
-                    builder.Append(ex.Message + "; ");
-                    ex = ex.InnerException;
-                } while (ex != null);
-
-                message = "Internal server errors: " + builder.ToString();
+                message = ExceptionMessageBuilder.BuildMessage(ex);
                 success = false;
             }
 
@@ -74,7 +64,7 @@ namespace SportBet.Services.Providers.AdminServices
 
             try
             {
-                IEnumerable<AdminEntity> adminEntities = unitOfWork.Admins.GetAll(admin => !admin.IsDeleted);
+                IEnumerable<AdminEntity> adminEntities = unitOfWork.Admins.GetNotDeleted();
                 IEnumerable<UserEntity> users = unitOfWork.Users.GetAll();
 
                 admins = adminEntities.Select(adminEntity =>
@@ -93,14 +83,7 @@ namespace SportBet.Services.Providers.AdminServices
             }
             catch (Exception ex)
             {
-                StringBuilder builder = new StringBuilder();
-                do
-                {
-                    builder.Append(ex.Message + "; ");
-                    ex = ex.InnerException;
-                } while (ex != null);
-
-                message = "Internal server errors: " + builder.ToString();
+                message = ExceptionMessageBuilder.BuildMessage(ex);
                 success = false;
             }
 

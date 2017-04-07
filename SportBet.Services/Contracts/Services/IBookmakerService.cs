@@ -7,7 +7,7 @@ namespace SportBet.Services.Contracts.Services
 {
     public interface IBookmakerService : IDisposable
     {
-        ServiceMessage Delete(BookmakerDisplayDTO bookmaker);
+        ServiceMessage Delete(string login);
 
         DataServiceMessage<IEnumerable<BookmakerDisplayDTO>> GetAll();
     }

@@ -10,7 +10,7 @@ namespace SportBet.Services.Contracts.Services
     {
         ServiceMessage Update(ClientEditDTO clientEditDTO, string login);
 
-        ServiceMessage Delete(ClientDisplayDTO clientDisplayDTO);
+        ServiceMessage Delete(string login);
 
         DataServiceMessage<ClientEditDTO> GetClientInfo(string login);
 

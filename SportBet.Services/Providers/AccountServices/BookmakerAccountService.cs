@@ -44,7 +44,7 @@ namespace SportBet.Services.Providers.AccountServices
 
                 try
                 {
-                    unitOfWork.Accounts.RegisterClient(clientRegisterDTO.Login, hashedPassword);
+                    unitOfWork.Accounts.RegisterClientRole(clientRegisterDTO.Login, hashedPassword);
 
                     UserEntity userEntity = new UserEntity
                     {
@@ -70,7 +70,7 @@ namespace SportBet.Services.Providers.AccountServices
                 }
                 catch (Exception ex)
                 {
-                    message = ex.Message;
+                    message = ExceptionMessageBuilder.BuildMessage(ex);
                     success = false;
                 }
                 finally

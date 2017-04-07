@@ -17,22 +17,22 @@ namespace SportBet.Data.Repositories
             Register("register_superuser", login, password);
         }
 
-        public void RegisterClient(string login, string password)
+        public void RegisterClientRole(string login, string password)
         {
             Register("register_client", login, password);
         }
 
-        public void RegisterBookmaker(string login, string password)
+        public void RegisterBookmakerRole(string login, string password)
         {
             Register("register_bookmaker", login, password);
         }
 
-        public void RegisterAdmin(string login, string password)
+        public void RegisterAdminRole(string login, string password)
         {
             Register("register_admin", login, password);
         }
 
-        public void RegisterAnalytic(string login, string password)
+        public void RegisterAnalyticRole(string login, string password)
         {
             Register("register_analytic", login, password);
         }
@@ -44,22 +44,22 @@ namespace SportBet.Data.Repositories
             context.Database.ExecuteSqlCommand(query);
         }
 
-        public void DeleteBookmaker(string login)
+        public void DeleteBookmakerRole(string login)
         {
             Delete("delete_bookmaker_role", login);
         }
 
-        public void DeleteClient(string login)
+        public void DeleteClientRole(string login)
         {
             Delete("delete_client_role", login);
         }
 
-        public void DeleteAdmin(string login)
+        public void DeleteAdminRole(string login)
         {
             Delete("delete_admin_role", login);
         }
 
-        public void DeleteAnalytic(string login)
+        public void DeleteAnalyticRole(string login)
         {
             Delete("delete_analytic_role", login);
         }

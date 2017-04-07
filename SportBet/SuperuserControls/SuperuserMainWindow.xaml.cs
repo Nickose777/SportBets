@@ -163,8 +163,9 @@ namespace SportBet.SuperuserControls
                 {
                     using (IAdminService service = factory.CreateAdminService())
                     {
+                        //TODO no need in AdminDisplayDTO
                         AdminDisplayDTO deletedAdmin = Mapper.Map<AdminDisplayModel, AdminDisplayDTO>(e.Admin);
-                        ServiceMessage result = service.Delete(deletedAdmin);
+                        ServiceMessage result = service.Delete(deletedAdmin.Login);
 
                         SetFooterMessage(result.IsSuccessful, result.Message);
 
@@ -213,7 +214,7 @@ namespace SportBet.SuperuserControls
                     using (IAnalyticService service = factory.CreateAnalyticService())
                     {
                         AnalyticDisplayDTO deletedAnalytic = Mapper.Map<AnalyticDisplayModel, AnalyticDisplayDTO>(e.Analytic);
-                        ServiceMessage result = service.Delete(deletedAnalytic);
+                        ServiceMessage result = service.Delete(deletedAnalytic.Login);
 
                         SetFooterMessage(result.IsSuccessful, result.Message);
 
@@ -262,7 +263,7 @@ namespace SportBet.SuperuserControls
                     using (IBookmakerService service = factory.CreateBookmakerService())
                     {
                         BookmakerDisplayDTO deletedBookmaker = Mapper.Map<BookmakerDisplayModel, BookmakerDisplayDTO>(e.Bookmaker);
-                        ServiceMessage result = service.Delete(deletedBookmaker);
+                        ServiceMessage result = service.Delete(deletedBookmaker.Login);
 
                         SetFooterMessage(result.IsSuccessful, result.Message);
 
@@ -311,7 +312,7 @@ namespace SportBet.SuperuserControls
                     using (IClientService service = factory.CreateClientService())
                     {
                         ClientDisplayDTO deletedClient = Mapper.Map<ClientDisplayModel, ClientDisplayDTO>(e.Client);
-                        ServiceMessage result = service.Delete(deletedClient);
+                        ServiceMessage result = service.Delete(deletedClient.Login);
 
                         SetFooterMessage(result.IsSuccessful, result.Message);
 

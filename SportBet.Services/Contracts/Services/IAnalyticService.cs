@@ -7,7 +7,7 @@ namespace SportBet.Services.Contracts.Services
 {
     public interface IAnalyticService : IDisposable
     {
-        ServiceMessage Delete(AnalyticDisplayDTO analyticDisplayDTO);
+        ServiceMessage Delete(string login);
 
         DataServiceMessage<IEnumerable<AnalyticDisplayDTO>> GetAll();
     }

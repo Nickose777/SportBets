@@ -19,17 +19,14 @@ namespace SportBet.Services.Providers.AnalyticServices
             this.unitOfWork = unitOfWork;
         }
 
-        public ServiceMessage Delete(AnalyticDisplayDTO analyticDisplayDTO)
+        public ServiceMessage Delete(string login)
         {
             string message = "";
             bool success = true;
 
-            string login = analyticDisplayDTO.Login;
-
             try
             {
-                var users = unitOfWork.Users.GetAll(user => user.Login == login);
-                UserEntity userEntity = users.SingleOrDefault();
+                UserEntity userEntity = unitOfWork.Users.GetUserByLogin(login);
 
                 if (userEntity != null)
                 {
@@ -38,7 +35,7 @@ namespace SportBet.Services.Providers.AnalyticServices
                     analyticEntity.IsDeleted = true;
 
                     unitOfWork.Users.Remove(userEntity);
-                    unitOfWork.Accounts.DeleteAnalytic(login);
+                    unitOfWork.Accounts.DeleteAnalyticRole(login);
 
                     unitOfWork.Commit();
 
@@ -52,14 +49,7 @@ namespace SportBet.Services.Providers.AnalyticServices
             }
             catch (Exception ex)
             {
-                StringBuilder builder = new StringBuilder();
-                do
-                {
-                    builder.Append(ex.Message + "; ");
-                    ex = ex.InnerException;
-                } while (ex != null);
-
-                message = "Internal server errors: " + builder.ToString();
+                message = ExceptionMessageBuilder.BuildMessage(ex);
                 success = false;
             }
 
@@ -74,7 +64,7 @@ namespace SportBet.Services.Providers.AnalyticServices
 
             try
             {
-                IEnumerable<AnalyticEntity> analyticEntities = unitOfWork.Analytics.GetAll(analytic => !analytic.IsDeleted);
+                IEnumerable<AnalyticEntity> analyticEntities = unitOfWork.Analytics.GetNotDeleted();
                 IEnumerable<UserEntity> users = unitOfWork.Users.GetAll();
 
                 analytics = analyticEntities.Select(analyticEntity =>
@@ -93,14 +83,7 @@ namespace SportBet.Services.Providers.AnalyticServices
             }
             catch (Exception ex)
             {
-                StringBuilder builder = new StringBuilder();
-                do
-                {
-                    builder.Append(ex.Message + "; ");
-                    ex = ex.InnerException;
-                } while (ex != null);
-
-                message = "Internal server errors: " + builder.ToString();
+                message = ExceptionMessageBuilder.BuildMessage(ex);
                 success = false;
             }
 

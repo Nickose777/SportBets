@@ -42,14 +42,7 @@ namespace SportBet.Services.Providers.ClientServices
                 }
                 catch (Exception ex)
                 {
-                    StringBuilder builder = new StringBuilder();
-                    do
-                    {
-                        builder.Append(ex.Message + "; ");
-                        ex = ex.InnerException;
-                    } while (ex != null);
-
-                    message = "Internal server errors: " + builder.ToString();
+                    message = ExceptionMessageBuilder.BuildMessage(ex);
                     success = false;
                 }
             }
@@ -62,7 +55,7 @@ namespace SportBet.Services.Providers.ClientServices
             return new ServiceMessage(message, success);
         }
 
-        public ServiceMessage Delete(ClientDisplayDTO clientDisplayDTO)
+        public ServiceMessage Delete(string login)
         {
             return new ServiceMessage("No permissions to delete a client", false);
         }
@@ -91,14 +84,7 @@ namespace SportBet.Services.Providers.ClientServices
                 }
                 catch (Exception ex)
                 {
-                    StringBuilder builder = new StringBuilder();
-                    do
-                    {
-                        builder.Append(ex.Message + "; ");
-                        ex = ex.InnerException;
-                    } while (ex != null);
-
-                    message = "Internal server errors: " + builder.ToString();
+                    message = ExceptionMessageBuilder.BuildMessage(ex);
                     success = false;
                 }
             }

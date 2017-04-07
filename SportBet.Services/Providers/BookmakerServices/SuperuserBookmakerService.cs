@@ -19,17 +19,14 @@ namespace SportBet.Services.Providers.BookmakerServices
             this.unitOfWork = unitOfWork;
         }
 
-        public ServiceMessage Delete(BookmakerDisplayDTO bookmaker)
+        public ServiceMessage Delete(string login)
         {
             string message = "";
             bool success = true;
 
-            string login = bookmaker.Login;
-
             try
             {
-                var users = unitOfWork.Users.GetAll(user => user.Login == login);
-                UserEntity userEntity = users.SingleOrDefault();
+                UserEntity userEntity = unitOfWork.Users.GetUserByLogin(login);
 
                 if (userEntity != null)
                 {
@@ -38,7 +35,7 @@ namespace SportBet.Services.Providers.BookmakerServices
                     bookmakerEntity.IsDeleted = true;
 
                     unitOfWork.Users.Remove(userEntity);
-                    unitOfWork.Accounts.DeleteBookmaker(login);
+                    unitOfWork.Accounts.DeleteBookmakerRole(login);
 
                     unitOfWork.Commit();
 
@@ -52,14 +49,7 @@ namespace SportBet.Services.Providers.BookmakerServices
             }
             catch (Exception ex)
             {
-                StringBuilder builder = new StringBuilder();
-                do
-                {
-                    builder.Append(ex.Message + "; ");
-                    ex = ex.InnerException;
-                } while (ex != null);
-
-                message = "Internal server errors: " + builder.ToString();
+                message = ExceptionMessageBuilder.BuildMessage(ex);
                 success = false;
             }
 
@@ -74,7 +64,7 @@ namespace SportBet.Services.Providers.BookmakerServices
 
             try
             {
-                IEnumerable<BookmakerEntity> bookmakerEntities = unitOfWork.Bookmakers.GetAll(b => !b.IsDeleted);
+                IEnumerable<BookmakerEntity> bookmakerEntities = unitOfWork.Bookmakers.GetNotDeleted();
                 IEnumerable<UserEntity> users = unitOfWork.Users.GetAll();
 
                 bookmakers = bookmakerEntities.Select(bookmakerEntity =>
@@ -93,14 +83,7 @@ namespace SportBet.Services.Providers.BookmakerServices
             }
             catch (Exception ex)
             {
-                StringBuilder builder = new StringBuilder();
-                do
-                {
-                    builder.Append(ex.Message + "; ");
-                    ex = ex.InnerException;
-                } while (ex != null);
-
-                message = "Internal server errors: " + builder.ToString();
+                message = ExceptionMessageBuilder.BuildMessage(ex);
                 success = false;
             }
 

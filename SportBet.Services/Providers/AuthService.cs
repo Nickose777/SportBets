@@ -101,8 +101,8 @@ namespace SportBet.Services.Providers
             }
             catch (Exception ex)
             {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
                 success = false;
-                message = ex.Message;
             }
 
             return new FactoryServiceMessage(factory, loginType, message, success);

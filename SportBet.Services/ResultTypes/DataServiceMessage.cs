@@ -4,7 +4,7 @@
     {
         public TData Data { get; private set; }
 
-        public DataServiceMessage(T data, string message, bool success)
+        public DataServiceMessage(TData data, string message, bool success)
             : base(message, success)
         {
             this.Data = data;

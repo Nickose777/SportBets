@@ -25,30 +25,23 @@ namespace SportBet.Services.Providers.ClientServices
             throw new NotImplementedException();
         }
 
-        public ServiceMessage Delete(ClientDisplayDTO clientDisplayDTO)
+        public ServiceMessage Delete(string login)
         {
             string message = "";
             bool success = true;
 
-            string login = clientDisplayDTO.Login;
-
             try
             {
-                var users = unitOfWork.Users.GetAll(user => user.Login == login);
-                UserEntity userEntity = users.SingleOrDefault();
+                UserEntity userEntity = unitOfWork.Users.GetUserByLogin(login);
 
                 if (userEntity != null)
                 {
-                    //TODO
-                    //some refactoring
-                    //ClientDisplayDTO and BookmakerDisplayDTO to LoginDTO or just string login
-
                     int id = userEntity.Id;
                     ClientEntity clientEntity = unitOfWork.Clients.Get(id);
                     clientEntity.IsDeleted = true;
 
                     unitOfWork.Users.Remove(userEntity);
-                    unitOfWork.Accounts.DeleteClient(login);
+                    unitOfWork.Accounts.DeleteClientRole(login);
 
                     unitOfWork.Commit();
 
@@ -62,14 +55,7 @@ namespace SportBet.Services.Providers.ClientServices
             }
             catch (Exception ex)
             {
-                StringBuilder builder = new StringBuilder();
-                do
-                {
-                    builder.AppendLine(ex.Message);
-                    ex = ex.InnerException;
-                } while (ex != null);
-
-                message = "Internal server errors: " + builder.ToString();
+                message = ExceptionMessageBuilder.BuildMessage(ex);
                 success = false;
             }
 
@@ -84,7 +70,7 @@ namespace SportBet.Services.Providers.ClientServices
 
             try
             {
-                IEnumerable<ClientEntity> clientEntities = unitOfWork.Clients.GetAll(c => !c.IsDeleted);
+                IEnumerable<ClientEntity> clientEntities = unitOfWork.Clients.GetNotDeleted();
                 IEnumerable<UserEntity> users = unitOfWork.Users.GetAll();
 
                 clients = clientEntities.Select(clientEntity =>
@@ -105,14 +91,7 @@ namespace SportBet.Services.Providers.ClientServices
             }
             catch (Exception ex)
             {
-                StringBuilder builder = new StringBuilder();
-                do
-                {
-                    builder.AppendLine(ex.Message);
-                    ex = ex.InnerException;
-                } while (ex != null);
-
-                message = "Internal server errors: " + builder.ToString();
+                message = ExceptionMessageBuilder.BuildMessage(ex);
                 success = false;
             }
 

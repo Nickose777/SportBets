@@ -60,6 +60,7 @@
     <Compile Include="Contracts\Factories\ServiceFactory.cs" />
     <Compile Include="Encryption\Encryptor.cs" />
     <Compile Include="Encryption\IEncryptor.cs" />
+    <Compile Include="ExceptionMessageBuilder.cs" />
     <Compile Include="Factories\AdminServiceFactory.cs" />
     <Compile Include="Factories\AnalyticServiceFactory.cs" />
     <Compile Include="Factories\BookmakerServiceFactory.cs" />
