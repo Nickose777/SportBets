@@ -1,10 +1,5 @@
-﻿using SportBet.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity.ModelConfiguration;
+using SportBet.Core.Entities;
 
 namespace SportBet.Data.Configurations
 {
@@ -14,15 +9,15 @@ namespace SportBet.Data.Configurations
         {
             //Table and Columns
             this.ToTable("Sports", "public");
-            this.Property(sport => sport.Id).
-                HasColumnName("SportNo");
+            this.Property(sport => sport.Id)
+                .HasColumnName("SportNo");
 
             //Primary Keys
             this.HasKey(sport => sport.Id);
 
             //Other Settings
-            this.Property(sport => sport.Type).
-                IsRequired();
+            this.Property(sport => sport.Type)
+                .IsRequired();
         }
     }
 }

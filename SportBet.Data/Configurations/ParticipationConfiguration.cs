@@ -1,10 +1,5 @@
-﻿using SportBet.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity.ModelConfiguration;
+using SportBet.Core.Entities;
 
 namespace SportBet.Data.Configurations
 {
@@ -14,10 +9,10 @@ namespace SportBet.Data.Configurations
         {
             //Table and Columns
             this.ToTable("Participation", "public");
-            this.Property(participation => participation.EventId).
-                HasColumnName("ParticipationEventNo");
-            this.Property(participation => participation.ParticipantId).
-                HasColumnName("ParticipationParticipantNo");
+            this.Property(participation => participation.EventId)
+                .HasColumnName("ParticipationEventNo");
+            this.Property(participation => participation.ParticipantId)
+                .HasColumnName("ParticipationParticipantNo");
 
             //Primary Keys
             this.HasKey(participation => new 
@@ -27,12 +22,12 @@ namespace SportBet.Data.Configurations
             });
 
             //Foreign Keys
-            this.HasRequired<EventEntity>(participation => participation.Event).
-                WithMany(_event => _event.Participations).
-                HasForeignKey(participation => participation.EventId);
-            this.HasRequired<ParticipantEntity>(participation => participation.Participant).
-                WithMany(participant => participant.Participations).
-                HasForeignKey(participation => participation.ParticipantId);
+            this.HasRequired<EventEntity>(participation => participation.Event)
+                .WithMany(_event => _event.Participations)
+                .HasForeignKey(participation => participation.EventId);
+            this.HasRequired<ParticipantEntity>(participation => participation.Participant)
+                .WithMany(participant => participant.Participations)
+                .HasForeignKey(participation => participation.ParticipantId);
         }
     }
 }

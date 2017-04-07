@@ -1,10 +1,7 @@
-﻿using SportBet.Core.Entities;
-using SportBet.Data.Contracts.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SportBet.Core.Entities;
+using SportBet.Data.Contracts.Repositories;
 
 namespace SportBet.Data.Repositories
 {

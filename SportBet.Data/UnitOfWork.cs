@@ -1,11 +1,7 @@
 ﻿using SportBet.Data.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SportBet.Data.Contracts.Repositories;
 using SportBet.Data.Repositories;
+using System;
 
 namespace SportBet.Data
 {

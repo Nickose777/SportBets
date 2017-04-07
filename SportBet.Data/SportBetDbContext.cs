@@ -1,30 +1,37 @@
 ﻿using SportBet.Core.Entities;
 using SportBet.Data.Configurations;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportBet.Data
 {
     public class SportBetDbContext : DbContext
     {
         public DbSet<UserEntity> Users { get; set; }
+
         public DbSet<RoleEntity> Roles { get; set; }
+
         public DbSet<AdminEntity> Admins { get; set; }
+
         public DbSet<AnalyticEntity> Analytics { get; set; }
+
         public DbSet<BookmakerEntity> Bookmakers { get; set; }
+
         public DbSet<ClientEntity> Clients { get; set; }
 
         public DbSet<BetEntity> Bets { get; set; }
+
         public DbSet<CoefficientEntity> Coefficients { get; set; }
+
         public DbSet<CountryEntity> Countries { get; set; }
+
         public DbSet<EventEntity> Events { get; set; }
+
         public DbSet<ParticipantEntity> Participants { get; set; }
+
         public DbSet<ParticipationEntity> Participations { get; set; }
+
         public DbSet<SportEntity> Sports { get; set; }
+
         public DbSet<TournamentEntity> Tournaments { get; set; }
 
         public SportBetDbContext() //TODO "SportBetConnection"

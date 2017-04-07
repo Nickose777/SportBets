@@ -1,10 +1,6 @@
-﻿using SportBet.Core.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SportBet.Core.Entities;
 
 namespace SportBet.Data.Configurations
 {
@@ -14,24 +10,24 @@ namespace SportBet.Data.Configurations
         {
             //Table and Columns
             this.ToTable("Analytics", "public");
-            this.Property(analytic => analytic.Id).
-                HasColumnName("AnalyticNo");
+            this.Property(analytic => analytic.Id)
+                .HasColumnName("AnalyticNo");
 
             //Primary Keys
-            this.HasKey(analytic => analytic.Id).
-                Property(analytic => analytic.Id).
-                HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            this.HasKey(analytic => analytic.Id)
+                .Property(analytic => analytic.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             //Other Settings
-            this.Property(analytic => analytic.FirstName).
-                IsRequired().
-                HasMaxLength(20);
-            this.Property(analytic => analytic.LastName).
-                IsRequired().
-                HasMaxLength(20);
-            this.Property(analytic => analytic.PhoneNumber).
-                IsRequired().
-                HasMaxLength(15);
+            this.Property(analytic => analytic.FirstName)
+                .IsRequired()
+                .HasMaxLength(20);
+            this.Property(analytic => analytic.LastName)
+                .IsRequired()
+                .HasMaxLength(20);
+            this.Property(analytic => analytic.PhoneNumber)
+                .IsRequired()
+                .HasMaxLength(15);
         }
     }
 }

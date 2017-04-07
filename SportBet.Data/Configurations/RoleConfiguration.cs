@@ -1,10 +1,5 @@
-﻿using SportBet.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity.ModelConfiguration;
+using SportBet.Core.Entities;
 
 namespace SportBet.Data.Configurations
 {
@@ -14,16 +9,16 @@ namespace SportBet.Data.Configurations
         {
             //Table and Columns
             this.ToTable("Roles", "public");
-            this.Property(role => role.Id).
-                HasColumnName("RoleNo");
+            this.Property(role => role.Id)
+                .HasColumnName("RoleNo");
 
             //Primary Keys
             this.HasKey(role => role.Id);
 
             //Other Settings
-            this.Property(role => role.Name).
-                IsRequired().
-                HasMaxLength(20);
+            this.Property(role => role.Name)
+                .IsRequired()
+                .HasMaxLength(20);
         }
     }
 }

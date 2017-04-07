@@ -1,11 +1,9 @@
-﻿using SportBet.Data.Contracts.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using SportBet.Data.Contracts.Repositories;
 
 namespace SportBet.Data.Repositories
 {
@@ -24,6 +22,7 @@ namespace SportBet.Data.Repositories
             DbSet<TEntity> dbSet = context.Set<TEntity>();
             dbSet.Add(entity);
         }
+
         public void Remove(TEntity entity)
         {
             SportBetDbContext context = GetContext();
@@ -37,12 +36,14 @@ namespace SportBet.Data.Repositories
             DbSet<TEntity> dbSet = context.Set<TEntity>();
             return dbSet.Find(id);
         }
+
         public IEnumerable<TEntity> GetAll()
         {
             SportBetDbContext context = GetContext();
             DbSet<TEntity> dbSet = context.Set<TEntity>();
             return dbSet.ToList();
         }
+
         public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate)
         {
             SportBetDbContext context = GetContext();

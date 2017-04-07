@@ -1,10 +1,6 @@
-﻿using SportBet.Core.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SportBet.Core.Entities;
 
 namespace SportBet.Data.Configurations
 {
@@ -14,25 +10,25 @@ namespace SportBet.Data.Configurations
         {
             //Table and Columns
             this.ToTable("Tournaments", "public");
-            this.Property(tournament => tournament.Id).
-                HasColumnName("TournamentNo");
-            this.Property(tournament => tournament.SportId).
-                HasColumnName("TournamentSportNo");
+            this.Property(tournament => tournament.Id)
+                .HasColumnName("TournamentNo");
+            this.Property(tournament => tournament.SportId)
+                .HasColumnName("TournamentSportNo");
 
             //Primary Keys
             this.HasKey(tournament => tournament.Id);
 
             //Foreign Keys
-            this.HasRequired<SportEntity>(tournament => tournament.Sport).
-                WithMany(sport => sport.Tournaments).
-                HasForeignKey(tournament => tournament.SportId);
+            this.HasRequired<SportEntity>(tournament => tournament.Sport)
+                .WithMany(sport => sport.Tournaments)
+                .HasForeignKey(tournament => tournament.SportId);
 
             //Other Settings
-            this.Property(tournament => tournament.Name).
-                IsRequired().
-                HasMaxLength(20);
-            this.Property<DateTime>(tournament => tournament.DateOfStart).
-                IsRequired();
+            this.Property(tournament => tournament.Name)
+                .IsRequired()
+                .HasMaxLength(20);
+            this.Property<DateTime>(tournament => tournament.DateOfStart)
+                .IsRequired();
         }
     }
 }
