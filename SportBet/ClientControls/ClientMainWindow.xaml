@@ -1,4 +1,5 @@
-﻿<Window x:Class="SportBet.ClientControls.ClientMainWindow"
+﻿<base:MainWindowBase x:Class="SportBet.ClientControls.ClientMainWindow"
+        xmlns:base="clr-namespace:SportBet"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Footer="clr-namespace:SportBet.CommonControls"
@@ -17,4 +18,4 @@
 
         <Footer:Footer Grid.Row="2" x:Name="footer" />
     </Grid>
-</Window>
+</base:MainWindowBase>

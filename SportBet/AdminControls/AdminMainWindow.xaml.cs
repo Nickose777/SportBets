@@ -7,16 +7,12 @@ namespace SportBet.AdminControls
     /// <summary>
     /// Interaction logic for AdminMainWindow.xaml
     /// </summary>
-    public partial class AdminMainWindow : Window, ISignOutWindow
+    public partial class AdminMainWindow : MainWindowBase
     {
-        public event EventHandler SignedOut;
-
-        private ServiceFactory factory;
-
         public AdminMainWindow(ServiceFactory factory, string login)
+            : base(factory, login)
         {
             InitializeComponent();
-            this.factory = factory;
 
             SetFooterMessage(true, String.Format("Welcome, {0} (admin)", login));
         }
@@ -32,16 +28,6 @@ namespace SportBet.AdminControls
             //TODO
             //MessageBox for question
             RaiseSignedOutEvent();
-        }
-
-        private void RaiseSignedOutEvent()
-        {
-            var handler = SignedOut;
-            if (handler != null)
-            {
-                EventArgs e = new EventArgs();
-                handler(this, e);
-            }
         }
     }
 }

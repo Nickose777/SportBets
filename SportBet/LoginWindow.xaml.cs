@@ -63,17 +63,17 @@ namespace SportBet
                     LoginType loginType = result.LoginType;
                     ServiceFactory factory = result.Factory;
 
-                    ISignOutWindow logoutWindow = Create(factory, loginType, login);
+                    MainWindowBase window = Create(factory, loginType, login);
 
-                    logoutWindow.SignedOut += (s, e) =>
+                    window.SignedOut += (s, e) =>
                     {
                         this.Show();
                         shouldBeClosed = false;
-                        logoutWindow.Close();
+                        window.Close();
                     };
-                    logoutWindow.Closed += (s, e) => this.Close();
+                    window.Closed += (s, e) => this.Close();
 
-                    logoutWindow.Show();
+                    window.Show();
                     this.Hide();
                 }
                 else
@@ -83,9 +83,9 @@ namespace SportBet
             }
         }
 
-        private ISignOutWindow Create(ServiceFactory factory, LoginType loginType, string login)
+        private MainWindowBase Create(ServiceFactory factory, LoginType loginType, string login)
         {
-            ISignOutWindow window = null;
+            MainWindowBase window = null;
 
             switch (loginType)
             {

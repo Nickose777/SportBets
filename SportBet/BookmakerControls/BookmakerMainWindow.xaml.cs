@@ -15,16 +15,12 @@ namespace SportBet.BookmakerControls
     /// <summary>
     /// Interaction logic for BookmakerMainWindow.xaml
     /// </summary>
-    public partial class BookmakerMainWindow : Window, ISignOutWindow
+    public partial class BookmakerMainWindow : MainWindowBase
     {
-        public event EventHandler SignedOut;
-
-        private ServiceFactory factory;
-
         public BookmakerMainWindow(ServiceFactory factory, string login)
+            : base(factory, login)
         {
             InitializeComponent();
-            this.factory = factory;
 
             SetFooterMessage(true, String.Format("Welcome, {0} (bookmaker)", login));
         }
@@ -71,16 +67,6 @@ namespace SportBet.BookmakerControls
             //TODO
             //MessageBox for question
             RaiseSignedOutEvent();
-        }
-
-        private void RaiseSignedOutEvent()
-        {
-            var handler = SignedOut;
-            if (handler != null)
-            {
-                EventArgs e = new EventArgs();
-                handler(this, e);
-            }
         }
     }
 }

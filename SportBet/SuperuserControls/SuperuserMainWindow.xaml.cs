@@ -19,16 +19,13 @@ namespace SportBet.SuperuserControls
     /// <summary>
     /// Interaction logic for SuperuserMainWindow.xaml
     /// </summary>
-    public partial class SuperuserMainWindow : ISignOutWindow
+    public partial class SuperuserMainWindow : MainWindowBase
     {
-        public event EventHandler SignedOut;
-
-        private readonly ServiceFactory factory;
-
         public SuperuserMainWindow(ServiceFactory factory, string login)
+            : base(factory, login)
         {
             InitializeComponent();
-            this.factory = factory;
+
             SetFooterMessage(true, String.Format("Welcome, {0} (superuser)", login));
         }
 
@@ -337,16 +334,6 @@ namespace SportBet.SuperuserControls
             //TODO
             //MessageBox for question
             RaiseSignedOutEvent();
-        }
-
-        private void RaiseSignedOutEvent()
-        {
-            var handler = SignedOut;
-            if (handler != null)
-            {
-                EventArgs e = new EventArgs();
-                handler(this, e);
-            }
         }
     }
 }

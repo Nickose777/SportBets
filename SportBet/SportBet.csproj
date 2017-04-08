@@ -144,7 +144,6 @@
     <Compile Include="EventHandlers\Register\BookmakerRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\Display\ClientDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Register\ClientRegisterEventHandler.cs" />
-    <Compile Include="ISignOutWindow.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\MappingProfile.cs" />
     <Compile Include="Models\Display\AdminDisplayModel.cs" />
@@ -159,6 +158,7 @@
     <Compile Include="Models\Registers\RegisterBaseModel.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="RegisterObservableObject.cs" />
+    <Compile Include="MainWindowBase.cs" />
     <Compile Include="SuperuserControls\SuperuserMainWindow.xaml.cs">
       <DependentUpon>SuperuserMainWindow.xaml</DependentUpon>
     </Compile>

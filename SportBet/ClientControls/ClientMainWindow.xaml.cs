@@ -15,19 +15,12 @@ namespace SportBet.ClientControls
     /// <summary>
     /// Interaction logic for ClientMainWindow.xaml
     /// </summary>
-    public partial class ClientMainWindow : Window, ISignOutWindow
+    public partial class ClientMainWindow : MainWindowBase
     {
-        public event EventHandler SignedOut;
-
-        private readonly ServiceFactory factory;
-        private readonly string login;
-
         public ClientMainWindow(ServiceFactory factory, string login)
+            : base(factory, login)
         {
             InitializeComponent();
-
-            this.factory = factory;
-            this.login = login;
 
             SetFooterMessage(true, String.Format("Welcome, {0} (client)", login));
         }
@@ -80,16 +73,6 @@ namespace SportBet.ClientControls
             //TODO
             //MessageBox for question
             RaiseSignedOutEvent();
-        }
-
-        private void RaiseSignedOutEvent()
-        {
-            var handler = SignedOut;
-            if (handler != null)
-            {
-                EventArgs e = new EventArgs();
-                handler(this, e);
-            }
         }
     }
 }

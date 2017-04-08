@@ -7,16 +7,12 @@ namespace SportBet.AnalyticControls
     /// <summary>
     /// Interaction logic for AnalyticMainWindow.xaml
     /// </summary>
-    public partial class AnalyticMainWindow : Window, ISignOutWindow
+    public partial class AnalyticMainWindow : MainWindowBase
     {
-        public event EventHandler SignedOut;
-
-        private ServiceFactory factory;
-
         public AnalyticMainWindow(ServiceFactory factory, string login)
+            : base(factory, login)
         {
             InitializeComponent();
-            this.factory = factory;
 
             SetFooterMessage(true, String.Format("Welcome, {0} (analytic)", login));
         }
@@ -32,16 +28,6 @@ namespace SportBet.AnalyticControls
             //TODO
             //MessageBox for question
             RaiseSignedOutEvent();
-        }
-
-        private void RaiseSignedOutEvent()
-        {
-            var handler = SignedOut;
-            if (handler != null)
-            {
-                EventArgs e = new EventArgs();
-                handler(this, e);
-            }
         }
     }
 }
