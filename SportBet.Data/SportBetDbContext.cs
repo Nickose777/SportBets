@@ -6,6 +6,8 @@ namespace SportBet.Data
 {
     public class SportBetDbContext : DbContext
     {
+        public DbSet<AdminPasswordEntity> AdminPassword { get; set; }
+
         public DbSet<UserEntity> Users { get; set; }
 
         public DbSet<RoleEntity> Roles { get; set; }
@@ -42,6 +44,8 @@ namespace SportBet.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("public");
+
+            modelBuilder.Configurations.Add(new AdminPasswordConfiguration());
 
             modelBuilder.Configurations.Add(new RoleConfiguraion());
             modelBuilder.Configurations.Add(new UserConfiguraion());

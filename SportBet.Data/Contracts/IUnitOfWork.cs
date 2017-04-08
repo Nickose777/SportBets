@@ -5,6 +5,8 @@ namespace SportBet.Data.Contracts
 {
     public interface IUnitOfWork : IDisposable
     {
+        IAdminPassword AdminPassword { get; }
+
         IUserRepository Users { get; }
 
         IRoleRepository Roles { get; }

@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\AdminEntity.cs" />
+    <Compile Include="Entities\AdminPasswordEntity.cs" />
     <Compile Include="Entities\AnalyticEntity.cs" />
     <Compile Include="Entities\BetEntity.cs" />
     <Compile Include="Entities\BookmakerEntity.cs" />

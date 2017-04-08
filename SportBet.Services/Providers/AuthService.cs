@@ -41,6 +41,9 @@ namespace SportBet.Services.Providers
                 {
                     unitOfWork.Accounts.CreateDefaultSuperuser("admin", hashedPassword);
                     unitOfWork.Users.Add(new UserEntity { Login = "admin", RoleId = RolesCodes.SuperuserRole });
+
+                    unitOfWork.AdminPassword.SetPassword(hashedPassword);
+
                     unitOfWork.Commit();
                 }
             }
@@ -98,6 +101,7 @@ namespace SportBet.Services.Providers
                 }
 
                 Session.CurrentUserLogin = login;
+                Session.CurrentUserHashedPassword = hashedPassword;
             }
             catch (Exception ex)
             {

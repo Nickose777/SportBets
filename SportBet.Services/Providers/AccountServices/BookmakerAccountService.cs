@@ -44,6 +44,11 @@ namespace SportBet.Services.Providers.AccountServices
 
                 try
                 {
+                    string adminLogin = "admin";
+                    string adminPassword = unitOfWork.AdminPassword.GetPassword();
+
+                    unitOfWork.Reconnect(adminLogin, adminPassword);
+
                     unitOfWork.Accounts.RegisterClientRole(clientRegisterDTO.Login, hashedPassword);
 
                     UserEntity userEntity = new UserEntity
@@ -66,6 +71,11 @@ namespace SportBet.Services.Providers.AccountServices
                     unitOfWork.Clients.Add(clientEntity);
 
                     unitOfWork.Commit();
+
+                    string currentUserLogin = Session.CurrentUserLogin;
+                    string currentUserPassword = Session.CurrentUserHashedPassword;
+                    unitOfWork.Reconnect(currentUserLogin, currentUserPassword);
+
                     message = "Successfully registered new client!";
                 }
                 catch (Exception ex)
