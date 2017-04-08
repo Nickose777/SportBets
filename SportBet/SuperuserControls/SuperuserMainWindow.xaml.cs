@@ -188,11 +188,11 @@ namespace SportBet.SuperuserControls
 
             if (resultMessage.IsSuccessful)
             {
-                IEnumerable<AnalyticDisplayDTO> adminDTOs = resultMessage.Data;
-                IEnumerable<AnalyticDisplayModel> admins = adminDTOs
+                IEnumerable<AnalyticDisplayDTO> analyticDTOs = resultMessage.Data;
+                IEnumerable<AnalyticDisplayModel> analytics = analyticDTOs
                     .Select(dto => Mapper.Map<AnalyticDisplayDTO, AnalyticDisplayModel>(dto));
 
-                ManageAnalyticsViewModel viewModel = new ManageAnalyticsViewModel(admins);
+                ManageAnalyticsViewModel viewModel = new ManageAnalyticsViewModel(analytics);
                 ManageAnalyticsControl control = new ManageAnalyticsControl(viewModel);
                 Window window = WindowFactory.CreateByContentsSize(control);
 
@@ -208,11 +208,11 @@ namespace SportBet.SuperuserControls
                         if (result.IsSuccessful)
                         {
                             DataServiceMessage<IEnumerable<AnalyticDisplayDTO>> serviceMessage = service.GetAll();
-                            adminDTOs = serviceMessage.Data;
-                            admins = adminDTOs
+                            analyticDTOs = serviceMessage.Data;
+                            analytics = analyticDTOs
                                 .Select(dto => Mapper.Map<AnalyticDisplayDTO, AnalyticDisplayModel>(dto));
 
-                            viewModel.Refresh(admins);
+                            viewModel.Refresh(analytics);
                         }
                     }
                 };
@@ -306,8 +306,8 @@ namespace SportBet.SuperuserControls
                         if (result.IsSuccessful)
                         {
                             DataServiceMessage<IEnumerable<ClientDisplayDTO>> serviceMessage = service.GetAll();
-                            IEnumerable<ClientDisplayDTO> clientsDTOs = serviceMessage.Data;
-                            clients = clientDTOs
+                            IEnumerable<ClientDisplayDTO> _clientsDTOs = serviceMessage.Data;
+                            clients = _clientsDTOs
                                 .Select(dto => Mapper.Map<ClientDisplayDTO, ClientDisplayModel>(dto));
 
                             viewModel.Refresh(clients);
