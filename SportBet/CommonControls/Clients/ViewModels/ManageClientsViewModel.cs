@@ -8,6 +8,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
 {
     public class ManageClientsViewModel : ObservableObject
     {
+        public event ClientDisplayEventHandler ClientSelectRequest;
         public event ClientDisplayEventHandler ClientDeleteRequest;
 
         public ClientListViewModel ClientListViewModel { get; private set; }
@@ -27,15 +28,28 @@ namespace SportBet.CommonControls.Clients.ViewModels
             ClientListViewModel = new ClientListViewModel(subject, controller);
             CanDeleteClient = allowDeleteClient;
 
-            this.DeleteSelectedClientCommand = new DelegateCommand(
+            this.SelectClientCommand = new DelegateCommand(
+                () => RaiseClientSelectRequestEvent(SelectedClient),
+                obj => SelectedClient != null);
+            this.DeleteClientCommand = new DelegateCommand(
                 () => RaiseClientDeleteRequestEvent(SelectedClient),
                 obj => SelectedClient != null);
         }
 
-        public ICommand DeleteSelectedClientCommand { get; private set; }
+        public ICommand SelectClientCommand { get; private set; }
+        public ICommand DeleteClientCommand { get; private set; }
 
         public bool CanDeleteClient { get; private set; }
 
+        private void RaiseClientSelectRequestEvent(ClientDisplayModel client)
+        {
+            var handler = ClientSelectRequest;
+            if (handler != null)
+            {
+                ClientDisplayEventArgs e = new ClientDisplayEventArgs(client);
+                handler(this, e);
+            }
+        }
         private void RaiseClientDeleteRequestEvent(ClientDisplayModel client)
         {
             var handler = ClientDeleteRequest;

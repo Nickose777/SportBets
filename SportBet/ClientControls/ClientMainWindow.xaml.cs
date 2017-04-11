@@ -2,13 +2,13 @@
 using System.Windows;
 using System.Windows.Controls;
 using AutoMapper;
-using SportBet.ClientControls.UserControls;
-using SportBet.ClientControls.ViewModels;
 using SportBet.Models.Edit;
 using SportBet.Services.Contracts.Factories;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
+using SportBet.CommonControls.Clients.ViewModels;
+using SportBet.CommonControls.Clients.UserControls;
 
 namespace SportBet.ClientControls
 {

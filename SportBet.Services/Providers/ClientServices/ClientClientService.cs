@@ -62,39 +62,6 @@ namespace SportBet.Services.Providers.ClientServices
             return new ServiceMessage(message, success);
         }
 
-        private bool Validate(ClientEditDTO clientEditDTO, ref string message)
-        {
-            bool isValid = true;
-
-            if (String.IsNullOrEmpty(clientEditDTO.LastName))
-            {
-                message = "Last name must not be empty";
-                isValid = false;
-            }
-            else if (String.IsNullOrEmpty(clientEditDTO.FirstName))
-            {
-                message = "First name must not be empty";
-                isValid = false;
-            }
-            else if (String.IsNullOrEmpty(clientEditDTO.PhoneNumber))
-            {
-                message = "Phone number name must not be empty";
-                isValid = false;
-            }
-            else if (clientEditDTO.DateOfBirth.Year < DateTime.Now.Year - 100)
-            {
-                message = "You are too old. Sorry";
-                isValid = false;
-            }
-            else if (clientEditDTO.DateOfBirth.Year > DateTime.Now.Year - 18)
-            {
-                message = "You are too young. Sorry";
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
         public ServiceMessage Delete(string login)
         {
             return new ServiceMessage("No permissions to delete a client", false);
@@ -145,6 +112,39 @@ namespace SportBet.Services.Providers.ClientServices
         public void Dispose()
         {
             unitOfWork.Dispose();
+        }
+
+        private bool Validate(ClientEditDTO clientEditDTO, ref string message)
+        {
+            bool isValid = true;
+
+            if (String.IsNullOrEmpty(clientEditDTO.LastName))
+            {
+                message = "Last name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(clientEditDTO.FirstName))
+            {
+                message = "First name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(clientEditDTO.PhoneNumber))
+            {
+                message = "Phone number name must not be empty";
+                isValid = false;
+            }
+            else if (clientEditDTO.DateOfBirth.Year < DateTime.Now.Year - 100)
+            {
+                message = "You are too old. Sorry";
+                isValid = false;
+            }
+            else if (clientEditDTO.DateOfBirth.Year > DateTime.Now.Year - 18)
+            {
+                message = "You are too young. Sorry";
+                isValid = false;
+            }
+
+            return isValid;
         }
     }
 }

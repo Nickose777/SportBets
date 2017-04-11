@@ -98,12 +98,20 @@
                 <TextBlock Grid.Row="3" Text="{Binding SelectedClient.DateOfRegistration, StringFormat='Date of registration: {0:dd/MM/yyyy}'}" />
 
                 <Button
-                    Grid.Row="4" 
-                    HorizontalAlignment="Center"
+                    Grid.Row="4"
+                    HorizontalAlignment="Left"
                     Padding="30,0"
+                    Margin="30,0"
+                    Content="Edit"
+                    Command="{Binding SelectClientCommand}" />
+                <Button
+                    Grid.Row="4"
+                    HorizontalAlignment="Right"
+                    Padding="30,0"
+                    Margin="30,0"
                     Content="Delete"
                     Visibility="{Binding CanDeleteClient, Converter={StaticResource booleanToVisibilityConverter}}"
-                    Command="{Binding DeleteSelectedClientCommand}" />
+                    Command="{Binding DeleteClientCommand}" />
             </Grid>
         </GroupBox>
     </Grid>

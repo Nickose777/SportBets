@@ -118,10 +118,10 @@
     <Compile Include="ClientControls\ClientMainWindow.xaml.cs">
       <DependentUpon>ClientMainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ClientControls\UserControls\ClientInfoControl.xaml.cs">
+    <Compile Include="CommonControls\Clients\UserControls\ClientInfoControl.xaml.cs">
       <DependentUpon>ClientInfoControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ClientControls\ViewModels\ClientInfoViewModel.cs" />
+    <Compile Include="CommonControls\Clients\ViewModels\ClientInfoViewModel.cs" />
     <Compile Include="CommonControls\Clients\UserControls\ManageClientsControl.xaml.cs">
       <DependentUpon>ManageClientsControl.xaml</DependentUpon>
     </Compile>
@@ -221,7 +221,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ClientControls\UserControls\ClientInfoControl.xaml">
+    <Page Include="CommonControls\Clients\UserControls\ClientInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -307,7 +307,10 @@
       <Name>SportBet.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ClientControls\UserControls\" />
+    <Folder Include="ClientControls\ViewModels\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
