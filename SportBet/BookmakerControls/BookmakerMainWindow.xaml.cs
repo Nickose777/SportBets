@@ -9,6 +9,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
+using SportBet.Subjects;
 
 namespace SportBet.BookmakerControls
 {
@@ -54,6 +55,18 @@ namespace SportBet.BookmakerControls
             };
 
             window.ShowDialog();
+        }
+
+        private void ManageClients_Click(object sender, RoutedEventArgs e)
+        {
+            ManageClients();
+        }
+        private void ManageClients()
+        {
+            ClientDisplayManager clientDisplayManager = new ClientDisplayManager(factory);
+            clientDisplayManager.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
+
+            clientDisplayManager.DisplayClientsForBookmaker();
         }
 
         private void SetFooterMessage(bool success, string message)

@@ -279,7 +279,7 @@ namespace SportBet.SuperuserControls
             ClientDisplayManager clientDisplayManager = new ClientDisplayManager(factory);
             clientDisplayManager.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
-            clientDisplayManager.DisplayClients();
+            clientDisplayManager.DisplayClientsForAdmin();
         }
 
         private void SetFooterMessage(bool success, string message)

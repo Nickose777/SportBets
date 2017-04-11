@@ -15,6 +15,9 @@
             <MenuItem Header="Register...">
                 <MenuItem Header="Client" Click="RegisterClient_Click" />
             </MenuItem>
+            <MenuItem Header="Manage...">
+                <MenuItem Header="Clients" Click="ManageClients_Click" />
+            </MenuItem>
             <MenuItem Header="Sign out" Click="SignOut_Click" />
         </Menu>
         

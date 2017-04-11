@@ -122,6 +122,11 @@
       <DependentUpon>ClientInfoControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ClientControls\ViewModels\ClientInfoViewModel.cs" />
+    <Compile Include="CommonControls\Clients\UserControls\ManageClientsControl.xaml.cs">
+      <DependentUpon>ManageClientsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommonControls\Clients\ViewModels\ClientListViewModel.cs" />
+    <Compile Include="CommonControls\Clients\ViewModels\ManageClientsViewModel.cs" />
     <Compile Include="CommonControls\Footer.xaml.cs">
       <DependentUpon>Footer.xaml</DependentUpon>
     </Compile>
@@ -179,9 +184,6 @@
     <Compile Include="SuperuserControls\UserControls\ManageBookmakersControl.xaml.cs">
       <DependentUpon>ManageBookmakersControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SuperuserControls\UserControls\ManageClientsControl.xaml.cs">
-      <DependentUpon>ManageClientsControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SuperuserControls\UserControls\RegisterAdminControl.xaml.cs">
       <DependentUpon>RegisterAdminControl.xaml</DependentUpon>
     </Compile>
@@ -197,7 +199,6 @@
     <Compile Include="SuperuserControls\ViewModels\ManageAdminsViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageAnalyticsViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageBookmakersViewModel.cs" />
-    <Compile Include="SuperuserControls\ViewModels\ManageClientsViewModel.cs" />
     <Compile Include="ValueConverters\InverseBooleanConverter.cs" />
     <Compile Include="WindowFactories\WindowFactory.cs" />
     <Page Include="AdminControls\AdminMainWindow.xaml">
@@ -221,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ClientControls\UserControls\ClientInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Clients\UserControls\ManageClientsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -252,10 +257,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SuperuserControls\UserControls\ManageBookmakersControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SuperuserControls\UserControls\ManageClientsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -306,10 +307,7 @@
       <Name>SportBet.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CommonControls\Clients\UserControls\" />
-    <Folder Include="CommonControls\Clients\ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

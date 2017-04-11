@@ -1,4 +1,4 @@
-﻿using SportBet.SuperuserControls.ViewModels;
+﻿using SportBet.CommonControls.Clients.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SportBet.SuperuserControls.UserControls
+namespace SportBet.CommonControls.Clients.UserControls
 {
     /// <summary>
     /// Interaction logic for ManageClientsControl.xaml

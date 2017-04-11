@@ -11,9 +11,9 @@ using SportBet.Services.Contracts.Factories;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
-using SportBet.SuperuserControls.UserControls;
-using SportBet.SuperuserControls.ViewModels;
 using SportBet.WindowFactories;
+using SportBet.CommonControls.Clients.ViewModels;
+using SportBet.CommonControls.Clients.UserControls;
 
 namespace SportBet.Subjects
 {
@@ -30,12 +30,12 @@ namespace SportBet.Subjects
             observers = new List<IClientObserver>();
         }
 
-        public void DisplayClients()
+        public void DisplayClientsForAdmin()
         {
             IClientController controller = new ClientController(factory);
             controller.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
 
-            ManageClientsViewModel viewModel = new ManageClientsViewModel(this, controller);
+            ManageClientsViewModel viewModel = new ManageClientsViewModel(this, controller, true);
             ManageClientsControl control = new ManageClientsControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
 
@@ -56,6 +56,18 @@ namespace SportBet.Subjects
                     Notify();
                 }
             };
+
+            window.ShowDialog();
+        }
+
+        public void DisplayClientsForBookmaker()
+        {
+            IClientController controller = new ClientController(factory);
+            controller.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
+
+            ManageClientsViewModel viewModel = new ManageClientsViewModel(this, controller, false);
+            ManageClientsControl control = new ManageClientsControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
 
             window.ShowDialog();
         }

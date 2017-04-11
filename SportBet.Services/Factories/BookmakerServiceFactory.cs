@@ -5,6 +5,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
 using SportBet.Services.Encryption;
 using SportBet.Services.Providers.AccountServices;
+using SportBet.Services.Providers.ClientServices;
 
 namespace SportBet.Services.Factories
 {
@@ -29,7 +30,9 @@ namespace SportBet.Services.Factories
 
         public override IClientService CreateClientService()
         {
-            throw new NotImplementedException();
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+
+            return new BookmakerClientService(unitOfWork);
         }
 
         public override IAdminService CreateAdminService()
