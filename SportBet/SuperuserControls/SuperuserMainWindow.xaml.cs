@@ -10,6 +10,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
+using SportBet.Subjects;
 using SportBet.SuperuserControls.UserControls;
 using SportBet.SuperuserControls.ViewModels;
 using SportBet.WindowFactories;
@@ -150,7 +151,6 @@ namespace SportBet.SuperuserControls
                 {
                     using (IAdminService service = factory.CreateAdminService())
                     {
-                        //TODO no need in AdminDisplayDTO
                         AdminDisplayDTO deletedAdmin = Mapper.Map<AdminDisplayModel, AdminDisplayDTO>(e.Admin);
                         ServiceMessage result = service.Delete(deletedAdmin.Login);
 
@@ -276,51 +276,10 @@ namespace SportBet.SuperuserControls
         }
         private void ManageClients()
         {
-            DataServiceMessage<IEnumerable<ClientDisplayDTO>> resultMessage;
-            using (IClientService service = factory.CreateClientService())
-            {
-                resultMessage = service.GetAll();
-            }
+            ClientDisplayManager clientDisplayManager = new ClientDisplayManager(factory);
+            clientDisplayManager.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
-            SetFooterMessage(resultMessage.IsSuccessful, resultMessage.Message);
-
-            if (resultMessage.IsSuccessful)
-            {
-                IEnumerable<ClientDisplayDTO> clientDTOs = resultMessage.Data;
-                IEnumerable<ClientDisplayModel> clients = clientDTOs
-                    .Select(dto => Mapper.Map<ClientDisplayDTO, ClientDisplayModel>(dto));
-
-                ManageClientsViewModel viewModel = new ManageClientsViewModel(clients);
-                ManageClientsControl control = new ManageClientsControl(viewModel);
-                Window window = WindowFactory.CreateByContentsSize(control);
-
-                viewModel.ClientDeleted += (s, e) =>
-                {
-                    using (IClientService service = factory.CreateClientService())
-                    {
-                        ClientDisplayDTO deletedClient = Mapper.Map<ClientDisplayModel, ClientDisplayDTO>(e.Client);
-                        ServiceMessage result = service.Delete(deletedClient.Login);
-
-                        SetFooterMessage(result.IsSuccessful, result.Message);
-
-                        if (result.IsSuccessful)
-                        {
-                            DataServiceMessage<IEnumerable<ClientDisplayDTO>> serviceMessage = service.GetAll();
-                            IEnumerable<ClientDisplayDTO> _clientsDTOs = serviceMessage.Data;
-                            clients = _clientsDTOs
-                                .Select(dto => Mapper.Map<ClientDisplayDTO, ClientDisplayModel>(dto));
-
-                            viewModel.Refresh(clients);
-                        }
-                    }
-                };
-
-                window.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show(resultMessage.Message);
-            }
+            clientDisplayManager.DisplayClients();
         }
 
         private void SetFooterMessage(bool success, string message)

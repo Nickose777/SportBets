@@ -125,6 +125,12 @@
     <Compile Include="CommonControls\Footer.xaml.cs">
       <DependentUpon>Footer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Contracts\Controllers\IClientController.cs" />
+    <Compile Include="Contracts\Controllers\IController.cs" />
+    <Compile Include="Contracts\Observers\IClientObserver.cs" />
+    <Compile Include="Contracts\Subjects\IClientSubject.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
@@ -144,6 +150,7 @@
     <Compile Include="EventHandlers\Register\BookmakerRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\Display\ClientDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Register\ClientRegisterEventHandler.cs" />
+    <Compile Include="EventHandlers\ServiceMessageEventHandler.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\MappingProfile.cs" />
     <Compile Include="Models\Display\AdminDisplayModel.cs" />
@@ -159,6 +166,7 @@
     <Compile Include="ObservableObject.cs" />
     <Compile Include="RegisterObservableObject.cs" />
     <Compile Include="MainWindowBase.cs" />
+    <Compile Include="Subjects\ClientDisplayManager.cs" />
     <Compile Include="SuperuserControls\SuperuserMainWindow.xaml.cs">
       <DependentUpon>SuperuserMainWindow.xaml</DependentUpon>
     </Compile>
@@ -298,7 +306,10 @@
       <Name>SportBet.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CommonControls\Clients\UserControls\" />
+    <Folder Include="CommonControls\Clients\ViewModels\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
