@@ -30,6 +30,8 @@ namespace SportBet.Services.Contracts.Factories
 
         public abstract ICountryService CreateCountryService();
 
+        public abstract ISportService CreateSportService();
+
         protected IUnitOfWork CreateUnitOfWork()
         {
             return new UnitOfWork(login, password);

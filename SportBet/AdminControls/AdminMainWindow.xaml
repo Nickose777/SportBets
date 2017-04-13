@@ -17,6 +17,7 @@
             </MenuItem>
             <MenuItem Header="Manage...">
                 <MenuItem Header="Countries" Click="ManageCountries_Click" />
+                <MenuItem Header="Sports" Click="ManageSports_Click" />
             </MenuItem>
             <MenuItem Header="Sign out" Click="SignOut_Click" />
         </Menu>

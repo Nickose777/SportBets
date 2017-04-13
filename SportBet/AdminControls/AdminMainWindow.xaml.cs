@@ -17,6 +17,7 @@ namespace SportBet.AdminControls
     public partial class AdminMainWindow : MainWindowBase
     {
         private readonly CountryDisplayManager countryDisplayManager;
+        private readonly SportDisplayManager sportDisplayManager;
 
         public AdminMainWindow(ServiceFactory factory, string login)
             : base(factory, login)
@@ -24,7 +25,10 @@ namespace SportBet.AdminControls
             InitializeComponent();
 
             countryDisplayManager = new CountryDisplayManager(factory, new CountryController(factory));
+            sportDisplayManager = new SportDisplayManager(factory, new SportController(factory));
+
             countryDisplayManager.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
+            sportDisplayManager.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
             SetFooterMessage(true, String.Format("Welcome, {0} (admin)", login));
         }
@@ -58,6 +62,11 @@ namespace SportBet.AdminControls
         private void ManageCountries_Click(object sender, RoutedEventArgs e)
         {
             countryDisplayManager.DisplayCountries();
+        }
+
+        private void ManageSports_Click(object sender, RoutedEventArgs e)
+        {
+            sportDisplayManager.DisplaySports();
         }
 
         private void SetFooterMessage(bool success, string message)

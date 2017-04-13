@@ -1,43 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using SportBet.Core.Entities;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
+using System.Collections.Generic;
 
-namespace SportBet.Services.Providers.CountryServices
+namespace SportBet.Services.Providers.SportServices
 {
-    class AdminCountryService : ICountryService
+    class AdminSportService : ISportService
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public AdminCountryService(IUnitOfWork unitOfWork)
+        public AdminSportService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
-        public ServiceMessage Create(string countryName)
+        public ServiceMessage Create(string sportName)
         {
             string message;
             bool success = true;
 
             try
             {
-                int countriesWithSameNameCount = unitOfWork.Countries.GetAll(country => country.Name == countryName).Count();
-                if (countriesWithSameNameCount == 0)
+                int sportsWithSameNameCount = unitOfWork.Countries.GetAll(country => country.Name == sportName).Count();
+                if (sportsWithSameNameCount == 0)
                 {
-                    unitOfWork.Countries.Add(new CountryEntity
+                    unitOfWork.Sports.Add(new SportEntity
                     {
-                        Name = countryName
+                        Type = sportName
                     });
                     unitOfWork.Commit();
 
-                    message = "Country added";
+                    message = "Sport added";
                 }
                 else
                 {
-                    message = "Country with such name already exists";
+                    message = "Sport with such name already exists";
                     success = false;
                 }
             }
@@ -54,14 +54,14 @@ namespace SportBet.Services.Providers.CountryServices
         {
             string message;
             bool success = true;
-            IEnumerable<string> countryNames = null;
+            IEnumerable<string> sportNames = null;
 
             try
             {
-                IEnumerable<CountryEntity> countryEntities = unitOfWork.Countries.GetAll();
-                countryNames = countryEntities.Select(countryEntity => countryEntity.Name);
+                IEnumerable<SportEntity> sportEntities = unitOfWork.Sports.GetAll();
+                sportNames = sportEntities.Select(countryEntity => countryEntity.Type);
 
-                message = "Got all countries";
+                message = "Got all sports";
             }
             catch (Exception ex)
             {
@@ -69,7 +69,7 @@ namespace SportBet.Services.Providers.CountryServices
                 success = false;
             }
 
-            return new DataServiceMessage<IEnumerable<string>>(countryNames, message, success);
+            return new DataServiceMessage<IEnumerable<string>>(sportNames, message, success);
         }
 
         public void Dispose()
