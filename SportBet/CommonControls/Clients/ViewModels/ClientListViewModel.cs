@@ -11,9 +11,9 @@ using SportBet.Models.Display;
 
 namespace SportBet.CommonControls.Clients.ViewModels
 {
-    public class ClientListViewModel : ObservableObject, IClientObserver
+    public class ClientListViewModel : ObservableObject, IObserver
     {
-        private readonly IClientSubject subject;
+        private readonly ISubject subject;
         private readonly IClientController controller;
 
         private ClientDisplayModel client;
@@ -21,7 +21,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
         private string lastNameFilter;
         private string phoneNumberFilter;
 
-        public ClientListViewModel(IClientSubject subject, IClientController controller)
+        public ClientListViewModel(ISubject subject, IClientController controller)
         {
             this.subject = subject;
             this.controller = controller;

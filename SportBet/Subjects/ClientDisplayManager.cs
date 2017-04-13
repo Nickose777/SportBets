@@ -19,18 +19,11 @@ using SportBet.WindowFactories;
 
 namespace SportBet.Subjects
 {
-    class ClientDisplayManager : IClientSubject
+    class ClientDisplayManager : SubjectBase, ISubject
     {
-        public event ServiceMessageEventHandler ReceivedMessage;
-
-        private readonly ServiceFactory factory;
-        private List<IClientObserver> observers;
-
+        //TODO IClientController in ctor
         public ClientDisplayManager(ServiceFactory factory)
-        {
-            this.factory = factory;
-            observers = new List<IClientObserver>();
-        }
+            : base(factory) { }
 
         public void DisplayClientsForAdmin()
         {
@@ -77,24 +70,6 @@ namespace SportBet.Subjects
             window.ShowDialog();
         }
 
-        public void Subscribe(IClientObserver observer)
-        {
-            observers.Add(observer);
-        }
-
-        public void Unsubscribe(IClientObserver observer)
-        {
-            observers.Remove(observer);
-        }
-
-        public void Notify()
-        {
-            foreach (IClientObserver observer in observers)
-            {
-                observer.Update();
-            }
-        }
-
         private void EditClient(ClientDisplayModel clientDisplayModel)
         {
             string login = clientDisplayModel.Login;
@@ -128,24 +103,6 @@ namespace SportBet.Subjects
             };
 
             window.ShowDialog();
-        }
-
-        private void RaiseReceivedMessageEvent(bool success, string message)
-        {
-            var handler = ReceivedMessage;
-            if (handler != null)
-            {
-                ServiceMessageEventArgs e = new ServiceMessageEventArgs(success, message);
-                handler(this, e);
-            }
-        }
-        private void RaiseReceivedMessageEvent(object sender, ServiceMessageEventArgs e)
-        {
-            var handler = ReceivedMessage;
-            if (handler != null)
-            {
-                handler(sender, e);
-            }
         }
     }
 }

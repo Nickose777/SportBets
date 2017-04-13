@@ -6,6 +6,8 @@ using SportBet.AdminControls.UserControls;
 using SportBet.WindowFactories;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
+using SportBet.Subjects;
+using SportBet.Controllers;
 
 namespace SportBet.AdminControls
 {
@@ -14,10 +16,15 @@ namespace SportBet.AdminControls
     /// </summary>
     public partial class AdminMainWindow : MainWindowBase
     {
+        private readonly CountryDisplayManager countryDisplayManager;
+
         public AdminMainWindow(ServiceFactory factory, string login)
             : base(factory, login)
         {
             InitializeComponent();
+
+            countryDisplayManager = new CountryDisplayManager(factory, new CountryController(factory));
+            countryDisplayManager.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
             SetFooterMessage(true, String.Format("Welcome, {0} (admin)", login));
         }
@@ -46,6 +53,11 @@ namespace SportBet.AdminControls
             };
 
             window.ShowDialog();
+        }
+
+        private void ManageCountries_Click(object sender, RoutedEventArgs e)
+        {
+            countryDisplayManager.DisplayCountries();
         }
 
         private void SetFooterMessage(bool success, string message)

@@ -23,7 +23,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
             }
         }
 
-        public ManageClientsViewModel(IClientSubject subject, IClientController controller, bool allowDeleteClient)
+        public ManageClientsViewModel(ISubject subject, IClientController controller, bool allowDeleteClient)
         {
             ClientListViewModel = new ClientListViewModel(subject, controller);
             CanDeleteClient = allowDeleteClient;

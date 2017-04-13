@@ -15,6 +15,9 @@
             <MenuItem Header="Create...">
                 <MenuItem Header="Country" Click="CreateCountry_Click" />
             </MenuItem>
+            <MenuItem Header="Manage...">
+                <MenuItem Header="Countries" Click="ManageCountries_Click" />
+            </MenuItem>
             <MenuItem Header="Sign out" Click="SignOut_Click" />
         </Menu>
 

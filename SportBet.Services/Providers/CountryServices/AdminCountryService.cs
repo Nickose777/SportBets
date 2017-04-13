@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SportBet.Core.Entities;
 using SportBet.Data.Contracts;
@@ -47,6 +48,28 @@ namespace SportBet.Services.Providers.CountryServices
             }
 
             return new ServiceMessage(message, success);
+        }
+
+        public DataServiceMessage<IEnumerable<string>> GetAll()
+        {
+            string message;
+            bool success = true;
+            IEnumerable<string> countryNames = null;
+
+            try
+            {
+                IEnumerable<CountryEntity> countryEntities = unitOfWork.Countries.GetAll();
+                countryNames = countryEntities.Select(countryEntity => countryEntity.Name);
+
+                message = "Got all countries";
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<string>>(countryNames, message, success);
         }
 
         public void Dispose()

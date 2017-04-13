@@ -108,7 +108,11 @@
     <Compile Include="AdminControls\UserControls\CountryCreateControl.xaml.cs">
       <DependentUpon>CountryCreateControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdminControls\UserControls\CountryListControl.xaml.cs">
+      <DependentUpon>CountryListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminControls\ViewModels\CountryCreateViewModel.cs" />
+    <Compile Include="AdminControls\ViewModels\CountryListViewModel.cs" />
     <Compile Include="AnalyticControls\AnalyticMainWindow.xaml.cs">
       <DependentUpon>AnalyticMainWindow.xaml</DependentUpon>
     </Compile>
@@ -136,16 +140,19 @@
     </Compile>
     <Compile Include="Contracts\Controllers\IClientController.cs" />
     <Compile Include="Contracts\Controllers\IController.cs" />
-    <Compile Include="Contracts\Observers\IClientObserver.cs" />
-    <Compile Include="Contracts\Subjects\IClientSubject.cs" />
+    <Compile Include="Contracts\Controllers\ICountryController.cs" />
+    <Compile Include="Contracts\Observers\IObserver.cs" />
+    <Compile Include="Contracts\Subjects\ISubject.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientRegisterDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\CountryListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageAdminsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageAnalyticsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
@@ -177,6 +184,8 @@
     <Compile Include="RegisterObservableObject.cs" />
     <Compile Include="MainWindowBase.cs" />
     <Compile Include="Subjects\ClientDisplayManager.cs" />
+    <Compile Include="Subjects\CountryDisplayManager.cs" />
+    <Compile Include="Subjects\SubjectBase.cs" />
     <Compile Include="SuperuserControls\SuperuserMainWindow.xaml.cs">
       <DependentUpon>SuperuserMainWindow.xaml</DependentUpon>
     </Compile>
@@ -211,6 +220,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdminControls\UserControls\CountryCreateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminControls\UserControls\CountryListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,6 +1,6 @@
 ﻿namespace SportBet.Contracts.Observers
 {
-    public interface IClientObserver
+    public interface IObserver
     {
         void Update();
     }
