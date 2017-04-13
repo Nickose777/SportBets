@@ -94,7 +94,8 @@ namespace SportBet.ClientControls
 
                         if (serviceMessage.IsSuccessful)
                         {
-                            window.Close();
+                            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                            Application.Current.Shutdown();
                         }
                     }
                 }

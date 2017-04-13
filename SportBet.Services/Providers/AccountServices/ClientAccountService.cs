@@ -55,7 +55,7 @@ namespace SportBet.Services.Providers.AccountServices
 
             if (oldHashedPassword == currentHashedPassword)
             {
-                if (registerValidator.ValidatePassword(newPassword, ref message))
+                if (success = registerValidator.ValidatePassword(newPassword, ref message))
                 {
                     string newHashedPassword = encryptor.Encrypt(newPassword);
                     try
