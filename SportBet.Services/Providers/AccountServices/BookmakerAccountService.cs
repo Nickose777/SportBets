@@ -8,6 +8,7 @@ using SportBet.Services.Contracts.Validators;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.Encryption;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.DTOModels;
 
 namespace SportBet.Services.Providers.AccountServices
 {
@@ -105,6 +106,11 @@ namespace SportBet.Services.Providers.AccountServices
         public ServiceMessage Register(AnalyticRegisterDTO analyticRegisterDTO)
         {
             return new ServiceMessage("No permissions to register analytic", false);
+        }
+
+        public ServiceMessage ChangePassword(ChangePasswordDTO changePasswordDTO)
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()

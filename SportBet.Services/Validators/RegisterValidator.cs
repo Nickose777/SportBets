@@ -47,7 +47,19 @@ namespace SportBet.Services.Validators
                 message = "Login must contain only letters and digits";
                 isValid = false;
             }
-            else if (password.Length < MinLength || password.Length > MaxLength)
+            else
+            {
+                isValid = ValidatePassword(password, ref message);
+            }
+
+            return isValid;
+        }
+
+        public bool ValidatePassword(string password, ref string message)
+        {
+            bool isValid = true;
+
+            if (password.Length < MinLength || password.Length > MaxLength)
             {
                 message = String.Format("Password must consist of {0}-{1} characters", MinLength, MaxLength);
                 isValid = false;

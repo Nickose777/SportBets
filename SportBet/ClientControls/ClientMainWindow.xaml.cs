@@ -9,6 +9,10 @@ using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 using SportBet.CommonControls.Clients.ViewModels;
 using SportBet.CommonControls.Clients.UserControls;
+using SportBet.CommonControls.ChangePassword;
+using SportBet.WindowFactories;
+using SportBet.Models;
+using SportBet.Services.DTOModels;
 
 namespace SportBet.ClientControls
 {
@@ -60,6 +64,47 @@ namespace SportBet.ClientControls
             {
                 SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
             }
+        }
+
+        private void ChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePassword();
+        }
+        private void ChangePassword()
+        {
+            ChangePasswordControl control = new ChangePasswordControl(login);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            control.PasswordChanged += (s, e) =>
+            {
+                ChangePasswordModel model = e.ChangePassword;
+                if (model.NewPassword == model.ConfirmPassword)
+                {
+                    ChangePasswordDTO changePasswordDTO = new ChangePasswordDTO
+                    {
+                        Login = model.Login,
+                        OldPassword = model.OldPassword,
+                        NewPassword = model.NewPassword
+                    };
+
+                    using (IAccountService service = factory.CreateAccountService())
+                    {
+                        ServiceMessage serviceMessage = service.ChangePassword(changePasswordDTO);
+                        SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
+
+                        if (serviceMessage.IsSuccessful)
+                        {
+                            window.Close();
+                        }
+                    }
+                }
+                else
+                {
+                    SetFooterMessage(false, "Passwords are not same");
+                }
+            };
+
+            window.ShowDialog();
         }
 
         private void SetFooterMessage(bool success, string message)

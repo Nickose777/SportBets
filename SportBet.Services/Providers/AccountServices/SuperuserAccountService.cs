@@ -9,6 +9,7 @@ using SportBet.Services.Contracts.Validators;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.Encryption;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.DTOModels;
 
 namespace SportBet.Services.Providers.AccountServices
 {
@@ -285,6 +286,11 @@ namespace SportBet.Services.Providers.AccountServices
             }
 
             return new ServiceMessage(message, success);
+        }
+
+        public ServiceMessage ChangePassword(ChangePasswordDTO changePasswordDTO)
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()

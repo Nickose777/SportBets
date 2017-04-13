@@ -70,5 +70,12 @@ namespace SportBet.Data.Repositories
             string query = String.Format("DO $$ BEGIN PERFORM {0}('{1}'); END $$;", functionName, login);
             context.Database.ExecuteSqlCommand(query);
         }
+
+        public void ChangePassword(string login, string newPassword)
+        {
+            SportBetDbContext context = GetContext();
+            string query = String.Format("DO $$ BEGIN PERFORM change_password('{0}', '{1}'); END $$;", login, newPassword);
+            context.Database.ExecuteSqlCommand(query);
+        }
     }
 }

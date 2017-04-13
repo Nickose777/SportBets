@@ -13,6 +13,9 @@
         </Grid.RowDefinitions>
 
         <Menu>
+            <MenuItem Header="Settings">
+                <MenuItem Header="Change password" Click="ChangePassword_Click" />
+            </MenuItem>
             <MenuItem Header="Sign out" Click="SignOut_Click"/>
         </Menu>
 

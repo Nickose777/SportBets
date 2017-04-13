@@ -19,5 +19,7 @@
         void DeleteAdminRole(string login);
 
         void DeleteAnalyticRole(string login);
+
+        void ChangePassword(string login, string newPassword);
     }
 }
