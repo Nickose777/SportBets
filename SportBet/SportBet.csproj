@@ -111,11 +111,15 @@
     <Compile Include="AdminControls\UserControls\CountryListControl.xaml.cs">
       <DependentUpon>CountryListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdminControls\UserControls\SportCreateControl.xaml.cs">
+      <DependentUpon>SportCreateControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminControls\UserControls\SportListControl.xaml.cs">
       <DependentUpon>SportListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="AdminControls\ViewModels\CountryCreateViewModel.cs" />
     <Compile Include="AdminControls\ViewModels\CountryListViewModel.cs" />
+    <Compile Include="AdminControls\ViewModels\SportCreateViewModel.cs" />
     <Compile Include="AdminControls\ViewModels\SportListViewModel.cs" />
     <Compile Include="AnalyticControls\AnalyticMainWindow.xaml.cs">
       <DependentUpon>AnalyticMainWindow.xaml</DependentUpon>
@@ -233,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdminControls\UserControls\CountryListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminControls\UserControls\SportCreateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

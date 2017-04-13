@@ -6,7 +6,7 @@
              xmlns:ViewModel="clr-namespace:SportBet.AdminControls.ViewModels"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance ViewModel:CountryCreateViewModel}"
-             Background="Orange" Height="100.375" Width="330.452">
+             Background="Orange" MinHeight="100.375" MinWidth="330.452">
     <GroupBox Header="Create country" Padding="10">
         <Grid>
             <Grid.RowDefinitions>

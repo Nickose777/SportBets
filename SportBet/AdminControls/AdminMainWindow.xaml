@@ -14,6 +14,7 @@
         <Menu>
             <MenuItem Header="Create...">
                 <MenuItem Header="Country" Click="CreateCountry_Click" />
+                <MenuItem Header="Sport" Click="CreateSport_Click" />
             </MenuItem>
             <MenuItem Header="Manage...">
                 <MenuItem Header="Countries" Click="ManageCountries_Click" />
