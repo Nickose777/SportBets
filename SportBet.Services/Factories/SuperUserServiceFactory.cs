@@ -52,5 +52,10 @@ namespace SportBet.Services.Factories
 
             return new SuperuserAnalyticService(unitOfWork);
         }
+
+        public override ICountryService CreateCountryService()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

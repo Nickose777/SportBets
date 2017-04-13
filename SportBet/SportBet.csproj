@@ -105,6 +105,10 @@
     <Compile Include="AdminControls\AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdminControls\UserControls\CountryCreateControl.xaml.cs">
+      <DependentUpon>CountryCreateControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminControls\ViewModels\CountryCreateViewModel.cs" />
     <Compile Include="AnalyticControls\AnalyticMainWindow.xaml.cs">
       <DependentUpon>AnalyticMainWindow.xaml</DependentUpon>
     </Compile>
@@ -146,6 +150,7 @@
     <Compile Include="DesignTimeViewModels\ManageAnalyticsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageClientsDTViewModel.cs" />
+    <Compile Include="EventHandlers\Create\CountryEventArgs.cs" />
     <Compile Include="EventHandlers\Display\AdminDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AnalyticDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
@@ -202,6 +207,10 @@
     <Compile Include="ValueConverters\InverseBooleanConverter.cs" />
     <Compile Include="WindowFactories\WindowFactory.cs" />
     <Page Include="AdminControls\AdminMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminControls\UserControls\CountryCreateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

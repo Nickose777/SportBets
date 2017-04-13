@@ -36,5 +36,10 @@ namespace SportBet.Services.Factories
         {
             throw new NotImplementedException();
         }
+
+        public override ICountryService CreateCountryService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
