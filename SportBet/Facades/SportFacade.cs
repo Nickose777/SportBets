@@ -1,25 +1,17 @@
-﻿using SportBet.Contracts.Controllers;
+﻿using System.Collections.Generic;
+using SportBet.Contracts;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SportBet.Controllers
+namespace SportBet.Facades
 {
-    class SportController : BaseController, ISportController
+    class SportFacade : FacadeBase<string>
     {
-        private readonly ServiceFactory factory;
+        public SportFacade(ServiceFactory factory)
+            : base(factory) { }
 
-        public SportController(ServiceFactory factory)
-        {
-            this.factory = factory;
-        }
-
-        public IEnumerable<string> GetAll()
+        public override IEnumerable<string> GetAll()
         {
             IEnumerable<string> sportNames = null;
 

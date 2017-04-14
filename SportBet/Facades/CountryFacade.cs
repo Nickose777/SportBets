@@ -1,21 +1,17 @@
-﻿using System.Collections.Generic;
-using SportBet.Contracts.Controllers;
+﻿using SportBet.Contracts;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
+using System.Collections.Generic;
 
-namespace SportBet.Controllers
+namespace SportBet.Facades
 {
-    class CountryController : BaseController, ICountryController
+    class CountryFacade : FacadeBase<string>
     {
-        private readonly ServiceFactory factory;
+        public CountryFacade(ServiceFactory factory)
+            : base(factory) { }
 
-        public CountryController(ServiceFactory factory)
-        {
-            this.factory = factory;
-        }
-
-        public IEnumerable<string> GetAll()
+        public override IEnumerable<string> GetAll()
         {
             IEnumerable<string> countryNames = null;
 

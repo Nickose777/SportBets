@@ -1,25 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using SportBet.Contracts.Controllers;
+using SportBet.Contracts;
 using SportBet.Models.Display;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
 
-namespace SportBet.Controllers
+namespace SportBet.Facades
 {
-    class ClientController : BaseController, IClientController
+    class ClientFacade : FacadeBase<ClientDisplayModel>
     {
-        private readonly ServiceFactory factory;
+        public ClientFacade(ServiceFactory factory)
+            : base(factory) { }
 
-        public ClientController(ServiceFactory factory)
-        {
-            this.factory = factory;
-        }
-
-        public IEnumerable<ClientDisplayModel> GetAllNotDeleted()
+        public override IEnumerable<ClientDisplayModel> GetAll()
         {
             IEnumerable<ClientDisplayModel> clientModels = null;
 

@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using AutoMapper;
 using SportBet.CommonControls.Clients.UserControls;
 using SportBet.CommonControls.Clients.ViewModels;
-using SportBet.Contracts.Controllers;
-using SportBet.Contracts.Observers;
+using SportBet.Contracts;
 using SportBet.Contracts.Subjects;
-using SportBet.Controllers;
-using SportBet.EventHandlers;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
 using SportBet.Services.Contracts;
@@ -17,55 +13,59 @@ using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
 
-namespace SportBet.Subjects
+namespace SportBet.Controllers
 {
-    class ClientDisplayManager : SubjectBase, ISubject
+    class ClientController : SubjectBase, ISubject
     {
-        //TODO IClientController in ctor
-        public ClientDisplayManager(ServiceFactory factory)
-            : base(factory) { }
+        private readonly FacadeBase<ClientDisplayModel> facade;
+
+        public ClientController(ServiceFactory factory, FacadeBase<ClientDisplayModel> facade)
+            : base(factory)
+        {
+            this.facade = facade;
+            facade.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
+        }
 
         public void DisplayClientsForAdmin()
         {
-            IClientController controller = new ClientController(factory);
-            controller.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
-
-            ManageClientsViewModel viewModel = new ManageClientsViewModel(this, controller, true);
-            ManageClientsControl control = new ManageClientsControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
-
-            viewModel.ClientSelectRequest += (s, e) => EditClient(e.Client);
-            viewModel.ClientDeleteRequest += (s, e) =>
-            {
-                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete this user?", "Confirm operation", MessageBoxButton.YesNo);
-
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    using (IClientService service = factory.CreateClientService())
-                    {
-                        ClientDisplayDTO deletedClient = Mapper.Map<ClientDisplayModel, ClientDisplayDTO>(e.Client);
-                        ServiceMessage serviceMessage = service.Delete(deletedClient.Login);
-
-                        RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
-                    }
-
-                    Notify();
-                }
-            };
-
-            window.ShowDialog();
+            DisplayClients(true);
         }
 
         public void DisplayClientsForBookmaker()
         {
-            IClientController controller = new ClientController(factory);
-            controller.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
+            DisplayClients(false);
+        }
 
-            ManageClientsViewModel viewModel = new ManageClientsViewModel(this, controller, false);
+        private void DisplayClients(bool forAdmin)
+        {
+            ManageClientsViewModel viewModel = new ManageClientsViewModel(this, facade, forAdmin);
             ManageClientsControl control = new ManageClientsControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.ClientSelectRequest += (s, e) => EditClient(e.Client);
+
+            if (forAdmin)
+            {
+                viewModel.ClientDeleteRequest += (s, e) =>
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete this user?", "Confirm operation", MessageBoxButton.YesNo);
+
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        using (IClientService service = factory.CreateClientService())
+                        {
+                            ClientDisplayDTO deletedClient = Mapper.Map<ClientDisplayModel, ClientDisplayDTO>(e.Client);
+                            ServiceMessage serviceMessage = service.Delete(deletedClient.Login);
+
+                            RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
+                            if (serviceMessage.IsSuccessful)
+                            {
+                                Notify();
+                            }
+                        }
+                    }
+                };
+            }
 
             window.ShowDialog();
         }

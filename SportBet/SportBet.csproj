@@ -149,16 +149,9 @@
     <Compile Include="CommonControls\Footer.xaml.cs">
       <DependentUpon>Footer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Contracts\Controllers\IClientController.cs" />
-    <Compile Include="Contracts\Controllers\IController.cs" />
-    <Compile Include="Contracts\Controllers\ICountryController.cs" />
-    <Compile Include="Contracts\Controllers\ISportController.cs" />
-    <Compile Include="Contracts\Observers\IObserver.cs" />
-    <Compile Include="Contracts\Subjects\ISubject.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\ClientController.cs" />
-    <Compile Include="Controllers\CountryController.cs" />
-    <Compile Include="Controllers\SportController.cs" />
+    <Compile Include="Contracts\FacadeBase.cs" />
+    <Compile Include="Contracts\IObserver.cs" />
+    <Compile Include="Contracts\ISubject.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
@@ -184,6 +177,9 @@
     <Compile Include="EventHandlers\Display\ClientDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Register\ClientRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\ServiceMessageEventHandler.cs" />
+    <Compile Include="Facades\ClientFacade.cs" />
+    <Compile Include="Facades\CountryFacade.cs" />
+    <Compile Include="Facades\SportFacade.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\MappingProfile.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
@@ -200,10 +196,10 @@
     <Compile Include="ObservableObject.cs" />
     <Compile Include="RegisterObservableObject.cs" />
     <Compile Include="MainWindowBase.cs" />
-    <Compile Include="Subjects\ClientDisplayManager.cs" />
-    <Compile Include="Subjects\CountryDisplayManager.cs" />
-    <Compile Include="Subjects\SportDisplayManager.cs" />
-    <Compile Include="Subjects\SubjectBase.cs" />
+    <Compile Include="Controller\ClientController.cs" />
+    <Compile Include="Controller\CountryController.cs" />
+    <Compile Include="Controller\SportController.cs" />
+    <Compile Include="Controller\SubjectBase.cs" />
     <Compile Include="SuperuserControls\SuperuserMainWindow.xaml.cs">
       <DependentUpon>SuperuserMainWindow.xaml</DependentUpon>
     </Compile>

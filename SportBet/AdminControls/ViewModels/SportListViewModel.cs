@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using SportBet.Contracts.Controllers;
-using SportBet.Contracts.Observers;
+using SportBet.Contracts;
 using SportBet.Contracts.Subjects;
 
 namespace SportBet.AdminControls.ViewModels
@@ -9,23 +8,23 @@ namespace SportBet.AdminControls.ViewModels
     public class SportListViewModel : ObservableObject, IObserver
     {
         private readonly ISubject subject;
-        private readonly ISportController controller;
+        private readonly FacadeBase<string> facade;
 
         private string selectedSport;
 
-        public SportListViewModel(ISubject subject, ISportController controller)
+        public SportListViewModel(ISubject subject, FacadeBase<string> facade)
         {
             this.subject = subject;
-            this.controller = controller;
+            this.facade = facade;
 
-            this.Sports = new ObservableCollection<string>(controller.GetAll());
+            this.Sports = new ObservableCollection<string>(facade.GetAll());
 
             subject.Subscribe(this);
         }
 
         public void Update()
         {
-            IEnumerable<string> sportNames = controller.GetAll();
+            IEnumerable<string> sportNames = facade.GetAll();
 
             Sports.Clear();
             foreach (string sportName in sportNames)

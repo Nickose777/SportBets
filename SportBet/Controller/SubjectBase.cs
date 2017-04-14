@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using SportBet.Contracts.Observers;
+using SportBet.Contracts;
 using SportBet.EventHandlers;
 using SportBet.Services.Contracts;
 
-namespace SportBet.Subjects
+namespace SportBet.Controllers
 {
     public abstract class SubjectBase
     {

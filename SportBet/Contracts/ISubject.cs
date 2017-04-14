@@ -1,4 +1,4 @@
-﻿using SportBet.Contracts.Observers;
+﻿using SportBet.Contracts;
 
 namespace SportBet.Contracts.Subjects
 {

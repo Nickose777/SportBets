@@ -9,7 +9,8 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
-using SportBet.Subjects;
+using SportBet.Controllers;
+using SportBet.Facades;
 
 namespace SportBet.BookmakerControls
 {
@@ -18,10 +19,15 @@ namespace SportBet.BookmakerControls
     /// </summary>
     public partial class BookmakerMainWindow : MainWindowBase
     {
+        private readonly ClientController clientController;
+
         public BookmakerMainWindow(ServiceFactory factory, string login)
             : base(factory, login)
         {
             InitializeComponent();
+
+            clientController = new ClientController(factory, new ClientFacade(factory));
+            clientController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
             SetFooterMessage(true, String.Format("Welcome, {0} (bookmaker)", login));
         }
@@ -59,14 +65,7 @@ namespace SportBet.BookmakerControls
 
         private void ManageClients_Click(object sender, RoutedEventArgs e)
         {
-            ManageClients();
-        }
-        private void ManageClients()
-        {
-            ClientDisplayManager clientDisplayManager = new ClientDisplayManager(factory);
-            clientDisplayManager.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-
-            clientDisplayManager.DisplayClientsForBookmaker();
+            clientController.DisplayClientsForBookmaker();
         }
 
         private void SetFooterMessage(bool success, string message)

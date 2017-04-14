@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
-using SportBet.Contracts.Controllers;
 using SportBet.Contracts.Subjects;
 using SportBet.EventHandlers.Display;
 using SportBet.Models.Display;
+using SportBet.Contracts;
 
 namespace SportBet.CommonControls.Clients.ViewModels
 {
@@ -23,9 +23,9 @@ namespace SportBet.CommonControls.Clients.ViewModels
             }
         }
 
-        public ManageClientsViewModel(ISubject subject, IClientController controller, bool allowDeleteClient)
+        public ManageClientsViewModel(ISubject subject, FacadeBase<ClientDisplayModel> facade, bool allowDeleteClient)
         {
-            ClientListViewModel = new ClientListViewModel(subject, controller);
+            ClientListViewModel = new ClientListViewModel(subject, facade);
             CanDeleteClient = allowDeleteClient;
 
             this.SelectClientCommand = new DelegateCommand(

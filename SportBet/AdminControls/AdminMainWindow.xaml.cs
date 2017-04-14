@@ -6,8 +6,8 @@ using SportBet.AdminControls.UserControls;
 using SportBet.WindowFactories;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
-using SportBet.Subjects;
 using SportBet.Controllers;
+using SportBet.Facades;
 
 namespace SportBet.AdminControls
 {
@@ -16,19 +16,19 @@ namespace SportBet.AdminControls
     /// </summary>
     public partial class AdminMainWindow : MainWindowBase
     {
-        private readonly CountryDisplayManager countryDisplayManager;
-        private readonly SportDisplayManager sportDisplayManager;
+        private readonly CountryController countryController;
+        private readonly SportController sportController;
 
         public AdminMainWindow(ServiceFactory factory, string login)
             : base(factory, login)
         {
             InitializeComponent();
 
-            countryDisplayManager = new CountryDisplayManager(factory, new CountryController(factory));
-            sportDisplayManager = new SportDisplayManager(factory, new SportController(factory));
+            countryController = new CountryController(factory, new CountryFacade(factory));
+            sportController = new SportController(factory, new SportFacade(factory));
 
-            countryDisplayManager.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            sportDisplayManager.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
+            countryController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
+            sportController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
             SetFooterMessage(true, String.Format("Welcome, {0} (admin)", login));
         }
@@ -87,12 +87,12 @@ namespace SportBet.AdminControls
 
         private void ManageCountries_Click(object sender, RoutedEventArgs e)
         {
-            countryDisplayManager.DisplayCountries();
+            countryController.DisplayCountries();
         }
 
         private void ManageSports_Click(object sender, RoutedEventArgs e)
         {
-            sportDisplayManager.DisplaySports();
+            sportController.DisplaySports();
         }
 
         private void SetFooterMessage(bool success, string message)

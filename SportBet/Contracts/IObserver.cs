@@ -1,4 +1,4 @@
-﻿namespace SportBet.Contracts.Observers
+﻿namespace SportBet.Contracts
 {
     public interface IObserver
     {

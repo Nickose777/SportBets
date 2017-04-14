@@ -4,8 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Input;
-using SportBet.Contracts.Controllers;
-using SportBet.Contracts.Observers;
+using SportBet.Contracts;
 using SportBet.Contracts.Subjects;
 using SportBet.Models.Display;
 
@@ -14,21 +13,21 @@ namespace SportBet.CommonControls.Clients.ViewModels
     public class ClientListViewModel : ObservableObject, IObserver
     {
         private readonly ISubject subject;
-        private readonly IClientController controller;
+        private readonly FacadeBase<ClientDisplayModel> facade;
 
         private ClientDisplayModel client;
         private string firstNameFilter;
         private string lastNameFilter;
         private string phoneNumberFilter;
 
-        public ClientListViewModel(ISubject subject, IClientController controller)
+        public ClientListViewModel(ISubject subject, FacadeBase<ClientDisplayModel> facade)
         {
             this.subject = subject;
-            this.controller = controller;
+            this.facade = facade;
 
             subject.Subscribe(this);
 
-            this.Clients = new ObservableCollection<ClientDisplayModel>(controller.GetAllNotDeleted());
+            this.Clients = new ObservableCollection<ClientDisplayModel>(facade.GetAll());
             this.SortedClients.Filter = FilterClient;
             this.RefreshClients = new DelegateCommand(() => SortedClients.Refresh(), obj => true);
 
@@ -78,7 +77,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
 
         public void Update()
         {
-            IEnumerable<ClientDisplayModel> clients = controller.GetAllNotDeleted();
+            IEnumerable<ClientDisplayModel> clients = facade.GetAll();
 
             Clients.Clear();
             foreach (ClientDisplayModel clientDisplayModel in clients)

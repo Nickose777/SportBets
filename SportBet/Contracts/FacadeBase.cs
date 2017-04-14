@@ -1,15 +1,21 @@
-﻿using SportBet.EventHandlers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using SportBet.EventHandlers;
+using SportBet.Services.Contracts;
 
-namespace SportBet.Controllers
+namespace SportBet.Contracts
 {
-    public abstract class BaseController
+    public abstract class FacadeBase<T> where T : class
     {
         public event ServiceMessageEventHandler ReceivedMessage;
+
+        protected readonly ServiceFactory factory;
+
+        public FacadeBase(ServiceFactory factory)
+        {
+            this.factory = factory;
+        }
+
+        public abstract IEnumerable<T> GetAll();
 
         protected void RaiseReveivedMessageEvent(bool success, string message)
         {

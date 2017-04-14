@@ -10,10 +10,11 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
-using SportBet.Subjects;
+using SportBet.Controllers;
 using SportBet.SuperuserControls.UserControls;
 using SportBet.SuperuserControls.ViewModels;
 using SportBet.WindowFactories;
+using SportBet.Facades;
 
 namespace SportBet.SuperuserControls
 {
@@ -22,10 +23,15 @@ namespace SportBet.SuperuserControls
     /// </summary>
     public partial class SuperuserMainWindow : MainWindowBase
     {
+        private readonly ClientController clientController;
+
         public SuperuserMainWindow(ServiceFactory factory, string login)
             : base(factory, login)
         {
             InitializeComponent();
+
+            clientController = new ClientController(factory, new ClientFacade(factory));
+            clientController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
             SetFooterMessage(true, String.Format("Welcome, {0} (superuser)", login));
         }
@@ -272,14 +278,7 @@ namespace SportBet.SuperuserControls
 
         private void ManageClients_Click(object sender, RoutedEventArgs e)
         {
-            ManageClients();
-        }
-        private void ManageClients()
-        {
-            ClientDisplayManager clientDisplayManager = new ClientDisplayManager(factory);
-            clientDisplayManager.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-
-            clientDisplayManager.DisplayClientsForAdmin();
+            clientController.DisplayClientsForAdmin();
         }
 
         private void SetFooterMessage(bool success, string message)
