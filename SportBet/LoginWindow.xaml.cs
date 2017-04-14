@@ -83,6 +83,8 @@ namespace SportBet
             }
         }
 
+        //TODO
+        //factory not in ctor of window but in controllers
         private MainWindowBase Create(ServiceFactory factory, LoginType loginType, string login)
         {
             MainWindowBase window = null;

@@ -9,6 +9,8 @@ using SportBet.WindowFactories;
 
 namespace SportBet.Controllers
 {
+    //TODO
+    //Think about login parameter
     class AccountController : ControllerBase
     {
         public AccountController(ServiceFactory factory)

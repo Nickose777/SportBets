@@ -19,6 +19,7 @@ namespace SportBet.BookmakerControls
     /// </summary>
     public partial class BookmakerMainWindow : MainWindowBase
     {
+        private readonly AccountController accountController;
         private readonly ClientController clientController;
 
         public BookmakerMainWindow(ServiceFactory factory, string login)
@@ -26,7 +27,10 @@ namespace SportBet.BookmakerControls
         {
             InitializeComponent();
 
+            accountController = new AccountController(factory);
             clientController = new ClientController(factory, new ClientFacade(factory));
+
+            accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             clientController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
             SetFooterMessage(true, String.Format("Welcome, {0} (bookmaker)", login));
@@ -44,6 +48,11 @@ namespace SportBet.BookmakerControls
         private void ManageClients_Click(object sender, RoutedEventArgs e)
         {
             clientController.DisplayClientsForBookmaker();
+        }
+
+        private void ChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            accountController.ChangePassword(login);
         }
 
         private void SetFooterMessage(bool success, string message)
