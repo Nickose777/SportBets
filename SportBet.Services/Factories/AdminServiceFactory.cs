@@ -4,6 +4,9 @@ using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Providers.CountryServices;
 using SportBet.Services.Providers.SportServices;
+using SportBet.Services.Contracts.Validators;
+using SportBet.Services.Contracts.Encryption;
+using SportBet.Services.Providers.AccountServices;
 
 namespace SportBet.Services.Factories
 {
@@ -14,7 +17,11 @@ namespace SportBet.Services.Factories
 
         public override IAccountService CreateAccountService()
         {
-            throw new NotImplementedException();
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+            IRegisterValidator registerValidator = CreateRegisterValidator();
+            IEncryptor encryptor = CreateEncryptor();
+
+            return new AdminAccountService(unitOfWork, registerValidator, encryptor); 
         }
 
         public override IBookmakerService CreateBookmakerService()

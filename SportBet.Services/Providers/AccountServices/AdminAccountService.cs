@@ -9,13 +9,13 @@ using SportBet.Services.ResultTypes;
 
 namespace SportBet.Services.Providers.AccountServices
 {
-    class ClientAccountService : IAccountService
+    class AdminAccountService : IAccountService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRegisterValidator registerValidator;
         private readonly IEncryptor encryptor;
 
-        public ClientAccountService(IUnitOfWork unitOfWork, IRegisterValidator registerValidator, IEncryptor encryptor)
+        public AdminAccountService(IUnitOfWork unitOfWork, IRegisterValidator registerValidator, IEncryptor encryptor)
         {
             this.unitOfWork = unitOfWork;
             this.registerValidator = registerValidator;

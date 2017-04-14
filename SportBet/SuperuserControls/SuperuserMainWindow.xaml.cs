@@ -49,11 +49,6 @@ namespace SportBet.SuperuserControls
             SetFooterMessage(true, String.Format("Welcome, {0} (superuser)", login));
         }
 
-        private void ChangePassword_Click(object sender, RoutedEventArgs e)
-        {
-            accountController.ChangePassword(login);
-        }
-
         private void RegisterBookmaker_Click(object sender, RoutedEventArgs e)
         {
             bookmakerController.RegisterBookmaker();
@@ -87,6 +82,11 @@ namespace SportBet.SuperuserControls
         private void ManageClients_Click(object sender, RoutedEventArgs e)
         {
             clientController.DisplayClientsForAdmin();
+        }
+
+        private void ChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            accountController.ChangePassword(login);
         }
 
         private void SetFooterMessage(bool success, string message)

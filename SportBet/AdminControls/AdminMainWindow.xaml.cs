@@ -16,6 +16,7 @@ namespace SportBet.AdminControls
     /// </summary>
     public partial class AdminMainWindow : MainWindowBase
     {
+        private readonly AccountController accountController;
         private readonly CountryController countryController;
         private readonly SportController sportController;
 
@@ -24,9 +25,11 @@ namespace SportBet.AdminControls
         {
             InitializeComponent();
 
+            accountController = new AccountController(factory);
             countryController = new CountryController(factory, new CountryFacade(factory));
             sportController = new SportController(factory, new SportFacade(factory));
 
+            accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             countryController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             sportController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
@@ -51,6 +54,11 @@ namespace SportBet.AdminControls
         private void ManageSports_Click(object sender, RoutedEventArgs e)
         {
             sportController.DisplaySports();
+        }
+
+        private void ChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            accountController.ChangePassword(login);
         }
 
         private void SetFooterMessage(bool success, string message)

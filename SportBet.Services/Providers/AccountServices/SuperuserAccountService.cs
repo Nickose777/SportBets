@@ -290,7 +290,43 @@ namespace SportBet.Services.Providers.AccountServices
 
         public ServiceMessage ChangePassword(ChangePasswordDTO changePasswordDTO)
         {
-            throw new NotImplementedException();
+            string message = "";
+            bool success = true;
+
+            string oldPassword = changePasswordDTO.OldPassword;
+            string oldHashedPassword = encryptor.Encrypt(oldPassword);
+            string currentHashedPassword = Session.CurrentUserHashedPassword;
+
+            string newPassword = changePasswordDTO.NewPassword;
+
+            if (oldHashedPassword == currentHashedPassword)
+            {
+                if (success = registerValidator.ValidatePassword(newPassword, ref message))
+                {
+                    string newHashedPassword = encryptor.Encrypt(newPassword);
+                    try
+                    {
+                        unitOfWork.Accounts.ChangePassword(changePasswordDTO.Login, newHashedPassword);
+                        unitOfWork.AdminPassword.SetPassword(newHashedPassword);
+
+                        unitOfWork.Commit();
+
+                        message = "Password changed";
+                    }
+                    catch (Exception ex)
+                    {
+                        message = ExceptionMessageBuilder.BuildMessage(ex);
+                        success = false;
+                    }
+                }
+            }
+            else
+            {
+                message = "Old password is incorrect";
+                success = false;
+            }
+
+            return new ServiceMessage(message, success);
         }
 
         public void Dispose()

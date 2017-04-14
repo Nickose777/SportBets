@@ -70,6 +70,7 @@
     <Compile Include="Factories\ClientServiceFactory.cs" />
     <Compile Include="Factories\SuperuserServiceFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\AccountServices\AdminAccountService.cs" />
     <Compile Include="Providers\AccountServices\BookmakerAccountService.cs" />
     <Compile Include="Providers\AccountServices\ClientAccountService.cs" />
     <Compile Include="Providers\AccountServices\SuperuserAccountService.cs" />
