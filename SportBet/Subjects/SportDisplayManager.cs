@@ -3,7 +3,7 @@ using SportBet.AdminControls.UserControls;
 using SportBet.AdminControls.ViewModels;
 using SportBet.Contracts.Controllers;
 using SportBet.Contracts.Subjects;
-using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts;
 using SportBet.WindowFactories;
 
 namespace SportBet.Subjects

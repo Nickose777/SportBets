@@ -1,4 +1,4 @@
-﻿using SportBet.Services.Contracts.Factories;
+﻿using SportBet.Services.Contracts;
 
 namespace SportBet.Services.ResultTypes
 {

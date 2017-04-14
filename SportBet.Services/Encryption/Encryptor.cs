@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using SportBet.Services.Contracts.Encryption;
 
 namespace SportBet.Services.Encryption
 {

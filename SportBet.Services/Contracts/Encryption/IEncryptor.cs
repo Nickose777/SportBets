@@ -1,4 +1,4 @@
-﻿namespace SportBet.Services.Encryption
+﻿namespace SportBet.Services.Contracts.Encryption
 {
     public interface IEncryptor
     {

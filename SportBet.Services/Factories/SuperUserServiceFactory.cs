@@ -1,8 +1,8 @@
 ﻿using SportBet.Data.Contracts;
-using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts;
+using SportBet.Services.Contracts.Encryption;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
-using SportBet.Services.Encryption;
 using SportBet.Services.Providers.AccountServices;
 using SportBet.Services.Providers.AdminServices;
 using SportBet.Services.Providers.AnalyticServices;

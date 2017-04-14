@@ -1,4 +1,4 @@
-﻿using SportBet.Services.Contracts.Factories;
+﻿using SportBet.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

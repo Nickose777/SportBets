@@ -60,9 +60,9 @@
     <Compile Include="DTOModels\Register\RegisterBaseDTO.cs" />
     <Compile Include="DTOModels\UserLoginDTO.cs" />
     <Compile Include="DTOModels\Register\ClientRegisterDTO.cs" />
-    <Compile Include="Contracts\Factories\ServiceFactory.cs" />
+    <Compile Include="Contracts\ServiceFactory.cs" />
     <Compile Include="Encryption\Encryptor.cs" />
-    <Compile Include="Encryption\IEncryptor.cs" />
+    <Compile Include="Contracts\Encryption\IEncryptor.cs" />
     <Compile Include="ExceptionMessageBuilder.cs" />
     <Compile Include="Factories\AdminServiceFactory.cs" />
     <Compile Include="Factories\AnalyticServiceFactory.cs" />

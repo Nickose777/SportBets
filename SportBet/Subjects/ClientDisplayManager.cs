@@ -10,7 +10,7 @@ using SportBet.Controllers;
 using SportBet.EventHandlers;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
-using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Edit;

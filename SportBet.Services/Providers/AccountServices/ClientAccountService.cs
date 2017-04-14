@@ -1,9 +1,9 @@
 ﻿using SportBet.Data.Contracts;
+using SportBet.Services.Contracts.Encryption;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
 using SportBet.Services.DTOModels;
 using SportBet.Services.DTOModels.Register;
-using SportBet.Services.Encryption;
 using SportBet.Services.ResultTypes;
 using System;
 

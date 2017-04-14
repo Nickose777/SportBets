@@ -1,11 +1,12 @@
 ﻿using SportBet.Data;
 using SportBet.Data.Contracts;
+using SportBet.Services.Contracts.Encryption;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
 using SportBet.Services.Encryption;
 using SportBet.Services.Validators;
 
-namespace SportBet.Services.Contracts.Factories
+namespace SportBet.Services.Contracts
 {
     public abstract class ServiceFactory
     {

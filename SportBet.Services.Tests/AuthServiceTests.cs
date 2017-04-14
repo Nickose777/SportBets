@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SportBet.Data.Contracts;
-using SportBet.Data.Contracts.Repositories;
-using SportBet.Services.Contracts.Services;
-using SportBet.Services.Providers;
 using SportBet.Core.Entities;
-using System.Linq.Expressions;
-using System.Collections.Generic;
-using SportBet.Services.Encryption;
+using SportBet.Data.Contracts;
+using SportBet.Services.Contracts.Encryption;
+using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels;
-using SportBet.Services.ResultTypes;
 using SportBet.Services.Factories;
+using SportBet.Services.Providers;
+using SportBet.Services.ResultTypes;
 
 namespace SportBet.Services.Tests
 {

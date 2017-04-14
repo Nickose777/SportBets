@@ -1,9 +1,9 @@
-﻿using SportBet.Data.Contracts;
-using SportBet.Services.Contracts.Factories;
+﻿using System;
+using SportBet.Data.Contracts;
+using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Providers.CountryServices;
 using SportBet.Services.Providers.SportServices;
-using System;
 
 namespace SportBet.Services.Factories
 {

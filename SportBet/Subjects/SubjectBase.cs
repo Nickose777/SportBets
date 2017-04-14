@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SportBet.Contracts.Observers;
 using SportBet.EventHandlers;
-using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts;
 
 namespace SportBet.Subjects
 {

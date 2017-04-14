@@ -3,7 +3,7 @@ using System.Linq;
 using AutoMapper;
 using SportBet.Contracts.Controllers;
 using SportBet.Models.Display;
-using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;

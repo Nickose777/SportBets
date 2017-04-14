@@ -1,5 +1,5 @@
 ﻿using SportBet.Contracts.Controllers;
-using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
 using System;

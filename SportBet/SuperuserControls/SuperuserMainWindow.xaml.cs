@@ -5,7 +5,7 @@ using System.Windows;
 using AutoMapper;
 using SportBet.Models.Display;
 using SportBet.Models.Registers;
-using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Register;

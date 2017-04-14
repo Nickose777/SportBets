@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels;
 using SportBet.Services.Providers;

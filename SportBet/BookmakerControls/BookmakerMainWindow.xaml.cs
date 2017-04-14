@@ -4,7 +4,7 @@ using AutoMapper;
 using SportBet.BookmakerControls.UserControls;
 using SportBet.BookmakerControls.ViewModels;
 using SportBet.Models.Registers;
-using SportBet.Services.Contracts.Factories;
+using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
