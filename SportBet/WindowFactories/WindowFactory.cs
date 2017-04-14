@@ -10,7 +10,8 @@ namespace SportBet.WindowFactories
             return new Window
             {
                 Content = control,
-                SizeToContent = System.Windows.SizeToContent.WidthAndHeight
+                SizeToContent = System.Windows.SizeToContent.WidthAndHeight,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
         }
     }

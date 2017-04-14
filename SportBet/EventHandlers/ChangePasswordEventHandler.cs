@@ -7,11 +7,11 @@ namespace SportBet.EventHandlers
 
     public class ChangePasswordEventArgs : EventArgs
     {
-        public ChangePasswordModel ChangePassword { get; private set; }
+        public ChangePasswordModel ChangePasswordModel { get; private set; }
 
-        public ChangePasswordEventArgs(ChangePasswordModel changePassword)
+        public ChangePasswordEventArgs(ChangePasswordModel changePasswordModel)
         {
-            this.ChangePassword = changePassword;
+            this.ChangePasswordModel = changePasswordModel;
         }
     }
 }

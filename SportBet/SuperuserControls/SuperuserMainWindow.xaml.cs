@@ -51,17 +51,15 @@ namespace SportBet.SuperuserControls
             {
                 BookmakerRegisterModel bookmaker = ea.Bookmaker;
                 BookmakerRegisterDTO bookmakerDTO = Mapper.Map<BookmakerRegisterModel, BookmakerRegisterDTO>(bookmaker);
-                ServiceMessage result;
 
                 using (IAccountService service = factory.CreateAccountService())
                 {
-                    result = service.Register(bookmakerDTO);
+                    ServiceMessage serviceMessage = service.Register(bookmakerDTO);
+                    SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
+
+                    if (serviceMessage.IsSuccessful)
+                        window.Close();
                 }
-
-                if (result.IsSuccessful)
-                    window.Close();
-
-                SetFooterMessage(result.IsSuccessful, result.Message);
             };
 
             window.ShowDialog();
@@ -82,17 +80,15 @@ namespace SportBet.SuperuserControls
             {
                 AdminRegisterModel admin = ea.Admin;
                 AdminRegisterDTO adminDTO = Mapper.Map<AdminRegisterModel, AdminRegisterDTO>(admin);
-                ServiceMessage result;
 
                 using (IAccountService service = factory.CreateAccountService())
                 {
-                    result = service.Register(adminDTO);
+                    ServiceMessage serviceMessage = service.Register(adminDTO);
+                    SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
+
+                    if (serviceMessage.IsSuccessful)
+                        window.Close();
                 }
-
-                if (result.IsSuccessful)
-                    window.Close();
-
-                SetFooterMessage(result.IsSuccessful, result.Message);
             };
 
             window.ShowDialog();
@@ -113,17 +109,15 @@ namespace SportBet.SuperuserControls
             {
                 AnalyticRegisterModel analytic = ea.Analytic;
                 AnalyticRegisterDTO analyticDTO = Mapper.Map<AnalyticRegisterModel, AnalyticRegisterDTO>(analytic);
-                ServiceMessage result;
 
                 using (IAccountService service = factory.CreateAccountService())
                 {
-                    result = service.Register(analyticDTO);
+                    ServiceMessage serviceMessage = service.Register(analyticDTO);
+                    SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
+
+                    if (serviceMessage.IsSuccessful)
+                        window.Close();
                 }
-
-                if (result.IsSuccessful)
-                    window.Close();
-
-                SetFooterMessage(result.IsSuccessful, result.Message);
             };
 
             window.ShowDialog();
@@ -135,47 +129,49 @@ namespace SportBet.SuperuserControls
         }
         private void ManageAdmins()
         {
-            DataServiceMessage<IEnumerable<AdminDisplayDTO>> resultMessage;
             using (IAdminService service = factory.CreateAdminService())
             {
-                resultMessage = service.GetAll();
-            }
+                DataServiceMessage<IEnumerable<AdminDisplayDTO>> serviceMessage = service.GetAll();
+                SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
 
-            SetFooterMessage(resultMessage.IsSuccessful, resultMessage.Message);
-
-            if (resultMessage.IsSuccessful)
-            {
-                IEnumerable<AdminDisplayDTO> adminDTOs = resultMessage.Data;
-                IEnumerable<AdminDisplayModel> admins = adminDTOs
-                    .Select(dto => Mapper.Map<AdminDisplayDTO, AdminDisplayModel>(dto));
-
-                ManageAdminsViewModel viewModel = new ManageAdminsViewModel(admins);
-                ManageAdminsControl control = new ManageAdminsControl(viewModel);
-                Window window = WindowFactory.CreateByContentsSize(control);
-
-                viewModel.AdminDeleted += (s, e) =>
+                if (serviceMessage.IsSuccessful)
                 {
-                    using (IAdminService service = factory.CreateAdminService())
-                    {
-                        AdminDisplayDTO deletedAdmin = Mapper.Map<AdminDisplayModel, AdminDisplayDTO>(e.Admin);
-                        ServiceMessage result = service.Delete(deletedAdmin.Login);
-
-                        SetFooterMessage(result.IsSuccessful, result.Message);
-
-                        if (result.IsSuccessful)
-                        {
-                            DataServiceMessage<IEnumerable<AdminDisplayDTO>> serviceMessage = service.GetAll();
-                            adminDTOs = serviceMessage.Data;
-                            admins = adminDTOs
-                                .Select(dto => Mapper.Map<AdminDisplayDTO, AdminDisplayModel>(dto));
-
-                            viewModel.Refresh(admins);
-                        }
-                    }
-                };
-
-                window.ShowDialog();
+                    IEnumerable<AdminDisplayDTO> adminDTOs = serviceMessage.Data;
+                    IEnumerable<AdminDisplayModel> admins = adminDTOs
+                        .Select(dto => Mapper.Map<AdminDisplayDTO, AdminDisplayModel>(dto));
+                    DisplayAdmins(admins);
+                }
             }
+        }
+
+        private void DisplayAdmins(IEnumerable<AdminDisplayModel> admins)
+        {
+            ManageAdminsViewModel viewModel = new ManageAdminsViewModel(admins);
+            ManageAdminsControl control = new ManageAdminsControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.AdminDeleted += (s, e) =>
+            {
+                using (IAdminService service = factory.CreateAdminService())
+                {
+                    AdminDisplayDTO deletedAdmin = Mapper.Map<AdminDisplayModel, AdminDisplayDTO>(e.Admin);
+                    ServiceMessage serviceMessage = service.Delete(deletedAdmin.Login);
+
+                    SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        DataServiceMessage<IEnumerable<AdminDisplayDTO>> dataServiceMessage = service.GetAll();
+                        IEnumerable<AdminDisplayDTO> adminDTOs = dataServiceMessage.Data;
+                        admins = adminDTOs
+                            .Select(dto => Mapper.Map<AdminDisplayDTO, AdminDisplayModel>(dto));
+
+                        viewModel.Refresh(admins);
+                    }
+                }
+            };
+
+            window.ShowDialog();
         }
 
         private void ManageAnalytics_Click(object sender, RoutedEventArgs e)
@@ -184,47 +180,49 @@ namespace SportBet.SuperuserControls
         }
         private void ManageAnalytics()
         {
-            DataServiceMessage<IEnumerable<AnalyticDisplayDTO>> resultMessage;
             using (IAnalyticService service = factory.CreateAnalyticService())
             {
-                resultMessage = service.GetAll();
-            }
+                DataServiceMessage<IEnumerable<AnalyticDisplayDTO>> serviceMessage = service.GetAll();
+                SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
 
-            SetFooterMessage(resultMessage.IsSuccessful, resultMessage.Message);
-
-            if (resultMessage.IsSuccessful)
-            {
-                IEnumerable<AnalyticDisplayDTO> analyticDTOs = resultMessage.Data;
-                IEnumerable<AnalyticDisplayModel> analytics = analyticDTOs
-                    .Select(dto => Mapper.Map<AnalyticDisplayDTO, AnalyticDisplayModel>(dto));
-
-                ManageAnalyticsViewModel viewModel = new ManageAnalyticsViewModel(analytics);
-                ManageAnalyticsControl control = new ManageAnalyticsControl(viewModel);
-                Window window = WindowFactory.CreateByContentsSize(control);
-
-                viewModel.AnalyticDeleted += (s, e) =>
+                if (serviceMessage.IsSuccessful)
                 {
-                    using (IAnalyticService service = factory.CreateAnalyticService())
-                    {
-                        AnalyticDisplayDTO deletedAnalytic = Mapper.Map<AnalyticDisplayModel, AnalyticDisplayDTO>(e.Analytic);
-                        ServiceMessage result = service.Delete(deletedAnalytic.Login);
-
-                        SetFooterMessage(result.IsSuccessful, result.Message);
-
-                        if (result.IsSuccessful)
-                        {
-                            DataServiceMessage<IEnumerable<AnalyticDisplayDTO>> serviceMessage = service.GetAll();
-                            analyticDTOs = serviceMessage.Data;
-                            analytics = analyticDTOs
-                                .Select(dto => Mapper.Map<AnalyticDisplayDTO, AnalyticDisplayModel>(dto));
-
-                            viewModel.Refresh(analytics);
-                        }
-                    }
-                };
-
-                window.ShowDialog();
+                    IEnumerable<AnalyticDisplayDTO> analyticDTOs = serviceMessage.Data;
+                    IEnumerable<AnalyticDisplayModel> analytics = analyticDTOs
+                        .Select(dto => Mapper.Map<AnalyticDisplayDTO, AnalyticDisplayModel>(dto));
+                    DisplayAnalytics(analytics);
+                }
             }
+        }
+
+        private void DisplayAnalytics(IEnumerable<AnalyticDisplayModel> analytics)
+        {
+            ManageAnalyticsViewModel viewModel = new ManageAnalyticsViewModel(analytics);
+            ManageAnalyticsControl control = new ManageAnalyticsControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.AnalyticDeleted += (s, e) =>
+            {
+                using (IAnalyticService service = factory.CreateAnalyticService())
+                {
+                    AnalyticDisplayDTO deletedAnalytic = Mapper.Map<AnalyticDisplayModel, AnalyticDisplayDTO>(e.Analytic);
+                    ServiceMessage serviceMessage = service.Delete(deletedAnalytic.Login);
+
+                    SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        DataServiceMessage<IEnumerable<AnalyticDisplayDTO>> dataServiceMessage = service.GetAll();
+                        IEnumerable<AnalyticDisplayDTO> analyticDTOs = dataServiceMessage.Data;
+                        analytics = analyticDTOs
+                            .Select(dto => Mapper.Map<AnalyticDisplayDTO, AnalyticDisplayModel>(dto));
+
+                        viewModel.Refresh(analytics);
+                    }
+                }
+            };
+
+            window.ShowDialog();
         }
 
         private void ManageBookmakers_Click(object sender, RoutedEventArgs e)
@@ -233,47 +231,47 @@ namespace SportBet.SuperuserControls
         }
         private void ManageBookmakers()
         {
-            DataServiceMessage<IEnumerable<BookmakerDisplayDTO>> resultMessage;
             using (IBookmakerService service = factory.CreateBookmakerService())
             {
-                resultMessage = service.GetAll();
-            }
+                DataServiceMessage<IEnumerable<BookmakerDisplayDTO>> serviceMessage = service.GetAll();
+                SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
 
-            SetFooterMessage(resultMessage.IsSuccessful, resultMessage.Message);
-
-            if (resultMessage.IsSuccessful)
-            {
-                IEnumerable<BookmakerDisplayDTO> bookmakerDTOs = resultMessage.Data;
-                IEnumerable<BookmakerDisplayModel> bookmakers = bookmakerDTOs
-                    .Select(dto => Mapper.Map<BookmakerDisplayDTO, BookmakerDisplayModel>(dto));
-
-                ManageBookmakersViewModel viewModel = new ManageBookmakersViewModel(bookmakers);
-                ManageBookmakersControl control = new ManageBookmakersControl(viewModel);
-                Window window = WindowFactory.CreateByContentsSize(control);
-
-                viewModel.BookmakerDeleted += (s, e) =>
+                if (serviceMessage.IsSuccessful)
                 {
-                    using (IBookmakerService service = factory.CreateBookmakerService())
-                    {
-                        BookmakerDisplayDTO deletedBookmaker = Mapper.Map<BookmakerDisplayModel, BookmakerDisplayDTO>(e.Bookmaker);
-                        ServiceMessage result = service.Delete(deletedBookmaker.Login);
-
-                        SetFooterMessage(result.IsSuccessful, result.Message);
-
-                        if (result.IsSuccessful)
-                        {
-                            DataServiceMessage<IEnumerable<BookmakerDisplayDTO>> serviceMessage = service.GetAll();
-                            bookmakerDTOs = serviceMessage.Data;
-                            bookmakers = bookmakerDTOs
-                                .Select(dto => Mapper.Map<BookmakerDisplayDTO, BookmakerDisplayModel>(dto));
-
-                            viewModel.Refresh(bookmakers);
-                        }
-                    }
-                };
-
-                window.ShowDialog();
+                    IEnumerable<BookmakerDisplayDTO> bookmakerDTOs = serviceMessage.Data;
+                    IEnumerable<BookmakerDisplayModel> bookmakers = bookmakerDTOs
+                        .Select(dto => Mapper.Map<BookmakerDisplayDTO, BookmakerDisplayModel>(dto));
+                    DisplayBookmakers(bookmakers);
+                }
             }
+        }
+
+        private void DisplayBookmakers(IEnumerable<BookmakerDisplayModel> bookmakers)
+        {
+            ManageBookmakersViewModel viewModel = new ManageBookmakersViewModel(bookmakers);
+            ManageBookmakersControl control = new ManageBookmakersControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.BookmakerDeleted += (s, e) =>
+            {
+                using (IBookmakerService service = factory.CreateBookmakerService())
+                {
+                    BookmakerDisplayDTO deletedBookmaker = Mapper.Map<BookmakerDisplayModel, BookmakerDisplayDTO>(e.Bookmaker);
+                    ServiceMessage result = service.Delete(deletedBookmaker.Login);
+
+                    SetFooterMessage(result.IsSuccessful, result.Message);
+
+                    if (result.IsSuccessful)
+                    {
+                        DataServiceMessage<IEnumerable<BookmakerDisplayDTO>> serviceMessage = service.GetAll();
+                        IEnumerable<BookmakerDisplayDTO> bookmakerDTOs = serviceMessage.Data;
+                        bookmakers = bookmakerDTOs
+                            .Select(dto => Mapper.Map<BookmakerDisplayDTO, BookmakerDisplayModel>(dto));
+
+                        viewModel.Refresh(bookmakers);
+                    }
+                }
+            };
         }
 
         private void ManageClients_Click(object sender, RoutedEventArgs e)

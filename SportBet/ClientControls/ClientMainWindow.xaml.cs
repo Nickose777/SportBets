@@ -77,7 +77,7 @@ namespace SportBet.ClientControls
 
             control.PasswordChanged += (s, e) =>
             {
-                ChangePasswordModel model = e.ChangePassword;
+                ChangePasswordModel model = e.ChangePasswordModel;
                 if (model.NewPassword == model.ConfirmPassword)
                 {
                     ChangePasswordDTO changePasswordDTO = new ChangePasswordDTO

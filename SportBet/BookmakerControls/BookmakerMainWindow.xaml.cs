@@ -48,16 +48,14 @@ namespace SportBet.BookmakerControls
                 ClientRegisterModel client = e.Client;
                 ClientRegisterDTO clientDTO = Mapper.Map<ClientRegisterModel, ClientRegisterDTO>(client);
 
-                ServiceMessage result;
                 using (IAccountService service = factory.CreateAccountService())
                 {
-                    result = service.Register(clientDTO);
+                    ServiceMessage serviceMessage = service.Register(clientDTO);
+
+                    SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
+                    if (serviceMessage.IsSuccessful)
+                        window.Close();
                 }
-
-                if (result.IsSuccessful)
-                    window.Close();
-
-                SetFooterMessage(result.IsSuccessful, result.Message);
             };
 
             window.ShowDialog();
