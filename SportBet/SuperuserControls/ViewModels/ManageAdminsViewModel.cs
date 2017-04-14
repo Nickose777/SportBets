@@ -1,35 +1,43 @@
-﻿using SportBet.EventHandlers.Display;
-using SportBet.Models.Display;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using SportBet.Contracts;
+using SportBet.Contracts.Subjects;
+using SportBet.EventHandlers.Display;
+using SportBet.Models.Display;
 
 namespace SportBet.SuperuserControls.ViewModels
 {
-    public class ManageAdminsViewModel : ObservableObject
+    public class ManageAdminsViewModel : ObservableObject, IObserver
     {
         public event AdminDisplayEventHandler AdminDeleted;
 
+        private readonly ISubject subject;
+        private readonly FacadeBase<AdminDisplayModel> facade;
+
         private AdminDisplayModel admin;
 
-        public ManageAdminsViewModel(IEnumerable<AdminDisplayModel> admins)
+        public ManageAdminsViewModel(ISubject subject, FacadeBase<AdminDisplayModel> facade)
         {
-            this.Admins = new ObservableCollection<AdminDisplayModel>(admins);
+            this.subject = subject;
+            this.facade = facade;
+
+            this.Admins = new ObservableCollection<AdminDisplayModel>(facade.GetAll());
 
             this.DeleteSelectedAdminCommand = new DelegateCommand(
                 () => RaiseAdminDeletedEvent(SelectedAdmin),
                 obj => SelectedAdmin != null);
 
+            subject.Subscribe(this);
+
             RaisePropertyChangedEvent("Admins");
             RaisePropertyChangedEvent("SelectedAdmin");
         }
 
-        public void Refresh(IEnumerable<AdminDisplayModel> admins)
+        public void Update()
         {
+            IEnumerable<AdminDisplayModel> admins = facade.GetAll();
+
             Admins.Clear();
             foreach (AdminDisplayModel admin in admins)
             {

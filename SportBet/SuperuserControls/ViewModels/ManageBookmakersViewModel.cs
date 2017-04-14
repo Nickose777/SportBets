@@ -1,4 +1,6 @@
-﻿using SportBet.EventHandlers.Display;
+﻿using SportBet.Contracts;
+using SportBet.Contracts.Subjects;
+using SportBet.EventHandlers.Display;
 using SportBet.Models.Display;
 using System;
 using System.Collections.Generic;
@@ -10,26 +12,35 @@ using System.Windows.Input;
 
 namespace SportBet.SuperuserControls.ViewModels
 {
-    public class ManageBookmakersViewModel : ObservableObject
+    public class ManageBookmakersViewModel : ObservableObject, IObserver
     {
         public event BookmakerDisplayEventHandler BookmakerDeleted;
 
+        private readonly ISubject subject;
+        private readonly FacadeBase<BookmakerDisplayModel> facade;
+
         private BookmakerDisplayModel bookmaker;
 
-        public ManageBookmakersViewModel(IEnumerable<BookmakerDisplayModel> bookmakers)
+        public ManageBookmakersViewModel(ISubject subject, FacadeBase<BookmakerDisplayModel> facade)
         {
-            this.Bookmakers = new ObservableCollection<BookmakerDisplayModel>(bookmakers);
+            this.subject = subject;
+            this.facade = facade;
+            this.Bookmakers = new ObservableCollection<BookmakerDisplayModel>(facade.GetAll());
 
             this.DeleteSelectedBookmakerCommand = new DelegateCommand(
                 () => RaiseBookmakerDeletedEvent(SelectedBookmaker),
                 obj => SelectedBookmaker != null);
 
+            subject.Subscribe(this);
+
             RaisePropertyChangedEvent("Bookmakers");
             RaisePropertyChangedEvent("SelectedBookmaker");
         }
 
-        public void Refresh(IEnumerable<BookmakerDisplayModel> bookmakers)
+        public void Update()
         {
+            IEnumerable<BookmakerDisplayModel> bookmakers = facade.GetAll();
+
             Bookmakers.Clear();
             foreach (BookmakerDisplayModel bookmaker in bookmakers)
             {

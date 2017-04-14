@@ -152,6 +152,9 @@
     <Compile Include="Contracts\FacadeBase.cs" />
     <Compile Include="Contracts\IObserver.cs" />
     <Compile Include="Contracts\ISubject.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AnalyticController.cs" />
+    <Compile Include="Controllers\BookmakerController.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
@@ -177,6 +180,9 @@
     <Compile Include="EventHandlers\Display\ClientDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Register\ClientRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\ServiceMessageEventHandler.cs" />
+    <Compile Include="Facades\AdminFacade.cs" />
+    <Compile Include="Facades\AnalyticFacade.cs" />
+    <Compile Include="Facades\BookmakerFacade.cs" />
     <Compile Include="Facades\ClientFacade.cs" />
     <Compile Include="Facades\CountryFacade.cs" />
     <Compile Include="Facades\SportFacade.cs" />
@@ -196,10 +202,10 @@
     <Compile Include="ObservableObject.cs" />
     <Compile Include="RegisterObservableObject.cs" />
     <Compile Include="MainWindowBase.cs" />
-    <Compile Include="Controller\ClientController.cs" />
-    <Compile Include="Controller\CountryController.cs" />
-    <Compile Include="Controller\SportController.cs" />
-    <Compile Include="Controller\SubjectBase.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\SportController.cs" />
+    <Compile Include="Controllers\SubjectBase.cs" />
     <Compile Include="SuperuserControls\SuperuserMainWindow.xaml.cs">
       <DependentUpon>SuperuserMainWindow.xaml</DependentUpon>
     </Compile>

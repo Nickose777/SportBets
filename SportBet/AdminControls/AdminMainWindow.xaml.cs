@@ -35,54 +35,12 @@ namespace SportBet.AdminControls
 
         private void CreateCountry_Click(object sender, RoutedEventArgs e)
         {
-            CreateCountry();
-        }
-        private void CreateCountry()
-        {
-            CountryCreateViewModel viewModel = new CountryCreateViewModel();
-            CountryCreateControl control = new CountryCreateControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
-
-            viewModel.CountryCreated += (s, e) =>
-            {
-                using (ICountryService service = factory.CreateCountryService())
-                {
-                    ServiceMessage serviceMessage = service.Create(e.ContryName);
-
-                    SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
-
-                    if (serviceMessage.IsSuccessful)
-                        viewModel.CountryName = String.Empty;
-                }
-            };
-
-            window.ShowDialog();
+            countryController.AddCountry();
         }
 
         private void CreateSport_Click(object sender, RoutedEventArgs e)
         {
-            CreateSport();
-        }
-        private void CreateSport()
-        {
-            SportCreateViewModel viewModel = new SportCreateViewModel();
-            SportCreateControl control = new SportCreateControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
-
-            viewModel.SportCreated += (s, e) =>
-            {
-                using (ISportService service = factory.CreateSportService())
-                {
-                    ServiceMessage serviceMessage = service.Create(e.SportName);
-
-                    SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
-
-                    if (serviceMessage.IsSuccessful)
-                        viewModel.SportName = String.Empty;
-                }
-            };
-
-            window.ShowDialog();
+            sportController.AddSport();
         }
 
         private void ManageCountries_Click(object sender, RoutedEventArgs e)

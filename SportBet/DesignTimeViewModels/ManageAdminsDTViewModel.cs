@@ -5,6 +5,6 @@ namespace SportBet.DesignTimeViewModels
     public class ManageAdminsDTViewModel : ManageAdminsViewModel
     {
         public ManageAdminsDTViewModel()
-            : base(null) { }
+            : base(null, null) { }
     }
 }

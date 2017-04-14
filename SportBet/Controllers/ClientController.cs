@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using AutoMapper;
 using SportBet.CommonControls.Clients.UserControls;
 using SportBet.CommonControls.Clients.ViewModels;
@@ -12,6 +13,10 @@ using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
+using SportBet.BookmakerControls.ViewModels;
+using SportBet.BookmakerControls.UserControls;
+using SportBet.Models.Registers;
+using SportBet.Services.DTOModels.Register;
 
 namespace SportBet.Controllers
 {
@@ -24,6 +29,39 @@ namespace SportBet.Controllers
         {
             this.facade = facade;
             facade.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
+        }
+
+        public void RegisterClient()
+        {
+            ClientRegisterViewModel viewModel = new ClientRegisterViewModel(new ClientRegisterModel() { DateOfBirth = new DateTime(1990, 01, 01) });
+            RegisterClientControl control = new RegisterClientControl(viewModel);
+
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.ClientCreated += (s, e) =>
+            {
+                ClientRegisterModel client = e.Client;
+                ClientRegisterDTO clientDTO = Mapper.Map<ClientRegisterModel, ClientRegisterDTO>(client);
+
+                using (IAccountService service = factory.CreateAccountService())
+                {
+                    ServiceMessage serviceMessage = service.Register(clientDTO);
+                    RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        viewModel.FirstName = String.Empty;
+                        viewModel.LastName = String.Empty;
+                        viewModel.PhoneNumber = String.Empty;
+                        viewModel.Login = String.Empty;
+                        viewModel.Password = String.Empty;
+                        viewModel.ConfirmPassword = String.Empty;
+                        Notify();
+                    }
+                }
+            };
+
+            window.Show();
         }
 
         public void DisplayClientsForAdmin()
@@ -67,7 +105,7 @@ namespace SportBet.Controllers
                 };
             }
 
-            window.ShowDialog();
+            window.Show();
         }
 
         private void EditClient(ClientDisplayModel clientDisplayModel)
@@ -102,7 +140,7 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.ShowDialog();
+            window.Show();
         }
     }
 }

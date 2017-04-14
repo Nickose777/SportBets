@@ -5,6 +5,6 @@ namespace SportBet.DesignTimeViewModels
     public class ManageAnalyticsDTViewModel : ManageAnalyticsViewModel
     {
         public ManageAnalyticsDTViewModel()
-            : base(null) { }
+            : base(null, null) { }
     }
 }

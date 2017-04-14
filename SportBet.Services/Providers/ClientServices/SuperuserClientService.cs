@@ -22,7 +22,7 @@ namespace SportBet.Services.Providers.ClientServices
 
         public ServiceMessage Update(ClientEditDTO clientEditDTO, string login)
         {
-            throw new NotImplementedException();
+            return new ServiceMessage("TODO - implement Update", false);
         }
 
         public ServiceMessage Delete(string login)

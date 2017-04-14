@@ -1,35 +1,43 @@
-﻿using SportBet.EventHandlers.Display;
-using SportBet.Models.Display;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using SportBet.Contracts;
+using SportBet.Contracts.Subjects;
+using SportBet.EventHandlers.Display;
+using SportBet.Models.Display;
 
 namespace SportBet.SuperuserControls.ViewModels
 {
-    public class ManageAnalyticsViewModel : ObservableObject
+    public class ManageAnalyticsViewModel : ObservableObject, IObserver
     {
         public event AnalyticDisplayEventHandler AnalyticDeleted;
 
+        private readonly ISubject subject;
+        private readonly FacadeBase<AnalyticDisplayModel> facade;
+
         private AnalyticDisplayModel analytic;
 
-        public ManageAnalyticsViewModel(IEnumerable<AnalyticDisplayModel> analytics)
+        public ManageAnalyticsViewModel(ISubject subject, FacadeBase<AnalyticDisplayModel> facade)
         {
-            this.Analytics = new ObservableCollection<AnalyticDisplayModel>(analytics);
+            this.subject = subject;
+            this.facade = facade;
+
+            this.Analytics = new ObservableCollection<AnalyticDisplayModel>(facade.GetAll());
 
             this.DeleteSelectedAnalyticCommand = new DelegateCommand(
                 () => RaiseAnalyticDeletedEvent(SelectedAnalytic),
                 obj => SelectedAnalytic != null);
 
+            subject.Subscribe(this);
+            
             RaisePropertyChangedEvent("Analytics");
             RaisePropertyChangedEvent("SelectedAnalytic");
         }
 
-        public void Refresh(IEnumerable<AnalyticDisplayModel> analytics)
+        public void Update()
         {
+            IEnumerable<AnalyticDisplayModel> analytics = facade.GetAll();
+
             Analytics.Clear();
             foreach (AnalyticDisplayModel analytic in analytics)
             {

@@ -5,6 +5,6 @@ namespace SportBet.DesignTimeViewModels
     public class ManageBookmakersDTViewModel : ManageBookmakersViewModel
     {
         public ManageBookmakersDTViewModel()
-            : base(null) { }
+            : base(null, null) { }
     }
 }

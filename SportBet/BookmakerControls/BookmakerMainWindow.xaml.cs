@@ -38,27 +38,7 @@ namespace SportBet.BookmakerControls
         }
         private void RegisterClient()
         {
-            ClientRegisterViewModel viewModel = new ClientRegisterViewModel(new ClientRegisterModel() { DateOfBirth = new DateTime(1990, 01, 01) });
-            RegisterClientControl control = new RegisterClientControl(viewModel);
-
-            Window window = WindowFactory.CreateByContentsSize(control);
-
-            viewModel.ClientCreated += (s, e) =>
-            {
-                ClientRegisterModel client = e.Client;
-                ClientRegisterDTO clientDTO = Mapper.Map<ClientRegisterModel, ClientRegisterDTO>(client);
-
-                using (IAccountService service = factory.CreateAccountService())
-                {
-                    ServiceMessage serviceMessage = service.Register(clientDTO);
-
-                    SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
-                    if (serviceMessage.IsSuccessful)
-                        window.Close();
-                }
-            };
-
-            window.ShowDialog();
+            clientController.RegisterClient();
         }
 
         private void ManageClients_Click(object sender, RoutedEventArgs e)
