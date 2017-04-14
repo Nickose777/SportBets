@@ -112,6 +112,7 @@ namespace SportBet
                     break;
             }
 
+            window.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             return window;
         }
 
