@@ -2,17 +2,14 @@
 using System.Windows;
 using System.Windows.Controls;
 using AutoMapper;
+using SportBet.CommonControls.Clients.UserControls;
+using SportBet.CommonControls.Clients.ViewModels;
+using SportBet.Controllers;
 using SportBet.Models.Edit;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
-using SportBet.CommonControls.Clients.ViewModels;
-using SportBet.CommonControls.Clients.UserControls;
-using SportBet.CommonControls.ChangePassword;
-using SportBet.WindowFactories;
-using SportBet.Models;
-using SportBet.Services.DTOModels;
 
 namespace SportBet.ClientControls
 {
@@ -21,10 +18,16 @@ namespace SportBet.ClientControls
     /// </summary>
     public partial class ClientMainWindow : MainWindowBase
     {
+        private readonly AccountController accountController;
+
         public ClientMainWindow(ServiceFactory factory, string login)
             : base(factory, login)
         {
             InitializeComponent();
+
+            accountController = new AccountController(factory);
+
+            accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
             SetFooterMessage(true, String.Format("Welcome, {0} (client)", login));
         }
@@ -68,44 +71,7 @@ namespace SportBet.ClientControls
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            ChangePassword();
-        }
-        private void ChangePassword()
-        {
-            ChangePasswordControl control = new ChangePasswordControl(login);
-            Window window = WindowFactory.CreateByContentsSize(control);
-
-            control.PasswordChanged += (s, e) =>
-            {
-                ChangePasswordModel model = e.ChangePasswordModel;
-                if (model.NewPassword == model.ConfirmPassword)
-                {
-                    ChangePasswordDTO changePasswordDTO = new ChangePasswordDTO
-                    {
-                        Login = model.Login,
-                        OldPassword = model.OldPassword,
-                        NewPassword = model.NewPassword
-                    };
-
-                    using (IAccountService service = factory.CreateAccountService())
-                    {
-                        ServiceMessage serviceMessage = service.ChangePassword(changePasswordDTO);
-                        SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
-
-                        if (serviceMessage.IsSuccessful)
-                        {
-                            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-                            Application.Current.Shutdown();
-                        }
-                    }
-                }
-                else
-                {
-                    SetFooterMessage(false, "Passwords are not same");
-                }
-            };
-
-            window.ShowDialog();
+            accountController.ChangePassword(login);
         }
 
         private void SetFooterMessage(bool success, string message)

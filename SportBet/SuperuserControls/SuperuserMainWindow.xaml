@@ -23,6 +23,9 @@
                 <MenuItem Header="Bookmakers" Click="ManageBookmakers_Click"/>
                 <MenuItem Header="Clients" Click="ManageClients_Click"/>
             </MenuItem>
+            <MenuItem Header="Settings">
+                <MenuItem Header="Change password" Click="ChangePassword_Click" />
+            </MenuItem>
             <MenuItem Header="Sign out" Click="SignOut_Click"/>
         </Menu>
        

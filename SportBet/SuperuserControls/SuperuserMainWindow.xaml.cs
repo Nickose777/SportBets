@@ -23,6 +23,7 @@ namespace SportBet.SuperuserControls
     /// </summary>
     public partial class SuperuserMainWindow : MainWindowBase
     {
+        private readonly AccountController accountController;
         private readonly ClientController clientController;
         private readonly BookmakerController bookmakerController;
         private readonly AdminController adminController;
@@ -33,17 +34,24 @@ namespace SportBet.SuperuserControls
         {
             InitializeComponent();
 
+            accountController = new AccountController(factory);
             clientController = new ClientController(factory, new ClientFacade(factory));
             bookmakerController = new BookmakerController(factory, new BookmakerFacade(factory));
             adminController = new AdminController(factory, new AdminFacade(factory));
             analyticController = new AnalyticController(factory, new AnalyticFacade(factory));
 
+            accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             clientController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             bookmakerController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             adminController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             analyticController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
             SetFooterMessage(true, String.Format("Welcome, {0} (superuser)", login));
+        }
+
+        private void ChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            accountController.ChangePassword(login);
         }
 
         private void RegisterBookmaker_Click(object sender, RoutedEventArgs e)

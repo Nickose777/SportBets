@@ -17,6 +17,7 @@ namespace SportBet.CommonControls.ChangePassword
         public ChangePasswordControl(string login)
         {
             InitializeComponent();
+            oldTxt.Focus();
             this.login = login;
         }
 

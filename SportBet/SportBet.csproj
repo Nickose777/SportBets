@@ -152,9 +152,11 @@
     <Compile Include="Contracts\FacadeBase.cs" />
     <Compile Include="Contracts\IObserver.cs" />
     <Compile Include="Contracts\ISubject.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnalyticController.cs" />
     <Compile Include="Controllers\BookmakerController.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
