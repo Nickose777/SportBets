@@ -84,7 +84,6 @@ namespace SportBet.Services.Providers.CountryServices
             return new ServiceMessage(message, success);
         }
 
-        //TODO sort by name
         public DataServiceMessage<IEnumerable<string>> GetAll()
         {
             string message;
@@ -93,8 +92,12 @@ namespace SportBet.Services.Providers.CountryServices
 
             try
             {
-                IEnumerable<CountryEntity> countryEntities = unitOfWork.Countries.GetAll();
-                countryNames = countryEntities.Select(countryEntity => countryEntity.Name);
+                IEnumerable<CountryEntity> countryEntities = unitOfWork
+                    .Countries
+                    .GetAll();
+                countryNames = countryEntities
+                    .Select(countryEntity => countryEntity.Name)
+                    .OrderBy(name => name);
 
                 message = "Got all countries";
             }

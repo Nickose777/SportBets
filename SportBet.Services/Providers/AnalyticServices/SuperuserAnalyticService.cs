@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using SportBet.Core.Entities;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
@@ -39,7 +38,7 @@ namespace SportBet.Services.Providers.AnalyticServices
 
                     unitOfWork.Commit();
 
-                    message = String.Format("Successfully deleted user '{0}'", login);
+                    message = String.Format("Deleted user '{0}'", login);
                 }
                 else
                 {
@@ -77,9 +76,10 @@ namespace SportBet.Services.Providers.AnalyticServices
                         LastName = analyticEntity.LastName,
                         PhoneNumber = analyticEntity.PhoneNumber
                     };
-                }).ToList();
+                })
+                .OrderBy(analytic => analytic.LastName);
 
-                message = "Successfully got all analytics!";
+                message = "Got all analytics";
             }
             catch (Exception ex)
             {

@@ -85,7 +85,7 @@ namespace SportBet.Services.Providers.ClientServices
                     };
                 });
 
-                message = "Successfully got all clients!";
+                message = "Got all clients";
             }
             catch (Exception ex)
             {

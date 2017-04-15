@@ -40,7 +40,7 @@ namespace SportBet.Services.Providers.ClientServices
 
                         unitOfWork.Commit();
 
-                        message = "Successfully changed client's information";
+                        message = "Changed client's information";
                     }
                     catch (Exception ex)
                     {
@@ -87,7 +87,7 @@ namespace SportBet.Services.Providers.ClientServices
                         PhoneNumber = clientEntity.PhoneNumber,
                         DateOfBirth = clientEntity.DateOfBirth
                     };
-                    message = "Successfully got information";
+                    message = "Retrieved info about client";
                 }
                 catch (Exception ex)
                 {

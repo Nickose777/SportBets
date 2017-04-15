@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using SportBet.Core.Entities;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
@@ -45,7 +44,7 @@ namespace SportBet.Services.Providers.ClientServices
 
                     unitOfWork.Commit();
 
-                    message = String.Format("Successfully deleted user '{0}'", login);
+                    message = String.Format("Deleted user '{0}'", login);
                 }
                 else
                 {
@@ -70,12 +69,19 @@ namespace SportBet.Services.Providers.ClientServices
 
             try
             {
-                IEnumerable<ClientEntity> clientEntities = unitOfWork.Clients.GetNotDeleted();
-                IEnumerable<UserEntity> users = unitOfWork.Users.GetAll();
+                IEnumerable<ClientEntity> clientEntities = unitOfWork
+                    .Clients
+                    .GetNotDeleted();
+                IEnumerable<UserEntity> users = unitOfWork
+                    .Users
+                    .GetAll();
 
                 clients = clientEntities.Select(clientEntity =>
                 {
-                    string login = users.Single(user => user.Id == clientEntity.Id).Login;
+                    string login = users
+                        .Single(user => user.Id == clientEntity.Id)
+                        .Login;
+
                     return new ClientDisplayDTO
                     {
                         Login = login,
@@ -85,9 +91,10 @@ namespace SportBet.Services.Providers.ClientServices
                         DateOfBirth = clientEntity.DateOfBirth,
                         DateOfRegistration = clientEntity.DateOfRegistration
                     };
-                });
+                })
+                .OrderBy(client => client.LastName);
 
-                message = "Successfully got all clients!";
+                message = "Got all clients";
             }
             catch (Exception ex)
             {

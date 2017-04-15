@@ -84,7 +84,6 @@ namespace SportBet.Services.Providers.SportServices
             return new ServiceMessage(message, success);
         }
 
-        //TODO sort
         public DataServiceMessage<IEnumerable<string>> GetAll()
         {
             string message;
@@ -93,8 +92,12 @@ namespace SportBet.Services.Providers.SportServices
 
             try
             {
-                IEnumerable<SportEntity> sportEntities = unitOfWork.Sports.GetAll();
-                sportNames = sportEntities.Select(countryEntity => countryEntity.Type);
+                IEnumerable<SportEntity> sportEntities = unitOfWork
+                    .Sports
+                    .GetAll();
+                sportNames = sportEntities
+                    .Select(countryEntity => countryEntity.Type)
+                    .OrderBy(name => name);
 
                 message = "Got all sports";
             }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using SportBet.Core.Entities;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
@@ -77,9 +76,10 @@ namespace SportBet.Services.Providers.BookmakerServices
                         LastName = bookmakerEntity.LastName,
                         PhoneNumber = bookmakerEntity.PhoneNumber
                     };
-                }).ToList();
+                })
+                .OrderBy(bookmaker => bookmaker.LastName);
 
-                message = "Successfully got all bookmakers!";
+                message = "Got all bookmakers";
             }
             catch (Exception ex)
             {
