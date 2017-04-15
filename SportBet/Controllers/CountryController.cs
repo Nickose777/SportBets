@@ -8,6 +8,9 @@ using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
+using SportBet.Models.Edit;
+using SportBet.Services.DTOModels.Edit;
+using AutoMapper;
 
 namespace SportBet.Controllers
 {
@@ -51,6 +54,35 @@ namespace SportBet.Controllers
             CountryListViewModel viewModel = new CountryListViewModel(this, facade);
             CountryListControl control = new CountryListControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.CountrySelected += (s, e) => EditCountry(e.CountryName);
+
+            window.Show();
+        }
+
+        private void EditCountry(string countryName)
+        {
+            CountryEditViewModel viewModel = new CountryEditViewModel(countryName);
+            CountryEditControl control = new CountryEditControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.CountryEdited += (s, e) =>
+            {
+                CountryEditModel countryEditModel = e.Country;
+                CountryEditDTO countryEditDTO = Mapper.Map<CountryEditModel, CountryEditDTO>(countryEditModel);
+
+                using (ICountryService service = factory.CreateCountryService())
+                {
+                    ServiceMessage serviceMessage = service.Update(countryEditDTO);
+                    RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        window.Close();
+                        Notify();
+                    }
+                }
+            };
 
             window.Show();
         }

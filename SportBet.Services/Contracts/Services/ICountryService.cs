@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 
 namespace SportBet.Services.Contracts.Services
@@ -7,6 +8,8 @@ namespace SportBet.Services.Contracts.Services
     public interface ICountryService : IDisposable
     {
         ServiceMessage Create(string countryName);
+
+        ServiceMessage Update(CountryEditDTO countryEditDTO);
 
         DataServiceMessage<IEnumerable<string>> GetAll();
     }

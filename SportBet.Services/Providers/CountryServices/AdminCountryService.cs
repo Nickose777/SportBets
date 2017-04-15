@@ -4,6 +4,7 @@ using System.Linq;
 using SportBet.Core.Entities;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
+using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 
 namespace SportBet.Services.Providers.CountryServices
@@ -50,6 +51,40 @@ namespace SportBet.Services.Providers.CountryServices
             return new ServiceMessage(message, success);
         }
 
+        public ServiceMessage Update(CountryEditDTO countryEditDTO)
+        {
+            string message;
+            bool success = true;
+
+            try
+            {
+                CountryEntity countryEntity = unitOfWork
+                    .Countries
+                    .GetAll()
+                    .SingleOrDefault(country => country.Name == countryEditDTO.OldCountryName);
+                if (countryEntity != null)
+                {
+                    countryEntity.Name = countryEditDTO.NewCountryName;
+                    unitOfWork.Commit();
+
+                    message = "Country was renamed";
+                }
+                else
+                {
+                    message = "Country with such name doesn't exist";
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
+        //TODO sort by name
         public DataServiceMessage<IEnumerable<string>> GetAll()
         {
             string message;

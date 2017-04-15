@@ -108,6 +108,9 @@
     <Compile Include="AdminControls\UserControls\CountryCreateControl.xaml.cs">
       <DependentUpon>CountryCreateControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdminControls\UserControls\CountryEditControl.xaml.cs">
+      <DependentUpon>CountryEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminControls\UserControls\CountryListControl.xaml.cs">
       <DependentUpon>CountryListControl.xaml</DependentUpon>
     </Compile>
@@ -118,6 +121,7 @@
       <DependentUpon>SportListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="AdminControls\ViewModels\CountryCreateViewModel.cs" />
+    <Compile Include="AdminControls\ViewModels\CountryEditViewModel.cs" />
     <Compile Include="AdminControls\ViewModels\CountryListViewModel.cs" />
     <Compile Include="AdminControls\ViewModels\SportCreateViewModel.cs" />
     <Compile Include="AdminControls\ViewModels\SportListViewModel.cs" />
@@ -163,6 +167,7 @@
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientRegisterDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\CountryEditDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\CountryListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageAdminsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageAnalyticsDTViewModel.cs" />
@@ -175,6 +180,8 @@
     <Compile Include="EventHandlers\Display\AdminDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AnalyticDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
+    <Compile Include="EventHandlers\Display\CountryDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Edit\CountryEditEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AdminRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AnalyticRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\Display\BookmakerDisplayEventHandler.cs" />
@@ -196,6 +203,7 @@
     <Compile Include="Models\Display\BookmakerDisplayModel.cs" />
     <Compile Include="Models\Display\ClientDisplayModel.cs" />
     <Compile Include="Models\Edit\ClientEditModel.cs" />
+    <Compile Include="Models\Edit\CountryEditModel.cs" />
     <Compile Include="Models\Registers\AdminRegisterModel.cs" />
     <Compile Include="Models\Registers\AnalyticRegisterModel.cs" />
     <Compile Include="Models\Registers\BookmakerRegisterModel.cs" />
@@ -242,6 +250,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdminControls\UserControls\CountryCreateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminControls\UserControls\CountryEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

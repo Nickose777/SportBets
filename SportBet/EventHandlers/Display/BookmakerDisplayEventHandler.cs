@@ -4,6 +4,7 @@ using SportBet.Models.Display;
 namespace SportBet.EventHandlers.Display
 {
     public delegate void BookmakerDisplayEventHandler(object sender, BookmakerDisplayEventArgs e);
+
     public class BookmakerDisplayEventArgs : EventArgs
     {
         public BookmakerDisplayModel Bookmaker { get; private set; }
