@@ -79,6 +79,8 @@ namespace SportBet.Services.Providers.AccountServices
                     unitOfWork.Clients.Add(clientEntity);
 
                     unitOfWork.Commit();
+
+                    message = "Registered new client";
                 }
                 catch (Exception ex)
                 {
@@ -143,7 +145,7 @@ namespace SportBet.Services.Providers.AccountServices
                         unitOfWork.Bookmakers.Add(bookmakerEntity);
                         unitOfWork.Commit();
 
-                        message = "Successfully registered bookmaker!";
+                        message = "Registered new bookmaker";
                     }
                     catch (Exception ex)
                     {
@@ -209,7 +211,7 @@ namespace SportBet.Services.Providers.AccountServices
                         unitOfWork.Admins.Add(adminEntity);
                         unitOfWork.Commit();
 
-                        message = "Successfully registered admin!";
+                        message = "Registered new admin";
                     }
                     catch (Exception ex)
                     {
@@ -275,7 +277,7 @@ namespace SportBet.Services.Providers.AccountServices
                         unitOfWork.Analytics.Add(analyticEntity);
                         unitOfWork.Commit();
 
-                        message = "Successfully registered analytic!";
+                        message = "Registered new analytic";
                     }
                     catch (Exception ex)
                     {

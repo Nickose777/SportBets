@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows;
 using AutoMapper;
-using SportBet.BookmakerControls.UserControls;
-using SportBet.BookmakerControls.ViewModels;
 using SportBet.Models.Registers;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;

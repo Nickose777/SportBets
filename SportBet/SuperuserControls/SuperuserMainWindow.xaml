@@ -13,9 +13,10 @@
         
         <Menu>
             <MenuItem Header="Register...">
-                <MenuItem Header="Bookmaker" Click="RegisterBookmaker_Click"/>
                 <MenuItem Header="Admin" Click="RegisterAdmin_Click"/>
                 <MenuItem Header="Analytic" Click="RegisterAnalytic_Click"/>
+                <MenuItem Header="Bookmaker" Click="RegisterBookmaker_Click"/>
+                <MenuItem Header="Client" Click="RegisterClient_Click"/>
             </MenuItem>
             <MenuItem Header="Manage...">
                 <MenuItem Header="Admins" Click="ManageAdmins_Click"/>

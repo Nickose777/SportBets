@@ -135,10 +135,10 @@
     <Compile Include="BookmakerControls\BookmakerMainWindow.xaml.cs">
       <DependentUpon>BookmakerMainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BookmakerControls\UserControls\RegisterClientControl.xaml.cs">
+    <Compile Include="CommonControls\Clients\UserControls\RegisterClientControl.xaml.cs">
       <DependentUpon>RegisterClientControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BookmakerControls\ViewModels\ClientRegisterViewModel.cs" />
+    <Compile Include="CommonControls\Clients\ViewModels\ClientRegisterViewModel.cs" />
     <Compile Include="ClientControls\ClientMainWindow.xaml.cs">
       <DependentUpon>ClientMainWindow.xaml</DependentUpon>
     </Compile>
@@ -289,7 +289,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BookmakerControls\UserControls\RegisterClientControl.xaml">
+    <Page Include="CommonControls\Clients\UserControls\RegisterClientControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -388,6 +388,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BookmakerControls\UserControls\" />
+    <Folder Include="BookmakerControls\ViewModels\" />
     <Folder Include="ClientControls\UserControls\" />
     <Folder Include="ClientControls\ViewModels\" />
   </ItemGroup>

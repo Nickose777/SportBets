@@ -1,4 +1,4 @@
-﻿using SportBet.BookmakerControls.ViewModels;
+﻿using SportBet.CommonControls.Clients.ViewModels;
 
 namespace SportBet.DesignTimeViewModels
 {

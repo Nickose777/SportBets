@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
-using AutoMapper;
-using SportBet.Models.Display;
-using SportBet.Models.Registers;
-using SportBet.Services.Contracts;
-using SportBet.Services.Contracts.Services;
-using SportBet.Services.DTOModels.Display;
-using SportBet.Services.DTOModels.Register;
-using SportBet.Services.ResultTypes;
 using SportBet.Controllers;
-using SportBet.SuperuserControls.UserControls;
-using SportBet.SuperuserControls.ViewModels;
-using SportBet.WindowFactories;
 using SportBet.Facades;
+using SportBet.Services.Contracts;
 
 namespace SportBet.SuperuserControls
 {
@@ -49,11 +37,6 @@ namespace SportBet.SuperuserControls
             SetFooterMessage(true, String.Format("Welcome, {0} (superuser)", login));
         }
 
-        private void RegisterBookmaker_Click(object sender, RoutedEventArgs e)
-        {
-            bookmakerController.RegisterBookmaker();
-        }
-
         private void RegisterAdmin_Click(object sender, RoutedEventArgs e)
         {
             adminController.RegisterAdmin();
@@ -62,6 +45,16 @@ namespace SportBet.SuperuserControls
         private void RegisterAnalytic_Click(object sender, RoutedEventArgs e)
         {
             analyticController.RegisterAnalytic();
+        }
+
+        private void RegisterBookmaker_Click(object sender, RoutedEventArgs e)
+        {
+            bookmakerController.RegisterBookmaker();
+        }
+
+        private void RegisterClient_Click(object sender, RoutedEventArgs e)
+        {
+            clientController.RegisterClient();
         }
 
         private void ManageAdmins_Click(object sender, RoutedEventArgs e)

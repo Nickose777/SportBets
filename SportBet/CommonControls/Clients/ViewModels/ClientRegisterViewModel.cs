@@ -1,13 +1,9 @@
-﻿using SportBet.EventHandlers.Register;
-using SportBet.Models.Registers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Input;
+using SportBet.EventHandlers.Register;
+using SportBet.Models.Registers;
 
-namespace SportBet.BookmakerControls.ViewModels
+namespace SportBet.CommonControls.Clients.ViewModels
 {
     public class ClientRegisterViewModel : RegisterObservableObject
     {
@@ -23,15 +19,6 @@ namespace SportBet.BookmakerControls.ViewModels
         }
 
         public ICommand CreateClientCommand { get; private set; }
-        private bool CanCreateBookmaker(object obj)
-        {
-            return
-                CanCreateModel() &&
-                !String.IsNullOrEmpty(FirstName) &&
-                !String.IsNullOrEmpty(LastName) &&
-                !String.IsNullOrEmpty(PhoneNumber) &&
-                DateOfBirth != null;
-        }
 
         public string LastName
         {
@@ -42,6 +29,7 @@ namespace SportBet.BookmakerControls.ViewModels
                 RaisePropertyChangedEvent("LastName");
             }
         }
+
         public string FirstName
         {
             get { return client.FirstName; }
@@ -51,6 +39,7 @@ namespace SportBet.BookmakerControls.ViewModels
                 RaisePropertyChangedEvent("FirstName");
             }
         }
+
         public string PhoneNumber
         {
             get { return client.PhoneNumber; }
@@ -60,6 +49,7 @@ namespace SportBet.BookmakerControls.ViewModels
                 RaisePropertyChangedEvent("PhoneNumber");
             }
         }
+
         public DateTime DateOfBirth
         {
             get { return client.DateOfBirth; }
@@ -68,6 +58,16 @@ namespace SportBet.BookmakerControls.ViewModels
                 client.DateOfBirth = value;
                 RaisePropertyChangedEvent("DateOfBirth");
             }
+        }
+
+        private bool CanCreateBookmaker(object obj)
+        {
+            return
+                CanCreateModel() &&
+                !String.IsNullOrEmpty(FirstName) &&
+                !String.IsNullOrEmpty(LastName) &&
+                !String.IsNullOrEmpty(PhoneNumber) &&
+                DateOfBirth != null;
         }
 
         private void RaiseClientCreatedEvent(ClientRegisterModel client)

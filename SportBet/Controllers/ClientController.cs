@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Windows;
 using AutoMapper;
+using SportBet.CommomControls.Clients.UserControls;
 using SportBet.CommonControls.Clients.UserControls;
 using SportBet.CommonControls.Clients.ViewModels;
 using SportBet.Contracts;
 using SportBet.Contracts.Subjects;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
+using SportBet.Models.Registers;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Edit;
+using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
-using SportBet.BookmakerControls.ViewModels;
-using SportBet.BookmakerControls.UserControls;
-using SportBet.Models.Registers;
-using SportBet.Services.DTOModels.Register;
 
 namespace SportBet.Controllers
 {
@@ -29,13 +28,14 @@ namespace SportBet.Controllers
         {
             this.facade = facade;
             facade.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
+            //TODO
+            //subscribe only on first getAll event
         }
 
         public void RegisterClient()
         {
             ClientRegisterViewModel viewModel = new ClientRegisterViewModel(new ClientRegisterModel() { DateOfBirth = new DateTime(1990, 01, 01) });
             RegisterClientControl control = new RegisterClientControl(viewModel);
-
             Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.ClientCreated += (s, e) =>
