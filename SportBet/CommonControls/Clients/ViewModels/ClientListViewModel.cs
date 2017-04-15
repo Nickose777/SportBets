@@ -37,16 +37,6 @@ namespace SportBet.CommonControls.Clients.ViewModels
 
         public ICommand RefreshClients { get; private set; }
 
-        private bool FilterClient(object obj)
-        {
-            ClientDisplayModel client = obj as ClientDisplayModel;
-
-            return
-                client.FirstName.Contains(firstNameFilter ?? String.Empty) &&
-                client.LastName.Contains(lastNameFilter ?? String.Empty) &&
-                client.PhoneNumber.Contains(phoneNumberFilter ?? String.Empty);
-        }
-
         public string FirstNameFilter
         {
             get { return firstNameFilter; }
@@ -56,6 +46,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
                 RaisePropertyChangedEvent("FirstNameFilter");
             }
         }
+
         public string LastNameFilter
         {
             get { return lastNameFilter; }
@@ -65,6 +56,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
                 RaisePropertyChangedEvent("LastNameFilter");
             }
         }
+
         public string PhoneNumberFilter
         {
             get { return phoneNumberFilter; }
@@ -104,5 +96,15 @@ namespace SportBet.CommonControls.Clients.ViewModels
         }
 
         public ObservableCollection<ClientDisplayModel> Clients { get; private set; }
+
+        private bool FilterClient(object obj)
+        {
+            ClientDisplayModel client = obj as ClientDisplayModel;
+
+            return
+                client.FirstName.Contains(FirstNameFilter ?? String.Empty) &&
+                client.LastName.Contains(LastNameFilter ?? String.Empty) &&
+                client.PhoneNumber.Contains(PhoneNumberFilter ?? String.Empty);
+        }
     }
 }

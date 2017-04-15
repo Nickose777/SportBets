@@ -67,7 +67,7 @@ namespace SportBet.Controllers
             ManageBookmakersControl control = new ManageBookmakersControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
 
-            viewModel.BookmakerDeleted += (s, e) =>
+            viewModel.BookmakerDeleteRequest += (s, e) =>
             {
                 using (IBookmakerService service = factory.CreateBookmakerService())
                 {

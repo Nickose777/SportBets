@@ -250,6 +250,7 @@
     <Compile Include="SuperuserControls\ViewModels\BookmakerRegisterViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageAdminsViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageAnalyticsViewModel.cs" />
+    <Compile Include="SuperuserControls\ViewModels\BookmakerListViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageBookmakersViewModel.cs" />
     <Compile Include="ValueConverters\InverseBooleanConverter.cs" />
     <Compile Include="WindowFactories\WindowFactory.cs" />

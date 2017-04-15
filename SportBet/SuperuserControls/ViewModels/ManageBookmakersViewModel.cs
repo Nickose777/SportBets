@@ -1,72 +1,57 @@
-﻿using SportBet.Contracts;
+﻿using System.Windows.Input;
 using SportBet.Contracts.Subjects;
 using SportBet.EventHandlers.Display;
 using SportBet.Models.Display;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+using SportBet.Contracts;
 
 namespace SportBet.SuperuserControls.ViewModels
 {
-    public class ManageBookmakersViewModel : ObservableObject, IObserver
+    public class ManageBookmakersViewModel : ObservableObject
     {
-        public event BookmakerDisplayEventHandler BookmakerDeleted;
+        public event BookmakerDisplayEventHandler BookmakerSelectRequest;
+        public event BookmakerDisplayEventHandler BookmakerDeleteRequest;
 
-        private readonly ISubject subject;
-        private readonly FacadeBase<BookmakerDisplayModel> facade;
-
-        private BookmakerDisplayModel bookmaker;
-
-        public ManageBookmakersViewModel(ISubject subject, FacadeBase<BookmakerDisplayModel> facade)
-        {
-            this.subject = subject;
-            this.facade = facade;
-            this.Bookmakers = new ObservableCollection<BookmakerDisplayModel>(facade.GetAll());
-
-            this.DeleteSelectedBookmakerCommand = new DelegateCommand(
-                () => RaiseBookmakerDeletedEvent(SelectedBookmaker),
-                obj => SelectedBookmaker != null);
-
-            subject.Subscribe(this);
-
-            RaisePropertyChangedEvent("Bookmakers");
-            RaisePropertyChangedEvent("SelectedBookmaker");
-        }
-
-        public void Update()
-        {
-            IEnumerable<BookmakerDisplayModel> bookmakers = facade.GetAll();
-
-            Bookmakers.Clear();
-            foreach (BookmakerDisplayModel bookmaker in bookmakers)
-            {
-                Bookmakers.Add(bookmaker);
-            }
-
-            RaisePropertyChangedEvent("SelectedBookmaker");
-        }
-
-        public ICommand DeleteSelectedBookmakerCommand { get; private set; }
+        public BookmakerListViewModel BookmakerListViewModel { get; private set; }
 
         public BookmakerDisplayModel SelectedBookmaker
         {
-            get { return bookmaker; }
+            get { return BookmakerListViewModel.SelectedBookmaker; }
             set
             {
-                bookmaker = value;
+                BookmakerListViewModel.SelectedBookmaker = value;
                 RaisePropertyChangedEvent("SelectedBookmaker");
             }
         }
 
-        public ObservableCollection<BookmakerDisplayModel> Bookmakers { get; private set; }
-
-        private void RaiseBookmakerDeletedEvent(BookmakerDisplayModel bookmaker)
+        public ManageBookmakersViewModel(ISubject subject, FacadeBase<BookmakerDisplayModel> facade)
         {
-            var handler = BookmakerDeleted;
+            BookmakerListViewModel = new BookmakerListViewModel(subject, facade);
+
+            this.SelectBookmakerCommand = new DelegateCommand(
+                () => RaiseBookmakerSelectRequestEvent(SelectedBookmaker),
+                obj => SelectedBookmaker != null);
+            this.DeleteBookmakerCommand = new DelegateCommand(
+                () => RaiseBookmakerDeleteRequestEvent(SelectedBookmaker),
+                obj => SelectedBookmaker != null);
+        }
+
+        public ICommand SelectBookmakerCommand { get; private set; }
+
+        public ICommand DeleteBookmakerCommand { get; private set; }
+
+        private void RaiseBookmakerSelectRequestEvent(BookmakerDisplayModel bookmaker)
+        {
+            var handler = BookmakerSelectRequest;
+            if (handler != null)
+            {
+                BookmakerDisplayEventArgs e = new BookmakerDisplayEventArgs(bookmaker);
+                handler(this, e);
+            }
+        }
+
+        private void RaiseBookmakerDeleteRequestEvent(BookmakerDisplayModel bookmaker)
+        {
+            var handler = BookmakerDeleteRequest;
             if (handler != null)
             {
                 BookmakerDisplayEventArgs e = new BookmakerDisplayEventArgs(bookmaker);

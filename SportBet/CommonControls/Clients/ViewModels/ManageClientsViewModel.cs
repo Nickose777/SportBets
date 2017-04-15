@@ -37,6 +37,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
         }
 
         public ICommand SelectClientCommand { get; private set; }
+
         public ICommand DeleteClientCommand { get; private set; }
 
         public bool CanDeleteClient { get; private set; }
@@ -50,6 +51,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
                 handler(this, e);
             }
         }
+
         private void RaiseClientDeleteRequestEvent(ClientDisplayModel client)
         {
             var handler = ClientDeleteRequest;
