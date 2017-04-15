@@ -55,6 +55,7 @@
     <Compile Include="DTOModels\Display\ClientDisplayDTO.cs" />
     <Compile Include="DTOModels\Edit\ClientEditDTO.cs" />
     <Compile Include="DTOModels\Edit\CountryEditDTO.cs" />
+    <Compile Include="DTOModels\Edit\SportEditDTO.cs" />
     <Compile Include="DTOModels\Register\AdminRegisterDTO.cs" />
     <Compile Include="DTOModels\Register\AnalyticRegisterDTO.cs" />
     <Compile Include="DTOModels\Register\BookmakerRegisterDTO.cs" />

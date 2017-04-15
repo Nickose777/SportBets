@@ -117,6 +117,9 @@
     <Compile Include="AdminControls\UserControls\SportCreateControl.xaml.cs">
       <DependentUpon>SportCreateControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdminControls\UserControls\SportEditControl.xaml.cs">
+      <DependentUpon>SportEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminControls\UserControls\SportListControl.xaml.cs">
       <DependentUpon>SportListControl.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,7 @@
     <Compile Include="AdminControls\ViewModels\CountryEditViewModel.cs" />
     <Compile Include="AdminControls\ViewModels\CountryListViewModel.cs" />
     <Compile Include="AdminControls\ViewModels\SportCreateViewModel.cs" />
+    <Compile Include="AdminControls\ViewModels\SportEditViewModel.cs" />
     <Compile Include="AdminControls\ViewModels\SportListViewModel.cs" />
     <Compile Include="AnalyticControls\AnalyticMainWindow.xaml.cs">
       <DependentUpon>AnalyticMainWindow.xaml</DependentUpon>
@@ -173,15 +177,18 @@
     <Compile Include="DesignTimeViewModels\ManageAnalyticsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageClientsDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\SportEditDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\SportListDTViewModel.cs" />
     <Compile Include="EventHandlers\ChangePasswordEventHandler.cs" />
     <Compile Include="EventHandlers\Create\CountryEventHandler - Copy.cs" />
     <Compile Include="EventHandlers\Create\SportEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AdminDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AnalyticDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Display\SportDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
     <Compile Include="EventHandlers\Display\CountryDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\CountryEditEventHandler.cs" />
+    <Compile Include="EventHandlers\Edit\SportEditEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AdminRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AnalyticRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\Display\BookmakerDisplayEventHandler.cs" />
@@ -204,6 +211,7 @@
     <Compile Include="Models\Display\ClientDisplayModel.cs" />
     <Compile Include="Models\Edit\ClientEditModel.cs" />
     <Compile Include="Models\Edit\CountryEditModel.cs" />
+    <Compile Include="Models\Edit\SportEditModel.cs" />
     <Compile Include="Models\Registers\AdminRegisterModel.cs" />
     <Compile Include="Models\Registers\AnalyticRegisterModel.cs" />
     <Compile Include="Models\Registers\BookmakerRegisterModel.cs" />
@@ -262,6 +270,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdminControls\UserControls\SportCreateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminControls\UserControls\SportEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

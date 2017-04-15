@@ -34,6 +34,9 @@ namespace SportBet.Mappings
 
             CreateMap<CountryEditDTO, CountryEditModel>();
             CreateMap<CountryEditModel, CountryEditDTO>();
+
+            CreateMap<SportEditDTO, SportEditModel>();
+            CreateMap<SportEditModel, SportEditDTO>();
         }
     }
 }

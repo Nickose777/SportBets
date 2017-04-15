@@ -8,6 +8,9 @@ using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
+using SportBet.Models.Edit;
+using SportBet.Services.DTOModels.Edit;
+using AutoMapper;
 
 namespace SportBet.Controllers
 {
@@ -51,6 +54,35 @@ namespace SportBet.Controllers
             SportListViewModel viewModel = new SportListViewModel(this, facade);
             SportListControl control = new SportListControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.SportSelected += (s, e) => EditSport(e.SportName);
+
+            window.Show();
+        }
+
+        private void EditSport(string sportName)
+        {
+            SportEditViewModel viewModel = new SportEditViewModel(sportName);
+            SportEditControl control = new SportEditControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.SportEdited += (s, e) =>
+            {
+                SportEditModel sportEditModel = e.Sport;
+                SportEditDTO sportEditDTO = Mapper.Map<SportEditModel, SportEditDTO>(sportEditModel);
+
+                using (ISportService service = factory.CreateSportService())
+                {
+                    ServiceMessage serviceMessage = service.Update(sportEditDTO);
+                    RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        window.Close();
+                        Notify();
+                    }
+                }
+            };
 
             window.Show();
         }

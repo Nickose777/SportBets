@@ -20,8 +20,8 @@
 
         <GroupBox Grid.ColumnSpan="2" Header="Countries">
             <ListBox
-            ItemsSource="{Binding Countries}"
-            SelectedItem="{Binding SelectedCountry}" />
+                ItemsSource="{Binding Countries}"
+                SelectedItem="{Binding SelectedCountry}" />
         </GroupBox>
 
         <Button

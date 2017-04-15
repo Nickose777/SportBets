@@ -5,6 +5,7 @@ using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
 using System.Collections.Generic;
+using SportBet.Services.DTOModels.Edit;
 
 namespace SportBet.Services.Providers.SportServices
 {
@@ -24,7 +25,7 @@ namespace SportBet.Services.Providers.SportServices
 
             try
             {
-                int sportsWithSameNameCount = unitOfWork.Countries.GetAll(country => country.Name == sportName).Count();
+                int sportsWithSameNameCount = unitOfWork.Sports.GetAll(sport => sport.Type == sportName).Count();
                 if (sportsWithSameNameCount == 0)
                 {
                     unitOfWork.Sports.Add(new SportEntity
@@ -50,6 +51,40 @@ namespace SportBet.Services.Providers.SportServices
             return new ServiceMessage(message, success);
         }
 
+        public ServiceMessage Update(SportEditDTO sportEditDTO)
+        {
+            string message;
+            bool success = true;
+
+            try
+            {
+                SportEntity sportEntity = unitOfWork
+                    .Sports
+                    .GetAll()
+                    .SingleOrDefault(sport => sport.Type == sportEditDTO.OldSportName);
+                if (sportEntity != null)
+                {
+                    sportEntity.Type = sportEditDTO.NewSportName;
+                    unitOfWork.Commit();
+
+                    message = "Sport was renamed";
+                }
+                else
+                {
+                    message = "Sport with such name doesn't exist";
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
+        //TODO sort
         public DataServiceMessage<IEnumerable<string>> GetAll()
         {
             string message;

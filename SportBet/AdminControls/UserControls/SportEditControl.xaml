@@ -1,14 +1,14 @@
-﻿<UserControl x:Class="SportBet.AdminControls.UserControls.SportCreateControl"
+﻿<UserControl x:Class="SportBet.AdminControls.UserControls.SportEditControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:SportBet.AdminControls.ViewModels"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance ViewModel:SportCreateViewModel}"
+             d:DataContext="{d:DesignInstance ViewModel:SportEditViewModel}"
              Background="Orange" MinHeight="100.375" MinWidth="330.452">
     <Grid>
-        <GroupBox Header="Create sport" Padding="10">
+        <GroupBox Header="Edit sport" Padding="10">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" />
@@ -24,13 +24,21 @@
                 <TextBox Grid.Column="1" Text="{Binding SportName, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Button
-                    Content="Create"
+                    Content="Undo"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Padding="20,3"
+                    Command="{Binding UndoCommand}" />
+                <Button
+                    Content="Save"
                     Grid.Row="2"
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Padding="20,3"
-                    Command="{Binding CreateSportCommand}" />
+                    Command="{Binding SaveChangesCommand}" />
             </Grid>
         </GroupBox>
     </Grid>
