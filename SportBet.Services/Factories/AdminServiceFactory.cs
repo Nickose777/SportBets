@@ -20,8 +20,9 @@ namespace SportBet.Services.Factories
             IUnitOfWork unitOfWork = CreateUnitOfWork();
             IRegisterValidator registerValidator = CreateRegisterValidator();
             IEncryptor encryptor = CreateEncryptor();
+            ISession session = CreateSession();
 
-            return new AdminAccountService(unitOfWork, registerValidator, encryptor); 
+            return new AdminAccountService(unitOfWork, registerValidator, encryptor, session); 
         }
 
         public override IBookmakerService CreateBookmakerService()

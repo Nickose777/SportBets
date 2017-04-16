@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ISession.cs" />
     <Compile Include="Contracts\Services\IAccountService.cs" />
     <Compile Include="Contracts\Services\IAdminService.cs" />
     <Compile Include="Contracts\Services\IAnalyticService.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Providers\ClientServices\ClientClientService.cs" />
     <Compile Include="Providers\ClientServices\SuperuserClientService.cs" />
     <Compile Include="Providers\CountryServices\AdminCountryService.cs" />
+    <Compile Include="Providers\SessionProvider.cs" />
     <Compile Include="Providers\SportServices\AdminSportService.cs" />
     <Compile Include="ResultTypes\DataServiceMessage.cs" />
     <Compile Include="ResultTypes\ServiceMessage.cs" />

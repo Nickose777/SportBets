@@ -4,6 +4,7 @@ using SportBet.Services.Contracts.Encryption;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
 using SportBet.Services.Encryption;
+using SportBet.Services.Providers;
 using SportBet.Services.Validators;
 
 namespace SportBet.Services.Contracts
@@ -46,6 +47,11 @@ namespace SportBet.Services.Contracts
         protected IEncryptor CreateEncryptor()
         {
             return new Encryptor();
+        }
+
+        protected ISession CreateSession()
+        {
+            return new SessionProvider();
         }
     }
 }

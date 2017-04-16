@@ -57,12 +57,34 @@ namespace SportBet.Services.Tests
         }
 
         [TestMethod]
+        public void EstablishConnectionWithoutAdminSetAdminPassword()
+        {
+            List<UserEntity> emptyList = new List<UserEntity>();
+            unitOfWork
+                .Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>()))
+                .Returns(emptyList);
+            unitOfWork
+                .Setup(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>(), It.IsAny<string>()));
+            unitOfWork
+                .Setup(u => u.AdminPassword.SetPassword(It.IsAny<string>()))
+                .Verifiable("Set password was not called");
+
+            service.EstablishConnection();
+
+            unitOfWork.VerifyAll();
+        }
+
+        [TestMethod]
         public void EstablishConnectionWithoutAdminCreateDefaultSuperuserReturnsTrue()
         {
             List<UserEntity> emptyList = new List<UserEntity>();
-            unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>()))
+            unitOfWork
+                .Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>()))
                 .Returns(emptyList);
-            unitOfWork.Setup(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>(), It.IsAny<string>()));
+            unitOfWork
+                .Setup(u => u.AdminPassword.SetPassword(It.IsAny<string>()));
+            unitOfWork
+                .Setup(u => u.Accounts.CreateDefaultSuperuser(It.IsAny<string>(), It.IsAny<string>()));
 
             bool established = service.EstablishConnection();
 
