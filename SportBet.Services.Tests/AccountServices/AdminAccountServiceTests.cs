@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts;
@@ -9,7 +10,6 @@ using SportBet.Services.DTOModels;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.Providers.AccountServices;
 using SportBet.Services.ResultTypes;
-using System;
 
 namespace SportBet.Services.Tests.AccountServices
 {

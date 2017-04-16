@@ -4,29 +4,21 @@ using System.Linq;
 using SportBet.Core.Entities;
 using SportBet.Data;
 using SportBet.Data.Contracts;
+using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Encryption;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
-using SportBet.Services.DTOModels;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 
 namespace SportBet.Services.Providers.AccountServices
 {
-    class SuperuserAccountService : IAccountService
+    public class SuperuserAccountService : AccountServiceBase, IAccountService
     {
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IRegisterValidator registerValidator;
-        private readonly IEncryptor encryptor;
+        public SuperuserAccountService(IUnitOfWork unitOfWork, IRegisterValidator registerValidator, IEncryptor encryptor, ISession session)
+            : base(unitOfWork, registerValidator, encryptor, session) { }
 
-        public SuperuserAccountService(IUnitOfWork unitOfWork, IRegisterValidator registerValidator, IEncryptor encryptor)
-        {
-            this.unitOfWork = unitOfWork;
-            this.registerValidator = registerValidator;
-            this.encryptor = encryptor;
-        }
-
-        public ServiceMessage Register(ClientRegisterDTO clientRegisterDTO)
+        public override ServiceMessage Register(ClientRegisterDTO clientRegisterDTO)
         {
             string message = "";
             bool success = true;
@@ -92,7 +84,7 @@ namespace SportBet.Services.Providers.AccountServices
             return new ServiceMessage(message, success);
         }
 
-        public ServiceMessage Register(BookmakerRegisterDTO bookmakerRegisterDTO)
+        public override ServiceMessage Register(BookmakerRegisterDTO bookmakerRegisterDTO)
         {
             string message = "";
             bool success = true;
@@ -158,7 +150,7 @@ namespace SportBet.Services.Providers.AccountServices
             return new ServiceMessage(message, success);
         }
 
-        public ServiceMessage Register(AdminRegisterDTO adminRegisterDTO)
+        public override ServiceMessage Register(AdminRegisterDTO adminRegisterDTO)
         {
             string message = "";
             bool success = true;
@@ -224,7 +216,7 @@ namespace SportBet.Services.Providers.AccountServices
             return new ServiceMessage(message, success);
         }
 
-        public ServiceMessage Register(AnalyticRegisterDTO analyticRegisterDTO)
+        public override ServiceMessage Register(AnalyticRegisterDTO analyticRegisterDTO)
         {
             string message = "";
             bool success = true;
@@ -290,50 +282,9 @@ namespace SportBet.Services.Providers.AccountServices
             return new ServiceMessage(message, success);
         }
 
-        public ServiceMessage ChangePassword(ChangePasswordDTO changePasswordDTO)
+        protected override void OnPasswordChange(string login, string newHashedPassword)
         {
-            string message = "";
-            bool success = true;
-
-            string oldPassword = changePasswordDTO.OldPassword;
-            string oldHashedPassword = encryptor.Encrypt(oldPassword);
-            string currentHashedPassword = Session.CurrentUserHashedPassword;
-
-            string newPassword = changePasswordDTO.NewPassword;
-
-            if (oldHashedPassword == currentHashedPassword)
-            {
-                if (success = registerValidator.ValidatePassword(newPassword, ref message))
-                {
-                    string newHashedPassword = encryptor.Encrypt(newPassword);
-                    try
-                    {
-                        unitOfWork.Accounts.ChangePassword(changePasswordDTO.Login, newHashedPassword);
-                        unitOfWork.AdminPassword.SetPassword(newHashedPassword);
-
-                        unitOfWork.Commit();
-
-                        message = "Password changed";
-                    }
-                    catch (Exception ex)
-                    {
-                        message = ExceptionMessageBuilder.BuildMessage(ex);
-                        success = false;
-                    }
-                }
-            }
-            else
-            {
-                message = "Old password is incorrect";
-                success = false;
-            }
-
-            return new ServiceMessage(message, success);
-        }
-
-        public void Dispose()
-        {
-            unitOfWork.Dispose();
+            unitOfWork.Accounts.ChangePassword(login, newHashedPassword);
         }
 
         private bool Validate(ClientRegisterDTO clientRegisterDTO, ref string message)

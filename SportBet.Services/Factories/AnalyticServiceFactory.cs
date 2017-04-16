@@ -1,10 +1,9 @@
 ﻿using System;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts;
+using SportBet.Services.Contracts.Encryption;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
-using SportBet.Services.Encryption;
-using SportBet.Services.Contracts.Encryption;
 using SportBet.Services.Providers.AccountServices;
 
 namespace SportBet.Services.Factories
@@ -19,8 +18,9 @@ namespace SportBet.Services.Factories
             IUnitOfWork unitOfWork = CreateUnitOfWork();
             IRegisterValidator registerValidator = CreateRegisterValidator();
             IEncryptor encryptor = CreateEncryptor();
+            ISession session = CreateSession();
 
-            return new AnalyticAccountService(unitOfWork, registerValidator, encryptor);
+            return new AnalyticAccountService(unitOfWork, registerValidator, encryptor, session);
         }
 
         public override IBookmakerService CreateBookmakerService()
