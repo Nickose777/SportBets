@@ -5,6 +5,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels;
 using SportBet.Services.Providers;
 using SportBet.Services.ResultTypes;
+using SportBet.ControllerFactories;
 
 namespace SportBet
 {
@@ -63,7 +64,9 @@ namespace SportBet
                     LoginType loginType = result.LoginType;
                     ServiceFactory factory = result.Factory;
 
-                    MainWindowBase window = Create(factory, loginType, login);
+                    ControllerFactory controllerFactory = new ControllerFactory(factory, loginType, login);
+
+                    SignOutWindowBase window = Create(controllerFactory, loginType);
 
                     window.SignedOut += (s, e) =>
                     {
@@ -85,29 +88,29 @@ namespace SportBet
 
         //TODO
         //factory not in ctor of window but in controllers
-        private MainWindowBase Create(ServiceFactory factory, LoginType loginType, string login)
+        private SignOutWindowBase Create(ControllerFactory controllerFactory, LoginType loginType)
         {
-            MainWindowBase window = null;
+            SignOutWindowBase window = null;
 
             switch (loginType)
             {
                 case LoginType.Superuser:
-                    window = new SuperuserControls.SuperuserMainWindow(factory, login);
+                    window = new SuperuserControls.SuperuserMainWindow(controllerFactory);
                     break;
                 case LoginType.Admin:
-                    window = new AdminControls.AdminMainWindow(factory, login);
+                    window = new AdminControls.AdminMainWindow(controllerFactory);
                     break;
                 case LoginType.Analytic:
-                    window = new AnalyticControls.AnalyticMainWindow(factory, login);
+                    window = new AnalyticControls.AnalyticMainWindow(controllerFactory);
                     break;
                 case LoginType.Bookmaker:
-                    window = new BookmakerControls.BookmakerMainWindow(factory, login);
+                    window = new BookmakerControls.BookmakerMainWindow(controllerFactory);
                     break;
                 case LoginType.Client:
-                    window = new ClientControls.ClientMainWindow(factory, login);
+                    window = new ClientControls.ClientMainWindow(controllerFactory);
                     break;
                 case LoginType.NoLogin:
-                    MessageBox.Show("Your role wasn't recognized! The program will close");
+                    MessageBox.Show("Your role wasn't recognized! The program will be closed");
                     this.Close();
                     break;
                 default:
@@ -115,6 +118,7 @@ namespace SportBet
             }
 
             window.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
             return window;
         }
 

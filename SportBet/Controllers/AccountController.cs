@@ -6,17 +6,21 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
+using SportBet.Contracts.Controllers;
 
 namespace SportBet.Controllers
 {
-    //TODO
-    //Think about login parameter
-    class AccountController : ControllerBase
+    class AccountController : ControllerBase, IAccountController
     {
-        public AccountController(ServiceFactory factory)
-            : base(factory) { }
+        private readonly string login;
 
-        public void ChangePassword(string login)
+        public AccountController(ServiceFactory factory, string login)
+            : base(factory)
+        {
+            this.login = login;
+        }
+
+        public void ChangePassword()
         {
             ChangePasswordControl control = new ChangePasswordControl(login);
             Window window = WindowFactory.CreateByContentsSize(control);

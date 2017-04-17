@@ -16,14 +16,15 @@ using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
+using SportBet.Contracts.Controllers;
 
 namespace SportBet.Controllers
 {
-    class ClientController : SubjectBase, ISubject
+    class SuperuserClientController : SubjectBase, ISubject, IClientController
     {
         private readonly FacadeBase<ClientDisplayModel> facade;
 
-        public ClientController(ServiceFactory factory, FacadeBase<ClientDisplayModel> facade)
+        public SuperuserClientController(ServiceFactory factory, FacadeBase<ClientDisplayModel> facade)
             : base(factory)
         {
             this.facade = facade;
@@ -32,7 +33,7 @@ namespace SportBet.Controllers
             //subscribe only on first getAll event
         }
 
-        public void RegisterClient()
+        public void Register()
         {
             ClientRegisterViewModel viewModel = new ClientRegisterViewModel(new ClientRegisterModel() { DateOfBirth = new DateTime(1990, 01, 01) });
             RegisterClientControl control = new RegisterClientControl(viewModel);
@@ -64,46 +65,32 @@ namespace SportBet.Controllers
             window.Show();
         }
 
-        public void DisplayClientsForAdmin()
+        public void Display()
         {
-            DisplayClients(true);
-        }
-
-        public void DisplayClientsForBookmaker()
-        {
-            DisplayClients(false);
-        }
-
-        private void DisplayClients(bool forAdmin)
-        {
-            ManageClientsViewModel viewModel = new ManageClientsViewModel(this, facade, forAdmin);
+            ManageClientsViewModel viewModel = new ManageClientsViewModel(this, facade, true);
             ManageClientsControl control = new ManageClientsControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.ClientSelectRequest += (s, e) => EditClient(e.Client);
-
-            if (forAdmin)
+            viewModel.ClientDeleteRequest += (s, e) =>
             {
-                viewModel.ClientDeleteRequest += (s, e) =>
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete this user?", "Confirm operation", MessageBoxButton.YesNo);
+
+                if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete this user?", "Confirm operation", MessageBoxButton.YesNo);
-
-                    if (messageBoxResult == MessageBoxResult.Yes)
+                    using (IClientService service = factory.CreateClientService())
                     {
-                        using (IClientService service = factory.CreateClientService())
-                        {
-                            ClientDisplayDTO deletedClient = Mapper.Map<ClientDisplayModel, ClientDisplayDTO>(e.Client);
-                            ServiceMessage serviceMessage = service.Delete(deletedClient.Login);
+                        ClientDisplayDTO deletedClient = Mapper.Map<ClientDisplayModel, ClientDisplayDTO>(e.Client);
+                        ServiceMessage serviceMessage = service.Delete(deletedClient.Login);
 
-                            RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
-                            if (serviceMessage.IsSuccessful)
-                            {
-                                Notify();
-                            }
+                        RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
+                        if (serviceMessage.IsSuccessful)
+                        {
+                            Notify();
                         }
                     }
-                };
-            }
+                }
+            };
 
             window.Show();
         }

@@ -10,68 +10,72 @@ using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
+using SportBet.ControllerFactories;
+using SportBet.Contracts.Controllers;
 
 namespace SportBet.ClientControls
 {
     /// <summary>
     /// Interaction logic for ClientMainWindow.xaml
     /// </summary>
-    public partial class ClientMainWindow : MainWindowBase
+    public partial class ClientMainWindow : SignOutWindowBase
     {
-        private readonly AccountController accountController;
+        private readonly IAccountController accountController;
 
-        public ClientMainWindow(ServiceFactory factory, string login)
-            : base(factory, login)
+        public ClientMainWindow(ControllerFactory controllerFactory)
         {
             InitializeComponent();
 
-            accountController = new AccountController(factory);
+            accountController = controllerFactory.CreateAccountController();
 
             accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
-            SetFooterMessage(true, String.Format("Welcome, {0} (client)", login));
+            SetFooterMessage(true, "Welcome, client");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DataServiceMessage<ClientEditDTO> serviceMessage;
-            using (IClientService service = factory.CreateClientService())
-            {
-                serviceMessage = service.GetClientInfo(login);
-            }
+            //TODO
+            //Think about it
 
-            if (serviceMessage.IsSuccessful)
-            {
-                ClientEditDTO clientDTO = serviceMessage.Data;
-                ClientEditModel clientModel = Mapper.Map<ClientEditDTO, ClientEditModel>(clientDTO);
+            //DataServiceMessage<ClientEditDTO> serviceMessage;
+            //using (IClientService service = factory.CreateClientService())
+            //{
+            //    serviceMessage = service.GetClientInfo(login);
+            //}
 
-                ClientInfoViewModel viewModel = new ClientInfoViewModel(clientModel);
-                ClientInfoControl control = new ClientInfoControl(viewModel);
+            //if (serviceMessage.IsSuccessful)
+            //{
+            //    ClientEditDTO clientDTO = serviceMessage.Data;
+            //    ClientEditModel clientModel = Mapper.Map<ClientEditDTO, ClientEditModel>(clientDTO);
 
-                viewModel.ClientEdited += (s, ea) =>
-                {
-                    ServiceMessage response;
-                    clientDTO = Mapper.Map<ClientEditModel, ClientEditDTO>(ea.Client);
-                    using (IClientService service = factory.CreateClientService())
-                    {
-                        response = service.Update(clientDTO, login);
-                    }
+            //    ClientInfoViewModel viewModel = new ClientInfoViewModel(clientModel);
+            //    ClientInfoControl control = new ClientInfoControl(viewModel);
 
-                    SetFooterMessage(response.IsSuccessful, response.Message);
-                };
+            //    viewModel.ClientEdited += (s, ea) =>
+            //    {
+            //        ServiceMessage response;
+            //        clientDTO = Mapper.Map<ClientEditModel, ClientEditDTO>(ea.Client);
+            //        using (IClientService service = factory.CreateClientService())
+            //        {
+            //            response = service.Update(clientDTO, login);
+            //        }
 
-                Grid.SetRow(control, 1);
-                mainGrid.Children.Add(control);
-            }
-            else
-            {
-                SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
-            }
+            //        SetFooterMessage(response.IsSuccessful, response.Message);
+            //    };
+
+            //    Grid.SetRow(control, 1);
+            //    mainGrid.Children.Add(control);
+            //}
+            //else
+            //{
+            //    SetFooterMessage(serviceMessage.IsSuccessful, serviceMessage.Message);
+            //}
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            accountController.ChangePassword(login);
+            accountController.ChangePassword();
         }
 
         private void SetFooterMessage(bool success, string message)

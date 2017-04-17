@@ -14,10 +14,11 @@ using SportBet.Services.ResultTypes;
 using SportBet.SuperuserControls.UserControls;
 using SportBet.SuperuserControls.ViewModels;
 using SportBet.WindowFactories;
+using SportBet.Contracts.Controllers;
 
 namespace SportBet.Controllers
 {
-    class AnalyticController : SubjectBase, ISubject
+    class AnalyticController : SubjectBase, ISubject, IAnalyticController
     {
         private readonly FacadeBase<AnalyticDisplayModel> facade;
 
@@ -28,7 +29,7 @@ namespace SportBet.Controllers
             facade.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
         }
 
-        public void RegisterAnalytic()
+        public void Register()
         {
             AnalyticRegisterViewModel viewModel = new AnalyticRegisterViewModel(new AnalyticRegisterModel());
             RegisterAnalyticControl control = new RegisterAnalyticControl(viewModel);
@@ -61,7 +62,7 @@ namespace SportBet.Controllers
             window.Show();
         }
 
-        public void DisplayAnalytics()
+        public void Display()
         {
             ManageAnalyticsViewModel viewModel = new ManageAnalyticsViewModel(this, facade);
             ManageAnalyticsControl control = new ManageAnalyticsControl(viewModel);

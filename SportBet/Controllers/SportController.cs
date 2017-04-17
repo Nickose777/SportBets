@@ -11,10 +11,11 @@ using SportBet.WindowFactories;
 using SportBet.Models.Edit;
 using SportBet.Services.DTOModels.Edit;
 using AutoMapper;
+using SportBet.Contracts.Controllers;
 
 namespace SportBet.Controllers
 {
-    class SportController : SubjectBase, ISubject
+    class SportController : SubjectBase, ISubject, ISportController
     {
         private readonly FacadeBase<string> facade;
 
@@ -25,7 +26,7 @@ namespace SportBet.Controllers
             facade.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
         }
 
-        public void AddSport()
+        public void Add()
         {
             SportCreateViewModel viewModel = new SportCreateViewModel();
             SportCreateControl control = new SportCreateControl(viewModel);
@@ -49,7 +50,7 @@ namespace SportBet.Controllers
             window.Show();
         }
 
-        public void DisplaySports()
+        public void Display()
         {
             SportListViewModel viewModel = new SportListViewModel(this, facade);
             SportListControl control = new SportListControl(viewModel);

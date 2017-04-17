@@ -8,57 +8,58 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
 using SportBet.Controllers;
 using SportBet.Facades;
+using SportBet.Contracts.Controllers;
+using SportBet.ControllerFactories;
 
 namespace SportBet.AdminControls
 {
     /// <summary>
     /// Interaction logic for AdminMainWindow.xaml
     /// </summary>
-    public partial class AdminMainWindow : MainWindowBase
+    public partial class AdminMainWindow : SignOutWindowBase
     {
-        private readonly AccountController accountController;
-        private readonly CountryController countryController;
-        private readonly SportController sportController;
+        private readonly IAccountController accountController;
+        private readonly ICountryController countryController;
+        private readonly ISportController sportController;
 
-        public AdminMainWindow(ServiceFactory factory, string login)
-            : base(factory, login)
+        public AdminMainWindow(ControllerFactory controllerFactory)
         {
             InitializeComponent();
 
-            accountController = new AccountController(factory);
-            countryController = new CountryController(factory, new CountryFacade(factory));
-            sportController = new SportController(factory, new SportFacade(factory));
+            accountController = controllerFactory.CreateAccountController();
+            countryController = controllerFactory.CreateCountryController();
+            sportController = controllerFactory.CreateSportController();
 
             accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             countryController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             sportController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
-            SetFooterMessage(true, String.Format("Welcome, {0} (admin)", login));
+            SetFooterMessage(true, "Welcome, admin");
         }
 
         private void CreateCountry_Click(object sender, RoutedEventArgs e)
         {
-            countryController.AddCountry();
+            countryController.Add();
         }
 
         private void CreateSport_Click(object sender, RoutedEventArgs e)
         {
-            sportController.AddSport();
+            sportController.Add();
         }
 
         private void ManageCountries_Click(object sender, RoutedEventArgs e)
         {
-            countryController.DisplayCountries();
+            countryController.Display();
         }
 
         private void ManageSports_Click(object sender, RoutedEventArgs e)
         {
-            sportController.DisplaySports();
+            sportController.Display();
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            accountController.ChangePassword(login);
+            accountController.ChangePassword();
         }
 
         private void SetFooterMessage(bool success, string message)

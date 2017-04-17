@@ -1,32 +1,30 @@
-﻿using System;
-using System.Windows;
-using SportBet.Services.Contracts;
-using SportBet.Controllers;
+﻿using System.Windows;
+using SportBet.Contracts.Controllers;
+using SportBet.ControllerFactories;
 
 namespace SportBet.AnalyticControls
 {
     /// <summary>
     /// Interaction logic for AnalyticMainWindow.xaml
     /// </summary>
-    public partial class AnalyticMainWindow : MainWindowBase
+    public partial class AnalyticMainWindow : SignOutWindowBase
     {
-        private readonly AccountController accountController;
+        private readonly IAccountController accountController;
 
-        public AnalyticMainWindow(ServiceFactory factory, string login)
-            : base(factory, login)
+        public AnalyticMainWindow(ControllerFactory controllerFactory)
         {
             InitializeComponent();
 
-            accountController = new AccountController(factory);
+            accountController = controllerFactory.CreateAccountController();
 
             accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
-            SetFooterMessage(true, String.Format("Welcome, {0} (analytic)", login));
+            SetFooterMessage(true, "Welcome, analytic");
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            accountController.ChangePassword(login);
+            accountController.ChangePassword();
         }
 
         private void SetFooterMessage(bool success, string message)

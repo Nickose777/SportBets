@@ -9,29 +9,30 @@ using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
 using SportBet.Controllers;
 using SportBet.Facades;
+using SportBet.ControllerFactories;
+using SportBet.Contracts.Controllers;
 
 namespace SportBet.BookmakerControls
 {
     /// <summary>
     /// Interaction logic for BookmakerMainWindow.xaml
     /// </summary>
-    public partial class BookmakerMainWindow : MainWindowBase
+    public partial class BookmakerMainWindow : SignOutWindowBase
     {
-        private readonly AccountController accountController;
-        private readonly ClientController clientController;
+        private readonly IAccountController accountController;
+        private readonly IClientController clientController;
 
-        public BookmakerMainWindow(ServiceFactory factory, string login)
-            : base(factory, login)
+        public BookmakerMainWindow(ControllerFactory controllerFactory)
         {
             InitializeComponent();
 
-            accountController = new AccountController(factory);
-            clientController = new ClientController(factory, new ClientFacade(factory));
+            accountController = controllerFactory.CreateAccountController();
+            clientController = controllerFactory.CreateClientController();
 
             accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             clientController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
-            SetFooterMessage(true, String.Format("Welcome, {0} (bookmaker)", login));
+            SetFooterMessage(true, "Welcome, bookmaker");
         }
 
         private void RegisterClient_Click(object sender, RoutedEventArgs e)
@@ -40,17 +41,17 @@ namespace SportBet.BookmakerControls
         }
         private void RegisterClient()
         {
-            clientController.RegisterClient();
+            clientController.Register();
         }
 
         private void ManageClients_Click(object sender, RoutedEventArgs e)
         {
-            clientController.DisplayClientsForBookmaker();
+            clientController.Display();
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            accountController.ChangePassword(login);
+            accountController.ChangePassword();
         }
 
         private void SetFooterMessage(bool success, string message)

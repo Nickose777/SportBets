@@ -3,30 +3,31 @@ using System.Windows;
 using SportBet.Controllers;
 using SportBet.Facades;
 using SportBet.Services.Contracts;
+using SportBet.ControllerFactories;
+using SportBet.Contracts.Controllers;
 
 namespace SportBet.SuperuserControls
 {
     /// <summary>
     /// Interaction logic for SuperuserMainWindow.xaml
     /// </summary>
-    public partial class SuperuserMainWindow : MainWindowBase
+    public partial class SuperuserMainWindow : SignOutWindowBase
     {
-        private readonly AccountController accountController;
-        private readonly ClientController clientController;
-        private readonly BookmakerController bookmakerController;
-        private readonly AdminController adminController;
-        private readonly AnalyticController analyticController;
+        private readonly IAccountController accountController;
+        private readonly IClientController clientController;
+        private readonly IBookmakerController bookmakerController;
+        private readonly IAdminController adminController;
+        private readonly IAnalyticController analyticController;
 
-        public SuperuserMainWindow(ServiceFactory factory, string login)
-            : base(factory, login)
+        public SuperuserMainWindow(ControllerFactory controllerFactory)
         {
             InitializeComponent();
 
-            accountController = new AccountController(factory);
-            clientController = new ClientController(factory, new ClientFacade(factory));
-            bookmakerController = new BookmakerController(factory, new BookmakerFacade(factory));
-            adminController = new AdminController(factory, new AdminFacade(factory));
-            analyticController = new AnalyticController(factory, new AnalyticFacade(factory));
+            accountController = controllerFactory.CreateAccountController();
+            clientController = controllerFactory.CreateClientController();
+            bookmakerController = controllerFactory.CreateBookmakerController();
+            adminController = controllerFactory.CreateAdminController();
+            analyticController = controllerFactory.CreateAnalyticController();
 
             accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             clientController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
@@ -34,52 +35,52 @@ namespace SportBet.SuperuserControls
             adminController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             analyticController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
-            SetFooterMessage(true, String.Format("Welcome, {0} (superuser)", login));
+            SetFooterMessage(true, "Welcome, superuser");
         }
 
         private void RegisterAdmin_Click(object sender, RoutedEventArgs e)
         {
-            adminController.RegisterAdmin();
+            adminController.Register();
         }
 
         private void RegisterAnalytic_Click(object sender, RoutedEventArgs e)
         {
-            analyticController.RegisterAnalytic();
+            analyticController.Register();
         }
 
         private void RegisterBookmaker_Click(object sender, RoutedEventArgs e)
         {
-            bookmakerController.RegisterBookmaker();
+            bookmakerController.Register();
         }
 
         private void RegisterClient_Click(object sender, RoutedEventArgs e)
         {
-            clientController.RegisterClient();
+            clientController.Register();
         }
 
         private void ManageAdmins_Click(object sender, RoutedEventArgs e)
         {
-            adminController.DisplayAdmins();
+            adminController.Display();
         }
 
         private void ManageAnalytics_Click(object sender, RoutedEventArgs e)
         {
-            analyticController.DisplayAnalytics();
+            analyticController.Display();
         }
 
         private void ManageBookmakers_Click(object sender, RoutedEventArgs e)
         {
-            bookmakerController.DisplayBookmakers();
+            bookmakerController.Display();
         }
 
         private void ManageClients_Click(object sender, RoutedEventArgs e)
         {
-            clientController.DisplayClientsForAdmin();
+            clientController.Display();
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            accountController.ChangePassword(login);
+            accountController.ChangePassword();
         }
 
         private void SetFooterMessage(bool success, string message)

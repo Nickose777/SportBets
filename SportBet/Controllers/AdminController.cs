@@ -14,10 +14,11 @@ using SportBet.Services.ResultTypes;
 using SportBet.SuperuserControls.UserControls;
 using SportBet.SuperuserControls.ViewModels;
 using SportBet.WindowFactories;
+using SportBet.Contracts.Controllers;
 
 namespace SportBet.Controllers
 {
-    class AdminController : SubjectBase, ISubject
+    class AdminController : SubjectBase, ISubject, IAdminController
     {
         private readonly FacadeBase<AdminDisplayModel> facade;
 
@@ -28,7 +29,7 @@ namespace SportBet.Controllers
             facade.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
         }
 
-        public void RegisterAdmin()
+        public void Register()
         {
             AdminRegisterViewModel viewModel = new AdminRegisterViewModel(new AdminRegisterModel());
             RegisterAdminControl control = new RegisterAdminControl(viewModel);
@@ -61,7 +62,7 @@ namespace SportBet.Controllers
             window.Show();
         }
 
-        public void DisplayAdmins()
+        public void Display()
         {
             ManageAdminsViewModel viewModel = new ManageAdminsViewModel(this, facade);
             ManageAdminsControl control = new ManageAdminsControl(viewModel);

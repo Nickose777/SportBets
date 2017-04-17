@@ -157,14 +157,24 @@
     <Compile Include="CommonControls\Footer.xaml.cs">
       <DependentUpon>Footer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Contracts\Controllers\IAccountController.cs" />
+    <Compile Include="Contracts\Controllers\IAdminController.cs" />
+    <Compile Include="Contracts\Controllers\IAnalyticController.cs" />
+    <Compile Include="Contracts\Controllers\IBookmakerController.cs" />
+    <Compile Include="Contracts\Controllers\IClientController.cs" />
+    <Compile Include="Contracts\Controllers\IController.cs" />
+    <Compile Include="Contracts\Controllers\ICountryController.cs" />
+    <Compile Include="Contracts\Controllers\ISportController.cs" />
     <Compile Include="Contracts\FacadeBase.cs" />
     <Compile Include="Contracts\IObserver.cs" />
     <Compile Include="Contracts\ISubject.cs" />
+    <Compile Include="ControllerFactories\ControllerFactory.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnalyticController.cs" />
     <Compile Include="Controllers\BookmakerController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\SuperuserClientController.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
@@ -219,8 +229,8 @@
     <Compile Include="Models\Registers\RegisterBaseModel.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="RegisterObservableObject.cs" />
-    <Compile Include="MainWindowBase.cs" />
-    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="SignOutWindowBase.cs" />
+    <Compile Include="Controllers\BookmakerClientController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\SportController.cs" />
     <Compile Include="Controllers\SubjectBase.cs" />

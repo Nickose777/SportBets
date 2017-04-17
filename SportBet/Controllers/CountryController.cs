@@ -11,10 +11,11 @@ using SportBet.WindowFactories;
 using SportBet.Models.Edit;
 using SportBet.Services.DTOModels.Edit;
 using AutoMapper;
+using SportBet.Contracts.Controllers;
 
 namespace SportBet.Controllers
 {
-    class CountryController : SubjectBase, ISubject
+    class CountryController : SubjectBase, ISubject, ICountryController
     {
         private readonly FacadeBase<string> facade;
 
@@ -25,7 +26,7 @@ namespace SportBet.Controllers
             facade.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
         }
 
-        public void AddCountry()
+        public void Add()
         {
             CountryCreateViewModel viewModel = new CountryCreateViewModel();
             CountryCreateControl control = new CountryCreateControl(viewModel);
@@ -49,7 +50,7 @@ namespace SportBet.Controllers
             window.Show();
         }
 
-        public void DisplayCountries()
+        public void Display()
         {
             CountryListViewModel viewModel = new CountryListViewModel(this, facade);
             CountryListControl control = new CountryListControl(viewModel);

@@ -14,10 +14,11 @@ using SportBet.Services.ResultTypes;
 using SportBet.SuperuserControls.UserControls;
 using SportBet.SuperuserControls.ViewModels;
 using SportBet.WindowFactories;
+using SportBet.Contracts.Controllers;
 
 namespace SportBet.Controllers
 {
-    class BookmakerController : SubjectBase, ISubject
+    class BookmakerController : SubjectBase, ISubject, IBookmakerController
     {
         private readonly FacadeBase<BookmakerDisplayModel> facade;
 
@@ -28,7 +29,7 @@ namespace SportBet.Controllers
             facade.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
         }
 
-        public void RegisterBookmaker()
+        public void Register()
         {
             BookmakerRegisterViewModel viewModel = new BookmakerRegisterViewModel(new BookmakerRegisterModel());
             RegisterBookmakerControl control = new RegisterBookmakerControl(viewModel);
@@ -61,7 +62,7 @@ namespace SportBet.Controllers
             window.Show();
         }
 
-        public void DisplayBookmakers()
+        public void Display()
         {
             ManageBookmakersViewModel viewModel = new ManageBookmakersViewModel(this, facade);
             ManageBookmakersControl control = new ManageBookmakersControl(viewModel);
