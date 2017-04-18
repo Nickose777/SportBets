@@ -134,7 +134,7 @@ namespace SportBet.Services.Tests
             UserLoginDTO userLogin = new UserLoginDTO();
             unitOfWork.Setup(u => u.Reconnect(It.IsAny<string>(), It.IsAny<string>())).Throws(new Exception());
 
-            FactoryServiceMessage result = service.Login(userLogin);
+            LoginServiceMessage result = service.Login(userLogin);
 
             Assert.IsFalse(result.IsSuccessful);
         }
@@ -149,7 +149,7 @@ namespace SportBet.Services.Tests
             };
             unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>())).Returns(new List<UserEntity>() { userEntity });
 
-            FactoryServiceMessage result = service.Login(userLogin);
+            LoginServiceMessage result = service.Login(userLogin);
 
             Assert.IsTrue(result.IsSuccessful);
             Assert.AreEqual<LoginType>(result.LoginType, LoginType.Superuser);
@@ -166,7 +166,7 @@ namespace SportBet.Services.Tests
             };
             unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>())).Returns(new List<UserEntity>() { userEntity });
 
-            FactoryServiceMessage result = service.Login(userLogin);
+            LoginServiceMessage result = service.Login(userLogin);
 
             Assert.IsTrue(result.IsSuccessful);
             Assert.AreEqual<LoginType>(result.LoginType, LoginType.Admin);
@@ -183,7 +183,7 @@ namespace SportBet.Services.Tests
             };
             unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>())).Returns(new List<UserEntity>() { userEntity });
 
-            FactoryServiceMessage result = service.Login(userLogin);
+            LoginServiceMessage result = service.Login(userLogin);
 
             Assert.IsTrue(result.IsSuccessful);
             Assert.AreEqual<LoginType>(result.LoginType, LoginType.Analytic);
@@ -200,7 +200,7 @@ namespace SportBet.Services.Tests
             };
             unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>())).Returns(new List<UserEntity>() { userEntity });
 
-            FactoryServiceMessage result = service.Login(userLogin);
+            LoginServiceMessage result = service.Login(userLogin);
 
             Assert.IsTrue(result.IsSuccessful);
             Assert.AreEqual<LoginType>(result.LoginType, LoginType.Bookmaker);
@@ -217,7 +217,7 @@ namespace SportBet.Services.Tests
             };
             unitOfWork.Setup(u => u.Users.GetAll(It.IsAny<Expression<Func<UserEntity, bool>>>())).Returns(new List<UserEntity>() { userEntity });
 
-            FactoryServiceMessage result = service.Login(userLogin);
+            LoginServiceMessage result = service.Login(userLogin);
 
             Assert.IsTrue(result.IsSuccessful);
             Assert.AreEqual<LoginType>(result.LoginType, LoginType.Client);

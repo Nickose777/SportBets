@@ -8,6 +8,6 @@ namespace SportBet.Services.Contracts.Services
     {
         bool EstablishConnection();
 
-        FactoryServiceMessage Login(UserLoginDTO userLoginDTO);
+        LoginServiceMessage Login(UserLoginDTO userLoginDTO);
     }
 }

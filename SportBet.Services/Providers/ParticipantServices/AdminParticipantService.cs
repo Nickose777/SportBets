@@ -2,6 +2,7 @@
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Create;
+using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,40 @@ namespace SportBet.Services.Providers.ParticipantServices
             }
 
             return new ServiceMessage(message, success);
+        }
+
+        public DataServiceMessage<IEnumerable<ParticipantDisplayDTO>> GetAll()
+        {
+            string message;
+            bool success = true;
+            IEnumerable<ParticipantDisplayDTO> partipantDisplayDTOs = null;
+
+            try
+            {
+                IEnumerable<ParticipantEntity> participantEntities = unitOfWork.Participants.GetAll();
+
+                partipantDisplayDTOs = participantEntities
+                    .Select(participant =>
+                    {
+                        return new ParticipantDisplayDTO
+                        {
+                            ParticipantName = participant.Name,
+                            CountryName = participant.Country.Name,
+                            SportName = participant.Sport.Type
+                        };
+                    })
+                    .OrderBy(p => p.ParticipantName)
+                    .ToList();
+
+                message = "Got all participants";
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<ParticipantDisplayDTO>>(partipantDisplayDTOs, message, success);
         }
 
         public void Dispose()

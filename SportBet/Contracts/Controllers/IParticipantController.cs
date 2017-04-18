@@ -3,5 +3,7 @@
     public interface IParticipantController : IReceiveMessage
     {
         void Create();
+
+        void Display();
     }
 }

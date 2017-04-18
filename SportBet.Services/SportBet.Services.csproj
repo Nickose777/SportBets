@@ -56,6 +56,7 @@
     <Compile Include="DTOModels\Display\AnalyticDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\BookmakerDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\ClientDisplayDTO.cs" />
+    <Compile Include="DTOModels\Display\ParticipantDisplayDTO.cs" />
     <Compile Include="DTOModels\Edit\ClientEditDTO.cs" />
     <Compile Include="DTOModels\Edit\CountryEditDTO.cs" />
     <Compile Include="DTOModels\Edit\SportEditDTO.cs" />
@@ -94,7 +95,7 @@
     <Compile Include="Providers\SportServices\AdminSportService.cs" />
     <Compile Include="ResultTypes\DataServiceMessage.cs" />
     <Compile Include="ResultTypes\ServiceMessage.cs" />
-    <Compile Include="ResultTypes\FactoryServiceMessage.cs" />
+    <Compile Include="ResultTypes\LoginServiceMessage.cs" />
     <Compile Include="ResultTypes\LoginType.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="Validators\RegisterValidator.cs" />

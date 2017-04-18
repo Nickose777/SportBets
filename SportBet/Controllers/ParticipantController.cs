@@ -52,6 +52,15 @@ namespace SportBet.Controllers
             }
         }
 
+        public void Display()
+        {
+            ParticipantListViewModel viewModel = new ParticipantListViewModel(this, facade);
+            ParticipantListControl control = new ParticipantListControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            window.Show();
+        }
+
         private void Create(IEnumerable<string> countries, IEnumerable<string> sports)
         {
             ParticipantCreateViewModel viewModel = new ParticipantCreateViewModel(countries, sports);

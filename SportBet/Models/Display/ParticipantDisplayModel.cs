@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SportBet.Models.Display
+﻿namespace SportBet.Models.Display
 {
     public class ParticipantDisplayModel
     {
-        //TODO
+        public string ParticipantName { get; set; }
+
+        public string SportName { get; set; }
+
+        public string CountryName { get; set; }
     }
 }

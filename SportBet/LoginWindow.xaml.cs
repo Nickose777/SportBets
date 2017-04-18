@@ -54,7 +54,7 @@ namespace SportBet
                     Password = password
                 };
 
-                FactoryServiceMessage result = authService.Login(userLogin);
+                LoginServiceMessage result = authService.Login(userLogin);
 
                 if (result.IsSuccessful)
                 {

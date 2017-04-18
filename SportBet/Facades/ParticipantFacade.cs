@@ -1,7 +1,9 @@
-﻿using SportBet.Contracts;
+﻿using AutoMapper;
+using SportBet.Contracts;
 using SportBet.Models.Display;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
+using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
 using System;
 using System.Collections.Generic;
@@ -20,22 +22,21 @@ namespace SportBet.Facades
         {
             IEnumerable<ParticipantDisplayModel> participantModels = null;
 
-            //TODO
-            //using (IParticipantService service = factory.CreateParticipantService())
-            //{
-            //    DataServiceMessage<IEnumerable<ParticipantDisplayDTO>> serviceMessage = service.GetAll();
+            using (IParticipantService service = factory.CreateParticipantService())
+            {
+                DataServiceMessage<IEnumerable<ParticipantDisplayDTO>> serviceMessage = service.GetAll();
 
-            //    RaiseReveivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
-            //    if (serviceMessage.IsSuccessful)
-            //    {
-            //        IEnumerable<AdminDisplayDTO> adminDTOs = serviceMessage.Data;
-            //        adminModels = adminDTOs.Select(adminDTO => Mapper.Map<AdminDisplayDTO, AdminDisplayModel>(adminDTO));
-            //    }
-            //    else
-            //    {
-            //        adminModels = new List<AdminDisplayModel>();
-            //    }
-            //}
+                RaiseReveivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
+                if (serviceMessage.IsSuccessful)
+                {
+                    IEnumerable<ParticipantDisplayDTO> participantDTOs = serviceMessage.Data;
+                    participantModels = participantDTOs.Select(participantDTO => Mapper.Map<ParticipantDisplayDTO, ParticipantDisplayModel>(participantDTO));
+                }
+                else
+                {
+                    participantModels = new List<ParticipantDisplayModel>();
+                }
+            }
 
             return participantModels;
         }
