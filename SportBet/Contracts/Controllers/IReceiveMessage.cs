@@ -2,7 +2,7 @@
 
 namespace SportBet.Contracts.Controllers
 {
-    public interface IController
+    public interface IReceiveMessage
     {
         event ServiceMessageEventHandler ReceivedMessage;
     }

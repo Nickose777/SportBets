@@ -157,13 +157,18 @@
     <Compile Include="CommonControls\Footer.xaml.cs">
       <DependentUpon>Footer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Participants\UserControls\ParticipantCreateControl.xaml.cs">
+      <DependentUpon>ParticipantCreateControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommonControls\Participants\ViewModels\ParticipantCreateViewModel.cs" />
     <Compile Include="Contracts\Controllers\IAccountController.cs" />
     <Compile Include="Contracts\Controllers\IAdminController.cs" />
     <Compile Include="Contracts\Controllers\IAnalyticController.cs" />
     <Compile Include="Contracts\Controllers\IBookmakerController.cs" />
     <Compile Include="Contracts\Controllers\IClientController.cs" />
-    <Compile Include="Contracts\Controllers\IController.cs" />
+    <Compile Include="Contracts\Controllers\IReceiveMessage.cs" />
     <Compile Include="Contracts\Controllers\ICountryController.cs" />
+    <Compile Include="Contracts\Controllers\IParticipantController.cs" />
     <Compile Include="Contracts\Controllers\ISportController.cs" />
     <Compile Include="Contracts\FacadeBase.cs" />
     <Compile Include="Contracts\IObserver.cs" />
@@ -174,6 +179,7 @@
     <Compile Include="Controllers\AnalyticController.cs" />
     <Compile Include="Controllers\BookmakerController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\ParticipantController.cs" />
     <Compile Include="Controllers\SuperuserClientController.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
@@ -187,10 +193,12 @@
     <Compile Include="DesignTimeViewModels\ManageAnalyticsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageClientsDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\ParticipantCreateDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\SportEditDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\SportListDTViewModel.cs" />
     <Compile Include="EventHandlers\ChangePasswordEventHandler.cs" />
-    <Compile Include="EventHandlers\Create\CountryEventHandler - Copy.cs" />
+    <Compile Include="EventHandlers\Create\CountryEventHandler.cs" />
+    <Compile Include="EventHandlers\Create\ParticipantEventHandler.cs" />
     <Compile Include="EventHandlers\Create\SportEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AdminDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AnalyticDisplayEventHandler.cs" />
@@ -211,14 +219,17 @@
     <Compile Include="Facades\BookmakerFacade.cs" />
     <Compile Include="Facades\ClientFacade.cs" />
     <Compile Include="Facades\CountryFacade.cs" />
+    <Compile Include="Facades\ParticipantFacade.cs" />
     <Compile Include="Facades\SportFacade.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\MappingProfile.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\Create\ParticipantCreateModel.cs" />
     <Compile Include="Models\Display\AdminDisplayModel.cs" />
     <Compile Include="Models\Display\AnalyticDisplayModel.cs" />
     <Compile Include="Models\Display\BookmakerDisplayModel.cs" />
     <Compile Include="Models\Display\ClientDisplayModel.cs" />
+    <Compile Include="Models\Display\ParticipantDisplayModel.cs" />
     <Compile Include="Models\Edit\ClientEditModel.cs" />
     <Compile Include="Models\Edit\CountryEditModel.cs" />
     <Compile Include="Models\Edit\SportEditModel.cs" />
@@ -321,6 +332,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CommonControls\Footer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Participants\UserControls\ParticipantCreateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

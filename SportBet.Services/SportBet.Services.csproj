@@ -47,9 +47,11 @@
     <Compile Include="Contracts\Services\IBookmakerService.cs" />
     <Compile Include="Contracts\Services\IClientService.cs" />
     <Compile Include="Contracts\Services\ICountryService.cs" />
+    <Compile Include="Contracts\Services\IParticipantService.cs" />
     <Compile Include="Contracts\Services\ISportService.cs" />
     <Compile Include="Contracts\Validators\IRegisterValidator.cs" />
     <Compile Include="DTOModels\ChangePasswordDTO.cs" />
+    <Compile Include="DTOModels\Create\ParticipantCreateDTO.cs" />
     <Compile Include="DTOModels\Display\AdminDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\AnalyticDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\BookmakerDisplayDTO.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Providers\ClientServices\ClientClientService.cs" />
     <Compile Include="Providers\ClientServices\SuperuserClientService.cs" />
     <Compile Include="Providers\CountryServices\AdminCountryService.cs" />
+    <Compile Include="Providers\ParticipantServices\AdminParticipantService.cs" />
     <Compile Include="Providers\SessionProvider.cs" />
     <Compile Include="Providers\SportServices\AdminSportService.cs" />
     <Compile Include="ResultTypes\DataServiceMessage.cs" />

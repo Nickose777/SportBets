@@ -1,6 +1,6 @@
 ﻿namespace SportBet.Contracts.Controllers
 {
-    public interface ISportController : IController
+    public interface ISportController : IReceiveMessage
     {
         void Add();
 

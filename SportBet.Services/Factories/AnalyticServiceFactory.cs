@@ -52,5 +52,10 @@ namespace SportBet.Services.Factories
         {
             throw new NotImplementedException();
         }
+
+        public override IParticipantService CreateParticipantService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

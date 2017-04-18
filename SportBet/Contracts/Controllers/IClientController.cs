@@ -1,6 +1,6 @@
 ﻿namespace SportBet.Contracts.Controllers
 {
-    public interface IClientController : IController
+    public interface IClientController : IReceiveMessage
     {
         void Register();
 

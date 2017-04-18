@@ -13,6 +13,8 @@ namespace SportBet.Data.Configurations
                 .HasColumnName("ParticipantNo");
             this.Property(participant => participant.CountryId)
                 .HasColumnName("ParticipantCountryNo");
+            this.Property(participant => participant.SportId)
+                .HasColumnName("ParticipantSportNo");
 
             //Primary Keys
             this.HasKey(participant => participant.Id);

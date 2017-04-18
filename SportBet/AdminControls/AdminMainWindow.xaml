@@ -1,4 +1,4 @@
-﻿<base:MainWindowBase x:Class="SportBet.AdminControls.AdminMainWindow"
+﻿<base:SignOutWindowBase x:Class="SportBet.AdminControls.AdminMainWindow"
         xmlns:base="clr-namespace:SportBet"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -15,6 +15,7 @@
             <MenuItem Header="Create...">
                 <MenuItem Header="Country" Click="CreateCountry_Click" />
                 <MenuItem Header="Sport" Click="CreateSport_Click" />
+                <MenuItem Header="Participant" Click="CreateParticipant_Click" />
             </MenuItem>
             <MenuItem Header="Manage...">
                 <MenuItem Header="Countries" Click="ManageCountries_Click" />
@@ -28,4 +29,4 @@
 
         <Footer:Footer Grid.Row="2" x:Name="footer" />
     </Grid>
-</base:MainWindowBase>
+</base:SignOutWindowBase>

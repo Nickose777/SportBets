@@ -1,6 +1,6 @@
 ﻿namespace SportBet.Contracts.Controllers
 {
-    public interface IAccountController : IController
+    public interface IAccountController : IReceiveMessage
     {
         void ChangePassword();
     }

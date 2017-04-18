@@ -72,5 +72,10 @@ namespace SportBet.ControllerFactories
         {
             return new SportController(factory, new SportFacade(factory));
         }
+
+        public IParticipantController CreateParticipantController()
+        {
+            return new ParticipantController(factory, new ParticipantFacade(factory));
+        }
     }
 }
