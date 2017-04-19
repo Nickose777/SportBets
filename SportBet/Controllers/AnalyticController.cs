@@ -26,7 +26,7 @@ namespace SportBet.Controllers
             : base(factory)
         {
             this.facade = facade;
-            facade.ReceivedMessage += (s, e) => RaiseReceivedMessageEvent(s, e);
+            facade.ReceivedMessage += RaiseReceivedMessageEvent;
         }
 
         public void Register()

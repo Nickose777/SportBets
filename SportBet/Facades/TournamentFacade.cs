@@ -22,8 +22,8 @@ namespace SportBet.Facades
             using (ITournamentService service = factory.CreateTournamentService())
             {
                 DataServiceMessage<IEnumerable<TournamentDisplayDTO>> serviceMessage = service.GetAll();
-
                 RaiseReveivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
+
                 if (serviceMessage.IsSuccessful)
                 {
                     IEnumerable<TournamentDisplayDTO> tournamentDTOs = serviceMessage.Data;

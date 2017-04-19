@@ -30,6 +30,8 @@
             <MenuItem Header="Sign out" Click="SignOut_Click" />
         </Menu>
 
+        <ListBox Grid.Row="1" Name="log" />
+        
         <Footer:Footer Grid.Row="2" x:Name="footer" />
     </Grid>
 </base:SignOutWindowBase>

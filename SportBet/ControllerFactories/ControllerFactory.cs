@@ -3,11 +3,6 @@ using SportBet.Controllers;
 using SportBet.Facades;
 using SportBet.Services.Contracts;
 using SportBet.Services.ResultTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportBet.ControllerFactories
 {

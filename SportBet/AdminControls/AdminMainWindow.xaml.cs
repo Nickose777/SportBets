@@ -90,8 +90,11 @@ namespace SportBet.AdminControls
 
         private void SetFooterMessage(bool success, string message)
         {
-            footer.StatusText = success ? "Success!" : "Fail or error!";
+            string status = success ? "Success!" : "Fail or error!";
+            footer.StatusText = status;
             footer.MessageText = message;
+
+            log.Items.Add(status + " " + message);
         }
 
         private void SignOut_Click(object sender, RoutedEventArgs e)
