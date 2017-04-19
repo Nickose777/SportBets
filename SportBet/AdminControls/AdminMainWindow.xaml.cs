@@ -90,6 +90,8 @@ namespace SportBet.AdminControls
 
         private void SetFooterMessage(bool success, string message)
         {
+            //TODO
+            //make LogWindow
             string status = success ? "Success!" : "Fail or error!";
             footer.StatusText = status;
             footer.MessageText = message;

@@ -76,6 +76,7 @@ namespace SportBet.CommonControls.Participants.ViewModels
         private bool CanSave(object parameter)
         {
             return
+                IsDirty(parameter) &&
                 !String.IsNullOrEmpty(Name) &&
                 !String.IsNullOrEmpty(SportName) &&
                 !String.IsNullOrEmpty(CountryName) &&

@@ -7,6 +7,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.DTOModels.Edit;
 
 namespace SportBet.Services.Providers.TournamentServices
 {
@@ -59,6 +60,59 @@ namespace SportBet.Services.Providers.TournamentServices
                     else
                     {
                         message = "No such sport found";
+                        success = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    message = ExceptionMessageBuilder.BuildMessage(ex);
+                    success = false;
+                }
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
+        public ServiceMessage Update(TournamentEditDTO tournamentEditDTO)
+        {
+            string message = "";
+            bool success = true;
+
+            string oldName = tournamentEditDTO.OldName;
+            string oldSportName = tournamentEditDTO.OldSportName;
+            DateTime oldDateOfStart = tournamentEditDTO.OldDateOfStart;
+
+            string newName = tournamentEditDTO.NewName;
+            string newSportName = tournamentEditDTO.NewSportName;
+            DateTime newDateOfStart = tournamentEditDTO.NewDateOfStart;
+
+            if (success = ValidateDate(newDateOfStart, ref message))
+            {
+                try
+                {
+                    TournamentEntity tournamentEntity = unitOfWork.Tournaments.Get(oldName, oldSportName, oldDateOfStart);
+                    if (tournamentEntity != null)
+                    {
+                        SportEntity sportEntity = unitOfWork.Sports.Get(newSportName);
+                        if (sportEntity != null)
+                        {
+                            tournamentEntity.Name = newName;
+                            tournamentEntity.SportId = sportEntity.Id;
+                            tournamentEntity.DateOfStart = newDateOfStart;
+
+                            unitOfWork.Commit();
+
+                            message = "Edited tournament";
+                        }
+                        else
+                        {
+                            message = "Such sport was not found";
+                            success = false;
+                        }
+                    }
+                    else
+                    {
+                        message = "Such tournament was not found";
                         success = false;
                     }
                 }

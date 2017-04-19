@@ -22,5 +22,18 @@ namespace SportBet.Data.Repositories
 
             return tournament != null;
         }
+
+        public TournamentEntity Get(string name, string sportName, DateTime dateOfStart)
+        {
+            SportBetDbContext context = GetContext();
+            TournamentEntity tournament = context
+                .Tournaments
+                .SingleOrDefault(t =>
+                    t.Name == name &&
+                    t.Sport.Type == sportName &&
+                    t.DateOfStart == dateOfStart);
+
+            return tournament;
+        }
     }
 }

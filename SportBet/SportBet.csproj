@@ -172,10 +172,14 @@
     <Compile Include="CommonControls\Tournaments\UserControls\TournamentCreateControl.xaml.cs">
       <DependentUpon>TournamentCreateControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Tournaments\UserControls\TournamentInfoControl.xaml.cs">
+      <DependentUpon>TournamentInfoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CommonControls\Tournaments\UserControls\TournamentListControl.xaml.cs">
       <DependentUpon>TournamentListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CommonControls\Tournaments\ViewModels\TournamentCreateViewModel.cs" />
+    <Compile Include="CommonControls\Tournaments\ViewModels\TournamentInfoViewModel.cs" />
     <Compile Include="CommonControls\Tournaments\ViewModels\TournamentListViewModel.cs" />
     <Compile Include="Contracts\Controllers\IAccountController.cs" />
     <Compile Include="Contracts\Controllers\IAdminController.cs" />
@@ -218,6 +222,7 @@
     <Compile Include="DesignTimeViewModels\SportEditDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\SportListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\TournamentCreateDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\TournamentInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\TournamentListDTViewModel.cs" />
     <Compile Include="EventHandlers\ChangePasswordEventHandler.cs" />
     <Compile Include="EventHandlers\Create\CountryEventHandler.cs" />
@@ -228,12 +233,14 @@
     <Compile Include="EventHandlers\Display\AnalyticDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\ParticipantDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\SportDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Display\TournamentDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\BookmakerEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
     <Compile Include="EventHandlers\Display\CountryDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\CountryEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ParticipantEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\SportEditEventHandler.cs" />
+    <Compile Include="EventHandlers\Edit\TournamentEditEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AdminRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AnalyticRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\Display\BookmakerDisplayEventHandler.cs" />
@@ -265,6 +272,7 @@
     <Compile Include="Models\Edit\CountryEditModel.cs" />
     <Compile Include="Models\Edit\ParticipantEditModel.cs" />
     <Compile Include="Models\Edit\SportEditModel.cs" />
+    <Compile Include="Models\Edit\TournamentEditModel.cs" />
     <Compile Include="Models\Registers\AdminRegisterModel.cs" />
     <Compile Include="Models\Registers\AnalyticRegisterModel.cs" />
     <Compile Include="Models\Registers\BookmakerRegisterModel.cs" />
@@ -384,6 +392,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CommonControls\Tournaments\UserControls\TournamentCreateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Tournaments\UserControls\TournamentInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
