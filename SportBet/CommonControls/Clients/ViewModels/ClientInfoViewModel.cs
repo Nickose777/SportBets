@@ -1,11 +1,7 @@
-﻿using SportBet.EventHandlers.Edit;
-using SportBet.Models.Edit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Input;
+using SportBet.EventHandlers.Edit;
+using SportBet.Models.Edit;
 
 namespace SportBet.CommonControls.Clients.ViewModels
 {
@@ -37,36 +33,10 @@ namespace SportBet.CommonControls.Clients.ViewModels
         }
 
         public ICommand StartEditClientCommand { get; private set; }
-        private void StartEdit()
-        {
-            IsEditMode = true;
-        }
 
         public ICommand CancelEditClientCommand { get; private set; }
-        private void CancelEdit()
-        {
-            IsEditMode = false;
-            FirstName = client.FirstName;
-            LastName = client.LastName;
-            PhoneNumber = client.PhoneNumber;
-            DateOfBirth = client.DateOfBirth;
-        }
 
         public ICommand SaveClientCommand { get; private set; }
-        private void Save()
-        {
-            RaiseClientEditedEvent(clientForEdit);
-            IsEditMode = false;
-        }
-        private bool CanSave(object parameter)
-        {
-            return
-                isEditMode &&
-                !String.IsNullOrEmpty(FirstName) &&
-                !String.IsNullOrEmpty(LastName) &&
-                !String.IsNullOrEmpty(PhoneNumber) &&
-                DateOfBirth != null;
-        }
 
         public string LastName
         {
@@ -77,6 +47,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
                 RaisePropertyChangedEvent("LastName");
             }
         }
+
         public string FirstName
         {
             get { return clientForEdit.FirstName; }
@@ -86,6 +57,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
                 RaisePropertyChangedEvent("FirstName");
             }
         }
+
         public string PhoneNumber
         {
             get { return clientForEdit.PhoneNumber; }
@@ -95,6 +67,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
                 RaisePropertyChangedEvent("PhoneNumber");
             }
         }
+
         public DateTime DateOfBirth
         {
             get { return clientForEdit.DateOfBirth; }
@@ -113,6 +86,36 @@ namespace SportBet.CommonControls.Clients.ViewModels
                 isEditMode = value;
                 RaisePropertyChangedEvent("IsEditMode");
             }
+        }
+
+        private void StartEdit()
+        {
+            IsEditMode = true;
+        }
+
+        private void CancelEdit()
+        {
+            IsEditMode = false;
+            FirstName = client.FirstName;
+            LastName = client.LastName;
+            PhoneNumber = client.PhoneNumber;
+            DateOfBirth = client.DateOfBirth;
+        }
+
+        private void Save()
+        {
+            RaiseClientEditedEvent(clientForEdit);
+            IsEditMode = false;
+        }
+
+        private bool CanSave(object parameter)
+        {
+            return
+                isEditMode &&
+                !String.IsNullOrEmpty(FirstName) &&
+                !String.IsNullOrEmpty(LastName) &&
+                !String.IsNullOrEmpty(PhoneNumber) &&
+                DateOfBirth != null;
         }
 
         private void RaiseClientEditedEvent(ClientEditModel client)

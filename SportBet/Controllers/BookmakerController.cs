@@ -15,6 +15,8 @@ using SportBet.SuperuserControls.UserControls;
 using SportBet.SuperuserControls.ViewModels;
 using SportBet.WindowFactories;
 using SportBet.Contracts.Controllers;
+using SportBet.Models.Edit;
+using SportBet.Services.DTOModels.Edit;
 
 namespace SportBet.Controllers
 {
@@ -33,7 +35,6 @@ namespace SportBet.Controllers
         {
             BookmakerRegisterViewModel viewModel = new BookmakerRegisterViewModel(new BookmakerRegisterModel());
             RegisterBookmakerControl control = new RegisterBookmakerControl(viewModel);
-
             Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.BookmakerCreated += (s, ea) =>
@@ -68,6 +69,7 @@ namespace SportBet.Controllers
             ManageBookmakersControl control = new ManageBookmakersControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
 
+            viewModel.BookmakerSelectRequest += (s, e) => Edit(e.Bookmaker);
             viewModel.BookmakerDeleteRequest += (s, e) =>
             {
                 using (IBookmakerService service = factory.CreateBookmakerService())
@@ -79,6 +81,35 @@ namespace SportBet.Controllers
 
                     if (serviceMessage.IsSuccessful)
                     {
+                        Notify();
+                    }
+                }
+            };
+
+            window.Show();
+        }
+
+        private void Edit(BookmakerDisplayModel bookmakerDisplayModel)
+        {
+            BookmakerEditModel bookmakerEditModel = Mapper.Map<BookmakerDisplayModel, BookmakerEditModel>(bookmakerDisplayModel);
+
+            BookmakerInfoViewModel viewModel = new BookmakerInfoViewModel(bookmakerEditModel);
+            BookmakerInfoControl control = new BookmakerInfoControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.BookmakerEdited += (s, e) =>
+            {
+                bookmakerEditModel = e.Bookmaker;
+                BookmakerEditDTO bookmakerEditDTO = Mapper.Map<BookmakerEditModel, BookmakerEditDTO>(bookmakerEditModel);
+
+                using (IBookmakerService service = factory.CreateBookmakerService())
+                {
+                    ServiceMessage serviceMessage = service.Update(bookmakerEditDTO, bookmakerDisplayModel.Login);
+                    RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        window.Close();
                         Notify();
                     }
                 }

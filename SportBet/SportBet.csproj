@@ -198,6 +198,7 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\BookmakerInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientRegisterDTViewModel.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="EventHandlers\Display\AdminDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AnalyticDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\SportDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Edit\BookmakerEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
     <Compile Include="EventHandlers\Display\CountryDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\CountryEditEventHandler.cs" />
@@ -251,6 +253,7 @@
     <Compile Include="Models\Display\ClientDisplayModel.cs" />
     <Compile Include="Models\Display\ParticipantDisplayModel.cs" />
     <Compile Include="Models\Display\TournamentDisplayModel.cs" />
+    <Compile Include="Models\Edit\BookmakerEditModel.cs" />
     <Compile Include="Models\Edit\ClientEditModel.cs" />
     <Compile Include="Models\Edit\CountryEditModel.cs" />
     <Compile Include="Models\Edit\SportEditModel.cs" />
@@ -268,6 +271,9 @@
     <Compile Include="Controllers\SubjectBase.cs" />
     <Compile Include="SuperuserControls\SuperuserMainWindow.xaml.cs">
       <DependentUpon>SuperuserMainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SuperuserControls\UserControls\BookmakerInfoControl.xaml.cs">
+      <DependentUpon>BookmakerInfoControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SuperuserControls\UserControls\ManageAdminsControl.xaml.cs">
       <DependentUpon>ManageAdminsControl.xaml</DependentUpon>
@@ -289,6 +295,7 @@
     </Compile>
     <Compile Include="SuperuserControls\ViewModels\AdminRegisterViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\AnalyticRegisterViewModel.cs" />
+    <Compile Include="SuperuserControls\ViewModels\BookmakerInfoViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\BookmakerRegisterViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageAdminsViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\ManageAnalyticsViewModel.cs" />
@@ -384,6 +391,10 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="SuperuserControls\SuperuserMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SuperuserControls\UserControls\BookmakerInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

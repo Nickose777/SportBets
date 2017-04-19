@@ -6,6 +6,7 @@ using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.DTOModels.Edit;
 
 namespace SportBet.Services.Providers.BookmakerServices
 {
@@ -16,6 +17,36 @@ namespace SportBet.Services.Providers.BookmakerServices
         public SuperuserBookmakerService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
+        }
+
+        public ServiceMessage Update(BookmakerEditDTO bookmakerEditDTO, string login)
+        {
+            string message = "";
+            bool success = true;
+
+            if (success = Validate(bookmakerEditDTO, ref message))
+            {
+                try
+                {
+                    int id = unitOfWork.Users.GetIdByLogin(login);
+                    BookmakerEntity bookmakerEntity = unitOfWork.Bookmakers.Get(id);
+
+                    bookmakerEntity.FirstName = bookmakerEditDTO.FirstName;
+                    bookmakerEntity.LastName = bookmakerEditDTO.LastName;
+                    bookmakerEntity.PhoneNumber = bookmakerEditDTO.PhoneNumber;
+
+                    unitOfWork.Commit();
+
+                    message = "Edited bookmaker's info";
+                }
+                catch (Exception ex)
+                {
+                    message = ExceptionMessageBuilder.BuildMessage(ex);
+                    success = false;
+                }
+            }
+
+            return new ServiceMessage(message, success);
         }
 
         public ServiceMessage Delete(string login)
@@ -93,6 +124,29 @@ namespace SportBet.Services.Providers.BookmakerServices
         public void Dispose()
         {
             unitOfWork.Dispose();
+        }
+
+        private bool Validate(BookmakerEditDTO bookmakerEditDTO, ref string message)
+        {
+            bool isValid = true;
+
+            if (String.IsNullOrEmpty(bookmakerEditDTO.LastName))
+            {
+                message = "Last name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(bookmakerEditDTO.FirstName))
+            {
+                message = "First name must not be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(bookmakerEditDTO.PhoneNumber))
+            {
+                message = "Phone number name must not be empty";
+                isValid = false;
+            }
+
+            return isValid;
         }
     }
 }
