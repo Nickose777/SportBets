@@ -165,6 +165,10 @@
     </Compile>
     <Compile Include="CommonControls\Participants\ViewModels\ParticipantCreateViewModel.cs" />
     <Compile Include="CommonControls\Participants\ViewModels\ParticipantListViewModel.cs" />
+    <Compile Include="CommonControls\Tournaments\UserControls\TournamentCreateControl.xaml.cs">
+      <DependentUpon>TournamentCreateControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommonControls\Tournaments\ViewModels\TournamentCreateViewModel.cs" />
     <Compile Include="Contracts\Controllers\IAccountController.cs" />
     <Compile Include="Contracts\Controllers\IAdminController.cs" />
     <Compile Include="Contracts\Controllers\IAnalyticController.cs" />
@@ -174,6 +178,7 @@
     <Compile Include="Contracts\Controllers\ICountryController.cs" />
     <Compile Include="Contracts\Controllers\IParticipantController.cs" />
     <Compile Include="Contracts\Controllers\ISportController.cs" />
+    <Compile Include="Contracts\Controllers\ITournamentController.cs" />
     <Compile Include="Contracts\FacadeBase.cs" />
     <Compile Include="Contracts\IObserver.cs" />
     <Compile Include="Contracts\ISubject.cs" />
@@ -185,6 +190,7 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\ParticipantController.cs" />
     <Compile Include="Controllers\SuperuserClientController.cs" />
+    <Compile Include="Controllers\TournamentController.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
@@ -201,10 +207,12 @@
     <Compile Include="DesignTimeViewModels\ParticipantListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\SportEditDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\SportListDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\TournamentCreateDTViewModel.cs" />
     <Compile Include="EventHandlers\ChangePasswordEventHandler.cs" />
     <Compile Include="EventHandlers\Create\CountryEventHandler.cs" />
     <Compile Include="EventHandlers\Create\ParticipantEventHandler.cs" />
     <Compile Include="EventHandlers\Create\SportEventHandler.cs" />
+    <Compile Include="EventHandlers\Create\TournamentEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AdminDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AnalyticDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\SportDisplayEventHandler.cs" />
@@ -226,15 +234,18 @@
     <Compile Include="Facades\CountryFacade.cs" />
     <Compile Include="Facades\ParticipantFacade.cs" />
     <Compile Include="Facades\SportFacade.cs" />
+    <Compile Include="Facades\TournamentFacade.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\MappingProfile.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\Create\ParticipantCreateModel.cs" />
+    <Compile Include="Models\Create\TournamentCreateModel.cs" />
     <Compile Include="Models\Display\AdminDisplayModel.cs" />
     <Compile Include="Models\Display\AnalyticDisplayModel.cs" />
     <Compile Include="Models\Display\BookmakerDisplayModel.cs" />
     <Compile Include="Models\Display\ClientDisplayModel.cs" />
     <Compile Include="Models\Display\ParticipantDisplayModel.cs" />
+    <Compile Include="Models\Display\TournamentDisplayModel.cs" />
     <Compile Include="Models\Edit\ClientEditModel.cs" />
     <Compile Include="Models\Edit\CountryEditModel.cs" />
     <Compile Include="Models\Edit\SportEditModel.cs" />
@@ -345,6 +356,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CommonControls\Participants\UserControls\ParticipantListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Tournaments\UserControls\TournamentCreateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

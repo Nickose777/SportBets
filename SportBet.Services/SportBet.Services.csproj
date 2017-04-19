@@ -49,14 +49,17 @@
     <Compile Include="Contracts\Services\ICountryService.cs" />
     <Compile Include="Contracts\Services\IParticipantService.cs" />
     <Compile Include="Contracts\Services\ISportService.cs" />
+    <Compile Include="Contracts\Services\ITournamentService.cs" />
     <Compile Include="Contracts\Validators\IRegisterValidator.cs" />
     <Compile Include="DTOModels\ChangePasswordDTO.cs" />
     <Compile Include="DTOModels\Create\ParticipantCreateDTO.cs" />
+    <Compile Include="DTOModels\Create\TournamentCreateDTO.cs" />
     <Compile Include="DTOModels\Display\AdminDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\AnalyticDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\BookmakerDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\ClientDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\ParticipantDisplayDTO.cs" />
+    <Compile Include="DTOModels\Display\TournamentDisplayDTO.cs" />
     <Compile Include="DTOModels\Edit\ClientEditDTO.cs" />
     <Compile Include="DTOModels\Edit\CountryEditDTO.cs" />
     <Compile Include="DTOModels\Edit\SportEditDTO.cs" />
@@ -93,6 +96,7 @@
     <Compile Include="Providers\ParticipantServices\AdminParticipantService.cs" />
     <Compile Include="Providers\SessionProvider.cs" />
     <Compile Include="Providers\SportServices\AdminSportService.cs" />
+    <Compile Include="Providers\TournamentServices\AdminTournamentService.cs" />
     <Compile Include="ResultTypes\DataServiceMessage.cs" />
     <Compile Include="ResultTypes\ServiceMessage.cs" />
     <Compile Include="ResultTypes\LoginServiceMessage.cs" />

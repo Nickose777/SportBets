@@ -36,6 +36,8 @@ namespace SportBet.Services.Contracts
 
         public abstract IParticipantService CreateParticipantService();
 
+        public abstract ITournamentService CreateTournamentService();
+
         protected IUnitOfWork CreateUnitOfWork()
         {
             return new UnitOfWork(login, password);

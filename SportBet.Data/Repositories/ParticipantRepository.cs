@@ -10,15 +10,15 @@ namespace SportBet.Data.Repositories
         public ParticipantRepository(Func<SportBetDbContext> GetContext)
             : base(GetContext) { }
 
-        public bool Exists(string participantName, string sportName, string countryName)
+        public bool Exists(string participantName, int sportId, int countryId)
         {
             SportBetDbContext context = GetContext();
 
             ParticipantEntity participantEntity = context
                 .Participants
-                .SingleOrDefault(
-                    participant => participant.Country.Name == countryName &&
-                    participant.Sport.Type == sportName &&
+                .SingleOrDefault(participant => 
+                    participant.CountryId == countryId &&
+                    participant.SportId == sportId &&
                     participant.Name == participantName);
 
             return participantEntity != null;

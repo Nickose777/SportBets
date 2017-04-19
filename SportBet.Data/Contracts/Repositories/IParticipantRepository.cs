@@ -4,6 +4,6 @@ namespace SportBet.Data.Contracts.Repositories
 {
     public interface IParticipantRepository : IRepository<ParticipantEntity>
     {
-        bool Exists(string participantName, string sportName, string countryName);
+        bool Exists(string participantName, int sportId, int countryId);
     }
 }

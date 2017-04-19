@@ -1,4 +1,5 @@
-﻿using SportBet.Data.Contracts;
+﻿using System;
+using SportBet.Data.Contracts;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Encryption;
 using SportBet.Services.Contracts.Services;
@@ -56,17 +57,22 @@ namespace SportBet.Services.Factories
 
         public override ICountryService CreateCountryService()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override ISportService CreateSportService()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override IParticipantService CreateParticipantService()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        public override ITournamentService CreateTournamentService()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -16,6 +16,7 @@
                 <MenuItem Header="Country" Click="CreateCountry_Click" />
                 <MenuItem Header="Sport" Click="CreateSport_Click" />
                 <MenuItem Header="Participant" Click="CreateParticipant_Click" />
+                <MenuItem Header="Tournament" Click="CreateTournament_Click" />
             </MenuItem>
             <MenuItem Header="Manage...">
                 <MenuItem Header="Countries" Click="ManageCountries_Click" />

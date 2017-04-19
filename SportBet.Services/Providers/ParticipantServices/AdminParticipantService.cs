@@ -37,7 +37,7 @@ namespace SportBet.Services.Providers.ParticipantServices
 
                 if (sportEntity != null && countryEntity != null)
                 {
-                    bool exists = unitOfWork.Participants.Exists(participantName, sportName, countryName);
+                    bool exists = unitOfWork.Participants.Exists(participantName, sportEntity.Id, countryEntity.Id);
                     if (!exists)
                     {
                         ParticipantEntity participantEntity = new ParticipantEntity
