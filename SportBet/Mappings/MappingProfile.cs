@@ -48,6 +48,8 @@ namespace SportBet.Mappings
 
             CreateMap<BookmakerDisplayModel, BookmakerEditModel>();
             CreateMap<BookmakerEditModel, BookmakerEditDTO>();
+
+            CreateMap<ParticipantEditModel, ParticipantEditDTO>();
         }
     }
 }

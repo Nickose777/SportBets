@@ -1,15 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using SportBet.Contracts;
 using SportBet.Models.Display;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportBet.Facades
 {

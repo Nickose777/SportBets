@@ -160,10 +160,14 @@
     <Compile Include="CommonControls\Participants\UserControls\ParticipantCreateControl.xaml.cs">
       <DependentUpon>ParticipantCreateControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Participants\UserControls\ParticipantInfoControl.xaml.cs">
+      <DependentUpon>ParticipantInfoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CommonControls\Participants\UserControls\ParticipantListControl.xaml.cs">
       <DependentUpon>ParticipantListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CommonControls\Participants\ViewModels\ParticipantCreateViewModel.cs" />
+    <Compile Include="CommonControls\Participants\ViewModels\ParticipantInfoViewModel.cs" />
     <Compile Include="CommonControls\Participants\ViewModels\ParticipantListViewModel.cs" />
     <Compile Include="CommonControls\Tournaments\UserControls\TournamentCreateControl.xaml.cs">
       <DependentUpon>TournamentCreateControl.xaml</DependentUpon>
@@ -209,6 +213,7 @@
     <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageClientsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ParticipantCreateDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\ParticipantInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ParticipantListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\SportEditDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\SportListDTViewModel.cs" />
@@ -221,11 +226,13 @@
     <Compile Include="EventHandlers\Create\TournamentEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AdminDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AnalyticDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Display\ParticipantDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\SportDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\BookmakerEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
     <Compile Include="EventHandlers\Display\CountryDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\CountryEditEventHandler.cs" />
+    <Compile Include="EventHandlers\Edit\ParticipantEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\SportEditEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AdminRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\Register\AnalyticRegisterEventHandler.cs" />
@@ -256,6 +263,7 @@
     <Compile Include="Models\Edit\BookmakerEditModel.cs" />
     <Compile Include="Models\Edit\ClientEditModel.cs" />
     <Compile Include="Models\Edit\CountryEditModel.cs" />
+    <Compile Include="Models\Edit\ParticipantEditModel.cs" />
     <Compile Include="Models\Edit\SportEditModel.cs" />
     <Compile Include="Models\Registers\AdminRegisterModel.cs" />
     <Compile Include="Models\Registers\AnalyticRegisterModel.cs" />
@@ -364,6 +372,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CommonControls\Participants\UserControls\ParticipantCreateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Participants\UserControls\ParticipantInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

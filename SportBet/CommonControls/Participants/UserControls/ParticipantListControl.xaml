@@ -28,10 +28,18 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" />
                     <RowDefinition Height="20" />
+                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Text="{Binding SelectedParticipant.CountryName, StringFormat='Country: {0}'}" />
                 <TextBlock Grid.Row="1" Text="{Binding SelectedParticipant.SportName, StringFormat='Sport: {0}'}" />
+                
+                <Button
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    Padding="20,0"
+                    Content="Edit"
+                    Command="{Binding SelectParticipantCommand}" />
             </Grid>
         </GroupBox>
     </Grid>
