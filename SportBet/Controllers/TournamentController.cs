@@ -45,6 +45,15 @@ namespace SportBet.Controllers
             }
         }
 
+        public void Display()
+        {
+            TournamentListViewModel viewModel = new TournamentListViewModel(this, facade);
+            TournamentListControl control = new TournamentListControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            window.Show();
+        }
+
         private void Create(IEnumerable<string> sportNames)
         {
             TournamentCreateViewModel viewModel = new TournamentCreateViewModel(sportNames);

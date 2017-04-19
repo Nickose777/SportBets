@@ -78,6 +78,11 @@ namespace SportBet.AdminControls
             participantController.Display();
         }
 
+        private void ManageTournaments_Click(object sender, RoutedEventArgs e)
+        {
+            tournamentController.Display();
+        }
+
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
             accountController.ChangePassword();

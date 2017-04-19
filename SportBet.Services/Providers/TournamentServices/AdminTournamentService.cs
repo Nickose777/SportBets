@@ -1,14 +1,12 @@
-﻿using SportBet.Core.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using SportBet.Core.Entities;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportBet.Services.Providers.TournamentServices
 {
@@ -76,7 +74,35 @@ namespace SportBet.Services.Providers.TournamentServices
 
         public DataServiceMessage<IEnumerable<TournamentDisplayDTO>> GetAll()
         {
-            throw new NotImplementedException();
+            string message = "";
+            bool success = true;
+            IEnumerable<TournamentDisplayDTO> tournamentDisplayDTOs = null;
+
+            try
+            {
+                IEnumerable<TournamentEntity> tournamentEntities = unitOfWork.Tournaments.GetAll();
+                tournamentDisplayDTOs = tournamentEntities
+                    .Select(tournamentEntity =>
+                    {
+                        return new TournamentDisplayDTO
+                        {
+                            Name = tournamentEntity.Name,
+                            SportName = tournamentEntity.Sport.Type,
+                            DateOfStart = tournamentEntity.DateOfStart
+                        };
+                    })
+                    .OrderBy(t => t.Name)
+                    .ToList();
+
+                message = "Got all tournaments";
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<TournamentDisplayDTO>>(tournamentDisplayDTOs, message, success);
         }
 
         public void Dispose()

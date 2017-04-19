@@ -22,6 +22,7 @@
                 <MenuItem Header="Countries" Click="ManageCountries_Click" />
                 <MenuItem Header="Sports" Click="ManageSports_Click" />
                 <MenuItem Header="Participants" Click="ManageParticipants_Click" />
+                <MenuItem Header="Tournaments" Click="ManageTournaments_Click" />
             </MenuItem>
             <MenuItem Header="Settings">
                 <MenuItem Header="Change password" Click="ChangePassword_Click" />

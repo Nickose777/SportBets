@@ -3,5 +3,7 @@
     public interface ITournamentController : IReceiveMessage
     {
         void Create();
+
+        void Display();
     }
 }
