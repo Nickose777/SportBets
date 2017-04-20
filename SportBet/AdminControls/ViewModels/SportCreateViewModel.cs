@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using SportBet.EventHandlers.Create;
+using SportBet.Models.Create;
 
 namespace SportBet.AdminControls.ViewModels
 {
@@ -8,37 +9,49 @@ namespace SportBet.AdminControls.ViewModels
     {
         public event SportEventHandler SportCreated;
 
-        private string sportName;
+        private SportCreateModel sport;
 
         public SportCreateViewModel()
         {
-            sportName = String.Empty;
-            CreateSportCommand = new DelegateCommand(() => RaiseSportCreatedEvent(sportName), CanCreateSport);
+            sport = new SportCreateModel();
+            CreateSportCommand = new DelegateCommand(() => RaiseSportCreatedEvent(sport), CanCreateSport);
         }
 
         public ICommand CreateSportCommand { get; private set; }
 
         public string SportName
         {
-            get { return sportName; }
+            get { return sport.SportName; }
             set
             {
-                sportName = value;
+                sport.SportName = value;
                 RaisePropertyChangedEvent("SportName");
+            }
+        }
+
+        public bool IsDual
+        {
+            get { return sport.IsDual; }
+            set
+            {
+                sport.IsDual = value;
+                RaisePropertyChangedEvent("IsDual");
             }
         }
 
         private bool CanCreateSport(object parameter)
         {
-            return 3 < SportName.Length && SportName.Length <= 20;
+            return 
+                !String.IsNullOrEmpty(SportName) &&
+                3 < SportName.Length && SportName.Length <= 20;
         }
 
-        private void RaiseSportCreatedEvent(string sportName)
+        private void RaiseSportCreatedEvent(SportCreateModel sport)
         {
             var handler = SportCreated;
             if (handler != null)
             {
-                SportEventArgs e = new SportEventArgs(sportName);
+                SportEventArgs e = new SportEventArgs(sport);
                 handler(this, e);
             }
         }

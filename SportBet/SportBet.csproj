@@ -260,6 +260,7 @@
     <Compile Include="Mappings\MappingProfile.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\Create\ParticipantCreateModel.cs" />
+    <Compile Include="Models\Create\SportCreateModel.cs" />
     <Compile Include="Models\Create\TournamentCreateModel.cs" />
     <Compile Include="Models\Display\AdminDisplayModel.cs" />
     <Compile Include="Models\Display\AnalyticDisplayModel.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using SportBet.Models.Create;
 
 namespace SportBet.EventHandlers.Create
 {
@@ -6,11 +7,11 @@ namespace SportBet.EventHandlers.Create
 
     public class SportEventArgs : EventArgs
     {
-        public string SportName { get; private set; }
+        public SportCreateModel Sport { get; private set; }
 
-        public SportEventArgs(string sportName)
+        public SportEventArgs(SportCreateModel sport)
         {
-            this.SportName = sportName;
+            this.Sport = sport;
         }
     }
 }

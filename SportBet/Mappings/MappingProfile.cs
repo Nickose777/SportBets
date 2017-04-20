@@ -40,6 +40,8 @@ namespace SportBet.Mappings
             CreateMap<SportEditDTO, SportEditModel>();
             CreateMap<SportEditModel, SportEditDTO>();
 
+            CreateMap<SportCreateModel, SportCreateDTO>();
+
             CreateMap<ParticipantCreateModel, ParticipantCreateDTO>();
             CreateMap<ParticipantDisplayDTO, ParticipantDisplayModel>();
 

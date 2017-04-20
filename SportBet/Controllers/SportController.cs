@@ -12,6 +12,8 @@ using SportBet.Models.Edit;
 using SportBet.Services.DTOModels.Edit;
 using AutoMapper;
 using SportBet.Contracts.Controllers;
+using SportBet.Models.Create;
+using SportBet.Services.DTOModels.Create;
 
 namespace SportBet.Controllers
 {
@@ -34,9 +36,12 @@ namespace SportBet.Controllers
 
             viewModel.SportCreated += (s, e) =>
             {
+                SportCreateModel sportCreateModel = e.Sport;
+                SportCreateDTO sportCreateDTO = Mapper.Map<SportCreateModel, SportCreateDTO>(sportCreateModel);
+
                 using (ISportService service = factory.CreateSportService())
                 {
-                    ServiceMessage serviceMessage = service.Create(e.SportName);
+                    ServiceMessage serviceMessage = service.Create(sportCreateDTO);
                     RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
 
                     if (serviceMessage.IsSuccessful)

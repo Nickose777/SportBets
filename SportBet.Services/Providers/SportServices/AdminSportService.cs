@@ -6,6 +6,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
 using System.Collections.Generic;
 using SportBet.Services.DTOModels.Edit;
+using SportBet.Services.DTOModels.Create;
 
 namespace SportBet.Services.Providers.SportServices
 {
@@ -18,10 +19,13 @@ namespace SportBet.Services.Providers.SportServices
             this.unitOfWork = unitOfWork;
         }
 
-        public ServiceMessage Create(string sportName)
+        public ServiceMessage Create(SportCreateDTO sportCreateDTO)
         {
             string message;
             bool success = true;
+
+            string sportName = sportCreateDTO.SportName;
+            bool isDual = sportCreateDTO.IsDual;
 
             try
             {
@@ -30,7 +34,8 @@ namespace SportBet.Services.Providers.SportServices
                 {
                     unitOfWork.Sports.Add(new SportEntity
                     {
-                        Type = sportName
+                        Type = sportName,
+                        IsDual = isDual
                     });
                     unitOfWork.Commit();
 

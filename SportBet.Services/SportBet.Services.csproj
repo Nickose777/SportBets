@@ -53,6 +53,7 @@
     <Compile Include="Contracts\Validators\IRegisterValidator.cs" />
     <Compile Include="DTOModels\ChangePasswordDTO.cs" />
     <Compile Include="DTOModels\Create\ParticipantCreateDTO.cs" />
+    <Compile Include="DTOModels\Create\SportCreateDTO.cs" />
     <Compile Include="DTOModels\Create\TournamentCreateDTO.cs" />
     <Compile Include="DTOModels\Display\AdminDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\AnalyticDisplayDTO.cs" />

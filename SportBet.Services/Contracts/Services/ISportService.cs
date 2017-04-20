@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.DTOModels.Create;
 
 namespace SportBet.Services.Contracts.Services
 {
     public interface ISportService : IDisposable
     {
-        ServiceMessage Create(string sportName);
+        ServiceMessage Create(SportCreateDTO sportCreateDTO);
 
         ServiceMessage Update(SportEditDTO sportEditDTO);
 

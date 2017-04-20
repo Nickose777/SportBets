@@ -18,8 +18,7 @@ namespace SportBet.Data.Configurations
             this.HasKey(bet => new 
             { 
                 bet.ClientId,
-                bet.CoefficientId,
-                bet.BookmakerId 
+                bet.CoefficientId
             });
 
             //Foreign Keys

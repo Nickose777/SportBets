@@ -8,6 +8,8 @@ namespace SportBet.Core.Entities
 
         public string Type { get; set; }
 
+        public bool IsDual { get; set; }
+
         public virtual ICollection<TournamentEntity> Tournaments { get; set; }
 
         public virtual ICollection<ParticipantEntity> Participants { get; set; }
