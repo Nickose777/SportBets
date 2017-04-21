@@ -14,6 +14,8 @@ namespace SportBet.Data.Configurations
                 .HasColumnName("EventNo");
             this.Property(_event => _event.TournamentId)
                 .HasColumnName("EventTournamentNo");
+            this.Property(_event => _event.DateOfEvent)
+                .HasColumnName("EventDate");
 
             //Primary Keys
             this.HasKey(_event => _event.Id);

@@ -23,6 +23,7 @@ namespace SportBet.AdminControls
         private readonly ISportController sportController;
         private readonly IParticipantController participantController;
         private readonly ITournamentController tournamentController;
+        private readonly IEventController eventController;
 
         public AdminMainWindow(ControllerFactory controllerFactory)
         {
@@ -33,12 +34,14 @@ namespace SportBet.AdminControls
             sportController = controllerFactory.CreateSportController();
             participantController = controllerFactory.CreateParticipantController();
             tournamentController = controllerFactory.CreateTournamentController();
+            eventController = controllerFactory.CreateEventController();
 
             accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             countryController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             sportController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             participantController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             tournamentController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
+            eventController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
             SetFooterMessage(true, "Welcome, admin");
         }
@@ -61,6 +64,11 @@ namespace SportBet.AdminControls
         private void CreateTournament_Click(object sender, RoutedEventArgs e)
         {
             tournamentController.Create();
+        }
+
+        private void CreateEvent_Click(object sender, RoutedEventArgs e)
+        {
+            eventController.Create();
         }
 
         private void ManageCountries_Click(object sender, RoutedEventArgs e)

@@ -9,6 +9,7 @@ using SportBet.Services.Contracts.Encryption;
 using SportBet.Services.Providers.AccountServices;
 using SportBet.Services.Providers.ParticipantServices;
 using SportBet.Services.Providers.TournamentServices;
+using SportBet.Services.Providers.EventServices;
 
 namespace SportBet.Services.Factories
 {
@@ -73,6 +74,13 @@ namespace SportBet.Services.Factories
             IUnitOfWork unitOfWork = CreateUnitOfWork();
 
             return new AdminTournamentService(unitOfWork);
+        }
+
+        public override IEventService CreateEventService()
+        {
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+
+            return new AdminEventService(unitOfWork);
         }
     }
 }

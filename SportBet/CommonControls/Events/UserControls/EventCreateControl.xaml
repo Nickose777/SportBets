@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="SportBet.CommonControls.Events.UserControls.EventCreateControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
+             d:DataContext="{d:DesignInstance ViewModel:EventCreateDTViewModel}"
+             Background="Orange" Height="341" Width="360">
+    <GroupBox Header="Create event" Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ComboBox 
+                    Grid.Row="0"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Center" 
+                    ItemsSource="{Binding Sports}" 
+                    SelectedItem="{Binding SportName}" />
+                <ListBox
+                    Grid.Row="1"
+                    ItemsSource="{Binding SortedTournaments}"
+                    SelectedItem="{Binding SelectedTournament}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding TournamentName}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Sport:" />
+                <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Tournament:" />
+                <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Start date:" />
+                <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Event date:" />
+                <TextBlock Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Top" Text="Notes:" />
+
+                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0" Text="{Binding SportName}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0" Text="{Binding TournamentName}" />
+                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0" Text="{Binding DateOfTournamentStart}" />
+                <DatePicker Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,0" SelectedDate="{Binding DateOfEvent}">
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBox x:Name="PART_TextBox"
+                                             Text="{Binding Path=SelectedDate, StringFormat = {}{0:dd.MM.yyyy}, 
+                                             RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+                <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,0" Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+            </Grid>
+
+            <Button
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                Margin="0,10,0,0"
+                Padding="20,0"
+                Content="Create"
+                Command="{Binding CreateEventCommand}" />
+        </Grid>
+    </GroupBox>
+</UserControl>
