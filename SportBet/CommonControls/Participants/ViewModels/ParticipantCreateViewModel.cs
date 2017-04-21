@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using SportBet.EventHandlers.Create;
 using SportBet.Models.Create;
+using SportBet.Models.Base;
 
 namespace SportBet.CommonControls.Participants.ViewModels
 {
@@ -11,11 +12,11 @@ namespace SportBet.CommonControls.Participants.ViewModels
     {
         public event ParticipantEventHandler ParticipantCreated;
 
-        private ParticipantCreateModel participant;
+        private ParticipantBaseModel participant;
 
         public ParticipantCreateViewModel(IEnumerable<string> countries, IEnumerable<string> sports)
         {
-            this.participant = new ParticipantCreateModel();
+            this.participant = new ParticipantBaseModel();
 
             this.Countries = new ObservableCollection<string>(countries);
             this.Sports = new ObservableCollection<string>(sports);
@@ -28,18 +29,18 @@ namespace SportBet.CommonControls.Participants.ViewModels
         private bool CanCreate(object parameter)
         {
             return
-                !String.IsNullOrEmpty(participant.ParticipantName) &&
+                !String.IsNullOrEmpty(participant.Name) &&
                 !String.IsNullOrEmpty(participant.SportName) &&
                 !String.IsNullOrEmpty(participant.CountryName) &&
-                participant.ParticipantName.Length <= 20;
+                participant.Name.Length <= 20;
         }
 
         public string ParticipantName
         {
-            get { return participant.ParticipantName; }
+            get { return participant.Name; }
             set
             {
-                participant.ParticipantName = value;
+                participant.Name = value;
                 RaisePropertyChangedEvent("ParticipantName");
             }
         }
@@ -68,7 +69,7 @@ namespace SportBet.CommonControls.Participants.ViewModels
         
         public ObservableCollection<string> Sports { get; set; }
 
-        private void RaiseParticipantCreatedEvent(ParticipantCreateModel participant)
+        private void RaiseParticipantCreatedEvent(ParticipantBaseModel participant)
         {
             var handler = ParticipantCreated;
             if (handler != null)

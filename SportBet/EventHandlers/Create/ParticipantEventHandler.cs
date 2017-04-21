@@ -1,5 +1,5 @@
 ﻿using System;
-using SportBet.Models.Create;
+using SportBet.Models.Base;
 
 namespace SportBet.EventHandlers.Create
 {
@@ -7,9 +7,9 @@ namespace SportBet.EventHandlers.Create
 
     public class ParticipantEventArgs : EventArgs
     {
-        public ParticipantCreateModel Participant { get; private set; }
+        public ParticipantBaseModel Participant { get; private set; }
 
-        public ParticipantEventArgs(ParticipantCreateModel participant)
+        public ParticipantEventArgs(ParticipantBaseModel participant)
         {
             this.Participant = participant;
         }

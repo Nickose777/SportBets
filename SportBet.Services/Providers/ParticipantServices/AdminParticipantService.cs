@@ -1,15 +1,14 @@
-﻿using SportBet.Core.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using SportBet.Core.Entities;
 using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SportBet.Services.DTOModels.Base;
 
 namespace SportBet.Services.Providers.ParticipantServices
 {
@@ -22,14 +21,14 @@ namespace SportBet.Services.Providers.ParticipantServices
             this.unitOfWork = unitOfWork;
         }
 
-        public ServiceMessage Create(ParticipantCreateDTO participantCreateDTO)
+        public ServiceMessage Create(ParticipantBaseDTO participantBaseDTO)
         {
             string message;
             bool success = true;
 
-            string sportName = participantCreateDTO.SportName;
-            string countryName = participantCreateDTO.CountryName;
-            string participantName = participantCreateDTO.ParticipantName;
+            string sportName = participantBaseDTO.SportName;
+            string countryName = participantBaseDTO.CountryName;
+            string participantName = participantBaseDTO.Name;
 
             try
             {
@@ -83,9 +82,9 @@ namespace SportBet.Services.Providers.ParticipantServices
             string oldSportName = participantEditDTO.OldSportName;
             string oldCountryName = participantEditDTO.OldCountryName;
 
-            string newName = participantEditDTO.NewParticipantName;
-            string newSportName = participantEditDTO.NewSportName;
-            string newCountryName = participantEditDTO.NewCountryName;
+            string newName = participantEditDTO.Name;
+            string newSportName = participantEditDTO.SportName;
+            string newCountryName = participantEditDTO.CountryName;
 
             try
             {
@@ -125,11 +124,11 @@ namespace SportBet.Services.Providers.ParticipantServices
             return new ServiceMessage(message, success);
         }
 
-        public DataServiceMessage<IEnumerable<ParticipantDisplayDTO>> GetAll()
+        public DataServiceMessage<IEnumerable<ParticipantBaseDTO>> GetAll()
         {
             string message;
             bool success = true;
-            IEnumerable<ParticipantDisplayDTO> partipantDisplayDTOs = null;
+            IEnumerable<ParticipantBaseDTO> partipantDisplayDTOs = null;
 
             try
             {
@@ -138,14 +137,14 @@ namespace SportBet.Services.Providers.ParticipantServices
                 partipantDisplayDTOs = participantEntities
                     .Select(participant =>
                     {
-                        return new ParticipantDisplayDTO
+                        return new ParticipantBaseDTO
                         {
-                            ParticipantName = participant.Name,
+                            Name = participant.Name,
                             CountryName = participant.Country.Name,
                             SportName = participant.Sport.Type
                         };
                     })
-                    .OrderBy(p => p.ParticipantName)
+                    .OrderBy(p => p.Name)
                     .ToList();
 
                 message = "Got all participants";
@@ -156,7 +155,97 @@ namespace SportBet.Services.Providers.ParticipantServices
                 success = false;
             }
 
-            return new DataServiceMessage<IEnumerable<ParticipantDisplayDTO>>(partipantDisplayDTOs, message, success);
+            return new DataServiceMessage<IEnumerable<ParticipantBaseDTO>>(partipantDisplayDTOs, message, success);
+        }
+
+        public DataServiceMessage<IEnumerable<ParticipantBaseDTO>> GetBySport(string sportName)
+        {
+            string message;
+            bool success = true;
+            IEnumerable<ParticipantBaseDTO> partipantDisplayDTOs = null;
+
+            try
+            {
+                SportEntity sportEntity = unitOfWork.Sports.Get(sportName);
+                if (sportEntity != null)
+                {
+                    IEnumerable<ParticipantEntity> participantEntities = unitOfWork.Participants.GetAll(p => p.SportId == sportEntity.Id);
+
+                    partipantDisplayDTOs = participantEntities
+                        .Select(participant =>
+                        {
+                            return new ParticipantBaseDTO
+                            {
+                                Name = participant.Name,
+                                CountryName = participant.Country.Name,
+                                SportName = participant.Sport.Type
+                            };
+                        })
+                        .OrderBy(p => p.Name)
+                        .ToList();
+
+                    message = "Got all participants";
+                }
+                else
+                {
+                    message = "No such sport found";
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<ParticipantBaseDTO>>(partipantDisplayDTOs, message, success);
+        }
+
+        public DataServiceMessage<IEnumerable<ParticipantBaseDTO>> GetByTournament(TournamentBaseDTO tournamentBaseDTO)
+        {
+            string message;
+            bool success = true;
+            IEnumerable<ParticipantBaseDTO> partipantDisplayDTOs = null;
+
+            string name = tournamentBaseDTO.Name;
+            string sportName = tournamentBaseDTO.SportName;
+            DateTime dateOfStart = tournamentBaseDTO.DateOfStart;
+
+            try
+            {
+                TournamentEntity tournamentEntity = unitOfWork.Tournaments.Get(name, sportName, dateOfStart);
+                if (tournamentEntity != null)
+                {
+                    IEnumerable<ParticipantEntity> participantEntities = tournamentEntity.Participants;
+
+                    partipantDisplayDTOs = participantEntities
+                        .Select(participant =>
+                        {
+                            return new ParticipantBaseDTO
+                            {
+                                Name = participant.Name,
+                                CountryName = participant.Country.Name,
+                                SportName = participant.Sport.Type
+                            };
+                        })
+                        .OrderBy(p => p.Name)
+                        .ToList();
+
+                    message = "Got all participants";
+                }
+                else
+                {
+                    message = "No such tournament found";
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<ParticipantBaseDTO>>(partipantDisplayDTOs, message, success);
         }
 
         public void Dispose()

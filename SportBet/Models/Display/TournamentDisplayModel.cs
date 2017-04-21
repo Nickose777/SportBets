@@ -1,13 +1,10 @@
 ﻿using System;
+using SportBet.Models.Base;
 
 namespace SportBet.Models.Display
 {
-    public class TournamentDisplayModel
+    public class TournamentDisplayModel : TournamentBaseModel
     {
-        public string Name { get; set; }
 
-        public string SportName { get; set; }
-
-        public DateTime DateOfStart { get; set; }
     }
 }

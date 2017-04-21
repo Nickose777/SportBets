@@ -4,11 +4,13 @@ using SportBet.CommonControls.Participants.ViewModels;
 using SportBet.Contracts;
 using SportBet.Contracts.Controllers;
 using SportBet.Contracts.Subjects;
+using SportBet.Models.Base;
 using SportBet.Models.Create;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
+using SportBet.Services.DTOModels.Base;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
@@ -97,8 +99,8 @@ namespace SportBet.Controllers
 
             viewModel.ParticipantCreated += (s, e) =>
             {
-                ParticipantCreateModel participantModel = e.Participant;
-                ParticipantCreateDTO participantDTO = Mapper.Map<ParticipantCreateModel, ParticipantCreateDTO>(participantModel);
+                ParticipantBaseModel participantModel = e.Participant;
+                ParticipantBaseDTO participantDTO = Mapper.Map<ParticipantBaseModel, ParticipantBaseDTO>(participantModel);
 
                 using (IParticipantService service = factory.CreateParticipantService())
                 {

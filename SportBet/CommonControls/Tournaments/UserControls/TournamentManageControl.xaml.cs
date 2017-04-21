@@ -6,9 +6,9 @@ namespace SportBet.CommonControls.Tournaments.UserControls
     /// <summary>
     /// Interaction logic for TournamentInfoControl.xaml
     /// </summary>
-    public partial class TournamentInfoControl : UserControl
+    public partial class TournamentManageControl : UserControl
     {
-        public TournamentInfoControl(TournamentInfoViewModel viewModel)
+        public TournamentManageControl(TournamentManageViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

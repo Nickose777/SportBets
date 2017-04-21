@@ -20,6 +20,14 @@ namespace SportBet.Data.Configurations
             this.HasKey(participant => participant.Id);
 
             //Foreign Keys
+            this.HasMany(participant => participant.Tournaments)
+                .WithMany(tournament => tournament.Participants)
+                .Map(pt =>
+                {
+                    pt.MapLeftKey("ParticipantNo");
+                    pt.MapRightKey("TournamentNo");
+                    pt.ToTable("ParticipantTournament");
+                });
             this.HasRequired<CountryEntity>(participant => participant.Country)
                 .WithMany(client => client.Participants)
                 .HasForeignKey(participant => participant.CountryId);

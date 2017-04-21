@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using SportBet.EventHandlers.Create;
 using SportBet.Models.Create;
+using SportBet.Models.Base;
 
 namespace SportBet.CommonControls.Tournaments.ViewModels
 {
@@ -11,11 +12,11 @@ namespace SportBet.CommonControls.Tournaments.ViewModels
     {
         public event TournamentEventHandler TournamentCreated;
 
-        private TournamentCreateModel tournament;
+        private TournamentBaseModel tournament;
 
         public TournamentCreateViewModel(IEnumerable<string> sportNames)
         {
-            tournament = new TournamentCreateModel
+            tournament = new TournamentBaseModel
             {
                 DateOfStart = DateTime.Now.AddMonths(1)
             };
@@ -68,7 +69,7 @@ namespace SportBet.CommonControls.Tournaments.ViewModels
 
         public ObservableCollection<string> Sports { get; private set; }
 
-        private void RaiseTournamentCreatedEvent(TournamentCreateModel tournament)
+        private void RaiseTournamentCreatedEvent(TournamentBaseModel tournament)
         {
             var handler = TournamentCreated;
             if (handler != null)

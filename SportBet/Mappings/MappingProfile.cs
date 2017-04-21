@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using SportBet.Models.Base;
 using SportBet.Models.Create;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
 using SportBet.Models.Registers;
+using SportBet.Services.DTOModels.Base;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Edit;
@@ -42,11 +44,13 @@ namespace SportBet.Mappings
 
             CreateMap<SportCreateModel, SportCreateDTO>();
 
-            CreateMap<ParticipantCreateModel, ParticipantCreateDTO>();
-            CreateMap<ParticipantDisplayDTO, ParticipantDisplayModel>();
+            CreateMap<ParticipantBaseModel, ParticipantBaseDTO>();
+            CreateMap<ParticipantBaseDTO, ParticipantDisplayModel>();
+            CreateMap<ParticipantBaseDTO, ParticipantBaseModel>();
 
-            CreateMap<TournamentCreateModel, TournamentCreateDTO>();
+            CreateMap<TournamentBaseModel, TournamentBaseModel>();
             CreateMap<TournamentDisplayDTO, TournamentDisplayModel>();
+            CreateMap<TournamentDisplayModel, TournamentBaseDTO>();
 
             CreateMap<BookmakerDisplayModel, BookmakerEditModel>();
             CreateMap<BookmakerEditModel, BookmakerEditDTO>();

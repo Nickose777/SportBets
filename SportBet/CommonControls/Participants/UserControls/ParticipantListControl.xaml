@@ -18,7 +18,7 @@
             <ListBox ItemsSource="{Binding Participants}" SelectedItem="{Binding SelectedParticipant}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding ParticipantName}" />
+                        <TextBlock Text="{Binding Name}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

@@ -4,11 +4,13 @@ using SportBet.CommonControls.Tournaments.ViewModels;
 using SportBet.Contracts;
 using SportBet.Contracts.Controllers;
 using SportBet.Contracts.Subjects;
+using SportBet.Models.Base;
 using SportBet.Models.Create;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
+using SportBet.Services.DTOModels.Base;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
@@ -56,16 +58,29 @@ namespace SportBet.Controllers
 
             viewModel.TournamentSelected += (s, e) =>
             {
-                TournamentDisplayModel tournametDisplayModel = e.Tournament;
+                TournamentDisplayModel tournamentDisplayModel = e.Tournament;
+                TournamentBaseDTO tournamentBaseDTO = Mapper.Map<TournamentDisplayModel, TournamentBaseDTO>(tournamentDisplayModel);
 
-                using (ISportService service = factory.CreateSportService())
+                using (IParticipantService service = factory.CreateParticipantService())
                 {
-                    DataServiceMessage<IEnumerable<string>> serviceMessage = service.GetAll();
-                    RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
+                    DataServiceMessage<IEnumerable<ParticipantBaseDTO>> serviceMessage1 = service.GetBySport(tournamentBaseDTO.SportName);
+                    DataServiceMessage<IEnumerable<ParticipantBaseDTO>> serviceMessage2 = service.GetByTournament(tournamentBaseDTO);
 
-                    if (serviceMessage.IsSuccessful)
+                    RaiseReceivedMessageEvent(serviceMessage1.IsSuccessful, serviceMessage1.Message);
+                    RaiseReceivedMessageEvent(serviceMessage2.IsSuccessful, serviceMessage2.Message);
+
+                    if (serviceMessage1.IsSuccessful && serviceMessage2.IsSuccessful)
                     {
-                        Edit(tournametDisplayModel, serviceMessage.Data);
+                        IEnumerable<ParticipantBaseModel> sportParticipants = serviceMessage1
+                            .Data
+                            .Select(p => Mapper.Map<ParticipantBaseDTO, ParticipantBaseModel>(p))
+                            .ToList();
+                        IEnumerable<ParticipantBaseModel> tournamentParticipants = serviceMessage2
+                            .Data
+                            .Select(p => Mapper.Map<ParticipantBaseDTO, ParticipantBaseModel>(p))
+                            .ToList();
+
+                        Edit(tournamentDisplayModel, tournamentParticipants, sportParticipants);
                     }
                 }
             };
@@ -81,8 +96,8 @@ namespace SportBet.Controllers
 
             viewModel.TournamentCreated += (s, e) =>
             {
-                TournamentCreateModel tournamentCreateModel = e.Tournament;
-                TournamentCreateDTO tournamentCreateDTO = Mapper.Map<TournamentCreateModel, TournamentCreateDTO>(tournamentCreateModel);
+                TournamentBaseModel tournamentCreateModel = e.Tournament;
+                TournamentBaseDTO tournamentCreateDTO = Mapper.Map<TournamentBaseModel, TournamentBaseDTO>(tournamentCreateModel);
 
                 using (ITournamentService service = factory.CreateTournamentService())
                 {
@@ -100,13 +115,13 @@ namespace SportBet.Controllers
             window.Show();
         }
 
-        private void Edit(TournamentDisplayModel tournametDisplayModel, IEnumerable<string> sports)
+        private void Edit(TournamentBaseModel tournament, IEnumerable<ParticipantBaseModel> tournamentParticipants, IEnumerable<ParticipantBaseModel> sportParticipants)
         {
-            TournamentInfoViewModel viewModel = new TournamentInfoViewModel(tournametDisplayModel, sports);
-            TournamentInfoControl control = new TournamentInfoControl(viewModel);
+            TournamentManageViewModel viewModel = new TournamentManageViewModel(tournament, tournamentParticipants, sportParticipants);
+            TournamentManageControl control = new TournamentManageControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
 
-            viewModel.TournamentEdited += (s, e) =>
+            viewModel.InfoViewModel.TournamentEdited += (s, e) =>
             {
                 TournamentEditModel tournamentEditModel = e.Tournament;
                 TournamentEditDTO tournamentEditDTO = Mapper.Map<TournamentEditModel, TournamentEditDTO>(tournamentEditModel);
@@ -118,7 +133,22 @@ namespace SportBet.Controllers
 
                     if (serviceMessage.IsSuccessful)
                     {
-                        window.Close();
+                        Notify();
+                    }
+                }
+            };
+            viewModel.ParticipantViewModel.TournamentEdited += (s, e) =>
+            {
+                TournamentEditModel tournamentEditModel = e.Tournament;
+                TournamentEditDTO tournamentEditDTO = Mapper.Map<TournamentEditModel, TournamentEditDTO>(tournamentEditModel);
+
+                using (ITournamentService service = factory.CreateTournamentService())
+                {
+                    ServiceMessage serviceMessage = service.UpdateParticipants(tournamentEditDTO);
+                    RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
                         Notify();
                     }
                 }

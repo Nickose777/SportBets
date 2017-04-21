@@ -1,13 +1,10 @@
 ﻿using System;
+using SportBet.Services.DTOModels.Base;
 
 namespace SportBet.Services.DTOModels.Display
 {
-    public class TournamentDisplayDTO
+    public class TournamentDisplayDTO : TournamentBaseDTO
     {
-        public string Name { get; set; }
 
-        public string SportName { get; set; }
-
-        public DateTime DateOfStart { get; set; }
     }
 }

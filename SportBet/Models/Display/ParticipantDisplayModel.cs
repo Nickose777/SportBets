@@ -1,11 +1,9 @@
-﻿namespace SportBet.Models.Display
+﻿using SportBet.Models.Base;
+
+namespace SportBet.Models.Display
 {
-    public class ParticipantDisplayModel
+    public class ParticipantDisplayModel : ParticipantBaseModel
     {
-        public string ParticipantName { get; set; }
 
-        public string SportName { get; set; }
-
-        public string CountryName { get; set; }
     }
 }

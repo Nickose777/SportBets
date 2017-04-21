@@ -7,6 +7,7 @@ using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.DTOModels.Base;
 
 namespace SportBet.Facades
 {
@@ -21,13 +22,13 @@ namespace SportBet.Facades
 
             using (IParticipantService service = factory.CreateParticipantService())
             {
-                DataServiceMessage<IEnumerable<ParticipantDisplayDTO>> serviceMessage = service.GetAll();
+                DataServiceMessage<IEnumerable<ParticipantBaseDTO>> serviceMessage = service.GetAll();
 
                 RaiseReveivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
                 if (serviceMessage.IsSuccessful)
                 {
-                    IEnumerable<ParticipantDisplayDTO> participantDTOs = serviceMessage.Data;
-                    participantModels = participantDTOs.Select(participantDTO => Mapper.Map<ParticipantDisplayDTO, ParticipantDisplayModel>(participantDTO));
+                    IEnumerable<ParticipantBaseDTO> participantDTOs = serviceMessage.Data;
+                    participantModels = participantDTOs.Select(participantDTO => Mapper.Map<ParticipantBaseDTO, ParticipantDisplayModel>(participantDTO));
                 }
                 else
                 {

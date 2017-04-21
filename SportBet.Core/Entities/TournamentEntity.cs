@@ -15,5 +15,7 @@ namespace SportBet.Core.Entities
         public virtual SportEntity Sport { get; set; }
 
         public virtual ICollection<EventEntity> Events { get; set; }
+
+        public virtual ICollection<ParticipantEntity> Participants { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Windows.Input;
 using SportBet.EventHandlers.Edit;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
+using SportBet.Models.Base;
 
 namespace SportBet.CommonControls.Tournaments.ViewModels
 {
@@ -14,21 +15,16 @@ namespace SportBet.CommonControls.Tournaments.ViewModels
 
         private readonly TournamentEditModel tournament;
 
-        public TournamentInfoViewModel(TournamentDisplayModel tournament, IEnumerable<string> sports)
+        public TournamentInfoViewModel(TournamentBaseModel tournament)
         {
             this.tournament = new TournamentEditModel
             {
-                OldName = tournament.Name,
+                Name = tournament.Name,
                 NewName = tournament.Name,
 
-                OldSportName = tournament.SportName,
-                NewSportName = tournament.SportName,
-
-                OldDateOfStart = tournament.DateOfStart,
+                DateOfStart = tournament.DateOfStart,
                 NewDateOfStart = tournament.DateOfStart
             };
-
-            this.Sports = new ObservableCollection<string>(sports);
 
             this.SaveTournamentCommand = new DelegateCommand(() => RaiseTournamentEditedEvent(this.tournament), CanSave);
             this.UndoCommand = new DelegateCommand(() => Undo(), IsDirty);
@@ -48,16 +44,6 @@ namespace SportBet.CommonControls.Tournaments.ViewModels
             }
         }
 
-        public string SportName
-        {
-            get { return tournament.NewSportName; }
-            set
-            {
-                tournament.NewSportName = value;
-                RaisePropertyChangedEvent("SportName");
-            }
-        }
-
         public DateTime DateOfStart
         {
             get { return tournament.NewDateOfStart; }
@@ -68,31 +54,28 @@ namespace SportBet.CommonControls.Tournaments.ViewModels
             }
         }
 
-        public ObservableCollection<string> Sports { get; private set; }
+        public ObservableCollection<string> Participants { get; private set; }
 
         private bool CanSave(object parameter)
         {
             return
                 IsDirty(parameter) &&
                 !String.IsNullOrEmpty(Name) &&
-                !String.IsNullOrEmpty(SportName) &&
                 DateOfStart != null &&
                 Name.Length <= 20;
         }
 
         private void Undo()
         {
-            Name = tournament.OldName;
-            SportName = tournament.OldSportName;
-            DateOfStart = tournament.OldDateOfStart;
+            Name = tournament.Name;
+            DateOfStart = tournament.DateOfStart;
         }
 
         private bool IsDirty(object parameter)
         {
             return
-                tournament.OldName != tournament.NewName ||
-                tournament.OldSportName != tournament.NewSportName ||
-                tournament.OldDateOfStart != tournament.NewDateOfStart;
+                tournament.Name != tournament.NewName ||
+                tournament.DateOfStart != tournament.NewDateOfStart;
         }
 
         private void RaiseTournamentEditedEvent(TournamentEditModel tournament)

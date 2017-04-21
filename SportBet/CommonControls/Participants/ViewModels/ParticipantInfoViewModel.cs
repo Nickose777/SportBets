@@ -18,13 +18,13 @@ namespace SportBet.CommonControls.Participants.ViewModels
         {
             this.participant = new ParticipantEditModel
             {
-                OldParticipantName = participant.ParticipantName,
-                NewParticipantName = participant.ParticipantName,
+                Name = participant.Name,
+                NewParticipantName = participant.Name,
 
-                OldCountryName = participant.CountryName,
+                CountryName = participant.CountryName,
                 NewCountryName = participant.CountryName,
 
-                OldSportName = participant.SportName,
+                SportName = participant.SportName,
                 NewSportName = participant.SportName
             };
 
@@ -85,17 +85,17 @@ namespace SportBet.CommonControls.Participants.ViewModels
 
         private void Undo()
         {
-            Name = participant.OldParticipantName;
-            SportName = participant.OldSportName;
-            CountryName = participant.OldCountryName;
+            Name = participant.Name;
+            SportName = participant.SportName;
+            CountryName = participant.CountryName;
         }
 
         private bool IsDirty(object parameter)
         {
             return
-                participant.OldParticipantName != participant.NewParticipantName ||
-                participant.OldSportName != participant.NewSportName ||
-                participant.OldCountryName != participant.NewCountryName;
+                participant.Name != participant.NewParticipantName ||
+                participant.SportName != participant.NewSportName ||
+                participant.CountryName != participant.NewCountryName;
         }
 
         private void RaiseParticipantEditedEvent(ParticipantEditModel participant)
