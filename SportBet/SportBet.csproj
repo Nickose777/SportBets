@@ -269,6 +269,7 @@
     <Compile Include="Facades\TournamentFacade.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\MappingProfile.cs" />
+    <Compile Include="Models\Base\EventBaseModel.cs" />
     <Compile Include="Models\Base\ParticipantBaseModel.cs" />
     <Compile Include="Models\Base\TournamentBaseModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
@@ -287,7 +288,7 @@
     <Compile Include="Models\Edit\ParticipantEditModel.cs" />
     <Compile Include="Models\Edit\SportEditModel.cs" />
     <Compile Include="Models\Edit\TournamentEditModel.cs" />
-    <Compile Include="Models\Select\TournamentSelectModel.cs" />
+    <Compile Include="Models\Extra\ParticipantTournamentsModel.cs" />
     <Compile Include="Models\Registers\AdminRegisterModel.cs" />
     <Compile Include="Models\Registers\AnalyticRegisterModel.cs" />
     <Compile Include="Models\Registers\BookmakerRegisterModel.cs" />

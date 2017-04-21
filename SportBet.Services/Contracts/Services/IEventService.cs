@@ -6,6 +6,6 @@ namespace SportBet.Services.Contracts.Services
 {
     public interface IEventService : IDisposable
     {
-        ServiceMessage Create(EventCreateDTO eventCreateDTO);
+        ServiceMessage CreateWithParticipants(EventCreateDTO eventCreateDTO);
     }
 }

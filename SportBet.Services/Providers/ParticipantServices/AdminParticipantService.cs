@@ -9,6 +9,7 @@ using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 using SportBet.Services.DTOModels.Base;
+using SportBet.Services.DTOModels.Extra;
 
 namespace SportBet.Services.Providers.ParticipantServices
 {
@@ -124,40 +125,6 @@ namespace SportBet.Services.Providers.ParticipantServices
             return new ServiceMessage(message, success);
         }
 
-        public DataServiceMessage<IEnumerable<ParticipantBaseDTO>> GetAll()
-        {
-            string message;
-            bool success = true;
-            IEnumerable<ParticipantBaseDTO> partipantDisplayDTOs = null;
-
-            try
-            {
-                IEnumerable<ParticipantEntity> participantEntities = unitOfWork.Participants.GetAll();
-
-                partipantDisplayDTOs = participantEntities
-                    .Select(participant =>
-                    {
-                        return new ParticipantBaseDTO
-                        {
-                            Name = participant.Name,
-                            CountryName = participant.Country.Name,
-                            SportName = participant.Sport.Type
-                        };
-                    })
-                    .OrderBy(p => p.Name)
-                    .ToList();
-
-                message = "Got all participants";
-            }
-            catch (Exception ex)
-            {
-                message = ExceptionMessageBuilder.BuildMessage(ex);
-                success = false;
-            }
-
-            return new DataServiceMessage<IEnumerable<ParticipantBaseDTO>>(partipantDisplayDTOs, message, success);
-        }
-
         public DataServiceMessage<IEnumerable<ParticipantBaseDTO>> GetBySport(string sportName)
         {
             string message;
@@ -246,6 +213,88 @@ namespace SportBet.Services.Providers.ParticipantServices
             }
 
             return new DataServiceMessage<IEnumerable<ParticipantBaseDTO>>(partipantDisplayDTOs, message, success);
+        }
+
+        public DataServiceMessage<IEnumerable<ParticipantBaseDTO>> GetAll()
+        {
+            string message;
+            bool success = true;
+            IEnumerable<ParticipantBaseDTO> partipantDisplayDTOs = null;
+
+            try
+            {
+                IEnumerable<ParticipantEntity> participantEntities = unitOfWork.Participants.GetAll();
+
+                partipantDisplayDTOs = participantEntities
+                    .Select(participant =>
+                    {
+                        return new ParticipantBaseDTO
+                        {
+                            Name = participant.Name,
+                            CountryName = participant.Country.Name,
+                            SportName = participant.Sport.Type
+                        };
+                    })
+                    .OrderBy(p => p.Name)
+                    .ToList();
+
+                message = "Got all participants";
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<ParticipantBaseDTO>>(partipantDisplayDTOs, message, success);
+        }
+
+        public DataServiceMessage<IEnumerable<ParticipantTournamentDTO>> GetAllWithTournaments()
+        {
+            string message;
+            bool success = true;
+            IEnumerable<ParticipantTournamentDTO> partipantDTOs = null;
+
+            try
+            {
+                IEnumerable<ParticipantEntity> participantEntities = unitOfWork.Participants.GetAll();
+
+                partipantDTOs = participantEntities
+                    .Select(participant =>
+                    {
+                        IEnumerable<TournamentEntity> tournaments = unitOfWork
+                            .Tournaments
+                            .GetAll(t => t.Participants.Select(p => p.Id).Contains(participant.Id));
+                        return new ParticipantTournamentDTO
+                        {
+                            Name = participant.Name,
+                            CountryName = participant.Country.Name,
+                            SportName = participant.Sport.Type,
+                            Tournaments = tournaments
+                                .Select(t =>
+                                {
+                                    return new TournamentBaseDTO
+                                    {
+                                        Name = t.Name,
+                                        DateOfStart = t.DateOfStart,
+                                        SportName = t.Sport.Type
+                                    };
+                                })
+                                .ToList()
+                        };
+                    })
+                    .OrderBy(p => p.Name)
+                    .ToList();
+
+                message = "Got all participants";
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<ParticipantTournamentDTO>>(partipantDTOs, message, success);
         }
 
         public void Dispose()

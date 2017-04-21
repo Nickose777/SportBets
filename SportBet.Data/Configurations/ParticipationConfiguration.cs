@@ -8,7 +8,7 @@ namespace SportBet.Data.Configurations
         public ParticipationConfiguration()
         {
             //Table and Columns
-            this.ToTable("Participation", "public");
+            this.ToTable("Participations", "public");
             this.Property(participation => participation.EventId)
                 .HasColumnName("ParticipationEventNo");
             this.Property(participation => participation.ParticipantId)

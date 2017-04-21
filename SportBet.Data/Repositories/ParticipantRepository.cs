@@ -24,6 +24,16 @@ namespace SportBet.Data.Repositories
             return participantEntity != null;
         }
 
+        public bool IsBusyOn(int participantId, DateTime date)
+        {
+            SportBetDbContext context = GetContext();
+
+            ParticipantEntity participantEntity = context.Participants.Find(participantId);
+            var eventsOfParticipant = participantEntity.Participations.Select(part => part.Event);
+
+            return eventsOfParticipant.Count(e => e.DateOfEvent == date) > 0;
+        }
+
         public ParticipantEntity Get(string participantName, int sportId, int countryId)
         {
             SportBetDbContext context = GetContext();
@@ -37,7 +47,6 @@ namespace SportBet.Data.Repositories
 
             return participantEntity;
         }
-
 
         public ParticipantEntity Get(string participantName, string sportName, string countryName)
         {

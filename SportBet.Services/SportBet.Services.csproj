@@ -52,6 +52,7 @@
     <Compile Include="Contracts\Services\ISportService.cs" />
     <Compile Include="Contracts\Services\ITournamentService.cs" />
     <Compile Include="Contracts\Validators\IRegisterValidator.cs" />
+    <Compile Include="DTOModels\Base\EventBaseDTO.cs" />
     <Compile Include="DTOModels\Base\ParticipantBaseDTO.cs" />
     <Compile Include="DTOModels\Base\TournamentBaseDTO.cs" />
     <Compile Include="DTOModels\ChangePasswordDTO.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="DTOModels\Edit\ParticipantEditDTO.cs" />
     <Compile Include="DTOModels\Edit\SportEditDTO.cs" />
     <Compile Include="DTOModels\Edit\TournamentEditDTO.cs" />
+    <Compile Include="DTOModels\Extra\ParticipantTournamentDTO.cs" />
     <Compile Include="DTOModels\Register\AdminRegisterDTO.cs" />
     <Compile Include="DTOModels\Register\AnalyticRegisterDTO.cs" />
     <Compile Include="DTOModels\Register\BookmakerRegisterDTO.cs" />

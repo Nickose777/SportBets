@@ -3,6 +3,7 @@ using System.Linq;
 using SportBet.Core.Entities;
 using SportBet.Data.Contracts.Repositories;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace SportBet.Data.Repositories
 {
@@ -10,18 +11,5 @@ namespace SportBet.Data.Repositories
     {
         public EventRepository(Func<SportBetDbContext> GetContext)
             : base(GetContext) { }
-
-        public bool Exists(DateTime dateOfEvent, int tournamentId)
-        {
-            SportBetDbContext context = GetContext();
-            EventEntity eventEntity = context
-                .Events
-                .SingleOrDefault(e =>
-                    e.TournamentId == tournamentId &&
-                    DbFunctions.TruncateTime(e.DateOfEvent) == dateOfEvent.Date
-                    );
-
-            return eventEntity != null;
-        }
     }
 }

@@ -4,7 +4,6 @@ using SportBet.Contracts;
 using SportBet.Contracts.Controllers;
 using SportBet.Contracts.Subjects;
 using SportBet.Models.Display;
-using SportBet.Models.Select;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
@@ -17,6 +16,9 @@ using SportBet.Models.Create;
 using SportBet.Services.DTOModels.Create;
 using AutoMapper;
 using System;
+using SportBet.Models.Base;
+using SportBet.Models.Extra;
+using SportBet.Services.DTOModels.Extra;
 
 namespace SportBet.Controllers
 {
@@ -33,8 +35,9 @@ namespace SportBet.Controllers
 
         public void Create()
         {
-            DataServiceMessage<IEnumerable<TournamentDisplayDTO>> tournamentServiceMessage;
             DataServiceMessage<IEnumerable<string>> sportServiceMessage;
+            DataServiceMessage<IEnumerable<TournamentDisplayDTO>> tournamentServiceMessage;
+            DataServiceMessage<IEnumerable<ParticipantTournamentDTO>> participantServiceMessage;
 
             using (ITournamentService service = factory.CreateTournamentService())
             {
@@ -46,29 +49,32 @@ namespace SportBet.Controllers
                 sportServiceMessage = service.GetAll();
                 RaiseReceivedMessageEvent(sportServiceMessage.IsSuccessful, sportServiceMessage.Message);
             }
-
-            if (tournamentServiceMessage.IsSuccessful && sportServiceMessage.IsSuccessful)
+            using (IParticipantService service = factory.CreateParticipantService())
             {
-                IEnumerable<TournamentSelectModel> tournaments = tournamentServiceMessage
-                    .Data
-                    .Select(t =>
-                    {
-                        return new TournamentSelectModel
-                        {
-                            DateOfStart = t.DateOfStart,
-                            SportName = t.SportName,
-                            TournamentName = t.Name
-                        };
-                    });
-                IEnumerable<string> sports = sportServiceMessage.Data;
+                participantServiceMessage = service.GetAllWithTournaments();
+                RaiseReceivedMessageEvent(sportServiceMessage.IsSuccessful, sportServiceMessage.Message);
+            }
 
-                Create(tournaments, sports);
+            if (tournamentServiceMessage.IsSuccessful && sportServiceMessage.IsSuccessful && participantServiceMessage.IsSuccessful)
+            {
+                IEnumerable<string> sports = sportServiceMessage.Data;
+                IEnumerable<TournamentDisplayDTO> tournamentDisplayDTOs = tournamentServiceMessage.Data;
+                IEnumerable<ParticipantTournamentDTO> participantTournamentDTOs = participantServiceMessage.Data;
+
+                IEnumerable<TournamentBaseModel> tournamentBaseModels = tournamentDisplayDTOs
+                    .Select(t => Mapper.Map<TournamentDisplayDTO, TournamentBaseModel>(t))
+                    .ToList();
+                IEnumerable<ParticipantTournamentModel> participantTournamentModels = participantTournamentDTOs
+                    .Select(p => Mapper.Map<ParticipantTournamentDTO, ParticipantTournamentModel>(p))
+                    .ToList();
+
+                Create(sports, tournamentBaseModels, participantTournamentModels);
             }
         }
 
-        private void Create(IEnumerable<TournamentSelectModel> tournaments, IEnumerable<string> sports)
+        private void Create(IEnumerable<string> sports, IEnumerable<TournamentBaseModel> tournaments, IEnumerable<ParticipantTournamentModel> participants)
         {
-            EventCreateViewModel viewModel = new EventCreateViewModel(tournaments, sports);
+            EventCreateViewModel viewModel = new EventCreateViewModel(sports, tournaments, participants);
             EventCreateControl control = new EventCreateControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
 
@@ -79,7 +85,7 @@ namespace SportBet.Controllers
 
                 using (IEventService service = factory.CreateEventService())
                 {
-                    ServiceMessage serviceMessage = service.Create(eventCreateDTO);
+                    ServiceMessage serviceMessage = service.CreateWithParticipants(eventCreateDTO);
                     RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
 
                     if (serviceMessage.IsSuccessful)

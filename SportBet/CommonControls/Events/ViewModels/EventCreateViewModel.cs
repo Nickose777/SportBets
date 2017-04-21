@@ -1,15 +1,14 @@
-﻿using SportBet.EventHandlers.Create;
-using SportBet.Models.Create;
-using SportBet.Models.Select;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using SportBet.EventHandlers.Create;
+using SportBet.Models.Base;
+using SportBet.Models.Create;
+using SportBet.Models.Extra;
 
 namespace SportBet.CommonControls.Events.ViewModels
 {
@@ -19,70 +18,109 @@ namespace SportBet.CommonControls.Events.ViewModels
 
         private readonly EventCreateModel eventCreateModel;
 
-        private TournamentSelectModel tournament;
+        private string selectedSport;
+        private TournamentBaseModel selectedTournament;
+        private ParticipantTournamentModel selectedParticipant;
+        private ParticipantTournamentModel selectedEventsParticipant;
 
-        public EventCreateViewModel(IEnumerable<TournamentSelectModel> tournaments, IEnumerable<string> sports)
+        public EventCreateViewModel(IEnumerable<string> sports, IEnumerable<TournamentBaseModel> tournaments, IEnumerable<ParticipantTournamentModel> participants)
         {
             this.eventCreateModel = new EventCreateModel
             {
-                DateOfEvent = DateTime.Now.AddMonths(2)
+                DateOfEvent = DateTime.Now.AddMonths(2).Date
             };
 
-            this.CreateEventCommand = new DelegateCommand(
-                () => RaiseEventCreatedEvent(eventCreateModel),
-                CanCreate
-                );
-
             this.Sports = new ObservableCollection<string>(sports);
-            this.Tournaments = new ObservableCollection<TournamentSelectModel>(tournaments);
-            this.SortedTournaments.Filter = FilterTournament;
+            this.Tournaments = new ObservableCollection<TournamentBaseModel>(tournaments);
+            this.Participants = new ObservableCollection<ParticipantTournamentModel>(participants);
+            this.SelectedParticipants = new ObservableCollection<ParticipantTournamentModel>();
+
+            this.CreateEventCommand = new DelegateCommand(() => Create(eventCreateModel), CanCreate);
+            this.MoveToEventCommand = new DelegateCommand(
+                () => MoveToEvent(SelectedParticipant), 
+                obj => SelectedParticipant != null);
+            this.MoveAllToEventCommand = new DelegateCommand(
+                () => MoveAllToEvent(), 
+                obj => true);
+            this.MoveFromEventCommand = new DelegateCommand(
+                () => MoveFromEvent(SelectedEventsParticipant), 
+                obj => SelectedEventsParticipant != null);
+
+            this.SortedTournaments.Filter = obj =>
+            {
+                TournamentBaseModel tournamentBaseModel = obj as TournamentBaseModel;
+                return tournamentBaseModel.SportName == SelectedSport;
+            };
+            this.SortedParticipants.Filter = obj =>
+            {
+                bool isValid = SelectedTournament != null;
+
+                if (isValid)
+                {
+                    ParticipantTournamentModel participantModel = obj as ParticipantTournamentModel;
+                    isValid = participantModel
+                            .Tournaments
+                            .Select(t => t.Name)
+                            .Contains(SelectedTournament.Name) &&
+                        !SelectedParticipants
+                            .Select(p => p.Name)
+                            .Contains(participantModel.Name);
+                }
+
+                return isValid;
+            };
         }
 
         public ICommand CreateEventCommand { get; private set; }
 
-        public string SportName
+        public ICommand MoveToEventCommand { get; private set; }
+
+        public ICommand MoveAllToEventCommand { get; private set; }
+
+        public ICommand MoveFromEventCommand { get; private set; }
+
+        public string SelectedSport
         {
-            get { return eventCreateModel.SportName; }
+            get { return selectedSport; }
             set
             {
-                eventCreateModel.SportName = value;
-                RaisePropertyChangedEvent("SportName");
+                selectedSport = value;
+                RaisePropertyChangedEvent("SelectedSport");
                 SortedTournaments.Refresh();
             }
         }
 
-        public string TournamentName
+        public TournamentBaseModel SelectedTournament
         {
-            get { return eventCreateModel.TournamentName; }
-        }
-
-        public string DateOfTournamentStart
-        {
-            get
+            get { return selectedTournament; }
+            set
             {
-                string date = String.Empty;
+                selectedTournament = value;
 
-                if (eventCreateModel.DateOfTournamentStart != default(DateTime))
-                {
-                    DateTime dateTime = eventCreateModel.DateOfTournamentStart;
-                    date = String.Format("{0}.{1}.{2} ({3})", 
-                        dateTime.Day.ToString().PadLeft(2, '0'),
-                        dateTime.Month.ToString().PadLeft(2, '0'), 
-                        dateTime.Year, 
-                        dateTime.DayOfWeek);
-                }
+                SelectedParticipants.Clear();
+                SortedParticipants.Refresh();
 
-                return date;
+                RaisePropertyChangedEvent("SelectedTournament");
             }
         }
 
-        public DateTime DateOfEvent
+        public ParticipantTournamentModel SelectedParticipant
         {
-            get { return eventCreateModel.DateOfEvent; }
+            get { return selectedParticipant; }
             set
             {
-                eventCreateModel.DateOfEvent = value.Date;
-                RaisePropertyChangedEvent("DateOfEvent");
+                selectedParticipant = value;
+                RaisePropertyChangedEvent("SelectedParticipant");
+            }
+        }
+
+        public ParticipantTournamentModel SelectedEventsParticipant
+        {
+            get { return selectedEventsParticipant; }
+            set
+            {
+                selectedEventsParticipant = value;
+                RaisePropertyChangedEvent("SelectedEventsParticipant");
             }
         }
 
@@ -96,18 +134,13 @@ namespace SportBet.CommonControls.Events.ViewModels
             }
         }
 
-        public TournamentSelectModel SelectedTournament
+        public DateTime DateOfEvent
         {
-            get { return tournament; }
+            get { return eventCreateModel.DateOfEvent; }
             set
             {
-                tournament = value;
-                eventCreateModel.TournamentName = tournament != null ? tournament.TournamentName : String.Empty;
-                eventCreateModel.DateOfTournamentStart = tournament != null ? tournament.DateOfStart : default(DateTime);
-
-                RaisePropertyChangedEvent("SelectedTournament");
-                RaisePropertyChangedEvent("TournamentName");
-                RaisePropertyChangedEvent("DateOfTournamentStart");
+                eventCreateModel.DateOfEvent = value;
+                RaisePropertyChangedEvent("DateOfEvent");
             }
         }
 
@@ -116,24 +149,63 @@ namespace SportBet.CommonControls.Events.ViewModels
             get { return CollectionViewSource.GetDefaultView(Tournaments); }
         }
 
-        public ObservableCollection<string> Sports { get; private set; }
-
-        public ObservableCollection<TournamentSelectModel> Tournaments { get; private set; }
-
-        private bool FilterTournament(object obj)
+        public ICollectionView SortedParticipants
         {
-            TournamentSelectModel tournament = obj as TournamentSelectModel;
-
-            return tournament.SportName == SportName;
+            get { return CollectionViewSource.GetDefaultView(Participants); }
         }
 
-        private bool CanCreate(object parameter)
+        public ObservableCollection<string> Sports { get; private set; }
+
+        public ObservableCollection<TournamentBaseModel> Tournaments { get; private set; }
+
+        public ObservableCollection<ParticipantTournamentModel> Participants { get; private set; }
+
+        public ObservableCollection<ParticipantTournamentModel> SelectedParticipants { get; private set; }
+
+        private void MoveToEvent(ParticipantTournamentModel participant)
+        {
+            SelectedParticipants.Add(participant);
+            SortedParticipants.Refresh();
+        }
+
+        private void MoveAllToEvent()
+        {
+            SelectedParticipants.Clear();
+
+            foreach (ParticipantTournamentModel participant in Participants)
+            {
+                SelectedParticipants.Add(participant);
+            }
+
+            SortedParticipants.Refresh();
+        }
+
+        private void MoveFromEvent(ParticipantTournamentModel participant)
+        {
+            SelectedParticipants.Remove(participant);
+            SortedParticipants.Refresh();
+        }
+
+        private bool CanCreate(object obj)
         {
             return
+                SelectedSport != null &&
+                SelectedTournament != null &&
                 !String.IsNullOrEmpty(Notes) &&
-                !String.IsNullOrEmpty(SportName) &&
-                !String.IsNullOrEmpty(TournamentName) &&
-                DateOfEvent >= eventCreateModel.DateOfTournamentStart;
+                DateOfEvent != default(DateTime) &&
+                SelectedParticipants.Count > 1;
+
+            //TODO sport.isDual
+        }
+
+        private void Create(EventCreateModel eventCreateModel)
+        {
+            eventCreateModel.SportName = SelectedSport;
+            eventCreateModel.TournamentName = SelectedTournament.Name;
+            eventCreateModel.DateOfTournamentStart = SelectedTournament.DateOfStart;
+            eventCreateModel.Participants = new List<ParticipantBaseModel>(SelectedParticipants);
+
+            RaiseEventCreatedEvent(eventCreateModel);
         }
 
         private void RaiseEventCreatedEvent(EventCreateModel eventCreateModel)

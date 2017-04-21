@@ -3,11 +3,13 @@ using SportBet.Models.Base;
 using SportBet.Models.Create;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
+using SportBet.Models.Extra;
 using SportBet.Models.Registers;
 using SportBet.Services.DTOModels.Base;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Edit;
+using SportBet.Services.DTOModels.Extra;
 using SportBet.Services.DTOModels.Register;
 
 namespace SportBet.Mappings
@@ -48,7 +50,8 @@ namespace SportBet.Mappings
             CreateMap<ParticipantBaseDTO, ParticipantDisplayModel>();
             CreateMap<ParticipantBaseDTO, ParticipantBaseModel>();
 
-            CreateMap<TournamentBaseModel, TournamentBaseModel>();
+            CreateMap<TournamentBaseDTO, TournamentBaseModel>();
+            CreateMap<TournamentBaseModel, TournamentBaseDTO>();
             CreateMap<TournamentDisplayDTO, TournamentDisplayModel>();
             CreateMap<TournamentDisplayModel, TournamentBaseDTO>();
 
@@ -59,7 +62,11 @@ namespace SportBet.Mappings
 
             CreateMap<TournamentEditModel, TournamentEditDTO>();
 
+            CreateMap<EventBaseModel, EventBaseDTO>();
             CreateMap<EventCreateModel, EventCreateDTO>();
+
+            CreateMap<ParticipantTournamentDTO, ParticipantTournamentModel>();
+            CreateMap<TournamentDisplayDTO, TournamentBaseModel>();
         }
     }
 }

@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              d:DataContext="{d:DesignInstance ViewModel:EventCreateDTViewModel}"
-             Background="Orange" Height="341" Width="360">
+             Background="Orange" Height="493.5" Width="373">
     <GroupBox Header="Create event" Padding="10">
         <Grid>
             <Grid.RowDefinitions>
@@ -16,27 +16,78 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
                     <RowDefinition Height="30" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <ComboBox 
                     Grid.Row="0"
+                    Grid.ColumnSpan="3"
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Center" 
                     ItemsSource="{Binding Sports}" 
-                    SelectedItem="{Binding SportName}" />
-                <ListBox
+                    SelectedItem="{Binding SelectedSport}" />
+                <ComboBox 
                     Grid.Row="1"
-                    ItemsSource="{Binding SortedTournaments}"
+                    Grid.ColumnSpan="3"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Center" 
+                    ItemsSource="{Binding SortedTournaments}" 
                     SelectedItem="{Binding SelectedTournament}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <ListBox
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    ItemsSource="{Binding SortedParticipants}"
+                    SelectedItem="{Binding SelectedParticipant}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding TournamentName}" />
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} ({1})">
+                                        <Binding Path="Name" />
+                                        <Binding Path="CountryName" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                <ListBox
+                    Grid.Column="2"
+                    Grid.Row="2"
+                    ItemsSource="{Binding SelectedParticipants}"
+                    SelectedItem="{Binding SelectedEventsParticipant}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} ({1})">
+                                        <Binding Path="Name" />
+                                        <Binding Path="CountryName" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Button Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10,3" Margin="0,0,0,60" Content=">" Command="{Binding MoveToEventCommand}" />
+                <Button Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6,3" Margin="0,0,0,0" Content=">>" Command="{Binding MoveAllToEventCommand}" />
+                <Button Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10,3" Margin="0,60,0,0" Content="&lt;" Command="{Binding MoveFromEventCommand}" />
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -57,9 +108,9 @@
                 <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Event date:" />
                 <TextBlock Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Top" Text="Notes:" />
 
-                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0" Text="{Binding SportName}" />
-                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0" Text="{Binding TournamentName}" />
-                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0" Text="{Binding DateOfTournamentStart}" />
+                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0" Text="{Binding SelectedSport}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0" Text="{Binding SelectedTournament.Name}" />
+                <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0" Text="{Binding SelectedTournament.DateOfStart, StringFormat='{}{0:dd.MM.yyyy}'}" />
                 <DatePicker Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,0" SelectedDate="{Binding DateOfEvent}">
                     <DatePicker.Resources>
                         <Style TargetType="DatePickerTextBox">

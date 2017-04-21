@@ -5,6 +5,6 @@ namespace SportBet.DesignTimeViewModels
     public class EventCreateDTViewModel : EventCreateViewModel
     {
         public EventCreateDTViewModel()
-            : base(null, null) { }
+        : base(null, null, null) { }
     }
 }
