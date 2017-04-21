@@ -19,6 +19,8 @@ namespace SportBet.CommonControls.Tournaments.ViewModels
         {
             this.tournament = new TournamentEditModel
             {
+                SportName = tournament.SportName,
+
                 Name = tournament.Name,
                 NewName = tournament.Name,
 
