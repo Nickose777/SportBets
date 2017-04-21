@@ -172,7 +172,7 @@ namespace SportBet.CommonControls.Events.ViewModels
         {
             SelectedParticipants.Clear();
 
-            foreach (ParticipantTournamentModel participant in Participants)
+            foreach (ParticipantTournamentModel participant in SortedParticipants)
             {
                 SelectedParticipants.Add(participant);
             }
@@ -193,6 +193,7 @@ namespace SportBet.CommonControls.Events.ViewModels
                 SelectedTournament != null &&
                 !String.IsNullOrEmpty(Notes) &&
                 DateOfEvent != default(DateTime) &&
+                DateOfEvent >= SelectedTournament.DateOfStart &&
                 SelectedParticipants.Count > 1;
 
             //TODO sport.isDual
