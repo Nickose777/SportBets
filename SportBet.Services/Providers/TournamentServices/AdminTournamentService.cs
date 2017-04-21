@@ -148,11 +148,13 @@ namespace SportBet.Services.Providers.TournamentServices
                             .Participants
                             .Where(p => 
                                 !participantEntities.Select(pe => pe.Id).Contains(p.Id)
-                                );
+                                )
+                            .ToList();
                         var added = participantEntities
                             .Where(pe =>
                                 !tournamentEntity.Participants.Select(p => p.Id).Contains(pe.Id)
-                                );
+                                )
+                            .ToList();
 
                         foreach (var deletedParticipant in deleted)
                         {
