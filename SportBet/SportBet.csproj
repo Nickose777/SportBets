@@ -133,7 +133,11 @@
     <Compile Include="CommonControls\Events\UserControls\EventCreateControl.xaml.cs">
       <DependentUpon>EventCreateControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Events\UserControls\EventListControl.xaml.cs">
+      <DependentUpon>EventListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CommonControls\Events\ViewModels\EventCreateViewModel.cs" />
+    <Compile Include="CommonControls\Events\ViewModels\EventListViewModel.cs" />
     <Compile Include="CommonControls\Footer.xaml.cs">
       <DependentUpon>Footer.xaml</DependentUpon>
     </Compile>
@@ -197,6 +201,7 @@
     <Compile Include="DesignTimeViewModels\CountryEditDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\CountryListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\EventCreateDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\EventListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageAdminsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageAnalyticsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
@@ -368,6 +373,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CommonControls\Events\UserControls\EventCreateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Events\UserControls\EventListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

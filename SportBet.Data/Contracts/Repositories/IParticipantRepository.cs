@@ -1,5 +1,6 @@
 ﻿using SportBet.Core.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace SportBet.Data.Contracts.Repositories
 {
@@ -12,5 +13,7 @@ namespace SportBet.Data.Contracts.Repositories
         ParticipantEntity Get(string participantName, int sportId, int countryId);
 
         ParticipantEntity Get(string participantName, string sportName, string countryName);
+
+        IEnumerable<ParticipantEntity> GetByEvent(int eventId);
     }
 }

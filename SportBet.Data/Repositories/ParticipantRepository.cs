@@ -2,6 +2,7 @@
 using System.Linq;
 using SportBet.Core.Entities;
 using SportBet.Data.Contracts.Repositories;
+using System.Collections.Generic;
 
 namespace SportBet.Data.Repositories
 {
@@ -60,6 +61,19 @@ namespace SportBet.Data.Repositories
                     participant.Name == participantName);
 
             return participantEntity;
+        }
+
+
+        public IEnumerable<ParticipantEntity> GetByEvent(int eventId)
+        {
+            SportBetDbContext context = GetContext();
+
+            IEnumerable<ParticipantEntity> participantEntities = context
+                .Participants
+                .Where(p => p.Participations.Select(part => part.EventId).Contains(eventId))
+                .ToList();
+
+            return participantEntities;
         }
     }
 }

@@ -16,6 +16,8 @@ namespace SportBet.Mappings
 {
     class MappingProfile : Profile
     {
+        //TODO
+        //divide into several classes
         public MappingProfile()
         {
             CreateMap<BookmakerRegisterModel, BookmakerRegisterDTO>();
@@ -67,6 +69,8 @@ namespace SportBet.Mappings
 
             CreateMap<ParticipantTournamentDTO, ParticipantTournamentModel>();
             CreateMap<TournamentDisplayDTO, TournamentBaseModel>();
+
+            CreateMap<EventDisplayDTO, EventDisplayModel>();
         }
     }
 }

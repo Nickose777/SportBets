@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SportBet.Models.Base;
 
 namespace SportBet.Models.Display
 {
-    public class EventDisplayModel
+    public class EventDisplayModel : EventBaseModel
     {
+        public DateTime DateOfEvent { get; set; }
+
+        public string Notes { get; set; }
     }
 }

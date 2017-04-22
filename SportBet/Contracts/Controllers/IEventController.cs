@@ -3,5 +3,7 @@
     public interface IEventController : IReceiveMessage
     {
         void Create();
+
+        void Display();
     }
 }
