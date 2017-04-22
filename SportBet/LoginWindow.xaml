@@ -1,31 +1,74 @@
-﻿<Window x:Class="SportBet.LoginWindow"
+﻿<Window  x:Class="SportBet.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="LoginWindow" Height="124.06" Width="322.556"
-        Background="Orange" WindowStartupLocation="CenterScreen">
+        Title="Welcome to Sport Bet!" Height="350" Width="300"
+        Background="#555150" WindowStartupLocation="CenterScreen" >
+    <Window.Resources>
+        <Style x:Key="RoundButtonTemplate" TargetType="Button">
+            <Setter Property="Background" Value="#23C08B"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="15" Background="{TemplateBinding Background}"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition Height="25" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="Login:" />
-        <TextBlock Grid.Column="1" Grid.Row="0" Text="Password:" />
+        <Ellipse Height="100" Width="100">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Images/ball.png"/>
+            </Ellipse.Fill>
+        </Ellipse>
 
-        <TextBox Grid.Column="0" Grid.Row="1" Name="loginTxt" />
-        <PasswordBox Grid.Column="1" Grid.Row="1" Name="passwordTxt" />
-        
-        <Button
-            Grid.Column="1"
+        <TextBox
+            FontSize="14"
+            Foreground="White"
+            TextAlignment="Center"
+            BorderThickness="0,0,0,1" 
+            BorderBrush="#ABABAB"
+            Background="#555150" 
+            Grid.Row="1"
+            Margin="20,0,20,0"
+            Name="loginTxt" />
+        <PasswordBox
+            Foreground="White"
+            HorizontalContentAlignment="Center"
+            BorderThickness="0,0,0,1"
+            BorderBrush="#ABABAB" 
+            Background="#555150" 
             Grid.Row="3"
-            Content="Login"
+            Margin="20,0" 
+            Name="passwordTxt" />
+
+        <Button
+            Grid.Row="5"
+            VerticalAlignment="Center"
+            Style="{StaticResource RoundButtonTemplate}"
+            FontSize="19"
+            FontWeight="Bold"
+            Margin="20,30,20,10"
+            Height="35"
             IsDefault="True"
-            Click="Login_Click" />
+            Click="Login_Click">
+            Log In
+        </Button>
     </Grid>
 </Window>

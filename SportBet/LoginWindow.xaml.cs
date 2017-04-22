@@ -86,8 +86,6 @@ namespace SportBet
             }
         }
 
-        //TODO
-        //factory not in ctor of window but in controllers
         private SignOutWindowBase Create(ControllerFactory controllerFactory, LoginType loginType)
         {
             SignOutWindowBase window = null;

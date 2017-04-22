@@ -4,6 +4,6 @@
              StartupUri="LoginWindow.xaml"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
-         
+        
     </Application.Resources>
 </Application>
