@@ -40,6 +40,8 @@ namespace SportBet.Services.Contracts
 
         public abstract IEventService CreateEventService();
 
+        public abstract ICoefficientService CreateCoefficientService();
+
         protected IUnitOfWork CreateUnitOfWork()
         {
             return new UnitOfWork(login, password);

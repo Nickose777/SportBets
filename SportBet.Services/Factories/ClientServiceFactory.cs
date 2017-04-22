@@ -70,5 +70,10 @@ namespace SportBet.Services.Factories
         {
             throw new NotImplementedException();
         }
+
+        public override ICoefficientService CreateCoefficientService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

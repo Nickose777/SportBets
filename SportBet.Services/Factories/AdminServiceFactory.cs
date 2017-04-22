@@ -10,6 +10,7 @@ using SportBet.Services.Providers.AccountServices;
 using SportBet.Services.Providers.ParticipantServices;
 using SportBet.Services.Providers.TournamentServices;
 using SportBet.Services.Providers.EventServices;
+using SportBet.Services.Providers.CoefficientServices;
 
 namespace SportBet.Services.Factories
 {
@@ -81,6 +82,13 @@ namespace SportBet.Services.Factories
             IUnitOfWork unitOfWork = CreateUnitOfWork();
 
             return new AdminEventService(unitOfWork);
+        }
+
+        public override ICoefficientService CreateCoefficientService()
+        {
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+
+            return new AdminCoefficientService(unitOfWork);
         }
     }
 }
