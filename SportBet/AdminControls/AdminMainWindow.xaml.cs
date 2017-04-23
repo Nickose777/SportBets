@@ -104,6 +104,11 @@ namespace SportBet.AdminControls
             eventController.Display();
         }
 
+        private void ManageCoefficients_Click(object sender, RoutedEventArgs e)
+        {
+            coefficientController.Display();
+        }
+
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
             accountController.ChangePassword();

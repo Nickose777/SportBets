@@ -22,6 +22,9 @@ namespace SportBet.Services.Providers.ParticipantServices
             this.unitOfWork = unitOfWork;
         }
 
+        //TODO
+        //Create and Update have much same code
+
         public ServiceMessage Create(ParticipantBaseDTO participantBaseDTO)
         {
             string message;

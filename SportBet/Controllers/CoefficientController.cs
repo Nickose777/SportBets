@@ -16,15 +16,19 @@ using SportBet.Services.DTOModels.Create;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
+using SportBet.Contracts;
+using SportBet.Models.Display;
 
 namespace SportBet.Controllers
 {
     class CoefficientController : SubjectBase, ISubject, ICoefficientController
     {
-        public CoefficientController(ServiceFactory factory)
+        private FacadeBase<CoefficientDisplayModel> facade;
+
+        public CoefficientController(ServiceFactory factory, FacadeBase<CoefficientDisplayModel> facade)
             : base(factory)
         {
-
+            this.facade = facade;
         }
 
         public void Create()
@@ -62,6 +66,15 @@ namespace SportBet.Controllers
 
                 Create(sports, tournaments, events);
             }
+        }
+
+        public void Display()
+        {
+            CoefficientListViewModel viewModel = new CoefficientListViewModel(this, facade);
+            CoefficientListControl control = new CoefficientListControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            window.Show();
         }
 
         private void Create(IEnumerable<string> sports, IEnumerable<TournamentBaseModel> tournaments, IEnumerable<EventBaseModel> events)

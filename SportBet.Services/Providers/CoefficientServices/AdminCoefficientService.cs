@@ -7,6 +7,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Base;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.DTOModels.Display;
 
 namespace SportBet.Services.Providers.CoefficientServices
 {
@@ -70,6 +71,59 @@ namespace SportBet.Services.Providers.CoefficientServices
             }
 
             return new ServiceMessage(message, success);
+        }
+
+        public DataServiceMessage<IEnumerable<CoefficientDisplayDTO>> GetAll()
+        {
+            string message = "";
+            bool success = true;
+            IEnumerable<CoefficientDisplayDTO> coefficientDisplayDTOs = null;
+
+            try
+            {
+                IEnumerable<CoefficientEntity> coefficientEntities = unitOfWork
+                    .Coefficients.GetAll();
+
+                coefficientDisplayDTOs = coefficientEntities
+                    .Select(coefficientEntity =>
+                    {
+                        IEnumerable<ParticipantEntity> participantEntities = coefficientEntity
+                            .Event
+                            .Participations
+                            .Select(part => part.Participant);
+                        return new CoefficientDisplayDTO
+                        {
+                            SportName = coefficientEntity.Event.Tournament.Sport.Type,
+                            TournamentName = coefficientEntity.Event.Tournament.Name,
+                            DateOfEvent = coefficientEntity.Event.DateOfEvent,
+                            Description = coefficientEntity.Description,
+                            Value = coefficientEntity.Value,
+                            Win = coefficientEntity.Win,
+                            Participants = participantEntities
+                                .Select(p =>
+                                {
+                                    return new ParticipantBaseDTO
+                                    {
+                                        SportName = p.Sport.Type,
+                                        CountryName = p.Country.Name,
+                                        Name = p.Name
+                                    };
+                                })
+                                .ToList()
+                        };
+                    })
+                    .OrderBy(c => c.SportName)
+                    .ThenBy(c => c.TournamentName)
+                    .ThenBy(c => c.DateOfEvent)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<CoefficientDisplayDTO>>(coefficientDisplayDTOs, message, success);
         }
 
         public void Dispose()

@@ -133,7 +133,11 @@
     <Compile Include="CommonControls\Coefficients\UserControls\CoefficientCreateControl.xaml.cs">
       <DependentUpon>CoefficientCreateControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Coefficients\UserControls\CoefficientListControl.xaml.cs">
+      <DependentUpon>CoefficientListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CommonControls\Coefficients\ViewModels\CoefficientCreateViewModel.cs" />
+    <Compile Include="CommonControls\Coefficients\ViewModels\CoefficientListViewModel.cs" />
     <Compile Include="CommonControls\Events\UserControls\EventCreateControl.xaml.cs">
       <DependentUpon>EventCreateControl.xaml</DependentUpon>
     </Compile>
@@ -205,6 +209,7 @@
     <Compile Include="DesignTimeViewModels\ClientInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\CoefficientCreateDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\CoefficientListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\CountryEditDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\CountryListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\EventCreateDTViewModel.cs" />
@@ -251,6 +256,7 @@
     <Compile Include="Facades\AnalyticFacade.cs" />
     <Compile Include="Facades\BookmakerFacade.cs" />
     <Compile Include="Facades\ClientFacade.cs" />
+    <Compile Include="Facades\CoefficientFacade.cs" />
     <Compile Include="Facades\CountryFacade.cs" />
     <Compile Include="Facades\EventFacade.cs" />
     <Compile Include="Facades\ParticipantFacade.cs" />
@@ -270,6 +276,7 @@
     <Compile Include="Models\Display\AnalyticDisplayModel.cs" />
     <Compile Include="Models\Display\BookmakerDisplayModel.cs" />
     <Compile Include="Models\Display\ClientDisplayModel.cs" />
+    <Compile Include="Models\Display\CoefficientDisplayModel.cs" />
     <Compile Include="Models\Display\EventDisplayModel.cs" />
     <Compile Include="Models\Display\ParticipantDisplayModel.cs" />
     <Compile Include="Models\Display\TournamentDisplayModel.cs" />
@@ -383,6 +390,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CommonControls\Coefficients\UserControls\CoefficientCreateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Coefficients\UserControls\CoefficientListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
