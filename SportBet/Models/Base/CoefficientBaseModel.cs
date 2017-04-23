@@ -13,8 +13,6 @@ namespace SportBet.Models.Base
 
         public List<ParticipantBaseModel> Participants { get; set; }
 
-        public decimal Value { get; set; }
-
         public string Description { get; set; }
     }
 }

@@ -40,7 +40,7 @@ namespace SportBet.Services.Providers.CoefficientServices
                         .ToList();
 
                     EventEntity eventEntity = unitOfWork.Events.Get(sportName, tournamentName, dateOfEvent, participantEntities);
-                    bool exists = unitOfWork.Coefficients.Exists(eventEntity.Id, value, description);
+                    bool exists = unitOfWork.Coefficients.Exists(eventEntity.Id, description);
 
                     if (!exists)
                     {

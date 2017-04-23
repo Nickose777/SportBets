@@ -15,14 +15,13 @@ namespace SportBet.Data.Repositories
             throw new InvalidOperationException();
         }
 
-        public bool Exists(int eventId, decimal value, string description)
+        public bool Exists(int eventId, string description)
         {
             SportBetDbContext context = GetContext();
 
             CoefficientEntity coefficientEntity = context
                 .Coefficients.SingleOrDefault(c => 
                     c.EventId == eventId && 
-                    c.Value == value &&
                     c.Description == description);
 
             return coefficientEntity != null;
