@@ -11,6 +11,8 @@ namespace SportBet.Services.DTOModels.Base
 
         public DateTime DateOfTournamentStart { get; set; }
 
+        public DateTime DateOfEvent { get; set; }
+
         public List<ParticipantBaseDTO> Participants { get; set; }
     }
 }

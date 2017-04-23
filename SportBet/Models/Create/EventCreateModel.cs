@@ -5,8 +5,6 @@ namespace SportBet.Models.Create
 {
     public class EventCreateModel : EventBaseModel
     {
-        public DateTime DateOfEvent { get; set; }
-
         public string Notes { get; set; }
     }
 }

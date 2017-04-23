@@ -14,5 +14,7 @@ namespace SportBet.Services.DTOModels.Base
         public List<ParticipantBaseDTO> Participants { get; set; }
 
         public decimal Value { get; set; }
+
+        public string Description { get; set; }
     }
 }

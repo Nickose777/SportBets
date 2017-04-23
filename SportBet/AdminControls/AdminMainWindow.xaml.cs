@@ -24,6 +24,7 @@ namespace SportBet.AdminControls
         private readonly IParticipantController participantController;
         private readonly ITournamentController tournamentController;
         private readonly IEventController eventController;
+        private readonly ICoefficientController coefficientController;
 
         public AdminMainWindow(ControllerFactory controllerFactory)
         {
@@ -35,6 +36,7 @@ namespace SportBet.AdminControls
             participantController = controllerFactory.CreateParticipantController();
             tournamentController = controllerFactory.CreateTournamentController();
             eventController = controllerFactory.CreateEventController();
+            coefficientController = controllerFactory.CreateCoefficientController();
 
             accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             countryController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
@@ -42,6 +44,7 @@ namespace SportBet.AdminControls
             participantController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             tournamentController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             eventController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
+            coefficientController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
             SetFooterMessage(true, "Welcome, admin");
         }
@@ -69,6 +72,11 @@ namespace SportBet.AdminControls
         private void CreateEvent_Click(object sender, RoutedEventArgs e)
         {
             eventController.Create();
+        }
+
+        private void CreateCoefficient_Click(object sender, RoutedEventArgs e)
+        {
+            coefficientController.Create();
         }
 
         private void ManageCountries_Click(object sender, RoutedEventArgs e)
