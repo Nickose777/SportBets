@@ -1,5 +1,6 @@
 ﻿using SportBet.EventHandlers;
 using SportBet.Services.Contracts;
+using SportBet.Services.ResultTypes;
 
 namespace SportBet.Controllers
 {
@@ -14,6 +15,15 @@ namespace SportBet.Controllers
             this.factory = factory;
         }
 
+        protected void RaiseReceivedMessageEvent(ServiceMessage serviceMessage)
+        {
+            var handler = ReceivedMessage;
+            if (handler != null)
+            {
+                ServiceMessageEventArgs e = new ServiceMessageEventArgs(serviceMessage.IsSuccessful, serviceMessage.Message);
+                handler(this, e);
+            }
+        }
         protected void RaiseReceivedMessageEvent(bool success, string message)
         {
             var handler = ReceivedMessage;

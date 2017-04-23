@@ -8,6 +8,7 @@ using SportBet.Services.DTOModels.Base;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.ResultTypes;
 using SportBet.Services.DTOModels.Display;
+using SportBet.Services.DTOModels.Edit;
 
 namespace SportBet.Services.Providers.EventServices
 {
@@ -34,21 +35,70 @@ namespace SportBet.Services.Providers.EventServices
             DateTime dateOfEvent = eventCreateDTO.DateOfEvent;
             List<ParticipantBaseDTO> participants = eventCreateDTO.Participants;
 
-            if (participants != null && participants.Count > 1)
+
+            if (eventCreateDTO.DateOfEvent >= DateTime.Now)
             {
-                if (success = ValidateDate(dateOfEvent, ref message))
+                if (participants != null && participants.Count > 1)
                 {
-                    try
+                    if (success = Validate(eventCreateDTO, ref message))
                     {
-                        TournamentEntity tournamentEntity = unitOfWork.Tournaments.Get(tournamentName, sportName, dateOfTournamentStart);
-                        if (tournamentEntity != null)
+                        try
                         {
-                            if (dateOfEvent.Date >= dateOfTournamentStart.Date)
+                            TournamentEntity tournamentEntity = unitOfWork.Tournaments.Get(tournamentName, sportName, dateOfTournamentStart);
+                            if (tournamentEntity != null)
                             {
-                                bool isDualSport = tournamentEntity.Sport.IsDual;
-                                if (isDualSport)
+                                if (dateOfEvent.Date >= dateOfTournamentStart.Date)
                                 {
-                                    if (participants.Count == 2)
+                                    bool isDualSport = tournamentEntity.Sport.IsDual;
+                                    if (isDualSport)
+                                    {
+                                        if (participants.Count == 2)
+                                        {
+                                            IEnumerable<ParticipantEntity> participantEntities = participants
+                                                .Select(p => unitOfWork.Participants.Get(p.Name, p.SportName, p.CountryName));
+
+                                            bool isAnyParticipantBusy = participantEntities.Any(p => unitOfWork.Participants.IsBusyOn(p.Id, dateOfEvent));
+
+                                            if (!isAnyParticipantBusy)
+                                            {
+                                                EventEntity eventEntity = new EventEntity
+                                                {
+                                                    DateOfEvent = dateOfEvent,
+                                                    Notes = notes,
+                                                    TournamentId = tournamentEntity.Id
+                                                };
+
+                                                IEnumerable<ParticipationEntity> participations = participantEntities
+                                                    .Select(p =>
+                                                    {
+                                                        return new ParticipationEntity
+                                                        {
+                                                            Event = eventEntity,
+                                                            Participant = p
+                                                        };
+                                                    });
+
+                                                foreach (var participation in participations)
+                                                {
+                                                    unitOfWork.Participations.Add(participation);
+                                                }
+                                                unitOfWork.Commit();
+
+                                                message = String.Format("Created new event with {0} participants", participants.Count);
+                                            }
+                                            else
+                                            {
+                                                message = "Some participants cannot play on this date";
+                                                success = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            message = "Sport is dual. Only two participants can take part";
+                                            success = false;
+                                        }
+                                    }
+                                    else
                                     {
                                         IEnumerable<ParticipantEntity> participantEntities = participants
                                             .Select(p => unitOfWork.Participants.Get(p.Name, p.SportName, p.CountryName));
@@ -88,77 +138,106 @@ namespace SportBet.Services.Providers.EventServices
                                             success = false;
                                         }
                                     }
-                                    else
-                                    {
-                                        message = "Sport is dual. Only two participants can take part";
-                                        success = false;
-                                    }
                                 }
                                 else
                                 {
-                                    IEnumerable<ParticipantEntity> participantEntities = participants
-                                        .Select(p => unitOfWork.Participants.Get(p.Name, p.SportName, p.CountryName));
-
-                                    bool isAnyParticipantBusy = participantEntities.Any(p => unitOfWork.Participants.IsBusyOn(p.Id, dateOfEvent));
-
-                                    if (!isAnyParticipantBusy)
-                                    {
-                                        EventEntity eventEntity = new EventEntity
-                                        {
-                                            DateOfEvent = dateOfEvent,
-                                            Notes = notes,
-                                            TournamentId = tournamentEntity.Id
-                                        };
-
-                                        IEnumerable<ParticipationEntity> participations = participantEntities
-                                            .Select(p =>
-                                            {
-                                                return new ParticipationEntity
-                                                {
-                                                    Event = eventEntity,
-                                                    Participant = p
-                                                };
-                                            });
-
-                                        foreach (var participation in participations)
-                                        {
-                                            unitOfWork.Participations.Add(participation);
-                                        }
-                                        unitOfWork.Commit();
-
-                                        message = String.Format("Created new event with {0} participants", participants.Count);
-                                    }
-                                    else
-                                    {
-                                        message = "Some participants cannot play on this date";
-                                        success = false;
-                                    }
+                                    message = "An event cannot start earlier then tournament";
+                                    success = false;
                                 }
                             }
                             else
                             {
-                                message = "An event cannot start earlier then tournament";
+                                message = "Such tournament was not found";
                                 success = false;
                             }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            message = "Such tournament was not found";
+                            message = ExceptionMessageBuilder.BuildMessage(ex);
                             success = false;
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        message = ExceptionMessageBuilder.BuildMessage(ex);
-                        success = false;
-                    }
+                }
+                else
+                {
+                    message = "Invalid count of participants";
+                    success = false;
                 }
             }
             else
             {
-                message = "Invalid count of participants";
+                message = "Invalid date: cannot start event in the past";
                 success = false;
             }
+
+            return new ServiceMessage(message, success);
+        }
+
+        public ServiceMessage Update(EventEditDTO eventEditDTO)
+        {
+            string message = "";
+            bool success = true;
+
+            string sportName = eventEditDTO.SportName;
+            string tournamentName = eventEditDTO.TournamentName;
+            DateTime dateOfTournamentStart = eventEditDTO.DateOfTournamentStart;
+
+            string notes = eventEditDTO.Notes;
+            DateTime dateOfEvent = eventEditDTO.DateOfEvent;
+
+            List<ParticipantBaseDTO> participants = eventEditDTO.Participants;
+
+            if (success = Validate(eventEditDTO, ref message))
+            {
+                try
+                {
+                    TournamentEntity tournamentEntity = unitOfWork.Tournaments.Get(tournamentName, sportName, dateOfTournamentStart);
+                    if (tournamentEntity != null)
+                    {
+                        IEnumerable<ParticipantEntity> participantEntities = participants
+                            .Select(p => unitOfWork.Participants.Get(p.Name, p.SportName, p.CountryName))
+                            .ToList();
+
+                        EventEntity eventEntity = unitOfWork
+                            .Events
+                            .Get(sportName, tournamentName, dateOfEvent, participantEntities);
+                        if (eventEntity != null)
+                        {
+                            eventEntity.DateOfEvent = eventEditDTO.NewDateOfEvent;
+                            eventEntity.Notes = eventEditDTO.Notes;
+
+                            unitOfWork.Commit();
+
+                            message = "Edited event";
+                        }
+                        else
+                        {
+                            message = "Such event was not found";
+                            success = false;
+                        }
+                    }
+                    else
+                    {
+                        message = "Such tournament was not found";
+                        success = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    message = ExceptionMessageBuilder.BuildMessage(ex);
+                    success = false;
+                }
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
+        public ServiceMessage UpdateParticipants(EventBaseDTO eventBaseDTO)
+        {
+            string message = "";
+            bool success = true;
+
+
 
             return new ServiceMessage(message, success);
         }
@@ -218,13 +297,33 @@ namespace SportBet.Services.Providers.EventServices
             unitOfWork.Dispose();
         }
 
-        private bool ValidateDate(DateTime dateTime, ref string message)
+        private bool Validate(EventBaseDTO eventBaseDTO, ref string message)
         {
             bool isValid = true;
 
-            if (dateTime < DateTime.Now)
+            if (String.IsNullOrEmpty(eventBaseDTO.SportName))
             {
-                message = "Invalid date: cannot start event in the past";
+                message = "Sport name cannot be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(eventBaseDTO.TournamentName))
+            {
+                message = "Tournament name cannot be empty";
+                isValid = false;
+            }
+            else if (eventBaseDTO.DateOfEvent < eventBaseDTO.DateOfTournamentStart)
+            {
+                message = "Invalid date: cannot start event earlier then tournament";
+                isValid = false;
+            }
+            else if (eventBaseDTO.Participants == null)
+            {
+                message = "Invalid participants";
+                isValid = false;
+            }
+            else if (eventBaseDTO.Participants.Count < 2)
+            {
+                message = "Invalid count of participants";
                 isValid = false;
             }
 

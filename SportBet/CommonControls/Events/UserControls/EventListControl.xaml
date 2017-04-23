@@ -11,6 +11,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
             </Grid.RowDefinitions>
 
             <ListBox Grid.Row="0" ItemsSource="{Binding Events}" SelectedItem="{Binding SelectedEvent}">
@@ -28,7 +29,6 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -48,6 +48,13 @@
                     </ListBox>
                 </GroupBox>
             </Grid>
+            <Button 
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Padding="30,3"
+                Content="Edit"
+                Command="{Binding SelectEventCommand}" />
         </Grid>
     </GroupBox>
 </UserControl>

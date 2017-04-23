@@ -1,31 +1,32 @@
-﻿using SportBet.Contracts;
-using SportBet.Contracts.Subjects;
-using SportBet.Models.Display;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
+using SportBet.Contracts;
+using SportBet.Contracts.Subjects;
+using SportBet.EventHandlers.Display;
+using SportBet.Models.Display;
 
 namespace SportBet.CommonControls.Events.ViewModels
 {
     public class EventListViewModel : ObservableObject, IObserver
     {
-        private readonly ISubject subject;
+        public event EventDisplayEventHandler EventSelected;
+
         private readonly FacadeBase<EventDisplayModel> facade;
 
         private EventDisplayModel selectedEvent;
 
         public EventListViewModel(ISubject subject, FacadeBase<EventDisplayModel> facade)
         {
-            this.subject = subject;
             this.facade = facade;
 
-            subject.Subscribe(this);
-
+            this.SelectEventCommand = new DelegateCommand(() => RaiseEventSelectedEvent(SelectedEvent), obj => SelectedEvent != null);
             this.Events = new ObservableCollection<EventDisplayModel>(facade.GetAll());
+
+            subject.Subscribe(this);
         }
+
+        public ICommand SelectEventCommand { get; private set; }
 
         public EventDisplayModel SelectedEvent
         {
@@ -49,5 +50,15 @@ namespace SportBet.CommonControls.Events.ViewModels
         }
 
         public ObservableCollection<EventDisplayModel> Events { get; private set; }
+
+        private void RaiseEventSelectedEvent(EventDisplayModel _event)
+        {
+            var handler = EventSelected;
+            if (handler != null)
+            {
+                EventDisplayEventArgs e = new EventDisplayEventArgs(_event);
+                handler(this, e);
+            }
+        }
     }
 }

@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="SportBet.CommonControls.Events.UserControls.EventManageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance ViewModel:EventManageDTViewModel}">
+    <TabControl>
+        <TabItem Header="Event info">
+            <Grid DataContext="{Binding InfoViewModel}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Text="Sport:" />
+                <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Text="Tournament:" />
+                <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Text="Tournament's date:" />
+                <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Text="Event's date:" />
+                <TextBlock Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,0" Text="Notes:" />
+
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding SportName}" />
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding TournamentName}" />
+                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding TournamentDateOfStart, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                <DatePicker Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" SelectedDate="{Binding DateOfEvent, UpdateSourceTrigger=PropertyChanged}">
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBox x:Name="PART_TextBox"
+                                             Text="{Binding Path=SelectedDate, StringFormat = {}{0:dd.MM.yyyy}, 
+                                             RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+                <TextBox Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" />
+                
+                <Button
+                    Grid.Row="5"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Padding="30,3"
+                    Content="Save"
+                    Command="{Binding SaveChangesCommand}" />
+            </Grid>
+        </TabItem>
+        <TabItem Header="Participants">
+
+        </TabItem>
+    </TabControl>
+</UserControl>

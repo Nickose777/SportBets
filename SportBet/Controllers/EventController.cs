@@ -19,6 +19,8 @@ using System;
 using SportBet.Models.Base;
 using SportBet.Models.Extra;
 using SportBet.Services.DTOModels.Extra;
+using SportBet.Models.Edit;
+using SportBet.Services.DTOModels.Edit;
 
 namespace SportBet.Controllers
 {
@@ -78,6 +80,8 @@ namespace SportBet.Controllers
             EventListControl control = new EventListControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
 
+            viewModel.EventSelected += (s, e) => Edit(e.Event);
+
             window.Show();
         }
 
@@ -100,6 +104,36 @@ namespace SportBet.Controllers
                     if (serviceMessage.IsSuccessful)
                     {
                         viewModel.Notes = String.Empty;
+                        Notify();
+                    }
+                }
+            };
+
+            window.Show();
+        }
+
+        private void Edit(EventDisplayModel eventDisplayModel)
+        {
+            EventManageViewModel viewModel = new EventManageViewModel(eventDisplayModel);
+            EventManageControl control = new EventManageControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.InfoViewModel.EventEdited += (s, e) =>
+            {
+                EventEditModel eventEditModel = e.Event;
+                EventEditDTO eventEditDTO = Mapper.Map<EventEditModel, EventEditDTO>(eventEditModel);
+
+                //TODO
+                //move to Mapper config
+                eventEditDTO.Notes = eventEditModel.NewNotes;
+
+                using (IEventService service = factory.CreateEventService())
+                {
+                    ServiceMessage serviceMessage = service.Update(eventEditDTO);
+                    RaiseReceivedMessageEvent(serviceMessage);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
                         Notify();
                     }
                 }
