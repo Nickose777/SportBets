@@ -151,6 +151,7 @@
     <Compile Include="CommonControls\Events\ViewModels\EventInfoViewModel.cs" />
     <Compile Include="CommonControls\Events\ViewModels\EventListViewModel.cs" />
     <Compile Include="CommonControls\Events\ViewModels\EventManageViewModel.cs" />
+    <Compile Include="CommonControls\Events\ViewModels\EventParticipantViewModel.cs" />
     <Compile Include="CommonControls\Footer.xaml.cs">
       <DependentUpon>Footer.xaml</DependentUpon>
     </Compile>

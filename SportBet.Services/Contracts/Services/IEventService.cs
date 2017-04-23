@@ -14,7 +14,7 @@ namespace SportBet.Services.Contracts.Services
 
         ServiceMessage Update(EventEditDTO eventEditDTO);
 
-        ServiceMessage UpdateParticipants(EventBaseDTO eventBaseDTO);
+        ServiceMessage UpdateParticipants(EventEditDTO eventEditDTO);
 
         DataServiceMessage<IEnumerable<EventDisplayDTO>> GetAll();
     }

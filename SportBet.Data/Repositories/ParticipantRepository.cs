@@ -27,12 +27,18 @@ namespace SportBet.Data.Repositories
 
         public bool IsBusyOn(int participantId, DateTime date)
         {
+            var eventsOfParticipant = GetParticipantEvents(participantId);
+            return eventsOfParticipant.Count(e => e.DateOfEvent == date) > 0;
+        }
+
+        private IEnumerable<EventEntity> GetParticipantEvents(int participantId)
+        {
             SportBetDbContext context = GetContext();
 
             ParticipantEntity participantEntity = context.Participants.Find(participantId);
             var eventsOfParticipant = participantEntity.Participations.Select(part => part.Event);
 
-            return eventsOfParticipant.Count(e => e.DateOfEvent == date) > 0;
+            return eventsOfParticipant;
         }
 
         public ParticipantEntity Get(string participantName, int sportId, int countryId)

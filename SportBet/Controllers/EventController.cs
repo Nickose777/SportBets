@@ -21,6 +21,7 @@ using SportBet.Models.Extra;
 using SportBet.Services.DTOModels.Extra;
 using SportBet.Models.Edit;
 using SportBet.Services.DTOModels.Edit;
+using SportBet.Services.DTOModels.Base;
 
 namespace SportBet.Controllers
 {
@@ -80,7 +81,33 @@ namespace SportBet.Controllers
             EventListControl control = new EventListControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
 
-            viewModel.EventSelected += (s, e) => Edit(e.Event);
+            viewModel.EventSelected += (s, e) =>
+            {
+                EventDisplayModel eventDisplayModel = e.Event;
+
+                TournamentBaseDTO tournamentBaseDTO = new TournamentBaseDTO
+                {
+                    Name = eventDisplayModel.TournamentName,
+                    DateOfStart = eventDisplayModel.DateOfTournamentStart,
+                    SportName = eventDisplayModel.SportName
+                };
+
+                using (IParticipantService service = factory.CreateParticipantService())
+                {
+                    DataServiceMessage<IEnumerable<ParticipantBaseDTO>> serviceMessage = service.GetByTournament(tournamentBaseDTO);
+                    RaiseReceivedMessageEvent(serviceMessage);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        IEnumerable<ParticipantBaseModel> allParticipants = serviceMessage
+                            .Data
+                            .Select(p => Mapper.Map<ParticipantBaseDTO, ParticipantBaseModel>(p))
+                            .OrderBy(p => p.Name);
+                        Edit(e.Event, allParticipants);
+                    }
+                }
+
+            };
 
             window.Show();
         }
@@ -112,9 +139,9 @@ namespace SportBet.Controllers
             window.Show();
         }
 
-        private void Edit(EventDisplayModel eventDisplayModel)
+        private void Edit(EventDisplayModel eventDisplayModel, IEnumerable<ParticipantBaseModel> allParticipants)
         {
-            EventManageViewModel viewModel = new EventManageViewModel(eventDisplayModel);
+            EventManageViewModel viewModel = new EventManageViewModel(eventDisplayModel, allParticipants);
             EventManageControl control = new EventManageControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
 
@@ -130,6 +157,25 @@ namespace SportBet.Controllers
                 using (IEventService service = factory.CreateEventService())
                 {
                     ServiceMessage serviceMessage = service.Update(eventEditDTO);
+                    RaiseReceivedMessageEvent(serviceMessage);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        Notify();
+                    }
+                }
+            };
+            viewModel.EventParticipantViewModel.EventEdited += (s, e) =>
+            {
+                EventEditModel eventEditModel = e.Event;
+                EventEditDTO eventEditDTO = Mapper.Map<EventEditModel, EventEditDTO>(eventEditModel);
+
+                //TODO
+                //move to Mapper config
+
+                using (IEventService service = factory.CreateEventService())
+                {
+                    ServiceMessage serviceMessage = service.UpdateParticipants(eventEditDTO);
                     RaiseReceivedMessageEvent(serviceMessage);
 
                     if (serviceMessage.IsSuccessful)

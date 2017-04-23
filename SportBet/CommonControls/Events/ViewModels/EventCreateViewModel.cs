@@ -191,7 +191,7 @@ namespace SportBet.CommonControls.Events.ViewModels
             return
                 SelectedSport != null &&
                 SelectedTournament != null &&
-                !String.IsNullOrEmpty(Notes) &&
+                (String.IsNullOrEmpty(Notes) || Notes.Length <= 100) &&
                 DateOfEvent != default(DateTime) &&
                 DateOfEvent >= SelectedTournament.DateOfStart &&
                 SelectedParticipants.Count > 1;

@@ -232,12 +232,114 @@ namespace SportBet.Services.Providers.EventServices
             return new ServiceMessage(message, success);
         }
 
-        public ServiceMessage UpdateParticipants(EventBaseDTO eventBaseDTO)
+        public ServiceMessage UpdateParticipants(EventEditDTO eventEditDTO)
         {
             string message = "";
             bool success = true;
 
+            string sportName = eventEditDTO.SportName;
+            string tournamentName = eventEditDTO.TournamentName;
+            DateTime dateOfTournamentStart = eventEditDTO.DateOfTournamentStart;
+            DateTime dateOfEvent = eventEditDTO.DateOfEvent;
+            List<ParticipantBaseDTO> participants = eventEditDTO.Participants;
+            List<ParticipantBaseDTO> newParticipants = eventEditDTO.NewParticipants;
 
+            if (success = Validate(eventEditDTO, ref message))
+            {
+                if (newParticipants != null && newParticipants.Count > 1)
+                {
+                    try
+                    {
+                        TournamentEntity tournamentEntity = unitOfWork.Tournaments.Get(tournamentName, sportName, dateOfTournamentStart);
+                        if (tournamentEntity != null)
+                        {
+                            IEnumerable<ParticipantEntity> oldParticipantEntities = participants
+                                .Select(p => unitOfWork.Participants.Get(p.Name, p.SportName, p.CountryName))
+                                .ToList();
+
+                            EventEntity eventEntity = unitOfWork
+                                .Events
+                                .Get(sportName, tournamentName, dateOfEvent, oldParticipantEntities);
+                            if (eventEntity != null)
+                            {
+                                IEnumerable<ParticipantEntity> newParticipantEntities = newParticipants
+                                    .Select(p => unitOfWork.Participants.Get(p.Name, p.SportName, p.CountryName));
+
+                                bool sportValidated = true;
+
+                                SportEntity sportEntity = tournamentEntity.Sport;
+                                if (sportEntity.IsDual)
+                                {
+                                    if (newParticipantEntities.Count() != 2)
+                                    {
+                                        message = "Sport is dual. Only 2 participants allowed";
+                                        success = false;
+                                        sportValidated = false;
+                                    }
+                                }
+
+                                if (sportValidated)
+                                {
+                                    var added = newParticipantEntities.Except(oldParticipantEntities).ToList();
+                                    var deleted = oldParticipantEntities.Except(newParticipantEntities).ToList();
+
+                                    bool anyParticipantBusy = added
+                                        .Any(p => unitOfWork.Participants.IsBusyOn(p.Id, dateOfEvent));
+                                    if (!anyParticipantBusy)
+                                    {
+                                        var deletedParticipations = eventEntity
+                                            .Participations
+                                            .Where(part => deleted.Select(p => p.Id).Contains(part.ParticipantId))
+                                            .ToList();
+
+                                        foreach (var participation in deletedParticipations)
+                                        {
+                                            eventEntity.Participations.Remove(participation);
+                                        }
+                                        foreach (var participant in added)
+                                        {
+                                            eventEntity.Participations.Add(new ParticipationEntity
+                                            {
+                                                EventId = eventEntity.Id,
+                                                ParticipantId = participant.Id
+                                            });
+                                        }
+
+                                        unitOfWork.Commit();
+
+                                        message = "Changed participants of event";
+                                    }
+                                    else
+                                    {
+                                        message = "One or more participant is busy this date";
+                                        success = false;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                message = "Such event was not found";
+                                success = false;
+                            }
+                        }
+                        else
+                        {
+                            message = "Such tournament was not found";
+                            success = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        message = ExceptionMessageBuilder.BuildMessage(ex);
+                        success = false;
+                    }
+                }
+                else
+                {
+                    message = "Invalid count of participants";
+                    success = false;
+                }
+            }
 
             return new ServiceMessage(message, success);
         }

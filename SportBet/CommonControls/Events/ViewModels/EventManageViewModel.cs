@@ -8,9 +8,12 @@ namespace SportBet.CommonControls.Events.ViewModels
     {
         public EventInfoViewModel InfoViewModel { get; private set; }
 
-        public EventManageViewModel(EventDisplayModel eventDisplayModel)
+        public EventParticipantViewModel EventParticipantViewModel { get; private set; }
+
+        public EventManageViewModel(EventDisplayModel eventDisplayModel, IEnumerable<ParticipantBaseModel> allParticipants)
         {
             InfoViewModel = new EventInfoViewModel(eventDisplayModel);
+            EventParticipantViewModel = new EventParticipantViewModel(eventDisplayModel, allParticipants);
         }
     }
 }

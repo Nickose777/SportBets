@@ -74,8 +74,7 @@ namespace SportBet.CommonControls.Events.ViewModels
         {
             return
                 IsDirty() &&
-                !String.IsNullOrEmpty(Notes) &&
-                Notes.Length <= 100 &&
+                (String.IsNullOrEmpty(Notes) || Notes.Length <= 100) &&
                 DateOfEvent >= TournamentDateOfStart;
         }
 
