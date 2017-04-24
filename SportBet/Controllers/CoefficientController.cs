@@ -18,6 +18,8 @@ using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
 using SportBet.Contracts;
 using SportBet.Models.Display;
+using SportBet.Models.Edit;
+using SportBet.Services.DTOModels.Edit;
 
 namespace SportBet.Controllers
 {
@@ -74,6 +76,8 @@ namespace SportBet.Controllers
             CoefficientListControl control = new CoefficientListControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
 
+            viewModel.CoefficientSelected += (s, e) => Edit(e.Coefficient);
+
             window.Show();
         }
 
@@ -97,6 +101,33 @@ namespace SportBet.Controllers
                     {
                         viewModel.CoefficientValue = 0;
                         viewModel.Description = String.Empty;
+                        Notify();
+                    }
+                }
+            };
+
+            window.Show();
+        }
+
+        private void Edit(CoefficientDisplayModel coefficientDisplayModel)
+        {
+            CoefficientInfoViewModel viewModel = new CoefficientInfoViewModel(coefficientDisplayModel);
+            CoefficientInfoControl control = new CoefficientInfoControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.CoefficientEdited += (s, e) =>
+            {
+                CoefficientEditModel coefficientEditModel = e.Coefficient;
+                CoefficientEditDTO coefficientEditDTO = Mapper.Map<CoefficientEditModel, CoefficientEditDTO>(coefficientEditModel);
+
+                using (ICoefficientService service = factory.CreateCoefficientService())
+                {
+                    ServiceMessage serviceMessage = service.Update(coefficientEditDTO);
+                    RaiseReceivedMessageEvent(serviceMessage);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        window.Close();
                         Notify();
                     }
                 }

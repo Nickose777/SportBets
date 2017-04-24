@@ -17,14 +17,21 @@ namespace SportBet.Data.Repositories
 
         public bool Exists(int eventId, string description)
         {
+            CoefficientEntity coefficientEntity = Get(eventId, description);
+
+            return coefficientEntity != null;
+        }
+
+        public CoefficientEntity Get(int eventId, string description)
+        {
             SportBetDbContext context = GetContext();
 
             CoefficientEntity coefficientEntity = context
-                .Coefficients.SingleOrDefault(c => 
-                    c.EventId == eventId && 
+                .Coefficients.SingleOrDefault(c =>
+                    c.EventId == eventId &&
                     c.Description == description);
 
-            return coefficientEntity != null;
+            return coefficientEntity;
         }
     }
 }

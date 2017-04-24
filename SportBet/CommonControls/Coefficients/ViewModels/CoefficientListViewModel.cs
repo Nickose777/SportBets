@@ -1,17 +1,17 @@
-﻿using SportBet.Contracts;
-using SportBet.Contracts.Subjects;
-using SportBet.Models.Display;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
+using SportBet.Contracts;
+using SportBet.Contracts.Subjects;
+using SportBet.EventHandlers.Display;
+using SportBet.Models.Display;
 
 namespace SportBet.CommonControls.Coefficients.ViewModels
 {
     public class CoefficientListViewModel : ObservableObject, IObserver
     {
+        public event CoefficientDisplayEventHandler CoefficientSelected;
+
         private readonly FacadeBase<CoefficientDisplayModel> facade;
 
         private CoefficientDisplayModel selectedCoefficient;
@@ -20,10 +20,16 @@ namespace SportBet.CommonControls.Coefficients.ViewModels
         {
             this.facade = facade;
 
+            this.SelectCoefficientCommand = new DelegateCommand(
+                () => RaiseCoefficientSelectedEvent(SelectedCoefficient), 
+                obj => SelectedCoefficient != null);
+
             this.Coefficients = new ObservableCollection<CoefficientDisplayModel>(facade.GetAll());
 
             subject.Subscribe(this);
         }
+
+        public ICommand SelectCoefficientCommand { get; private set; }
 
         public CoefficientDisplayModel SelectedCoefficient
         {
@@ -47,5 +53,15 @@ namespace SportBet.CommonControls.Coefficients.ViewModels
         }
 
         public ObservableCollection<CoefficientDisplayModel> Coefficients { get; private set; }
+
+        private void RaiseCoefficientSelectedEvent(CoefficientDisplayModel coefficient)
+        {
+            var handler = CoefficientSelected;
+            if (handler != null)
+            {
+                CoefficientDisplayEventArgs e = new CoefficientDisplayEventArgs(coefficient);
+                handler(this, e);
+            }
+        }
     }
 }

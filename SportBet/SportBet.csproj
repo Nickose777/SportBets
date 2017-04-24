@@ -133,10 +133,14 @@
     <Compile Include="CommonControls\Coefficients\UserControls\CoefficientCreateControl.xaml.cs">
       <DependentUpon>CoefficientCreateControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Coefficients\UserControls\CoefficientInfoControl.xaml.cs">
+      <DependentUpon>CoefficientInfoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CommonControls\Coefficients\UserControls\CoefficientListControl.xaml.cs">
       <DependentUpon>CoefficientListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CommonControls\Coefficients\ViewModels\CoefficientCreateViewModel.cs" />
+    <Compile Include="CommonControls\Coefficients\ViewModels\CoefficientInfoViewModel.cs" />
     <Compile Include="CommonControls\Coefficients\ViewModels\CoefficientListViewModel.cs" />
     <Compile Include="CommonControls\Events\UserControls\EventCreateControl.xaml.cs">
       <DependentUpon>EventCreateControl.xaml</DependentUpon>
@@ -215,6 +219,7 @@
     <Compile Include="DesignTimeViewModels\ClientInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\CoefficientCreateDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\CoefficientInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\CoefficientListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\CountryEditDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\CountryListDTViewModel.cs" />
@@ -242,6 +247,7 @@
     <Compile Include="EventHandlers\Create\TournamentEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AdminDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AnalyticDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Display\CoefficientDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\EventDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\ParticipantDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\SportDisplayEventHandler.cs" />
@@ -249,6 +255,7 @@
     <Compile Include="EventHandlers\Edit\BookmakerEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
     <Compile Include="EventHandlers\Display\CountryDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Edit\CoefficientEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\CountryEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\EventEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ParticipantEditEventHandler.cs" />
@@ -291,6 +298,7 @@
     <Compile Include="Models\Display\TournamentDisplayModel.cs" />
     <Compile Include="Models\Edit\BookmakerEditModel.cs" />
     <Compile Include="Models\Edit\ClientEditModel.cs" />
+    <Compile Include="Models\Edit\CoefficientEditModel.cs" />
     <Compile Include="Models\Edit\CountryEditModel.cs" />
     <Compile Include="Models\Edit\EventEditModel.cs" />
     <Compile Include="Models\Edit\ParticipantEditModel.cs" />
@@ -400,6 +408,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CommonControls\Coefficients\UserControls\CoefficientCreateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Coefficients\UserControls\CoefficientInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

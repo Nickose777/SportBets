@@ -8,6 +8,7 @@ using SportBet.Services.DTOModels.Base;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.ResultTypes;
 using SportBet.Services.DTOModels.Display;
+using SportBet.Services.DTOModels.Edit;
 
 namespace SportBet.Services.Providers.CoefficientServices
 {
@@ -20,6 +21,8 @@ namespace SportBet.Services.Providers.CoefficientServices
             this.unitOfWork = unitOfWork;
         }
 
+        //TODO
+        //merge create and update without code duplication
         public ServiceMessage Create(CoefficientCreateDTO coefficientCreateDTO)
         {
             string message = "";
@@ -60,6 +63,56 @@ namespace SportBet.Services.Providers.CoefficientServices
                     else
                     {
                         message = "Such coefficient already exists";
+                        success = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    message = ExceptionMessageBuilder.BuildMessage(ex);
+                    success = false;
+                }
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
+        public ServiceMessage Update(CoefficientEditDTO coefficientEditDTO)
+        {
+            string message = "";
+            bool success = true;
+
+            if (success = IsValid(coefficientEditDTO, ref message))
+            {
+                string sportName = coefficientEditDTO.SportName;
+                string tournamentName = coefficientEditDTO.TournamentName;
+                DateTime dateOfEvent = coefficientEditDTO.DateOfEvent;
+                List<ParticipantBaseDTO> participants = coefficientEditDTO.Participants;
+                decimal value = coefficientEditDTO.Value;
+                string description = coefficientEditDTO.Description;
+
+                try
+                {
+                    IEnumerable<ParticipantEntity> participantEntities = participants
+                        .Select(p => unitOfWork.Participants.Get(p.Name, p.SportName, p.CountryName))
+                        .ToList();
+
+                    EventEntity eventEntity = unitOfWork.Events.Get(sportName, tournamentName, dateOfEvent, participantEntities);
+                    bool exists = unitOfWork.Coefficients.Exists(eventEntity.Id, description);
+
+                    if (exists)
+                    {
+                        CoefficientEntity coefficientEntity = unitOfWork.Coefficients.Get(eventEntity.Id, description);
+
+                        coefficientEntity.Value = coefficientEditDTO.NewValue;
+                        coefficientEntity.Description = coefficientEditDTO.NewDescription;
+
+                        unitOfWork.Commit();
+
+                        message = "Coefficient edited";
+                    }
+                    else
+                    {
+                        message = "Such coefficient doesn't exist";
                         success = false;
                     }
                 }
@@ -138,6 +191,29 @@ namespace SportBet.Services.Providers.CoefficientServices
             if (coefficientCreateDTO.Value <= 0)
             {
                 message = "Value must be higher than 0";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(coefficientCreateDTO.Description))
+            {
+                message = "Coefficient must have a description";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private bool IsValid(CoefficientEditDTO coefficientEditDTO, ref string message)
+        {
+            bool isValid = true;
+
+            if (coefficientEditDTO.Value <= 0 || coefficientEditDTO.NewValue <= 0)
+            {
+                message = "Value must be higher than 0";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(coefficientEditDTO.Description))
+            {
+                message = "Coefficient must have a description";
                 isValid = false;
             }
 

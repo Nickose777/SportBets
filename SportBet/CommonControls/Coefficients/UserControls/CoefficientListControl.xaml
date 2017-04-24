@@ -12,6 +12,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
             </Grid.RowDefinitions>
             
             <ListBox Grid.Row="0" ItemsSource="{Binding Coefficients}" SelectedItem="{Binding SelectedCoefficient}">
@@ -32,8 +33,8 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <GroupBox Grid.Row="1" Header="Participants" Padding="10">
-                <ListBox ItemsSource="{Binding SelectedCoefficient.Participants}">
-                    <ListBox.ItemTemplate>
+                <ItemsControl ItemsSource="{Binding SelectedCoefficient.Participants}">
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
                                 <TextBlock.Text>
@@ -44,9 +45,10 @@
                                 </TextBlock.Text>
                             </TextBlock>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </GroupBox>
+            <Button Grid.Row="2" Content="Select" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20,3" Command="{Binding SelectCoefficientCommand}" />
         </Grid>
     </GroupBox>
 </UserControl>
