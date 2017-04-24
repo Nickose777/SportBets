@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              d:DataContext="{d:DesignInstance ViewModel:EventCreateDTViewModel}"
-             Background="Orange" Height="493.5" Width="373">
+             MinHeight="500" MinWidth="400">
     <GroupBox Header="Create event" Padding="10">
         <Grid>
             <Grid.RowDefinitions>

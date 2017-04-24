@@ -10,7 +10,7 @@ namespace SportBet.CommonControls.Participants.UserControls
     {
         public ParticipantCreateControl(ParticipantCreateViewModel viewModel)
         {
-            InitializeComponent();
+            InitializeComponent(); 
             this.DataContext = viewModel;
         }
     }

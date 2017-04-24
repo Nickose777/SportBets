@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
-             d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance ViewModel:ParticipantListDTViewModel}"
-             Background="Orange">
+             MinHeight="300"
+             MinWidth="400"
+             d:DataContext="{d:DesignInstance ViewModel:ParticipantListDTViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

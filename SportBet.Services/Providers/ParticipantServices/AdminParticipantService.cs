@@ -82,13 +82,13 @@ namespace SportBet.Services.Providers.ParticipantServices
             string message;
             bool success = true;
 
-            string oldName = participantEditDTO.OldParticipantName;
-            string oldSportName = participantEditDTO.OldSportName;
-            string oldCountryName = participantEditDTO.OldCountryName;
+            string oldName = participantEditDTO.Name;
+            string oldSportName = participantEditDTO.SportName;
+            string oldCountryName = participantEditDTO.CountryName;
 
-            string newName = participantEditDTO.Name;
-            string newSportName = participantEditDTO.SportName;
-            string newCountryName = participantEditDTO.CountryName;
+            string newName = participantEditDTO.NewParticipantName;
+            string newSportName = participantEditDTO.NewSportName;
+            string newCountryName = participantEditDTO.NewCountryName;
 
             try
             {
