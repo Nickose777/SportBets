@@ -120,6 +120,10 @@ namespace SportBet.Controllers
                 CoefficientEditModel coefficientEditModel = e.Coefficient;
                 CoefficientEditDTO coefficientEditDTO = Mapper.Map<CoefficientEditModel, CoefficientEditDTO>(coefficientEditModel);
 
+                //TODO
+                //move to mapper config
+                coefficientEditDTO.Win = coefficientEditModel.NewWin;
+
                 using (ICoefficientService service = factory.CreateCoefficientService())
                 {
                     ServiceMessage serviceMessage = service.Update(coefficientEditDTO);

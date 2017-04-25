@@ -105,6 +105,7 @@ namespace SportBet.Services.Providers.CoefficientServices
 
                         coefficientEntity.Value = coefficientEditDTO.NewValue;
                         coefficientEntity.Description = coefficientEditDTO.NewDescription;
+                        coefficientEntity.Win = coefficientEditDTO.Win;
 
                         unitOfWork.Commit();
 

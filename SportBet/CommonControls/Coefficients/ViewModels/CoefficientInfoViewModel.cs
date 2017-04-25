@@ -24,6 +24,9 @@ namespace SportBet.CommonControls.Coefficients.ViewModels
 
                 Participants = coefficient.Participants,
 
+                Win = coefficient.Win,
+                NewWin = coefficient.Win,
+
                 Value = coefficient.Value,
                 NewValue = coefficient.Value,
 
@@ -76,6 +79,16 @@ namespace SportBet.CommonControls.Coefficients.ViewModels
             }
         }
 
+        public bool? Win
+        {
+            get { return coefficientEditModel.NewWin; }
+            set
+            {
+                coefficientEditModel.NewWin = value;
+                RaisePropertyChangedEvent("Win");
+            }
+        }
+
         public ObservableCollection<ParticipantBaseModel> Participants { get; private set; }
 
         private bool CanSaveChanges(object parameter)
@@ -90,6 +103,7 @@ namespace SportBet.CommonControls.Coefficients.ViewModels
         private bool IsDirty(object parameter)
         {
             return
+                coefficientEditModel.Win != coefficientEditModel.NewWin ||
                 coefficientEditModel.Value != coefficientEditModel.NewValue ||
                 coefficientEditModel.Description != coefficientEditModel.NewDescription;
 
@@ -97,6 +111,7 @@ namespace SportBet.CommonControls.Coefficients.ViewModels
 
         private void Undo()
         {
+            Win = coefficientEditModel.Win;
             CoefficientValue = coefficientEditModel.Value;
             Description = coefficientEditModel.Description;
         }

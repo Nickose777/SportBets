@@ -9,5 +9,9 @@ namespace SportBet.Models.Edit
         public decimal NewValue { get; set; }
 
         public string NewDescription { get; set; }
+
+        public bool? Win { get; set; }
+
+        public bool? NewWin { get; set; }
     }
 }

@@ -9,5 +9,7 @@ namespace SportBet.Services.DTOModels.Edit
         public decimal NewValue { get; set; }
 
         public string NewDescription { get; set; }
+
+        public bool? Win { get; set; }
     }
 }

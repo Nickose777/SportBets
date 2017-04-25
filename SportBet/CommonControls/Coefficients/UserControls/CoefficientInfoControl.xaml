@@ -18,12 +18,14 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Value:" />
             <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Description:" />
+            <TextBlock Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Win:" />
 
             <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock.Text>
@@ -50,8 +52,9 @@
             </ItemsControl>
             <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" Text="{Binding CoefficientValue, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="20,3" Content="Undo" Command="{Binding UndoCommand}"/>
-            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="20,3" Content="Save" Command="{Binding SaveChangesCommand}"/>
+            <CheckBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" IsChecked="{Binding Win}" IsThreeState="True" />
+            <Button Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="20,3" Content="Undo" Command="{Binding UndoCommand}"/>
+            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="20,3" Content="Save" Command="{Binding SaveChangesCommand}"/>
         </Grid>
     </GroupBox>
 </UserControl>
