@@ -19,6 +19,11 @@ namespace SportBet.Services.Providers.BookmakerServices
             this.unitOfWork = unitOfWork;
         }
 
+        public DataServiceMessage<string> GetLoggedInBookmakersPhoneNumber()
+        {
+            return new DataServiceMessage<string>(null, "Superuser is currently logged in", false);
+        }
+
         public ServiceMessage Update(BookmakerEditDTO bookmakerEditDTO, string login)
         {
             string message = "";

@@ -15,6 +15,7 @@
             <MenuItem Header="Register...">
                 <MenuItem Header="Client" Click="RegisterClient_Click" />
             </MenuItem>
+            <MenuItem Header="Create bet" Click="CreateBet_Click" />
             <MenuItem Header="Manage...">
                 <MenuItem Header="Clients" Click="ManageClients_Click" />
             </MenuItem>

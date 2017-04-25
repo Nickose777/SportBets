@@ -6,5 +6,7 @@ namespace SportBet.Data.Contracts.Repositories
     public interface IBookmakerRepository : IRepository<BookmakerEntity>
     {
         IEnumerable<BookmakerEntity> GetNotDeleted();
+
+        BookmakerEntity Get(string bookmakerPhoneNumber);
     }
 }

@@ -78,6 +78,8 @@ namespace SportBet.Mappings
 
             CreateMap<EventEditModel, EventEditDTO>();
             CreateMap<CoefficientEditModel, CoefficientEditDTO>();
+
+            CreateMap<BetCreateModel, BetCreateDTO>();
         }
     }
 }

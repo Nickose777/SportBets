@@ -111,6 +111,10 @@
     <Compile Include="BookmakerControls\BookmakerMainWindow.xaml.cs">
       <DependentUpon>BookmakerMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Bets\UserControls\BetCreateControl.xaml.cs">
+      <DependentUpon>BetCreateControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommonControls\Bets\ViewModels\BetCreateViewModel.cs" />
     <Compile Include="CommonControls\Clients\UserControls\RegisterClientControl.xaml.cs">
       <DependentUpon>RegisterClientControl.xaml</DependentUpon>
     </Compile>
@@ -188,6 +192,7 @@
     <Compile Include="Contracts\Controllers\IAccountController.cs" />
     <Compile Include="Contracts\Controllers\IAdminController.cs" />
     <Compile Include="Contracts\Controllers\IAnalyticController.cs" />
+    <Compile Include="Contracts\Controllers\IBetController.cs" />
     <Compile Include="Contracts\Controllers\IBookmakerController.cs" />
     <Compile Include="Contracts\Controllers\IClientController.cs" />
     <Compile Include="Contracts\Controllers\ICoefficientController.cs" />
@@ -204,6 +209,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnalyticController.cs" />
+    <Compile Include="Controllers\BetController.cs" />
     <Compile Include="Controllers\BookmakerController.cs" />
     <Compile Include="Controllers\CoefficientController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
@@ -214,6 +220,7 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\BetCreateDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientInfoDTViewModel.cs" />
@@ -239,6 +246,7 @@
     <Compile Include="DesignTimeViewModels\TournamentListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\TournamentManageDTViewModel.cs" />
     <Compile Include="EventHandlers\ChangePasswordEventHandler.cs" />
+    <Compile Include="EventHandlers\Create\BetCreateEventHandler.cs" />
     <Compile Include="EventHandlers\Create\CoefficientCreateEventHandler.cs" />
     <Compile Include="EventHandlers\Create\CountryEventHandler.cs" />
     <Compile Include="EventHandlers\Create\EventCreateEventHandler.cs" />
@@ -280,11 +288,13 @@
     <Compile Include="Facades\TournamentFacade.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\MappingProfile.cs" />
+    <Compile Include="Models\Base\BetBaseModel.cs" />
     <Compile Include="Models\Base\CoefficientBaseModel.cs" />
     <Compile Include="Models\Base\EventBaseModel.cs" />
     <Compile Include="Models\Base\ParticipantBaseModel.cs" />
     <Compile Include="Models\Base\TournamentBaseModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\Create\BetCreateModel.cs" />
     <Compile Include="Models\Create\CoefficientCreateModel.cs" />
     <Compile Include="Models\Create\EventCreateModel.cs" />
     <Compile Include="Models\Create\SportCreateModel.cs" />
@@ -384,6 +394,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BookmakerControls\BookmakerMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Bets\UserControls\BetCreateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

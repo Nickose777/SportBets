@@ -44,6 +44,7 @@
     <Compile Include="Contracts\Services\IAdminService.cs" />
     <Compile Include="Contracts\Services\IAnalyticService.cs" />
     <Compile Include="Contracts\Services\IAuthService.cs" />
+    <Compile Include="Contracts\Services\IBetService.cs" />
     <Compile Include="Contracts\Services\IBookmakerService.cs" />
     <Compile Include="Contracts\Services\IClientService.cs" />
     <Compile Include="Contracts\Services\ICoefficientService.cs" />
@@ -53,11 +54,13 @@
     <Compile Include="Contracts\Services\ISportService.cs" />
     <Compile Include="Contracts\Services\ITournamentService.cs" />
     <Compile Include="Contracts\Validators\IRegisterValidator.cs" />
+    <Compile Include="DTOModels\Base\BetBaseDTO.cs" />
     <Compile Include="DTOModels\Base\CoefficientBaseDTO.cs" />
     <Compile Include="DTOModels\Base\EventBaseDTO.cs" />
     <Compile Include="DTOModels\Base\ParticipantBaseDTO.cs" />
     <Compile Include="DTOModels\Base\TournamentBaseDTO.cs" />
     <Compile Include="DTOModels\ChangePasswordDTO.cs" />
+    <Compile Include="DTOModels\Create\BetCreateDTO.cs" />
     <Compile Include="DTOModels\Create\CoefficientCreateDTO.cs" />
     <Compile Include="DTOModels\Create\EventCreateDTO.cs" />
     <Compile Include="DTOModels\Create\SportCreateDTO.cs" />
@@ -99,6 +102,8 @@
     <Compile Include="Providers\AccountServices\BookmakerAccountService.cs" />
     <Compile Include="Providers\AccountServices\ClientAccountService.cs" />
     <Compile Include="Providers\AccountServices\SuperuserAccountService.cs" />
+    <Compile Include="Providers\BetServices\BookmakerBetService.cs" />
+    <Compile Include="Providers\BookmakerServices\BookmakerBookmakerService.cs" />
     <Compile Include="Providers\CoefficientServices\AdminCoefficientService.cs" />
     <Compile Include="Providers\AdminServices\SuperuserAdminService.cs" />
     <Compile Include="Providers\AnalyticServices\SuperuserAnalyticService.cs" />
@@ -107,12 +112,16 @@
     <Compile Include="Providers\ClientServices\BookmakerClientService.cs" />
     <Compile Include="Providers\ClientServices\ClientClientService.cs" />
     <Compile Include="Providers\ClientServices\SuperuserClientService.cs" />
+    <Compile Include="Providers\CoefficientServices\BookmakerCoefficientService.cs" />
     <Compile Include="Providers\CountryServices\AdminCountryService.cs" />
     <Compile Include="Providers\EventServices\AdminEventService.cs" />
+    <Compile Include="Providers\EventServices\BookmakerEventService.cs" />
     <Compile Include="Providers\ParticipantServices\AdminParticipantService.cs" />
     <Compile Include="Providers\SessionProvider.cs" />
     <Compile Include="Providers\SportServices\AdminSportService.cs" />
+    <Compile Include="Providers\SportServices\BookmakerSportService.cs" />
     <Compile Include="Providers\TournamentServices\AdminTournamentService.cs" />
+    <Compile Include="Providers\TournamentServices\BookmakerTournamentService.cs" />
     <Compile Include="ResultTypes\DataServiceMessage.cs" />
     <Compile Include="ResultTypes\ServiceMessage.cs" />
     <Compile Include="ResultTypes\LoginServiceMessage.cs" />

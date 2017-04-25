@@ -6,6 +6,12 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
 using SportBet.Services.Providers.AccountServices;
 using SportBet.Services.Providers.ClientServices;
+using SportBet.Services.Providers.BetServices;
+using SportBet.Services.Providers.BookmakerServices;
+using SportBet.Services.Providers.SportServices;
+using SportBet.Services.Providers.TournamentServices;
+using SportBet.Services.Providers.EventServices;
+using SportBet.Services.Providers.CoefficientServices;
 
 namespace SportBet.Services.Factories
 {
@@ -26,7 +32,10 @@ namespace SportBet.Services.Factories
 
         public override IBookmakerService CreateBookmakerService()
         {
-            throw new NotImplementedException();
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+            ISession session = CreateSession();
+
+            return new BookmakerBookmakerService(unitOfWork, session);
         }
 
         public override IClientService CreateClientService()
@@ -53,7 +62,9 @@ namespace SportBet.Services.Factories
 
         public override ISportService CreateSportService()
         {
-            throw new NotImplementedException();
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+
+            return new BookmakerSportService(unitOfWork);
         }
 
         public override IParticipantService CreateParticipantService()
@@ -63,17 +74,30 @@ namespace SportBet.Services.Factories
 
         public override ITournamentService CreateTournamentService()
         {
-            throw new NotImplementedException();
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+
+            return new BookmakerTournamentService(unitOfWork);
         }
 
         public override IEventService CreateEventService()
         {
-            throw new NotImplementedException();
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+
+            return new BookmakerEventService(unitOfWork);
         }
 
         public override ICoefficientService CreateCoefficientService()
         {
-            throw new NotImplementedException();
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+
+            return new BookmakerCoefficientService(unitOfWork);
+        }
+
+        public override IBetService CreateBetService()
+        {
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+
+            return new BookmakerBetService(unitOfWork);
         }
     }
 }

@@ -8,6 +8,8 @@ namespace SportBet.Services.Contracts.Services
 {
     public interface IBookmakerService : IDisposable
     {
+        DataServiceMessage<string> GetLoggedInBookmakersPhoneNumber();
+
         ServiceMessage Update(BookmakerEditDTO bookmakerEditDTO, string login);
 
         ServiceMessage Delete(string login);

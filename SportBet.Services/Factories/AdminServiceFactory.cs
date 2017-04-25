@@ -90,5 +90,10 @@ namespace SportBet.Services.Factories
 
             return new AdminCoefficientService(unitOfWork);
         }
+
+        public override IBetService CreateBetService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

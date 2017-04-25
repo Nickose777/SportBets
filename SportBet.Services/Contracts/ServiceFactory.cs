@@ -42,6 +42,8 @@ namespace SportBet.Services.Contracts
 
         public abstract ICoefficientService CreateCoefficientService();
 
+        public abstract IBetService CreateBetService();
+
         protected IUnitOfWork CreateUnitOfWork()
         {
             return new UnitOfWork(login, password);

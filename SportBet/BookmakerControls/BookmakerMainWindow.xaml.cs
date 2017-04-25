@@ -21,6 +21,7 @@ namespace SportBet.BookmakerControls
     {
         private readonly IAccountController accountController;
         private readonly IClientController clientController;
+        private readonly IBetController betController;
 
         public BookmakerMainWindow(ControllerFactory controllerFactory)
         {
@@ -28,9 +29,11 @@ namespace SportBet.BookmakerControls
 
             accountController = controllerFactory.CreateAccountController();
             clientController = controllerFactory.CreateClientController();
+            betController = controllerFactory.CreateBetController();
 
             accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
             clientController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
+            betController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
 
             SetFooterMessage(true, "Welcome, bookmaker");
         }
@@ -42,6 +45,11 @@ namespace SportBet.BookmakerControls
         private void RegisterClient()
         {
             clientController.Register();
+        }
+
+        private void CreateBet_Click(object sender, RoutedEventArgs e)
+        {
+            betController.Create();
         }
 
         private void ManageClients_Click(object sender, RoutedEventArgs e)

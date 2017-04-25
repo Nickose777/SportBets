@@ -87,5 +87,10 @@ namespace SportBet.ControllerFactories
         {
             return new CoefficientController(factory, new CoefficientFacade(factory));
         }
+
+        public IBetController CreateBetController()
+        {
+            return new BetController(factory);
+        }
     }
 }
