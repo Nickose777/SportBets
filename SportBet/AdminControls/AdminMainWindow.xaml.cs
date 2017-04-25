@@ -10,6 +10,7 @@ using SportBet.Controllers;
 using SportBet.Facades;
 using SportBet.Contracts.Controllers;
 using SportBet.ControllerFactories;
+using System.Windows.Controls;
 
 namespace SportBet.AdminControls
 {
@@ -25,6 +26,8 @@ namespace SportBet.AdminControls
         private readonly ITournamentController tournamentController;
         private readonly IEventController eventController;
         private readonly ICoefficientController coefficientController;
+
+        private UserControl lastControl;
 
         public AdminMainWindow(ControllerFactory controllerFactory)
         {
@@ -81,7 +84,8 @@ namespace SportBet.AdminControls
 
         private void ManageCountries_Click(object sender, RoutedEventArgs e)
         {
-            countryController.Display();
+            UserControl control = countryController.GetDisplayControl();
+            DisplayControl(control);
         }
 
         private void ManageSports_Click(object sender, RoutedEventArgs e)
@@ -111,7 +115,8 @@ namespace SportBet.AdminControls
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            accountController.ChangePassword();
+            UserControl control = accountController.GetPasswordControl();
+            DisplayControl(control);
         }
 
         private void SetFooterMessage(bool success, string message)
@@ -119,10 +124,8 @@ namespace SportBet.AdminControls
             //TODO
             //make LogWindow
             string status = success ? "Success!" : "Fail or error!";
-            footer.StatusText = status;
-            footer.MessageText = message;
-
-            log.Items.Add(status + " " + message);
+            //footer.StatusText = status;
+            //footer.MessageText = message;
         }
 
         private void SignOut_Click(object sender, RoutedEventArgs e)
@@ -130,6 +133,20 @@ namespace SportBet.AdminControls
             //TODO
             //MessageBox for question
             RaiseSignedOutEvent();
+        }
+
+        private void DisplayControl(UserControl control)
+        {
+            if (lastControl != null)
+            {
+                mainGrid.Children.Remove(lastControl);
+            }
+
+            Grid.SetRow(control, 0);
+            Grid.SetColumn(control, 1);
+
+            mainGrid.Children.Add(control);
+            lastControl = control;
         }
     }
 }

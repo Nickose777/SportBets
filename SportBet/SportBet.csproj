@@ -163,6 +163,9 @@
     <Compile Include="CommonControls\Footer.xaml.cs">
       <DependentUpon>Footer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Header.xaml.cs">
+      <DependentUpon>Header.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CommonControls\Participants\UserControls\ParticipantCreateControl.xaml.cs">
       <DependentUpon>ParticipantCreateControl.xaml</DependentUpon>
     </Compile>
@@ -446,6 +449,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CommonControls\Footer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Header.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

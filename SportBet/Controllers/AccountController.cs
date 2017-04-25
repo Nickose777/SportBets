@@ -7,6 +7,7 @@ using SportBet.Services.DTOModels;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
 using SportBet.Contracts.Controllers;
+using System.Windows.Controls;
 
 namespace SportBet.Controllers
 {
@@ -22,8 +23,15 @@ namespace SportBet.Controllers
 
         public void ChangePassword()
         {
-            ChangePasswordControl control = new ChangePasswordControl(login);
+            UserControl control = GetPasswordControl();
             Window window = WindowFactory.CreateByContentsSize(control);
+
+            window.ShowDialog();
+        }
+
+        public UserControl GetPasswordControl()
+        {
+            ChangePasswordControl control = new ChangePasswordControl(login);
 
             control.PasswordChanged += (s, e) =>
             {
@@ -55,7 +63,7 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.ShowDialog();
+            return control;
         }
     }
 }

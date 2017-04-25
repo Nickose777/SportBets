@@ -12,6 +12,7 @@ using SportBet.Models.Edit;
 using SportBet.Services.DTOModels.Edit;
 using AutoMapper;
 using SportBet.Contracts.Controllers;
+using System.Windows.Controls;
 
 namespace SportBet.Controllers
 {
@@ -52,13 +53,20 @@ namespace SportBet.Controllers
 
         public void Display()
         {
+            UserControl control = GetDisplayControl();
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            window.Show();
+        }
+
+        public UserControl GetDisplayControl()
+        {
             CountryListViewModel viewModel = new CountryListViewModel(this, facade);
             CountryListControl control = new CountryListControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.CountrySelected += (s, e) => EditCountry(e.CountryName);
 
-            window.Show();
+            return control;
         }
 
         private void EditCountry(string countryName)
