@@ -20,28 +20,17 @@
         </Ellipse>
 
         <TextBox
-            FontSize="14"
-            Foreground="White"
-            TextAlignment="Center"
-            BorderThickness="0,0,0,1" 
-            BorderBrush="#ABABAB"
-            Background="#555150" 
             Grid.Row="1"
-            Margin="20,0,20,0"
+            Margin="20,0"
             Name="loginTxt" />
         <PasswordBox
-            Foreground="White"
-            HorizontalContentAlignment="Center"
-            BorderThickness="0,0,0,1"
-            BorderBrush="#ABABAB" 
-            Background="#555150" 
             Grid.Row="3"
             Margin="20,0" 
             Name="passwordTxt" />
 
         <Button
             Grid.Row="5"
-            FontSize="19"
+            FontSize="18"
             Margin="20,30,20,10"
             Height="35"
             IsDefault="True"

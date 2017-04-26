@@ -6,78 +6,70 @@
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance ViewModel:ClientInfoDTViewModel}"
-             Background="Orange" MinHeight="235.609" MinWidth="314.346">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="30" />
-        </Grid.RowDefinitions>
+             Background="{StaticResource DefaultBackgroundColor}" 
+             MinHeight="235.609" MinWidth="314.346">
+    <GroupBox Header="Client info">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
 
-        <GroupBox Header="Client data">
-            <Grid>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock
-                    Grid.Row="1"
-                    Text="Last name:" />
-                <TextBox 
+                <TextBlock Grid.Row="0" Text="Last name:" />
+                <TextBlock Grid.Row="1" Text="First name:" />
+                <TextBlock Grid.Row="2" Text="Phone Number:" />
+                <TextBlock Grid.Row="3" Text="Date of Birth:" />
+
+                <TextBox Grid.Column="1" Grid.Row="0"
                     Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
-                    IsEnabled="{Binding IsEditMode}" 
-                    Grid.Row="2" />
-                <TextBlock
-                    Grid.Row="3"
-                    Text="First name:" />
-                <TextBox 
+                    IsEnabled="{Binding IsEditMode}" />
+                <TextBox Grid.Column="1" Grid.Row="1"
                     Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" 
-                    IsEnabled="{Binding IsEditMode}" 
-                    Grid.Row="4" />
-                <TextBlock
-                    Grid.Row="5"
-                    Text="Phone Number:" />
-                <TextBox 
+                    IsEnabled="{Binding IsEditMode}" />
+                <TextBox Grid.Column="1" Grid.Row="2"
                     Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
-                    IsEnabled="{Binding IsEditMode}" 
-                    Grid.Row="6" />
-                <TextBlock
-                    Grid.Row="7"
-                    Text="Date of Birth:" />
-                <DatePicker 
+                    IsEnabled="{Binding IsEditMode}" />
+                <DatePicker Grid.Column="1" Grid.Row="3"
                     SelectedDateFormat="Short" 
                     SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" 
-                    IsEnabled="{Binding IsEditMode}" 
-                    Grid.Row="8" />
+                    IsEnabled="{Binding IsEditMode}" />
             </Grid>
-        </GroupBox>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <Button
-                Grid.Column="0"
-                Content="Save"
-                Command="{Binding SaveClientCommand}" />
-            <Button
-                Grid.Column="1"
-                Content="Edit"
-                Command="{Binding StartEditClientCommand}" />
-            <Button
-                Grid.Column="2"
-                Content="Cancel"
-                Command="{Binding CancelEditClientCommand}" />
+                <Button
+                    Grid.Column="0"
+                    Content="Save"
+                    Margin="5,0"
+                    Command="{Binding SaveClientCommand}" />
+                <Button
+                    Grid.Column="1"
+                    Content="Edit"
+                    Margin="5,0"
+                    Command="{Binding StartEditClientCommand}" />
+                <Button
+                    Grid.Column="2"
+                    Content="Cancel"
+                    Margin="5,0"
+                    Command="{Binding CancelEditClientCommand}" />
+            </Grid>
         </Grid>
-    </Grid>
+    </GroupBox>
 </UserControl>

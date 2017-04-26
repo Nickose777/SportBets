@@ -7,32 +7,37 @@
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance ViewModel:CountryListDTViewModel}"
-             Background="Orange">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+             Background="{StaticResource DefaultBackgroundColor}">
+    <GroupBox Header="Countries">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.ColumnSpan="2" Header="Countries">
             <ListBox
+                Grid.ColumnSpan="2"
                 ItemsSource="{Binding Countries}"
                 SelectedItem="{Binding SelectedCountry}" />
-        </GroupBox>
-
-        <Button
-            Grid.Column="0"
-            Grid.Row="1"
-            Content="Edit"
-            Command="{Binding EditCountryCommand}"/>
-        <Button
-            Grid.Column="1"
-            Grid.Row="1"
-            Content="Delete" 
-            Command="{Binding DeleteCountryCommand}"/>
-    </Grid>
+            
+            <Button
+                Grid.Column="0"
+                Grid.Row="1"
+                Height="30"
+                Margin="5,10"
+                Content="Edit"
+                Command="{Binding EditCountryCommand}"/>
+            <Button
+                Grid.Column="1"
+                Grid.Row="1"
+                Height="30"
+                Margin="5,10"
+                Content="Delete" 
+                Command="{Binding DeleteCountryCommand}"/>
+        </Grid>
+    </GroupBox>
 </UserControl>
