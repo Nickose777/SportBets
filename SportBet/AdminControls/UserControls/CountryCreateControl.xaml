@@ -7,24 +7,6 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance ViewModel:CountryCreateViewModel}"
              MinHeight="150" MinWidth="330.452" Background="#555150">
-    <UserControl.Resources>
-        <Style x:Key="RoundButtonTemplate" TargetType="Button">
-            <Setter Property="Background" Value="#23C08B"/>
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="15" Background="{TemplateBinding Background}"
-                                BorderThickness="0">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
-
-                            </ContentPresenter>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
     <GroupBox Foreground="White" Header="Create country" Margin="10" Padding="10">
         <Grid>
             <Grid.RowDefinitions>
@@ -46,11 +28,8 @@
                 Grid.Column="1"
                 Width="80"
                 FontSize="16"
-                FontWeight="Bold"
                 HorizontalAlignment="Right"
-                Padding="20,3"
                 IsDefault="True"
-                Style="{StaticResource RoundButtonTemplate}"
                 Command="{Binding CreateCountryCommand}" />
         </Grid>
     </GroupBox>

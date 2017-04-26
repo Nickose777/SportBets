@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBet.Services", "SportB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBet.Services.Tests", "SportBet.Services.Tests\SportBet.Services.Tests.csproj", "{1B7FA735-B3D7-46B8-AF1D-9A3C3FBD3EB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportBet.Themes", "SportBet.Themes\SportBet.Themes.csproj", "{D8A4998C-D596-4178-97D2-7FD9451FA9EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{1B7FA735-B3D7-46B8-AF1D-9A3C3FBD3EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B7FA735-B3D7-46B8-AF1D-9A3C3FBD3EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B7FA735-B3D7-46B8-AF1D-9A3C3FBD3EB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8A4998C-D596-4178-97D2-7FD9451FA9EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8A4998C-D596-4178-97D2-7FD9451FA9EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8A4998C-D596-4178-97D2-7FD9451FA9EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8A4998C-D596-4178-97D2-7FD9451FA9EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

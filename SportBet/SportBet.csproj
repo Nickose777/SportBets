@@ -557,6 +557,10 @@
       <Project>{198e2555-6495-4acf-a03d-59cd11f811c7}</Project>
       <Name>SportBet.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SportBet.Themes\SportBet.Themes.csproj">
+      <Project>{d8a4998c-d596-4178-97d2-7fd9451fa9ec}</Project>
+      <Name>SportBet.Themes</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BookmakerControls\UserControls\" />
