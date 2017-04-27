@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              mc:Ignorable="d" 
+             xmlns:Converters="clr-namespace:SportBet.ValueConverters"
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance ViewModel:CoefficientInfoDTViewModel}"
              Background="{StaticResource DefaultBackgroundColor}">
+    <UserControl.Resources>
+        <Converters:DecimalToPersistantStringConverter x:Key="decimalToPersistantStringConverter" />
+    </UserControl.Resources>
     <GroupBox Header="Edit coefficient">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -51,7 +55,7 @@
             <TextBlock Grid.Row="3" Text="Description:" />
             <TextBlock Grid.Row="4" Text="Win:" />
 
-            <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding CoefficientValue, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding CoefficientValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource decimalToPersistantStringConverter}}" />
             <TextBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
             <CheckBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Win}" IsThreeState="True" />
 
