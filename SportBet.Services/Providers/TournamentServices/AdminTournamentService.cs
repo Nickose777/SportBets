@@ -94,12 +94,21 @@ namespace SportBet.Services.Providers.TournamentServices
                     TournamentEntity tournamentEntity = unitOfWork.Tournaments.Get(oldName, sportName, oldDateOfStart);
                     if (tournamentEntity != null)
                     {
-                        tournamentEntity.Name = newName;
-                        tournamentEntity.DateOfStart = newDateOfStart;
+                        bool anyDateEarlier = tournamentEntity.Events.Any(_event => _event.DateOfEvent < tournamentEntity.DateOfStart);
+                        if (!anyDateEarlier)
+                        {
+                            tournamentEntity.Name = newName;
+                            tournamentEntity.DateOfStart = newDateOfStart;
 
-                        unitOfWork.Commit();
+                            unitOfWork.Commit();
 
-                        message = "Edited tournament";
+                            message = "Edited tournament";
+                        }
+                        else
+                        {
+                            message = "Tournament cannot start later then event";
+                            success = false;
+                        }
                     }
                     else
                     {
