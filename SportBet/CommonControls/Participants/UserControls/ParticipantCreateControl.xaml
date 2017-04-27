@@ -6,36 +6,40 @@
              mc:Ignorable="d" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              d:DataContext="{d:DesignInstance ViewModel:ParticipantCreateDTViewModel}"
-             MinHeight="157.895" MinWidth="228.948">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="30" />
-        </Grid.RowDefinitions>
+             Background="{StaticResource DefaultBackgroundColor}"
+             MinHeight="200" MinWidth="300">
+    <GroupBox Header="Create participant">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Country:" />
-        <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Sport:" />
-        <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Name:" />
+            <TextBlock Grid.Row="0" Text="Country:" />
+            <TextBlock Grid.Row="1" Text="Sport:" />
+            <TextBlock Grid.Row="2" Text="Name:" />
 
-        <ComboBox Grid.Row="0" Grid.Column="1" Margin="10,0" VerticalAlignment="Center" ItemsSource="{Binding Countries}" SelectedItem="{Binding CountryName}" />
-        <ComboBox Grid.Row="1" Grid.Column="1" Margin="10,0" VerticalAlignment="Center" ItemsSource="{Binding Sports}" SelectedItem="{Binding SportName}" />
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="10,0" VerticalAlignment="Center" Text="{Binding ParticipantName, UpdateSourceTrigger=PropertyChanged}" />
-        
-        <Button
-            Grid.Row="4"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Content="Create"
-            Padding="30,3"
-            IsDefault="True"
-            Command="{Binding CreateParticipantCommand}" />
-    </Grid>
+            <ComboBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Countries}" SelectedItem="{Binding CountryName}" />
+            <ComboBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Sports}" SelectedItem="{Binding SportName}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ParticipantName, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Button
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Content="Create"
+                Height="30"
+                Width="70"
+                IsDefault="True"
+                Command="{Binding CreateParticipantCommand}" />
+        </Grid>
+    </GroupBox>
 </UserControl>

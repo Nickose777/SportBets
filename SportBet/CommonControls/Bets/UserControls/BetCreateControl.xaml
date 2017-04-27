@@ -6,29 +6,36 @@
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             MinWidth="500" MinHeight="350"
-             d:DataContext="{d:DesignInstance ViewModel:BetCreateDTViewModel}">
-    <GroupBox Header="Create bet" Padding="10">
+             MinWidth="600" MinHeight="400"
+             d:DataContext="{d:DesignInstance ViewModel:BetCreateDTViewModel}"
+             Background="{StaticResource DefaultBackgroundColor}">
+    <GroupBox Header="Create bet">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             
-            <GroupBox Grid.Column="0" Header="Bet selection" Padding="10">
+            <GroupBox Grid.Column="0" Header="Bet selection">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
                         <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     
-                    <ComboBox Grid.Row="0" VerticalAlignment="Center" ItemsSource="{Binding Sports}" SelectedItem="{Binding SelectedSport}" />
-                    <ComboBox Grid.Row="1" VerticalAlignment="Center" ItemsSource="{Binding SortedTournaments}" SelectedItem="{Binding SelectedTournament}">
+                    <TextBlock Grid.Row="5" Text="Sum:" />
+                    
+                    <ComboBox Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" ItemsSource="{Binding Sports}" SelectedItem="{Binding SelectedSport}" />
+                    <ComboBox Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" ItemsSource="{Binding SortedTournaments}" SelectedItem="{Binding SelectedTournament}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock>
@@ -42,7 +49,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox Grid.Row="2" VerticalAlignment="Center" ItemsSource="{Binding SortedEvents}" SelectedItem="{Binding SelectedEvent}">
+                    <ComboBox Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" ItemsSource="{Binding SortedEvents}" SelectedItem="{Binding SelectedEvent}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -70,7 +77,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox Grid.Row="3" VerticalAlignment="Center" ItemsSource="{Binding SortedCoefficients}" SelectedItem="{Binding SelectedCoefficient}">
+                    <ComboBox Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center" ItemsSource="{Binding SortedCoefficients}" SelectedItem="{Binding SelectedCoefficient}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock>
@@ -84,7 +91,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <ComboBox Grid.Row="4" VerticalAlignment="Center" ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}">
+                    <ComboBox Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock>
@@ -99,12 +106,10 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    
-                    <TextBlock Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Text="Sum" />
-                    <TextBox Grid.Row="6" VerticalAlignment="Center" Text="{Binding Sum, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Sum, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
             </GroupBox>
-            <GroupBox Grid.Column="1" Header="Bet info" Padding="10">
+            <GroupBox Grid.Column="1" Header="Bet info">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -119,6 +124,7 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Margin="10,0" VerticalAlignment="Center" HorizontalAlignment="Right" Text="Sport:"/>
@@ -165,7 +171,7 @@
                     <TextBlock Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Sum}"/>
                     <TextBlock Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding BookmakerPhoneNumber}"/>
                     
-                    <Button Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="20,3" Content="Create" Command="{Binding CreateBetCommand}" />
+                    <Button Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="30" Width="70" VerticalAlignment="Bottom" Content="Create" Command="{Binding CreateBetCommand}" />
                 </Grid>
             </GroupBox>
         </Grid>

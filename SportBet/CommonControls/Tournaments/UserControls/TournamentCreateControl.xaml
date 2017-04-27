@@ -6,34 +6,38 @@
              mc:Ignorable="d" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              d:DataContext="{d:DesignInstance ViewModel:TournamentCreateDTViewModel}"
-             Background="Orange" Height="139.85" Width="298.873">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="30" />
-        </Grid.RowDefinitions>
+             Background="{StaticResource DefaultBackgroundColor}">
+    <GroupBox Header="Create tournament">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Name:" />
-        <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Date of start:" />
-        <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Sport:" />
+            <TextBlock Grid.Row="0" Text="Name:" />
+            <TextBlock Grid.Row="1" Text="Date of start:" />
+            <TextBlock Grid.Row="2" Text="Sport:" />
 
-        <TextBox Grid.Row="0" Grid.Column="1" Margin="10,0" VerticalAlignment="Center" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-        <DatePicker Grid.Row="1" Grid.Column="1" Margin="10,0" VerticalAlignment="Center" SelectedDate="{Binding DateOfStart}" />
-        <ComboBox Grid.Row="2" Grid.Column="1" Margin="10,0" VerticalAlignment="Center" ItemsSource="{Binding Sports}" SelectedItem="{Binding SportName}" />
+            <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" SelectedDate="{Binding DateOfStart}" />
+            <ComboBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Sports}" SelectedItem="{Binding SportName}" />
 
-        <Button
-            Grid.Row="4"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Center"
-            Content="Create"
-            Padding="30,0"
-            Command="{Binding CreateTournamentCommand}" />
-    </Grid>
+            <Button
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                Content="Create"
+                Height="30"
+                Width="70"
+                Margin="0,10"
+                Command="{Binding CreateTournamentCommand}" />
+        </Grid>
+    </GroupBox>
 </UserControl>

@@ -8,5 +8,6 @@
         <ResourceDictionary Source="DefaultTextBlock.xaml" />
         <ResourceDictionary Source="DefaultGroupBox.xaml" />
         <ResourceDictionary Source="DefaultListBox.xaml" />
+        <ResourceDictionary Source="DefaultDatePicker.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

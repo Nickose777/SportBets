@@ -10,7 +10,7 @@
     <GroupBox Foreground="White" Header="Create country" Margin="10" Padding="10">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20" />
+                <RowDefinition Height="30" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>

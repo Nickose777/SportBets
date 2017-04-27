@@ -5,15 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
-             d:DataContext="{d:DesignInstance ViewModel:CoefficientCreateDTViewModel}" MinHeight="300" MinWidth="300">
-    <GroupBox Header="Create coefficient" Padding="10">
+             d:DataContext="{d:DesignInstance ViewModel:CoefficientCreateDTViewModel}" MinHeight="300" MinWidth="300"
+             Background="{StaticResource DefaultBackgroundColor}">
+    <GroupBox Header="Create coefficient">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="30" />
+                <RowDefinition Height="AUto" />
             </Grid.RowDefinitions>
 
             <ComboBox Grid.Row="0" VerticalAlignment="Center" ItemsSource="{Binding Sports}" SelectedItem="{Binding SelectedSport}">
@@ -70,7 +71,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <GroupBox Grid.Row="3" Header="CoefficientInfo" Padding="10">
+            <GroupBox Grid.Row="3" Header="Coefficient info" Padding="10">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -91,8 +92,8 @@
             <Button
                 Grid.Row="4"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Padding="20,3"
+                Height="30"
+                Width="70"
                 Content="Create"
                 Command="{Binding CreateCoefficientCommand}" />
         </Grid>

@@ -5,91 +5,58 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              xmlns:ViewModels="clr-namespace:SportBet.DesignTimeViewModels"
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="380" d:DesignWidth="400"
              d:DataContext="{d:DesignInstance ViewModels:ClientRegisterDTViewModel}"
              Background="{StaticResource DefaultBackgroundColor}">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="30" />
-        </Grid.RowDefinitions>
+    <GroupBox Header="Client info" Grid.Row="0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <GroupBox Header="Register data">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock
-                    Grid.Row="1"
-                    Text="Login:" />
-                <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" />
+                <TextBlock Grid.Row="0" Text="Last name:" />
+                <TextBlock Grid.Row="1" Text="First name:" />
+                <TextBlock Grid.Row="2" Text="Phone Number:" />
+                <TextBlock Grid.Row="3" Text="Date of Birth:" />
 
-                <TextBlock
-                    Grid.Row="3"
-                    Text="Password:" />
-                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" />
+                <TextBlock Grid.Row="4" Text="Login:" />
+                <TextBlock Grid.Row="5" Text="Password:" />
+                <TextBlock Grid.Row="6" Text="Confirm:" />
 
-                <TextBlock
-                    Grid.Row="5"
-                    Text="Confirm password:" />
-                <TextBox Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" />
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+                <DatePicker Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" SelectedDateFormat="Short" SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
-        </GroupBox>
-        <GroupBox
-            Grid.Column="1"
-            Header="Client data">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <TextBlock
-                    Grid.Row="1"
-                    Text="Last name:" />
-                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" />
-                <TextBlock
-                    Grid.Row="3"
-                    Text="First name:" />
-                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" />
-                <TextBlock
-                    Grid.Row="5"
-                    Text="Phone Number:" />
-                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" />
-                <TextBlock
-                    Grid.Row="7"
-                    Text="Date of Birth:" />
-                <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" Grid.Row="8" />
-            </Grid>
-        </GroupBox>
-
-        <Button
-            Grid.Column="0"
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Center"
-            Padding="20,0"
-            Content="Register"
-            Command="{Binding CreateClientCommand}" />
-    </Grid>
+            <Button
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                Height="40"
+                Width="100"
+                Margin="0,10"
+                Content="Register"
+                Command="{Binding CreateClientCommand}" />
+        </Grid>
+    </GroupBox>
 </UserControl>

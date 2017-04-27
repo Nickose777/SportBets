@@ -6,9 +6,9 @@
              mc:Ignorable="d" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              d:DataContext="{d:DesignInstance ViewModel:TournamentManageDTViewModel}"
-             Background="Orange" MinHeight="249.895" MinWidth="399.948">
+             Background="{StaticResource DefaultBackgroundColor}" MinHeight="300" MinWidth="500">
 
-    <TabControl Background="Orange">
+    <TabControl Background="{Binding}">
         <TabItem Header="Info" DataContext="{Binding InfoViewModel}">
             <GroupBox Header="Tournament info" Padding="5">
                 <Grid>
@@ -20,38 +20,40 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Name:" />
-                    <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Date of start:" />
+                    <TextBlock Grid.Row="0" Text="Name:" />
+                    <TextBlock Grid.Row="1" Text="Date of start:" />
 
-                    <TextBox Grid.Row="0" Grid.Column="1" Margin="10,0" VerticalAlignment="Center" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                    <DatePicker Grid.Row="1" Grid.Column="1" Margin="10,0" VerticalAlignment="Center" SelectedDate="{Binding DateOfStart}" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                    <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" SelectedDate="{Binding DateOfStart}" />
 
                     <Button
                         Grid.Row="4"
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Left"
-                        Content="Save"
-                        Padding="30,0"
-                        Command="{Binding SaveTournamentCommand}" />
+                        Content="Undo"
+                        Height="30"
+                        Width="70"
+                        Command="{Binding UndoCommand}" />
                     <Button
                         Grid.Row="4"
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Right"
-                        Content="Undo"
-                        Padding="30,0"
-                        Command="{Binding UndoCommand}" />
+                        Content="Save"
+                        Height="30"
+                        Width="70"
+                        Command="{Binding SaveTournamentCommand}" />
                 </Grid>
             </GroupBox>
         </TabItem>
         <TabItem Header="Participants" DataContext="{Binding ParticipantViewModel}">
-            <GroupBox Header="Participants info" Padding="10">
+            <GroupBox Header="Participants info">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="35" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
@@ -101,17 +103,18 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
 
-                        <Button Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="6,0,6,60" Content=">" Command="{Binding MoveToTournamentCommand}" />
-                        <Button Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="6,0,6,0" Content=">>" Command="{Binding MoveAllToTournamentCommand}" />
-                        <Button Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="6,60,6,0" Content="&lt;" Command="{Binding MoveFromTournamentCommand}" />
+                        <Button Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="6,0,6,30" Content=">" Command="{Binding MoveToTournamentCommand}" />
+                        <!--<Button Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="6,0,6,0" Content=">>" Command="{Binding MoveAllToTournamentCommand}" />-->
+                        <Button Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="6,30,6,0" Content="&lt;" Command="{Binding MoveFromTournamentCommand}" />
                     </Grid>
 
                     <Button
                         Grid.Row="1"
                         Content="Save"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
-                        Padding="30,2"
+                        Margin="0,10,0,0"
+                        Height="30"
+                        Width="70"
                         Command="{Binding SaveCommand}" />
                 </Grid>
             </GroupBox>

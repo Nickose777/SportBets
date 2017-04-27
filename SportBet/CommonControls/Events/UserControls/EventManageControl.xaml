@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
-             d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance ViewModel:EventManageDTViewModel}">
-    <TabControl>
+             d:DesignHeight="250" d:DesignWidth="400"
+             d:DataContext="{d:DesignInstance ViewModel:EventManageDTViewModel}"
+             Background="{StaticResource DefaultBackgroundColor}">
+    
+    <TabControl Background="{Binding}">
         <TabItem Header="Event info">
             <Grid DataContext="{Binding InfoViewModel}">
                 <Grid.ColumnDefinitions>
@@ -20,19 +22,24 @@
                     <RowDefinition Height="30" />
                     <RowDefinition Height="30" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="40" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Text="Sport:" />
-                <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Text="Tournament:" />
-                <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Text="Tournament's date:" />
-                <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Text="Event's date:" />
-                <TextBlock Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,0" Text="Notes:" />
+                <TextBlock Grid.Row="0" Text="Sport:" />
+                <TextBlock Grid.Row="1" Text="Tournament:" />
+                <TextBlock Grid.Row="2" Text="Event's date:" />
+                <TextBlock Grid.Row="3" Text="Notes:" />
 
-                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding SportName}" />
-                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding TournamentName}" />
-                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding TournamentDateOfStart, StringFormat='{}{0:dd.MM.yyyy}'}" />
-                <DatePicker Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" SelectedDate="{Binding DateOfEvent, UpdateSourceTrigger=PropertyChanged}">
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding SportName}" />
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} ({1:dd.MM.yyyy})">
+                            <Binding Path="TournamentName" />
+                            <Binding Path="TournamentDateOfStart" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <DatePicker Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" SelectedDate="{Binding DateOfEvent, UpdateSourceTrigger=PropertyChanged}">
                     <DatePicker.Resources>
                         <Style TargetType="DatePickerTextBox">
                             <Setter Property="Control.Template">
@@ -47,14 +54,15 @@
                         </Style>
                     </DatePicker.Resources>
                 </DatePicker>
-                <TextBox Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" />
                 
                 <Button
                     Grid.Row="5"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"
-                    Padding="30,3"
+                    Height="30"
+                    Width="70"
+                    Margin="0,0,0,10"
                     Content="Save"
                     Command="{Binding SaveChangesCommand}" />
             </Grid>
@@ -68,7 +76,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <ListBox
@@ -106,11 +114,11 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-                <Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10,3" Margin="0,0,0,60" Content=">" Command="{Binding MoveToEventCommand}" />
-                <Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6,3" Margin="0,0,0,0" Content=">>" Command="{Binding MoveAllToEventCommand}" />
-                <Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10,3" Margin="0,60,0,0" Content="&lt;" Command="{Binding MoveFromEventCommand}" />
+                <Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Margin="0,0,0,30" Content=">" Command="{Binding MoveToEventCommand}" />
+                <!--<Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6,3" Margin="0,0,0,0" Content=">>" Command="{Binding MoveAllToEventCommand}" />-->
+                <Button Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Margin="0,30,0,0" Content="&lt;" Command="{Binding MoveFromEventCommand}" />
                 
-                <Button Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="30,5" Content="Save" Command="{Binding SaveChangesCommand}" />
+                <Button Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="30" Width="70" Margin="0,10" Content="Save" Command="{Binding SaveChangesCommand}" />
             </Grid>
         </TabItem>
     </TabControl>

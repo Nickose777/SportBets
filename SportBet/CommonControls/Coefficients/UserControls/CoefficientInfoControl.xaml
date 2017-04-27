@@ -6,27 +6,24 @@
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance ViewModel:CoefficientInfoDTViewModel}">
-    <GroupBox Header="Edit coefficient" Padding="10">
+             d:DataContext="{d:DesignInstance ViewModel:CoefficientInfoDTViewModel}"
+             Background="{StaticResource DefaultBackgroundColor}">
+    <GroupBox Header="Edit coefficient">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="25" />
+                <RowDefinition Height="30" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="30" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-
-            <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Value:" />
-            <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Description:" />
-            <TextBlock Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Win:" />
-
+            
             <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="{}{0}, {1}, {2:dd.MM.yyyy}">
@@ -50,11 +47,16 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" Text="{Binding CoefficientValue, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
-            <CheckBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" IsChecked="{Binding Win}" IsThreeState="True" />
-            <Button Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="20,3" Content="Undo" Command="{Binding UndoCommand}"/>
-            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="20,3" Content="Save" Command="{Binding SaveChangesCommand}"/>
+            <TextBlock Grid.Row="2" Text="Value:" />
+            <TextBlock Grid.Row="3" Text="Description:" />
+            <TextBlock Grid.Row="4" Text="Win:" />
+
+            <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding CoefficientValue, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
+            <CheckBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Win}" IsThreeState="True" />
+
+            <Button Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" Height="30" Width="70" Content="Save" Command="{Binding SaveChangesCommand}"/>
+            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" Height="30" Width="70" Content="Undo" Command="{Binding UndoCommand}"/>
         </Grid>
     </GroupBox>
 </UserControl>

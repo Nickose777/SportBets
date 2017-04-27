@@ -42,7 +42,7 @@
                     <Button Style="{StaticResource MenuButton}" Content="Countries" Click="ManageCountries_Click"/>
                     <Button Style="{StaticResource MenuButton}" Content="Sports" Click="ManageSports_Click" />
                     <Button Style="{StaticResource MenuButton}" Content="Participants" Click="ManageParticipants_Click" />
-                    <Button Style="{StaticResource MenuButton}" Content="Tournaments" Click="CreateTournament_Click" />
+                    <Button Style="{StaticResource MenuButton}" Content="Tournaments" Click="ManageTournaments_Click" />
                     <Button Style="{StaticResource MenuButton}" Content="Events" Click="ManageEvents_Click" />
                     <Button Style="{StaticResource MenuButton}" Content="Coefficients" Click="ManageCoefficients_Click" />
                 </StackPanel>
