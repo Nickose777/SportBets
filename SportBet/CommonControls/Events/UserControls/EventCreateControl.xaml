@@ -113,7 +113,7 @@
                 <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedSport}" />
                 <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTournament.Name}" />
                 <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTournament.DateOfStart, StringFormat='{}{0:dd.MM.yyyy}'}" />
-                <DatePicker Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectedDate="{Binding DateOfEvent}" />
+                <DatePicker Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" SelectedDate="{Binding DateOfEvent}" CalendarStyle="{StaticResource CalendarStyle}" />
                 <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
 

@@ -43,7 +43,7 @@ namespace SportBet.AdminControls.ViewModels
         {
             return 
                 !String.IsNullOrEmpty(SportName) &&
-                3 < SportName.Length && SportName.Length <= 20;
+                SportName.Length <= 20;
         }
 
         private void RaiseSportCreatedEvent(SportCreateModel sport)

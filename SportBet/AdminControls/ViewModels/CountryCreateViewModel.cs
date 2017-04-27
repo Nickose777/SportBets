@@ -30,7 +30,7 @@ namespace SportBet.AdminControls.ViewModels
 
         private bool CanCreateCountry(object parameter)
         {
-            return CountryName.Length <= 20;
+            return !String.IsNullOrEmpty(CountryName) && CountryName.Length <= 20;
         }
         
         private void RaiseCountryCreatedEvent(string countryName)

@@ -27,7 +27,7 @@
                     <TextBlock Grid.Row="1" Text="Date of start:" />
 
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-                    <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" SelectedDate="{Binding DateOfStart}" />
+                    <DatePicker Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" SelectedDate="{Binding DateOfStart}" CalendarStyle="{StaticResource CalendarStyle}" />
 
                     <Button
                         Grid.Row="4"
