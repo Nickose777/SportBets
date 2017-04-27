@@ -11,19 +11,21 @@ using SportBet.Controllers;
 using SportBet.Facades;
 using SportBet.ControllerFactories;
 using SportBet.Contracts.Controllers;
+using SportBet.Contracts;
 
 namespace SportBet.BookmakerControls
 {
     /// <summary>
     /// Interaction logic for BookmakerMainWindow.xaml
     /// </summary>
-    public partial class BookmakerMainWindow : SignOutWindowBase
+    public partial class BookmakerMainWindow : LogWindowBase
     {
         private readonly IAccountController accountController;
         private readonly IClientController clientController;
         private readonly IBetController betController;
 
-        public BookmakerMainWindow(ControllerFactory controllerFactory)
+        public BookmakerMainWindow(ControllerFactory controllerFactory, ILogger logger)
+            : base(logger)
         {
             InitializeComponent();
 

@@ -12,17 +12,19 @@ using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 using SportBet.ControllerFactories;
 using SportBet.Contracts.Controllers;
+using SportBet.Contracts;
 
 namespace SportBet.ClientControls
 {
     /// <summary>
     /// Interaction logic for ClientMainWindow.xaml
     /// </summary>
-    public partial class ClientMainWindow : SignOutWindowBase
+    public partial class ClientMainWindow : LogWindowBase
     {
         private readonly IAccountController accountController;
 
-        public ClientMainWindow(ControllerFactory controllerFactory)
+        public ClientMainWindow(ControllerFactory controllerFactory, ILogger logger)
+            : base(logger)
         {
             InitializeComponent();
 

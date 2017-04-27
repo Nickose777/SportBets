@@ -1,17 +1,19 @@
 ﻿using System.Windows;
 using SportBet.Contracts.Controllers;
 using SportBet.ControllerFactories;
+using SportBet.Contracts;
 
 namespace SportBet.AnalyticControls
 {
     /// <summary>
     /// Interaction logic for AnalyticMainWindow.xaml
     /// </summary>
-    public partial class AnalyticMainWindow : SignOutWindowBase
+    public partial class AnalyticMainWindow : LogWindowBase
     {
         private readonly IAccountController accountController;
 
-        public AnalyticMainWindow(ControllerFactory controllerFactory)
+        public AnalyticMainWindow(ControllerFactory controllerFactory, ILogger logger)
+            : base(logger)
         {
             InitializeComponent();
 

@@ -5,13 +5,14 @@ using SportBet.Facades;
 using SportBet.Services.Contracts;
 using SportBet.ControllerFactories;
 using SportBet.Contracts.Controllers;
+using SportBet.Contracts;
 
 namespace SportBet.SuperuserControls
 {
     /// <summary>
     /// Interaction logic for SuperuserMainWindow.xaml
     /// </summary>
-    public partial class SuperuserMainWindow : SignOutWindowBase
+    public partial class SuperuserMainWindow : LogWindowBase
     {
         private readonly IAccountController accountController;
         private readonly IClientController clientController;
@@ -19,7 +20,8 @@ namespace SportBet.SuperuserControls
         private readonly IAdminController adminController;
         private readonly IAnalyticController analyticController;
 
-        public SuperuserMainWindow(ControllerFactory controllerFactory)
+        public SuperuserMainWindow(ControllerFactory controllerFactory, ILogger logger)
+            : base(logger)
         {
             InitializeComponent();
 

@@ -1,4 +1,4 @@
-﻿<base:SignOutWindowBase x:Class="SportBet.AdminControls.AdminMainWindow"
+﻿<base:LogWindowBase x:Class="SportBet.AdminControls.AdminMainWindow"
         xmlns:base="clr-namespace:SportBet"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -53,6 +53,7 @@
                 </Expander.Header>
                 <StackPanel>
                     <Button Style="{StaticResource MenuButton}" Content="Change Password" Click="ChangePassword_Click"/>
+                    <Button Style="{StaticResource MenuButton}" Content="Show logs" Click="ShowLogs_Click"/>
                 </StackPanel>
             </Expander>
 
@@ -64,4 +65,4 @@
                     Click="SignOut_Click"/>
         </Grid>
     </Grid>
-</base:SignOutWindowBase>
+</base:LogWindowBase>

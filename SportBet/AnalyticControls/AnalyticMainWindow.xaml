@@ -1,4 +1,4 @@
-﻿<base:SignOutWindowBase x:Class="SportBet.AnalyticControls.AnalyticMainWindow"
+﻿<base:LogWindowBase x:Class="SportBet.AnalyticControls.AnalyticMainWindow"
         xmlns:base="clr-namespace:SportBet"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -20,4 +20,4 @@
 
         <Footer:Footer Grid.Row="2" x:Name="footer" />
     </Grid>
-</base:SignOutWindowBase>
+</base:LogWindowBase>

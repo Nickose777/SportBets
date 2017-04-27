@@ -11,13 +11,15 @@ using SportBet.Facades;
 using SportBet.Contracts.Controllers;
 using SportBet.ControllerFactories;
 using System.Windows.Controls;
+using SportBet.Contracts;
+using SportBet.Logs;
 
 namespace SportBet.AdminControls
 {
     /// <summary>
     /// Interaction logic for AdminMainWindow.xaml
     /// </summary>
-    public partial class AdminMainWindow : SignOutWindowBase
+    public partial class AdminMainWindow : LogWindowBase
     {
         private readonly IAccountController accountController;
         private readonly ICountryController countryController;
@@ -29,7 +31,8 @@ namespace SportBet.AdminControls
 
         private UIElement lastElement;
 
-        public AdminMainWindow(ControllerFactory controllerFactory)
+        public AdminMainWindow(ControllerFactory controllerFactory, ILogger logger)
+            : base(logger)
         {
             InitializeComponent();
 
@@ -41,15 +44,15 @@ namespace SportBet.AdminControls
             eventController = controllerFactory.CreateEventController();
             coefficientController = controllerFactory.CreateCoefficientController();
 
-            accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            countryController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            sportController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            participantController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            tournamentController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            eventController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            coefficientController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
+            accountController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            countryController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            sportController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            participantController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            tournamentController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            eventController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            coefficientController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
 
-            SetFooterMessage(true, "Welcome, admin");
+            UpdateLogs(true, "Welcome, admin");
         }
 
         private void CreateCountry_Click(object sender, RoutedEventArgs e)
@@ -130,13 +133,33 @@ namespace SportBet.AdminControls
             DisplayElement(element);
         }
 
-        private void SetFooterMessage(bool success, string message)
+        private void UpdateLogs(bool success, string message)
         {
-            //TODO
-            //make LogWindow
-            string status = success ? "Success!" : "Fail or error!";
-            //footer.StatusText = status;
-            //footer.MessageText = message;
+            LogObject log = new LogObject(message, success);
+            logger.Log(log);
+        }
+
+        private void Expander_Expanded(object sender, RoutedEventArgs e)
+        {
+            Expander expander = sender as Expander;
+
+            if (expander != expander1)
+            {
+                expander1.IsExpanded = false;
+            }
+            if (expander != expander2)
+            {
+                expander2.IsExpanded = false;
+            }
+            if (expander != expander3)
+            {
+                expander3.IsExpanded = false;
+            }
+        }
+
+        private void ShowLogs_Click(object sender, RoutedEventArgs e)
+        {
+            ShowLogWindow();
         }
 
         private void SignOut_Click(object sender, RoutedEventArgs e)
@@ -158,24 +181,6 @@ namespace SportBet.AdminControls
 
             mainGrid.Children.Add(element);
             lastElement = element;
-        }
-
-        private void Expander_Expanded(object sender, RoutedEventArgs e)
-        {
-            Expander expander = sender as Expander;
-
-            if (expander != expander1)
-            {
-                expander1.IsExpanded = false;
-            }
-            if (expander != expander2)
-            {
-                expander2.IsExpanded = false;
-            }
-            if (expander != expander3)
-            {
-                expander3.IsExpanded = false;
-            }
         }
     }
 }

@@ -210,6 +210,7 @@
     <Compile Include="Contracts\Controllers\ISportController.cs" />
     <Compile Include="Contracts\Controllers\ITournamentController.cs" />
     <Compile Include="Contracts\FacadeBase.cs" />
+    <Compile Include="Contracts\ILogger.cs" />
     <Compile Include="Contracts\IObserver.cs" />
     <Compile Include="Contracts\ISubject.cs" />
     <Compile Include="ControllerFactories\ControllerFactory.cs" />
@@ -294,6 +295,12 @@
     <Compile Include="Facades\ParticipantFacade.cs" />
     <Compile Include="Facades\SportFacade.cs" />
     <Compile Include="Facades\TournamentFacade.cs" />
+    <Compile Include="Logs\LogControl.xaml.cs">
+      <DependentUpon>LogControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logs\Logger.cs" />
+    <Compile Include="Logs\LogObject.cs" />
+    <Compile Include="LogWindowBase.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\MappingProfile.cs" />
     <Compile Include="Models\Base\BetBaseModel.cs" />
@@ -501,6 +508,10 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Logs\LogControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SuperuserControls\SuperuserMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
