@@ -23,13 +23,13 @@ namespace SportBet.Controllers
 
         public void ChangePassword()
         {
-            UserControl control = GetPasswordControl();
-            Window window = WindowFactory.CreateByContentsSize(control);
+            UIElement element = GetPasswordElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
 
             window.ShowDialog();
         }
 
-        public UserControl GetPasswordControl()
+        public UIElement GetPasswordElement()
         {
             ChangePasswordControl control = new ChangePasswordControl(login);
 

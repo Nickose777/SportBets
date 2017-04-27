@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+
 namespace SportBet.Contracts.Controllers
 {
     public interface ICountryController : IReceiveMessage
@@ -7,6 +8,8 @@ namespace SportBet.Contracts.Controllers
 
         void Display();
 
-        UserControl GetDisplayControl();
+        UIElement GetAddElement();
+
+        UIElement GetDisplayElement();
     }
 }

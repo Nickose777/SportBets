@@ -22,6 +22,7 @@ using SportBet.Services.DTOModels.Extra;
 using SportBet.Models.Edit;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.DTOModels.Base;
+using SportBet.CommonControls.Errors;
 
 namespace SportBet.Controllers
 {
@@ -36,8 +37,26 @@ namespace SportBet.Controllers
             facade.ReceivedMessage += RaiseReceivedMessageEvent;
         }
 
-        public void Create()
+        public void Add()
         {
+            UIElement element = GetAddElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public void Display()
+        {
+            UIElement element = GetDisplayElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public UIElement GetAddElement()
+        {
+            UIElement element = null;
+
             DataServiceMessage<IEnumerable<string>> sportServiceMessage;
             DataServiceMessage<IEnumerable<TournamentDisplayDTO>> tournamentServiceMessage;
             DataServiceMessage<IEnumerable<ParticipantTournamentDTO>> participantServiceMessage;
@@ -71,15 +90,30 @@ namespace SportBet.Controllers
                     .Select(p => Mapper.Map<ParticipantTournamentDTO, ParticipantTournamentModel>(p))
                     .ToList();
 
-                Create(sports, tournamentBaseModels, participantTournamentModels);
+                element = Add(sports, tournamentBaseModels, participantTournamentModels);
             }
+            else
+            {
+                List<ServiceMessage> messages = new List<ServiceMessage>()
+                {
+                    sportServiceMessage,
+                    tournamentServiceMessage,
+                    participantServiceMessage
+                };
+
+                ErrorViewModel viewModel = new ErrorViewModel(messages);
+                ErrorControl control = new ErrorControl(viewModel);
+
+                element = control;
+            }
+
+            return element;
         }
 
-        public void Display()
+        public UIElement GetDisplayElement()
         {
             EventListViewModel viewModel = new EventListViewModel(this, facade);
             EventListControl control = new EventListControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.EventSelected += (s, e) =>
             {
@@ -103,20 +137,20 @@ namespace SportBet.Controllers
                             .Data
                             .Select(p => Mapper.Map<ParticipantBaseDTO, ParticipantBaseModel>(p))
                             .OrderBy(p => p.Name);
+
                         Edit(e.Event, allParticipants);
                     }
                 }
 
             };
 
-            window.Show();
+            return control;
         }
 
-        private void Create(IEnumerable<string> sports, IEnumerable<TournamentBaseModel> tournaments, IEnumerable<ParticipantTournamentModel> participants)
+        private UIElement Add(IEnumerable<string> sports, IEnumerable<TournamentBaseModel> tournaments, IEnumerable<ParticipantTournamentModel> participants)
         {
             EventCreateViewModel viewModel = new EventCreateViewModel(sports, tournaments, participants);
             EventCreateControl control = new EventCreateControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.EventCreated += (s, e) =>
             {
@@ -136,7 +170,7 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
         private void Edit(EventDisplayModel eventDisplayModel, IEnumerable<ParticipantBaseModel> allParticipants)

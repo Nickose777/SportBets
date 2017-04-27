@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              d:DataContext="{d:DesignInstance ViewModel:EventCreateDTViewModel}"
-             MinHeight="500" MinWidth="400"
+             d:DesignHeight="500" d:DesignWidth="400"
              Background="{StaticResource DefaultBackgroundColor}">
     <GroupBox Header="Create event">
         <Grid>
@@ -119,11 +119,12 @@
 
             <Button
                 Grid.Row="2"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Right"
                 Margin="0,10,0,0"
                 Height="30"
                 Width="70"
                 Content="Create"
+                IsDefault="True"
                 Command="{Binding CreateEventCommand}" />
         </Grid>
     </GroupBox>

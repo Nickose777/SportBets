@@ -146,6 +146,10 @@
     <Compile Include="CommonControls\Coefficients\ViewModels\CoefficientCreateViewModel.cs" />
     <Compile Include="CommonControls\Coefficients\ViewModels\CoefficientInfoViewModel.cs" />
     <Compile Include="CommonControls\Coefficients\ViewModels\CoefficientListViewModel.cs" />
+    <Compile Include="CommonControls\Errors\ErrorControl.xaml.cs">
+      <DependentUpon>ErrorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommonControls\Errors\ErrorViewModel.cs" />
     <Compile Include="CommonControls\Events\UserControls\EventCreateControl.xaml.cs">
       <DependentUpon>EventCreateControl.xaml</DependentUpon>
     </Compile>
@@ -233,6 +237,7 @@
     <Compile Include="DesignTimeViewModels\CoefficientListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\CountryEditDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\CountryListDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\ErrorDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\EventCreateDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\EventListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\EventManageDTViewModel.cs" />
@@ -433,6 +438,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CommonControls\Coefficients\UserControls\CoefficientListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Errors\ErrorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

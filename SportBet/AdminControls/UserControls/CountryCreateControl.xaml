@@ -26,8 +26,7 @@
                 Content="Create"
                 Grid.Row="2"
                 Grid.Column="1"
-                Width="80"
-                FontSize="16"
+                Width="70"
                 HorizontalAlignment="Right"
                 IsDefault="True"
                 Command="{Binding CreateCountryCommand}" />

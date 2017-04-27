@@ -20,8 +20,8 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <CommonControls:Header Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"></CommonControls:Header>
-            <Expander Grid.Row="1">
+            <CommonControls:Header />
+            <Expander Grid.Row="1" Name="expander1" Expanded="Expander_Expanded">
                 <Expander.Header>
                     <TextBlock Margin="10,0" Text="Create" FontSize="18" Foreground="White"/>
                 </Expander.Header>
@@ -34,7 +34,7 @@
                     <Button Style="{StaticResource MenuButton}" Content="Coefficient" Click="CreateCoefficient_Click"/>
                 </StackPanel>
             </Expander>
-            <Expander Grid.Row="2">
+            <Expander Grid.Row="2" Name="expander2" Expanded="Expander_Expanded">
                 <Expander.Header>
                     <TextBlock Margin="10,0" Text="Manage" FontSize="18" Foreground="White"/>
                 </Expander.Header>
@@ -47,7 +47,7 @@
                     <Button Style="{StaticResource MenuButton}" Content="Coefficients" Click="ManageCoefficients_Click" />
                 </StackPanel>
             </Expander>
-            <Expander Grid.Row="3">
+            <Expander Grid.Row="3" Name="expander3" Expanded="Expander_Expanded">
                 <Expander.Header>
                     <TextBlock Margin="10,0" Text="Settings" FontSize="18" Foreground="White"/>
                 </Expander.Header>
@@ -63,30 +63,5 @@
                     Content="Sign Out"
                     Click="SignOut_Click"/>
         </Grid>
-
-        <!--<Menu>
-            <MenuItem Header="Create...">
-                <MenuItem Header="Country" Click="CreateCountry_Click" />
-                <MenuItem Header="Sport" Click="CreateSport_Click" />
-                <MenuItem Header="Participant" Click="CreateParticipant_Click" />
-                <MenuItem Header="Tournament" Click="CreateTournament_Click" />
-                <MenuItem Header="Event" Click="CreateEvent_Click" />
-                <MenuItem Header="Coefficient" Click="CreateCoefficient_Click" />
-            </MenuItem>
-            <MenuItem Header="Manage...">
-                <MenuItem Header="Countries" Click="ManageCountries_Click" />
-                <MenuItem Header="Sports" Click="ManageSports_Click" />
-                <MenuItem Header="Participants" Click="ManageParticipants_Click" />
-                <MenuItem Header="Tournaments" Click="ManageTournaments_Click" />
-                <MenuItem Header="Events" Click="ManageEvents_Click" />
-                <MenuItem Header="Coefficients" Click="ManageCoefficients_Click" />
-            </MenuItem>
-            <MenuItem Header="Settings">
-                <MenuItem Header="Change password" Click="ChangePassword_Click" />
-            </MenuItem>
-            <MenuItem Header="Sign out" Click="SignOut_Click" />
-        </Menu>-->
-
-        <!--<Footer:Footer Grid.Row="2" x:Name="footer" />-->
     </Grid>
 </base:SignOutWindowBase>

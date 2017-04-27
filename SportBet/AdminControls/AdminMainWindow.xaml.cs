@@ -27,7 +27,7 @@ namespace SportBet.AdminControls
         private readonly IEventController eventController;
         private readonly ICoefficientController coefficientController;
 
-        private UserControl lastControl;
+        private UIElement lastElement;
 
         public AdminMainWindow(ControllerFactory controllerFactory)
         {
@@ -54,69 +54,80 @@ namespace SportBet.AdminControls
 
         private void CreateCountry_Click(object sender, RoutedEventArgs e)
         {
-            countryController.Add();
+            UIElement element = countryController.GetAddElement();
+            DisplayElement(element);
         }
 
         private void CreateSport_Click(object sender, RoutedEventArgs e)
         {
-            sportController.Add();
+            UIElement element = sportController.GetAddElement();
+            DisplayElement(element);
         }
 
         private void CreateParticipant_Click(object sender, RoutedEventArgs e)
         {
-            participantController.Create();
+            UIElement element = participantController.GetAddElement();
+            DisplayElement(element);
         }
 
         private void CreateTournament_Click(object sender, RoutedEventArgs e)
         {
-            tournamentController.Create();
+            UIElement element = tournamentController.GetAddElement();
+            DisplayElement(element);
         }
 
         private void CreateEvent_Click(object sender, RoutedEventArgs e)
         {
-            eventController.Create();
+            UIElement element = eventController.GetAddElement();
+            DisplayElement(element);
         }
 
         private void CreateCoefficient_Click(object sender, RoutedEventArgs e)
         {
-            coefficientController.Create();
+            UIElement element = coefficientController.GetAddElement();
+            DisplayElement(element);
         }
 
         private void ManageCountries_Click(object sender, RoutedEventArgs e)
         {
-            UserControl control = countryController.GetDisplayControl();
-            DisplayControl(control);
+            UIElement element = countryController.GetDisplayElement();
+            DisplayElement(element);
         }
 
         private void ManageSports_Click(object sender, RoutedEventArgs e)
         {
-            sportController.Display();
+            UIElement element = sportController.GetDisplayElement();
+            DisplayElement(element);
         }
 
         private void ManageParticipants_Click(object sender, RoutedEventArgs e)
         {
-            participantController.Display();
+            UIElement element = participantController.GetDisplayElement();
+            DisplayElement(element);
         }
 
         private void ManageTournaments_Click(object sender, RoutedEventArgs e)
         {
-            tournamentController.Display();
+            UIElement element = tournamentController.GetDisplayElement();
+            DisplayElement(element);
         }
 
         private void ManageEvents_Click(object sender, RoutedEventArgs e)
         {
-            eventController.Display();
+            UIElement element = eventController.GetDisplayElement();
+            DisplayElement(element);
         }
 
         private void ManageCoefficients_Click(object sender, RoutedEventArgs e)
         {
-            coefficientController.Display();
+            UIElement element = coefficientController.GetDisplayElement();
+            DisplayElement(element);
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            UserControl control = accountController.GetPasswordControl();
-            DisplayControl(control);
+            UIElement element = accountController.GetPasswordElement();
+            DisplayElement(element);
         }
 
         private void SetFooterMessage(bool success, string message)
@@ -135,18 +146,36 @@ namespace SportBet.AdminControls
             RaiseSignedOutEvent();
         }
 
-        private void DisplayControl(UserControl control)
+        private void DisplayElement(UIElement element)
         {
-            if (lastControl != null)
+            if (lastElement != null)
             {
-                mainGrid.Children.Remove(lastControl);
+                mainGrid.Children.Remove(lastElement);
             }
 
-            Grid.SetRow(control, 0);
-            Grid.SetColumn(control, 1);
+            Grid.SetRow(element, 0);
+            Grid.SetColumn(element, 1);
 
-            mainGrid.Children.Add(control);
-            lastControl = control;
+            mainGrid.Children.Add(element);
+            lastElement = element;
+        }
+
+        private void Expander_Expanded(object sender, RoutedEventArgs e)
+        {
+            Expander expander = sender as Expander;
+
+            if (expander != expander1)
+            {
+                expander1.IsExpanded = false;
+            }
+            if (expander != expander2)
+            {
+                expander2.IsExpanded = false;
+            }
+            if (expander != expander3)
+            {
+                expander3.IsExpanded = false;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SportBet.CommonControls.Errors;
 using SportBet.CommonControls.Participants.UserControls;
 using SportBet.CommonControls.Participants.ViewModels;
 using SportBet.Contracts;
@@ -32,8 +33,26 @@ namespace SportBet.Controllers
             facade.ReceivedMessage += RaiseReceivedMessageEvent;
         }
 
-        public void Create()
+        public void Add()
         {
+            UIElement element = GetAddElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public void Display()
+        {
+            UIElement element = GetDisplayElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public UIElement GetAddElement()
+        {
+            UIElement element = null;
+
             DataServiceMessage<IEnumerable<string>> countryServiceMessage;
             DataServiceMessage<IEnumerable<string>> sportServiceMessage;
 
@@ -50,18 +69,32 @@ namespace SportBet.Controllers
 
             if (countryServiceMessage.IsSuccessful && sportServiceMessage.IsSuccessful)
             {
-                var countries = countryServiceMessage.Data;
-                var sports = sportServiceMessage.Data;
+                IEnumerable<string> countries = countryServiceMessage.Data;
+                IEnumerable<string> sports = sportServiceMessage.Data;
 
-                Create(countries, sports);
+                element = Create(countries, sports);
             }
+            else
+            {
+                List<ServiceMessage> messages = new List<ServiceMessage>()
+                {
+                    countryServiceMessage,
+                    sportServiceMessage
+                };
+
+                ErrorViewModel viewModel = new ErrorViewModel(messages);
+                ErrorControl control = new ErrorControl(viewModel);
+
+                element = control;
+            }
+
+            return element;
         }
 
-        public void Display()
+        public UIElement GetDisplayElement()
         {
             ParticipantListViewModel viewModel = new ParticipantListViewModel(this, facade);
             ParticipantListControl control = new ParticipantListControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.ParticipantSelected += (s, e) =>
             {
@@ -88,14 +121,13 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
-        private void Create(IEnumerable<string> countries, IEnumerable<string> sports)
+        private UIElement Create(IEnumerable<string> countries, IEnumerable<string> sports)
         {
             ParticipantCreateViewModel viewModel = new ParticipantCreateViewModel(countries, sports);
             ParticipantCreateControl control = new ParticipantCreateControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.ParticipantCreated += (s, e) =>
             {
@@ -115,7 +147,7 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
         private void Edit(ParticipantDisplayModel participantDisplayModel, IEnumerable<string> countries, IEnumerable<string> sports)

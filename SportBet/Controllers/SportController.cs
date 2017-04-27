@@ -30,9 +30,24 @@ namespace SportBet.Controllers
 
         public void Add()
         {
+            UIElement element = GetAddElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public void Display()
+        {
+            UIElement element = GetDisplayElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public UIElement GetAddElement()
+        {
             SportCreateViewModel viewModel = new SportCreateViewModel();
             SportCreateControl control = new SportCreateControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.SportCreated += (s, e) =>
             {
@@ -52,18 +67,17 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
-        public void Display()
+        public UIElement GetDisplayElement()
         {
             SportListViewModel viewModel = new SportListViewModel(this, facade);
             SportListControl control = new SportListControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.SportSelected += (s, e) => EditSport(e.SportName);
 
-            window.Show();
+            return control;
         }
 
         private void EditSport(string sportName)

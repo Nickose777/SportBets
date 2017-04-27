@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance ViewModel:EventListDTViewModel}" MinHeight="400" MinWidth="500"
+             d:DataContext="{d:DesignInstance ViewModel:EventListDTViewModel}"
+             d:DesignHeight="400" d:DesignWidth="500"
              Background="{StaticResource DefaultBackgroundColor}">
     <GroupBox Header="Events">
         <Grid>
@@ -36,17 +37,15 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding SelectedEvent.Notes}" />
                     
                     <Separator Grid.Row="1"/>
                     
-                    <TextBlock Grid.Row="2" HorizontalAlignment="Left" Text="Participants:" />
                     <ItemsControl Grid.Row="3" ItemsSource="{Binding SelectedEvent.Participants}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Left" Text="{Binding Name, StringFormat='   - {0}'}" />
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding Name, StringFormat='- {0}'}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

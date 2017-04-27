@@ -28,6 +28,7 @@
                 Grid.Column="0"
                 Grid.Row="1"
                 Height="30"
+                Width="70"
                 Margin="5,10"
                 Content="Edit"
                 Command="{Binding EditCountryCommand}"/>
@@ -35,6 +36,7 @@
                 Grid.Column="1"
                 Grid.Row="1"
                 Height="30"
+                Width="70"
                 Margin="5,10"
                 Content="Delete" 
                 Command="{Binding DeleteCountryCommand}"/>

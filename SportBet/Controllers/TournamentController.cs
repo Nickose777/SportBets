@@ -1,26 +1,23 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using AutoMapper;
+using SportBet.CommonControls.Errors;
 using SportBet.CommonControls.Tournaments.UserControls;
 using SportBet.CommonControls.Tournaments.ViewModels;
 using SportBet.Contracts;
 using SportBet.Contracts.Controllers;
 using SportBet.Contracts.Subjects;
 using SportBet.Models.Base;
-using SportBet.Models.Create;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Base;
-using SportBet.Services.DTOModels.Create;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace SportBet.Controllers
 {
@@ -35,8 +32,26 @@ namespace SportBet.Controllers
             facade.ReceivedMessage += RaiseReceivedMessageEvent;
         }
 
-        public void Create()
+        public void Add()
         {
+            UIElement element = GetAddElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public void Display()
+        {
+            UIElement element = GetDisplayElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public UIElement GetAddElement()
+        {
+            UIElement element = null;
+
             using (ISportService service = factory.CreateSportService())
             {
                 DataServiceMessage<IEnumerable<string>> serviceMessage = service.GetAll();
@@ -44,17 +59,30 @@ namespace SportBet.Controllers
 
                 if (serviceMessage.IsSuccessful)
                 {
-                    var sports = serviceMessage.Data;
-                    Create(sports);
+                    IEnumerable<string> sports = serviceMessage.Data;
+                    element = Add(sports);
+                }
+                else
+                {
+                    List<ServiceMessage> messages = new List<ServiceMessage>()
+                    {
+                        serviceMessage
+                    };
+
+                    ErrorViewModel viewModel = new ErrorViewModel(messages);
+                    ErrorControl control = new ErrorControl(viewModel);
+
+                    element = control;
                 }
             }
+
+            return element;
         }
 
-        public void Display()
+        public UIElement GetDisplayElement()
         {
             TournamentListViewModel viewModel = new TournamentListViewModel(this, facade);
             TournamentListControl control = new TournamentListControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.TournamentSelected += (s, e) =>
             {
@@ -85,14 +113,13 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
-        private void Create(IEnumerable<string> sportNames)
+        private UIElement Add(IEnumerable<string> sportNames)
         {
             TournamentCreateViewModel viewModel = new TournamentCreateViewModel(sportNames);
             TournamentCreateControl control = new TournamentCreateControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.TournamentCreated += (s, e) =>
             {
@@ -112,7 +139,7 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
         private void Edit(TournamentBaseModel tournament, IEnumerable<ParticipantBaseModel> tournamentParticipants, IEnumerable<ParticipantBaseModel> sportParticipants)

@@ -29,9 +29,34 @@ namespace SportBet.Controllers
 
         public void Add()
         {
+            UIElement element = GetAddElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public void Display()
+        {
+            UIElement element = GetDisplayElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public UIElement GetDisplayElement()
+        {
+            CountryListViewModel viewModel = new CountryListViewModel(this, facade);
+            CountryListControl control = new CountryListControl(viewModel);
+
+            viewModel.CountrySelected += (s, e) => EditCountry(e.CountryName);
+
+            return control;
+        }
+
+        public UIElement GetAddElement()
+        {
             CountryCreateViewModel viewModel = new CountryCreateViewModel();
             CountryCreateControl control = new CountryCreateControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.CountryCreated += (s, e) =>
             {
@@ -47,24 +72,6 @@ namespace SportBet.Controllers
                     }
                 }
             };
-
-            window.Show();
-        }
-
-        public void Display()
-        {
-            UserControl control = GetDisplayControl();
-            Window window = WindowFactory.CreateByContentsSize(control);
-
-            window.Show();
-        }
-
-        public UserControl GetDisplayControl()
-        {
-            CountryListViewModel viewModel = new CountryListViewModel(this, facade);
-            CountryListControl control = new CountryListControl(viewModel);
-
-            viewModel.CountrySelected += (s, e) => EditCountry(e.CountryName);
 
             return control;
         }

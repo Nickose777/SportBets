@@ -31,9 +31,9 @@
                 Grid.Row="3"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Center"
                 Height="30"
                 Width="70"
+                IsDefault="True"
                 Command="{Binding CreateSportCommand}" />
         </Grid>
     </GroupBox>

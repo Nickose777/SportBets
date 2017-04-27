@@ -20,6 +20,7 @@ using SportBet.Contracts;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
 using SportBet.Services.DTOModels.Edit;
+using SportBet.CommonControls.Errors;
 
 namespace SportBet.Controllers
 {
@@ -33,8 +34,26 @@ namespace SportBet.Controllers
             this.facade = facade;
         }
 
-        public void Create()
+        public void Add()
         {
+            UIElement element = GetAddElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public void Display()
+        {
+            UIElement element = GetDisplayElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public UIElement GetAddElement()
+        {
+            UIElement element = null;
+
             DataServiceMessage<IEnumerable<string>> sportServiceMessage;
             DataServiceMessage<IEnumerable<TournamentDisplayDTO>> tournamentServiceMessage;
             DataServiceMessage<IEnumerable<EventDisplayDTO>> eventServiceMessage;
@@ -66,26 +85,40 @@ namespace SportBet.Controllers
                 IEnumerable<EventBaseModel> events = eventDTOs
                     .Select(e => Mapper.Map<EventBaseDTO, EventBaseModel>(e));
 
-                Create(sports, tournaments, events);
+                element = Add(sports, tournaments, events);
             }
+            else
+            {
+                List<ServiceMessage> messages = new List<ServiceMessage>()
+                {
+                    sportServiceMessage,
+                    tournamentServiceMessage,
+                    eventServiceMessage
+                };
+
+                ErrorViewModel viewModel = new ErrorViewModel(messages);
+                ErrorControl control = new ErrorControl(viewModel);
+
+                element = control;
+            }
+
+            return element;
         }
 
-        public void Display()
+        public UIElement GetDisplayElement()
         {
             CoefficientListViewModel viewModel = new CoefficientListViewModel(this, facade);
             CoefficientListControl control = new CoefficientListControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.CoefficientSelected += (s, e) => Edit(e.Coefficient);
 
-            window.Show();
+            return control;
         }
 
-        private void Create(IEnumerable<string> sports, IEnumerable<TournamentBaseModel> tournaments, IEnumerable<EventBaseModel> events)
+        private UIElement Add(IEnumerable<string> sports, IEnumerable<TournamentBaseModel> tournaments, IEnumerable<EventBaseModel> events)
         {
             CoefficientCreateViewModel viewModel = new CoefficientCreateViewModel(sports, tournaments, events);
             CoefficientCreateControl control = new CoefficientCreateControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.CoefficientCreated += (s, e) =>
             {
@@ -106,7 +139,7 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
         private void Edit(CoefficientDisplayModel coefficientDisplayModel)
