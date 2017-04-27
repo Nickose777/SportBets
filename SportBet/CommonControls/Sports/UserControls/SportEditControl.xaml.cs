@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
-using SportBet.AdminControls.ViewModels;
+using SportBet.CommonControls.Sports.ViewModels;
 
-namespace SportBet.AdminControls.UserControls
+namespace SportBet.CommonControls.Sports.UserControls
 {
     /// <summary>
     /// Interaction logic for SportEditControl.xaml

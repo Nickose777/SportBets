@@ -8,6 +8,13 @@ using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
 using SportBet.Contracts.Controllers;
 using System.Windows.Controls;
+using SportBet.CommonControls.Clients.ViewModels;
+using SportBet.Services.DTOModels.Edit;
+using SportBet.Models.Edit;
+using AutoMapper;
+using SportBet.CommonControls.Clients.UserControls;
+using System.Collections.Generic;
+using SportBet.CommonControls.Errors;
 
 namespace SportBet.Controllers
 {
@@ -64,6 +71,55 @@ namespace SportBet.Controllers
             };
 
             return control;
+        }
+
+        public UIElement GetAccountElement()
+        {
+            DataServiceMessage<ClientEditDTO> serviceMessage;
+
+            using (IClientService service = factory.CreateClientService())
+            {
+                serviceMessage = service.GetClientInfo(login);
+                RaiseReceivedMessageEvent(serviceMessage);
+            }
+
+            UIElement element = null;
+
+            if (serviceMessage.IsSuccessful)
+            {
+                ClientEditModel client = Mapper.Map<ClientEditDTO, ClientEditModel>(serviceMessage.Data);
+                ClientInfoViewModel viewModel = new ClientInfoViewModel(client);
+                ClientInfoControl control = new ClientInfoControl(viewModel);
+
+                viewModel.ClientEdited += (s, e) => Edit(e.Client);
+
+                element = control;
+            }
+            else
+            {
+                List<ServiceMessage> messages = new List<ServiceMessage>()
+                {
+                    serviceMessage
+                };
+
+                ErrorViewModel viewModel = new ErrorViewModel(messages);
+                ErrorControl control = new ErrorControl(viewModel);
+
+                element = control;
+            }
+
+            return element;
+        }
+
+        private void Edit(ClientEditModel clientEditModel)
+        {
+            ClientEditDTO clientEditDTO = Mapper.Map<ClientEditModel, ClientEditDTO>(clientEditModel);
+
+            using (IClientService service = factory.CreateClientService())
+            {
+                ServiceMessage serviceMessage = service.Update(clientEditDTO, login);
+                RaiseReceivedMessageEvent(serviceMessage);
+            }
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
 using SportBet.Services.Contracts;
-using SportBet.AdminControls.ViewModels;
-using SportBet.AdminControls.UserControls;
+using SportBet.CommonControls.Sports.ViewModels;
+using SportBet.CommonControls.Sports.UserControls;
 using SportBet.WindowFactories;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;
@@ -133,12 +133,6 @@ namespace SportBet.AdminControls
             DisplayElement(element);
         }
 
-        private void UpdateLogs(bool success, string message)
-        {
-            LogObject log = new LogObject(message, success);
-            logger.Log(log);
-        }
-
         private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
             Expander expander = sender as Expander;
@@ -164,8 +158,6 @@ namespace SportBet.AdminControls
 
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
-            //MessageBox for question
             RaiseSignedOutEvent();
         }
 

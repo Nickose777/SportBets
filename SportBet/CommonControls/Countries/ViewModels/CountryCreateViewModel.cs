@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using SportBet.EventHandlers.Create;
 
-namespace SportBet.AdminControls.ViewModels
+namespace SportBet.CommonControls.Countries.ViewModels
 {
     public class CountryCreateViewModel : ObservableObject
     {

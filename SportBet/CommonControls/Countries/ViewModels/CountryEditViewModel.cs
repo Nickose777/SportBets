@@ -2,7 +2,7 @@
 using SportBet.EventHandlers.Edit;
 using SportBet.Models.Edit;
 
-namespace SportBet.AdminControls.ViewModels
+namespace SportBet.CommonControls.Countries.ViewModels
 {
     public class CountryEditViewModel : ObservableObject
     {

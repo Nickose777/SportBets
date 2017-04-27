@@ -2,7 +2,7 @@
 using SportBet.EventHandlers.Edit;
 using SportBet.Models.Edit;
 
-namespace SportBet.AdminControls.ViewModels
+namespace SportBet.CommonControls.Sports.ViewModels
 {
     public class SportEditViewModel : ObservableObject
     {

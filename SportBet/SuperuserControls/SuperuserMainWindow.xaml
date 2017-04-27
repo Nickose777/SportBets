@@ -2,34 +2,67 @@
         xmlns:base="clr-namespace:SportBet"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Footer="clr-namespace:SportBet.CommonControls"
-        Title="SuperuserMainWindow" Height="300" Width="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        
-        <Menu>
-            <MenuItem Header="Register...">
-                <MenuItem Header="Admin" Click="RegisterAdmin_Click"/>
-                <MenuItem Header="Analytic" Click="RegisterAnalytic_Click"/>
-                <MenuItem Header="Bookmaker" Click="RegisterBookmaker_Click"/>
-                <MenuItem Header="Client" Click="RegisterClient_Click"/>
-            </MenuItem>
-            <MenuItem Header="Manage...">
-                <MenuItem Header="Admins" Click="ManageAdmins_Click"/>
-                <MenuItem Header="Analytics" Click="ManageAnalytics_Click"/>
-                <MenuItem Header="Bookmakers" Click="ManageBookmakers_Click"/>
-                <MenuItem Header="Clients" Click="ManageClients_Click"/>
-            </MenuItem>
-            <MenuItem Header="Settings">
-                <MenuItem Header="Change password" Click="ChangePassword_Click" />
-            </MenuItem>
-            <MenuItem Header="Sign out" Click="SignOut_Click"/>
-        </Menu>
-       
-        <Footer:Footer Grid.Row="2" x:Name="footer"></Footer:Footer>
+        xmlns:CommonControls="clr-namespace:SportBet.CommonControls"
+        Title="SuperuserMainWindow" Height="300" Width="700">
+    <Grid x:Name="mainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Background="{StaticResource DefaultBackgroundColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <CommonControls:Header />
+            <!--<Expander Grid.Row="1" Name="expander1" Expanded="Expander_Expanded">
+                <Expander.Header>
+                    <TextBlock Margin="10,0" Text="Create" FontSize="18" Foreground="White"/>
+                </Expander.Header>
+                <StackPanel>
+                    <Button Style="{StaticResource MenuButton}" Content="Country" Click="CreateCountry_Click"/>
+                    <Button Style="{StaticResource MenuButton}" Content="Sport" Click="CreateSport_Click"/>
+                    <Button Style="{StaticResource MenuButton}" Content="Participant" Click="CreateParticipant_Click"/>
+                    <Button Style="{StaticResource MenuButton}" Content="Tournament" Click="CreateTournament_Click"/>
+                    <Button Style="{StaticResource MenuButton}" Content="Event" Click="CreateEvent_Click"/>
+                    <Button Style="{StaticResource MenuButton}" Content="Coefficient" Click="CreateCoefficient_Click"/>
+                </StackPanel>
+            </Expander>
+            <Expander Grid.Row="2" Name="expander2" Expanded="Expander_Expanded">
+                <Expander.Header>
+                    <TextBlock Margin="10,0" Text="Manage" FontSize="18" Foreground="White"/>
+                </Expander.Header>
+                <StackPanel>
+                    <Button Style="{StaticResource MenuButton}" Content="Countries" Click="ManageCountries_Click"/>
+                    <Button Style="{StaticResource MenuButton}" Content="Sports" Click="ManageSports_Click" />
+                    <Button Style="{StaticResource MenuButton}" Content="Participants" Click="ManageParticipants_Click" />
+                    <Button Style="{StaticResource MenuButton}" Content="Tournaments" Click="ManageTournaments_Click" />
+                    <Button Style="{StaticResource MenuButton}" Content="Events" Click="ManageEvents_Click" />
+                    <Button Style="{StaticResource MenuButton}" Content="Coefficients" Click="ManageCoefficients_Click" />
+                </StackPanel>
+            </Expander>
+            <Expander Grid.Row="3" Name="expander3" Expanded="Expander_Expanded">
+                <Expander.Header>
+                    <TextBlock Margin="10,0" Text="Settings" FontSize="18" Foreground="White"/>
+                </Expander.Header>
+                <StackPanel>
+                    <Button Style="{StaticResource MenuButton}" Content="Change Password" Click="ChangePassword_Click"/>
+                    <Button Style="{StaticResource MenuButton}" Content="Show logs" Click="ShowLogs_Click"/>
+                </StackPanel>
+            </Expander>-->
+
+            <Button Grid.Row="5" 
+                    Margin="75,10"
+                    Height="35"
+                    FontSize="19"
+                    Content="Sign Out"
+                    Click="SignOut_Click"/>
+        </Grid>
     </Grid>
 </base:LogWindowBase>

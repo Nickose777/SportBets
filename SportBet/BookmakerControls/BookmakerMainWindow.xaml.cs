@@ -33,11 +33,11 @@ namespace SportBet.BookmakerControls
             clientController = controllerFactory.CreateClientController();
             betController = controllerFactory.CreateBetController();
 
-            accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            clientController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            betController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
+            accountController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            clientController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            betController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
 
-            SetFooterMessage(true, "Welcome, bookmaker");
+            UpdateLogs(true, "Welcome, bookmaker");
         }
 
         private void RegisterClient_Click(object sender, RoutedEventArgs e)
@@ -64,16 +64,8 @@ namespace SportBet.BookmakerControls
             accountController.ChangePassword();
         }
 
-        private void SetFooterMessage(bool success, string message)
-        {
-            footer.StatusText = success ? "Success!" : "Fail or error!";
-            footer.MessageText = message;
-        }
-
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
-            //MessageBox for question
             RaiseSignedOutEvent();
         }
     }

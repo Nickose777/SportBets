@@ -81,30 +81,30 @@
     <Compile Include="AdminControls\AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AdminControls\UserControls\CountryCreateControl.xaml.cs">
+    <Compile Include="CommonControls\Countries\UserControls\CountryCreateControl.xaml.cs">
       <DependentUpon>CountryCreateControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AdminControls\UserControls\CountryEditControl.xaml.cs">
+    <Compile Include="CommonControls\Countries\UserControls\CountryEditControl.xaml.cs">
       <DependentUpon>CountryEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AdminControls\UserControls\CountryListControl.xaml.cs">
+    <Compile Include="CommonControls\Countries\UserControls\CountryListControl.xaml.cs">
       <DependentUpon>CountryListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AdminControls\UserControls\SportCreateControl.xaml.cs">
+    <Compile Include="CommonControls\Sports\UserControls\SportCreateControl.xaml.cs">
       <DependentUpon>SportCreateControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AdminControls\UserControls\SportEditControl.xaml.cs">
+    <Compile Include="CommonControls\Sports\UserControls\SportEditControl.xaml.cs">
       <DependentUpon>SportEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AdminControls\UserControls\SportListControl.xaml.cs">
+    <Compile Include="CommonControls\Sports\UserControls\SportListControl.xaml.cs">
       <DependentUpon>SportListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AdminControls\ViewModels\CountryCreateViewModel.cs" />
-    <Compile Include="AdminControls\ViewModels\CountryEditViewModel.cs" />
-    <Compile Include="AdminControls\ViewModels\CountryListViewModel.cs" />
-    <Compile Include="AdminControls\ViewModels\SportCreateViewModel.cs" />
-    <Compile Include="AdminControls\ViewModels\SportEditViewModel.cs" />
-    <Compile Include="AdminControls\ViewModels\SportListViewModel.cs" />
+    <Compile Include="CommonControls\Countries\ViewModels\CountryCreateViewModel.cs" />
+    <Compile Include="CommonControls\Countries\ViewModels\CountryEditViewModel.cs" />
+    <Compile Include="CommonControls\Countries\ViewModels\CountryListViewModel.cs" />
+    <Compile Include="CommonControls\Sports\ViewModels\SportCreateViewModel.cs" />
+    <Compile Include="CommonControls\Sports\ViewModels\SportEditViewModel.cs" />
+    <Compile Include="CommonControls\Sports\ViewModels\SportListViewModel.cs" />
     <Compile Include="AnalyticControls\AnalyticMainWindow.xaml.cs">
       <DependentUpon>AnalyticMainWindow.xaml</DependentUpon>
     </Compile>
@@ -381,27 +381,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AdminControls\UserControls\CountryCreateControl.xaml">
+    <Page Include="CommonControls\Countries\UserControls\CountryCreateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AdminControls\UserControls\CountryEditControl.xaml">
+    <Page Include="CommonControls\Countries\UserControls\CountryEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AdminControls\UserControls\CountryListControl.xaml">
+    <Page Include="CommonControls\Countries\UserControls\CountryListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AdminControls\UserControls\SportCreateControl.xaml">
+    <Page Include="CommonControls\Sports\UserControls\SportCreateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AdminControls\UserControls\SportEditControl.xaml">
+    <Page Include="CommonControls\Sports\UserControls\SportEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AdminControls\UserControls\SportListControl.xaml">
+    <Page Include="CommonControls\Sports\UserControls\SportListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -583,12 +583,7 @@
       <Name>SportBet.Themes</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BookmakerControls\UserControls\" />
-    <Folder Include="BookmakerControls\ViewModels\" />
-    <Folder Include="ClientControls\UserControls\" />
-    <Folder Include="ClientControls\ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\ball.png" />
   </ItemGroup>

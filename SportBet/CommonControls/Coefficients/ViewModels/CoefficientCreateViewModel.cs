@@ -13,8 +13,6 @@ using System.Windows.Input;
 
 namespace SportBet.CommonControls.Coefficients.ViewModels
 {
-    //TODO
-    //display event participants too
     public class CoefficientCreateViewModel : ObservableObject
     {
         public event CoefficientCreateEventHandler CoefficientCreated;

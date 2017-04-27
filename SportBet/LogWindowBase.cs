@@ -14,6 +14,12 @@ namespace SportBet
             this.logger = logger;
         }
 
+        protected void UpdateLogs(bool success, string message)
+        {
+            LogObject log = new LogObject(message, success);
+            logger.Log(log);
+        }
+
         protected void ShowLogWindow()
         {
             LogControl control = new LogControl(logger);

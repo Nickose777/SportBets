@@ -9,6 +9,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
+using System.Collections.Generic;
 
 namespace SportBet.Services.Providers.AccountServices
 {
@@ -31,59 +32,58 @@ namespace SportBet.Services.Providers.AccountServices
                 success = false;
             else if (!registerValidator.Validate(clientRegisterDTO, ref message))
                 success = false;
-            else if (unitOfWork.Users.GetAll(user => user.Login == clientRegisterDTO.Login).Count() > 0)
-            {
-                success = false;
-                message = "Such login already exists. Try another one";
-            }
             else
             {
                 string hashedPassword = encryptor.Encrypt(clientRegisterDTO.Password);
 
                 try
                 {
-                    string adminLogin = "admin";
-                    string adminPassword = unitOfWork.AdminPassword.GetPassword();
-
-                    unitOfWork.Reconnect(adminLogin, adminPassword);
-
-                    unitOfWork.Accounts.RegisterClientRole(clientRegisterDTO.Login, hashedPassword);
-
-                    UserEntity userEntity = new UserEntity
+                    IEnumerable<string> logins = unitOfWork.Users.GetAll().Select(user => user.Login);
+                    if (!logins.Contains(clientRegisterDTO.Login))
                     {
-                        Login = clientRegisterDTO.Login,
-                        Role = unitOfWork.Roles.Get(RolesCodes.ClientRole)
-                    };
-                    unitOfWork.Users.Add(userEntity);
-                    unitOfWork.Commit();
+                        bool phoneNumberExists = unitOfWork.Clients.GetAll().Any(c => c.PhoneNumber == clientRegisterDTO.PhoneNumber);
+                        if (!phoneNumberExists)
+                        {
+                            unitOfWork.Accounts.RegisterClientRole(clientRegisterDTO.Login, hashedPassword);
 
-                    ClientEntity clientEntity = new ClientEntity
+                            UserEntity userEntity = new UserEntity
+                            {
+                                Login = clientRegisterDTO.Login,
+                                Role = unitOfWork.Roles.Get(RolesCodes.ClientRole)
+                            };
+                            unitOfWork.Users.Add(userEntity);
+                            unitOfWork.Commit();
+
+                            ClientEntity clientEntity = new ClientEntity
+                            {
+                                Id = userEntity.Id,
+                                FirstName = clientRegisterDTO.FirstName,
+                                LastName = clientRegisterDTO.LastName,
+                                PhoneNumber = clientRegisterDTO.PhoneNumber,
+                                DateOfBirth = clientRegisterDTO.DateOfBirth,
+                                DateOfRegistration = DateTime.Now
+                            };
+                            unitOfWork.Clients.Add(clientEntity);
+
+                            unitOfWork.Commit();
+                            message = "Registered new client";
+                        }
+                        else
+                        {
+                            success = false;
+                            message = "Such phone number already exists. Try another one";
+                        }
+                    }
+                    else
                     {
-                        Id = userEntity.Id,
-                        FirstName = clientRegisterDTO.FirstName,
-                        LastName = clientRegisterDTO.LastName,
-                        PhoneNumber = clientRegisterDTO.PhoneNumber,
-                        DateOfBirth = clientRegisterDTO.DateOfBirth,
-                        DateOfRegistration = DateTime.Now
-                    };
-                    unitOfWork.Clients.Add(clientEntity);
-
-                    unitOfWork.Commit();
-
-                    string currentUserLogin = Session.CurrentUserLogin;
-                    string currentUserPassword = Session.CurrentUserHashedPassword;
-                    unitOfWork.Reconnect(currentUserLogin, currentUserPassword);
-
-                    message = "Successfully registered new client!";
+                        success = false;
+                        message = "Such login already exists. Try another one";
+                    }
                 }
                 catch (Exception ex)
                 {
                     message = ExceptionMessageBuilder.BuildMessage(ex);
                     success = false;
-                }
-                finally
-                {
-                    unitOfWork.Dispose();
                 }
             }
 

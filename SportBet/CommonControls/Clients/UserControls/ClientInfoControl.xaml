@@ -6,13 +6,12 @@
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance ViewModel:ClientInfoDTViewModel}"
-             Background="{StaticResource DefaultBackgroundColor}" 
-             MinHeight="235.609" MinWidth="314.346">
+             Background="{StaticResource DefaultBackgroundColor}">
     <GroupBox Header="Client info">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="30" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -57,17 +56,20 @@
                 <Button
                     Grid.Column="0"
                     Content="Save"
-                    Margin="5,0"
+                    Height="30"
+                    Width="70"
                     Command="{Binding SaveClientCommand}" />
                 <Button
                     Grid.Column="1"
                     Content="Edit"
-                    Margin="5,0"
+                    Height="30"
+                    Width="70"
                     Command="{Binding StartEditClientCommand}" />
                 <Button
                     Grid.Column="2"
                     Content="Cancel"
-                    Margin="5,0"
+                    Height="30"
+                    Width="70"
                     Command="{Binding CancelEditClientCommand}" />
             </Grid>
         </Grid>

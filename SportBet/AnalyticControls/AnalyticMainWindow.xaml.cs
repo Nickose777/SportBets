@@ -19,9 +19,9 @@ namespace SportBet.AnalyticControls
 
             accountController = controllerFactory.CreateAccountController();
 
-            accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
+            accountController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
 
-            SetFooterMessage(true, "Welcome, analytic");
+            UpdateLogs(true, "Welcome, analytic");
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
@@ -29,16 +29,8 @@ namespace SportBet.AnalyticControls
             accountController.ChangePassword();
         }
 
-        private void SetFooterMessage(bool success, string message)
-        {
-            footer.StatusText = success ? "Success!" : "Fail or error!";
-            footer.MessageText = message;
-        }
-
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
-            //MessageBox for question
             RaiseSignedOutEvent();
         }
     }

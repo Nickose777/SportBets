@@ -22,57 +22,58 @@ namespace SportBet.Services.Providers.AccountServices
         {
             string message = "";
             bool success = true;
-            IEnumerable<string> logins = null;
-
-            try
-            {
-                logins = unitOfWork.Users.GetAll().Select(user => user.Login);
-            }
-            catch (Exception ex)
-            {
-                message = ex.Message;
-                success = false;
-            }
 
             if (!Validate(clientRegisterDTO, ref message))
                 success = false;
             else if (!registerValidator.Validate(clientRegisterDTO, ref message))
                 success = false;
-            else if (logins.Contains(clientRegisterDTO.Login))
-            {
-                success = false;
-                message = "Such login already exists. Try another one";
-            }
             else
             {
                 string hashedPassword = encryptor.Encrypt(clientRegisterDTO.Password);
 
                 try
                 {
-                    unitOfWork.Accounts.RegisterClientRole(clientRegisterDTO.Login, hashedPassword);
-
-                    UserEntity userEntity = new UserEntity
+                    IEnumerable<string> logins = unitOfWork.Users.GetAll().Select(user => user.Login);
+                    if (!logins.Contains(clientRegisterDTO.Login))
                     {
-                        Login = clientRegisterDTO.Login,
-                        Role = unitOfWork.Roles.Get(RolesCodes.ClientRole)
-                    };
-                    unitOfWork.Users.Add(userEntity);
-                    unitOfWork.Commit();
+                        bool phoneNumberExists = unitOfWork.Clients.GetAll().Any(c => c.PhoneNumber == clientRegisterDTO.PhoneNumber);
+                        if (!phoneNumberExists)
+                        {
+                            unitOfWork.Accounts.RegisterClientRole(clientRegisterDTO.Login, hashedPassword);
 
-                    ClientEntity clientEntity = new ClientEntity
+                            UserEntity userEntity = new UserEntity
+                            {
+                                Login = clientRegisterDTO.Login,
+                                Role = unitOfWork.Roles.Get(RolesCodes.ClientRole)
+                            };
+                            unitOfWork.Users.Add(userEntity);
+                            unitOfWork.Commit();
+
+                            ClientEntity clientEntity = new ClientEntity
+                            {
+                                Id = userEntity.Id,
+                                FirstName = clientRegisterDTO.FirstName,
+                                LastName = clientRegisterDTO.LastName,
+                                PhoneNumber = clientRegisterDTO.PhoneNumber,
+                                DateOfBirth = clientRegisterDTO.DateOfBirth,
+                                DateOfRegistration = DateTime.Now
+                            };
+                            unitOfWork.Clients.Add(clientEntity);
+
+                            unitOfWork.Commit();
+                            message = "Registered new client";
+                        }
+                        else
+                        {
+                            success = false;
+                            message = "Such phone number already exists. Try another one";
+                        }
+                    }
+                    else
                     {
-                        Id = userEntity.Id,
-                        FirstName = clientRegisterDTO.FirstName,
-                        LastName = clientRegisterDTO.LastName,
-                        PhoneNumber = clientRegisterDTO.PhoneNumber,
-                        DateOfBirth = clientRegisterDTO.DateOfBirth,
-                        DateOfRegistration = DateTime.Now
-                    };
-                    unitOfWork.Clients.Add(clientEntity);
-
-                    unitOfWork.Commit();
-
-                    message = "Registered new client";
+                        success = false;
+                        message = "Such login already exists. Try another one";
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -88,62 +89,61 @@ namespace SportBet.Services.Providers.AccountServices
         {
             string message = "";
             bool success = true;
-            IEnumerable<string> logins = null;
 
-            try
-            {
-                logins = unitOfWork.Users.GetAll().Select(user => user.Login);
-            }
-            catch (Exception ex)
-            {
-                message = ex.Message;
+            if (!Validate(bookmakerRegisterDTO, ref message))
                 success = false;
-            }
-
-            if (success)
+            else if (!registerValidator.Validate(bookmakerRegisterDTO, ref message))
+                success = false;
+            else
             {
-                if (!Validate(bookmakerRegisterDTO, ref message))
-                    success = false;
-                else if (!registerValidator.Validate(bookmakerRegisterDTO, ref message))
-                    success = false;
-                else if (logins.Contains(bookmakerRegisterDTO.Login))
-                {
-                    success = false;
-                    message = "Such login already exists. Try another one";
-                }
-                else
-                {
-                    string hashedPassword = encryptor.Encrypt(bookmakerRegisterDTO.Password);
+                string hashedPassword = encryptor.Encrypt(bookmakerRegisterDTO.Password);
 
-                    try
+                try
+                {
+                    IEnumerable<string> logins = unitOfWork.Users.GetAll().Select(user => user.Login);
+                    if (!logins.Contains(bookmakerRegisterDTO.Login))
                     {
-                        unitOfWork.Accounts.RegisterBookmakerRole(bookmakerRegisterDTO.Login, hashedPassword);
-
-                        UserEntity userEntity = new UserEntity
+                        bool phoneNumberExists = unitOfWork.Bookmakers.GetAll().Any(b => b.PhoneNumber == bookmakerRegisterDTO.PhoneNumber);
+                        if (!phoneNumberExists)
                         {
-                            Login = bookmakerRegisterDTO.Login,
-                            Role = unitOfWork.Roles.Get(RolesCodes.BookmakerRole)
-                        };
-                        unitOfWork.Users.Add(userEntity);
-                        unitOfWork.Commit();
+                            unitOfWork.Accounts.RegisterClientRole(bookmakerRegisterDTO.Login, hashedPassword);
 
-                        BookmakerEntity bookmakerEntity = new BookmakerEntity
+                            UserEntity userEntity = new UserEntity
+                            {
+                                Login = bookmakerRegisterDTO.Login,
+                                Role = unitOfWork.Roles.Get(RolesCodes.BookmakerRole)
+                            };
+                            unitOfWork.Users.Add(userEntity);
+                            unitOfWork.Commit();
+
+                            BookmakerEntity bookmakerEntity = new BookmakerEntity
+                            {
+                                Id = userEntity.Id,
+                                FirstName = bookmakerRegisterDTO.FirstName,
+                                LastName = bookmakerRegisterDTO.LastName,
+                                PhoneNumber = bookmakerRegisterDTO.PhoneNumber
+                            };
+                            unitOfWork.Bookmakers.Add(bookmakerEntity);
+
+                            unitOfWork.Commit();
+                            message = "Registered new bookmaker";
+                        }
+                        else
                         {
-                            Id = userEntity.Id,
-                            FirstName = bookmakerRegisterDTO.FirstName,
-                            LastName = bookmakerRegisterDTO.LastName,
-                            PhoneNumber = bookmakerRegisterDTO.PhoneNumber
-                        };
-                        unitOfWork.Bookmakers.Add(bookmakerEntity);
-                        unitOfWork.Commit();
-
-                        message = "Registered new bookmaker";
+                            success = false;
+                            message = "Such phone number already exists. Try another one";
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        message = ExceptionMessageBuilder.BuildMessage(ex);
                         success = false;
+                        message = "Such login already exists. Try another one";
                     }
+                }
+                catch (Exception ex)
+                {
+                    message = ExceptionMessageBuilder.BuildMessage(ex);
+                    success = false;
                 }
             }
 

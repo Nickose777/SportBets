@@ -6,6 +6,7 @@ using SportBet.Services.Contracts;
 using SportBet.ControllerFactories;
 using SportBet.Contracts.Controllers;
 using SportBet.Contracts;
+using System.Windows.Controls;
 
 namespace SportBet.SuperuserControls
 {
@@ -20,6 +21,8 @@ namespace SportBet.SuperuserControls
         private readonly IAdminController adminController;
         private readonly IAnalyticController analyticController;
 
+        private UIElement lastElement;
+
         public SuperuserMainWindow(ControllerFactory controllerFactory, ILogger logger)
             : base(logger)
         {
@@ -31,13 +34,13 @@ namespace SportBet.SuperuserControls
             adminController = controllerFactory.CreateAdminController();
             analyticController = controllerFactory.CreateAnalyticController();
 
-            accountController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            clientController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            bookmakerController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            adminController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
-            analyticController.ReceivedMessage += (s, e) => SetFooterMessage(e.Success, e.Message);
+            accountController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            clientController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            bookmakerController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            adminController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            analyticController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
 
-            SetFooterMessage(true, "Welcome, superuser");
+            UpdateLogs(true, "Welcome, superuser");
         }
 
         private void RegisterAdmin_Click(object sender, RoutedEventArgs e)
@@ -85,17 +88,46 @@ namespace SportBet.SuperuserControls
             accountController.ChangePassword();
         }
 
-        private void SetFooterMessage(bool success, string message)
+        private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
-            footer.StatusText = success ? "Success!" : "Fail or error!";
-            footer.MessageText = message;
+            Expander expander = sender as Expander;
+
+            //if (expander != expander1)
+            //{
+            //    expander1.IsExpanded = false;
+            //}
+            //if (expander != expander2)
+            //{
+            //    expander2.IsExpanded = false;
+            //}
+            //if (expander != expander3)
+            //{
+            //    expander3.IsExpanded = false;
+            //}
+        }
+
+        private void ShowLogs_Click(object sender, RoutedEventArgs e)
+        {
+            ShowLogWindow();
         }
 
         private void SignOut_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
-            //MessageBox for question
             RaiseSignedOutEvent();
+        }
+
+        private void DisplayElement(UIElement element)
+        {
+            if (lastElement != null)
+            {
+                mainGrid.Children.Remove(lastElement);
+            }
+
+            Grid.SetRow(element, 0);
+            Grid.SetColumn(element, 1);
+
+            mainGrid.Children.Add(element);
+            lastElement = element;
         }
     }
 }

@@ -29,8 +29,6 @@ namespace SportBet.Controllers
         {
             this.facade = facade;
             facade.ReceivedMessage += RaiseReceivedMessageEvent;
-            //TODO
-            //subscribe only on first getAll event
         }
 
         public void Register()

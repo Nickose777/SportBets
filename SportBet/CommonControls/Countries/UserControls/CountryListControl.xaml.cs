@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
-using SportBet.AdminControls.ViewModels;
+using SportBet.CommonControls.Countries.ViewModels;
 
-namespace SportBet.AdminControls.UserControls
+namespace SportBet.CommonControls.Countries.UserControls
 {
     /// <summary>
     /// Interaction logic for CountryListControl.xaml

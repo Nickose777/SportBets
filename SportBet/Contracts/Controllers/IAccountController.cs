@@ -7,5 +7,7 @@ namespace SportBet.Contracts.Controllers
         void ChangePassword();
 
         UIElement GetPasswordElement();
+
+        UIElement GetAccountElement();
     }
 }

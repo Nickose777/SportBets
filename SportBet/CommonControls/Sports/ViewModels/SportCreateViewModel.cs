@@ -3,7 +3,7 @@ using System.Windows.Input;
 using SportBet.EventHandlers.Create;
 using SportBet.Models.Create;
 
-namespace SportBet.AdminControls.ViewModels
+namespace SportBet.CommonControls.Sports.ViewModels
 {
     public class SportCreateViewModel : ObservableObject
     {

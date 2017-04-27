@@ -5,7 +5,7 @@ using SportBet.Contracts;
 using SportBet.Contracts.Subjects;
 using SportBet.EventHandlers.Display;
 
-namespace SportBet.AdminControls.ViewModels
+namespace SportBet.CommonControls.Countries.ViewModels
 {
     public class CountryListViewModel : ObservableObject, IObserver
     {

@@ -5,7 +5,7 @@ using SportBet.Contracts.Subjects;
 using SportBet.EventHandlers.Display;
 using System.Windows.Input;
 
-namespace SportBet.AdminControls.ViewModels
+namespace SportBet.CommonControls.Sports.ViewModels
 {
     public class SportListViewModel : ObservableObject, IObserver
     {

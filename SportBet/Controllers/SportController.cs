@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
-using SportBet.AdminControls.UserControls;
-using SportBet.AdminControls.ViewModels;
+using SportBet.CommonControls.Sports.UserControls;
+using SportBet.CommonControls.Sports.ViewModels;
 using SportBet.Contracts;
 using SportBet.Contracts.Subjects;
 using SportBet.Services.Contracts;

@@ -29,8 +29,6 @@ namespace SportBet.Controllers
         {
             this.facade = facade;
             facade.ReceivedMessage += RaiseReceivedMessageEvent;
-            //TODO
-            //subscribe only on first getAll event
         }
 
         public void Register()
@@ -47,7 +45,7 @@ namespace SportBet.Controllers
                 using (IAccountService service = factory.CreateAccountService())
                 {
                     ServiceMessage serviceMessage = service.Register(clientDTO);
-                    RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
+                    RaiseReceivedMessageEvent(serviceMessage);
 
                     if (serviceMessage.IsSuccessful)
                     {

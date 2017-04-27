@@ -119,8 +119,7 @@ namespace SportBet.Controllers
 
                     if (serviceMessage.IsSuccessful)
                     {
-                        //TODO
-                        //viewModel.clear()
+                        viewModel.Sum = 0;
                         Notify();
                     }
                 }

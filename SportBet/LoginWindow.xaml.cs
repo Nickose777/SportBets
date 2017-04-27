@@ -37,11 +37,6 @@ namespace SportBet
                     this.Close();
                 }
             }
-
-            loginTxt.Text = "Admin10";
-            passwordTxt.Password = "Admin10";
-
-            Login();
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -72,9 +67,6 @@ namespace SportBet
                     ServiceFactory factory = result.Factory;
 
                     ControllerFactory controllerFactory = new ControllerFactory(factory, loginType, login);
-
-                    //TODO
-                    //factory???
 
                     ILogger logger = new Logger();
 

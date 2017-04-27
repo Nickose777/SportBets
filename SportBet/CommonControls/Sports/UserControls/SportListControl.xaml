@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SportBet.AdminControls.UserControls.CountryListControl"
+﻿<UserControl x:Class="SportBet.CommonControls.Sports.UserControls.SportListControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,9 +6,10 @@
              mc:Ignorable="d" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance ViewModel:CountryListDTViewModel}"
+             MinWidth="300"
+             d:DataContext="{d:DesignInstance ViewModel:SportListDTViewModel}"
              Background="{StaticResource DefaultBackgroundColor}">
-    <GroupBox Header="Countries">
+    <GroupBox Header="Sports">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -21,25 +22,25 @@
 
             <ListBox
                 Grid.ColumnSpan="2"
-                ItemsSource="{Binding Countries}"
-                SelectedItem="{Binding SelectedCountry}" />
-            
+                ItemsSource="{Binding Sports}"
+                SelectedItem="{Binding SelectedSport}" />
+
             <Button
                 Grid.Column="0"
                 Grid.Row="1"
+                Content="Edit"
+                Margin="0,10"
                 Height="30"
                 Width="70"
-                Margin="5,10"
-                Content="Edit"
-                Command="{Binding EditCountryCommand}"/>
+                Command="{Binding EditSportCommand}"/>
             <Button
                 Grid.Column="1"
                 Grid.Row="1"
+                Content="Delete" 
+                Margin="0,10"
                 Height="30"
                 Width="70"
-                Margin="5,10"
-                Content="Delete" 
-                Command="{Binding DeleteCountryCommand}"/>
+                Command="{Binding DeleteSportCommand}"/>
         </Grid>
     </GroupBox>
 </UserControl>

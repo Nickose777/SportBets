@@ -170,6 +170,8 @@ namespace SportBet.Services.Providers.CoefficientServices
                     .ThenBy(c => c.TournamentName)
                     .ThenBy(c => c.DateOfEvent)
                     .ToList();
+
+                message = "Got all coefficients";
             }
             catch (Exception ex)
             {

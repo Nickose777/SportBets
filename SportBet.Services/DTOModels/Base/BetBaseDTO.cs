@@ -15,8 +15,6 @@ namespace SportBet.Services.DTOModels.Base
 
         public string CoefficientDescription { get; set; }
 
-        //TODO
-        //PhoneNumber validation when register new client
         public string ClientPhoneNumber { get; set; }
     }
 }
