@@ -232,6 +232,7 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DesignTimeViewModels\AdminInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\AnalyticInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BetCreateDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BetListDTViewModel.cs" />
@@ -277,6 +278,7 @@
     <Compile Include="EventHandlers\Display\SportDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\TournamentDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\AdminEditEventHandler.cs" />
+    <Compile Include="EventHandlers\Edit\AnalyticEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\BookmakerEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
     <Compile Include="EventHandlers\Display\CountryDisplayEventHandler.cs" />
@@ -342,6 +344,7 @@
     <Compile Include="Models\Display\ParticipantDisplayModel.cs" />
     <Compile Include="Models\Display\TournamentDisplayModel.cs" />
     <Compile Include="Models\Edit\AdminEditModel.cs" />
+    <Compile Include="Models\Edit\AnalyticEditModel.cs" />
     <Compile Include="Models\Edit\BookmakerEditModel.cs" />
     <Compile Include="Models\Edit\ClientEditModel.cs" />
     <Compile Include="Models\Edit\CoefficientEditModel.cs" />
@@ -369,6 +372,9 @@
     <Compile Include="SuperuserControls\UserControls\AdminInfoControl.xaml.cs">
       <DependentUpon>AdminInfoControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SuperuserControls\UserControls\AnalyticInfoControl.xaml.cs">
+      <DependentUpon>AnalyticInfoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SuperuserControls\UserControls\BookmakerInfoControl.xaml.cs">
       <DependentUpon>BookmakerInfoControl.xaml</DependentUpon>
     </Compile>
@@ -392,6 +398,7 @@
     </Compile>
     <Compile Include="SuperuserControls\ViewModels\AdminInfoViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\AdminRegisterViewModel.cs" />
+    <Compile Include="SuperuserControls\ViewModels\AnalyticInfoViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\AnalyticRegisterViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\BookmakerInfoViewModel.cs" />
     <Compile Include="SuperuserControls\ViewModels\BookmakerRegisterViewModel.cs" />
@@ -547,6 +554,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SuperuserControls\UserControls\AdminInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SuperuserControls\UserControls\AnalyticInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

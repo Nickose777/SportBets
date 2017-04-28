@@ -14,12 +14,10 @@ namespace SportBet.Services.Providers.AdminServices
     class SuperuserAdminService : IAdminService
     {
         private readonly IUnitOfWork unitOfWork;
-        private readonly ISession session;
 
-        public SuperuserAdminService(IUnitOfWork unitOfWork, ISession session)
+        public SuperuserAdminService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            this.session = session;
         }
 
         public ServiceMessage Update(AdminEditDTO adminEditDTO)

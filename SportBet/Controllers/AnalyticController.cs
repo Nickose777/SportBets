@@ -2,18 +2,19 @@
 using System.Windows;
 using AutoMapper;
 using SportBet.Contracts;
-using SportBet.Controllers;
+using SportBet.Contracts.Controllers;
 using SportBet.Models.Display;
+using SportBet.Models.Edit;
 using SportBet.Models.Registers;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
+using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using SportBet.SuperuserControls.UserControls;
 using SportBet.SuperuserControls.ViewModels;
 using SportBet.WindowFactories;
-using SportBet.Contracts.Controllers;
 
 namespace SportBet.Controllers
 {
@@ -80,6 +81,7 @@ namespace SportBet.Controllers
             ManageAnalyticsViewModel viewModel = new ManageAnalyticsViewModel(this, facade);
             ManageAnalyticsControl control = new ManageAnalyticsControl(viewModel);
 
+            viewModel.AnalyticEdit += (s, e) => Edit(e.Analytic);
             viewModel.AnalyticDeleted += (s, e) =>
             {
                 using (IAnalyticService service = factory.CreateAnalyticService())
@@ -97,6 +99,41 @@ namespace SportBet.Controllers
             };
 
             return control;
+        }
+
+        private void Edit(AnalyticDisplayModel analyticDisplayModel)
+        {
+            AnalyticEditModel analytic = new AnalyticEditModel
+            {
+                FirstName = analyticDisplayModel.FirstName,
+                LastName = analyticDisplayModel.LastName,
+                PhoneNumber = analyticDisplayModel.PhoneNumber,
+                Login = analyticDisplayModel.Login
+            };
+
+            AnalyticInfoViewModel viewModel = new AnalyticInfoViewModel(analytic);
+            AnalyticInfoControl control = new AnalyticInfoControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.AnalyticEdited += (s, e) =>
+            {
+                AnalyticEditModel analyticEditModel = e.Analytic;
+                AnalyticEditDTO analyticEditDTO = Mapper.Map<AnalyticEditModel, AnalyticEditDTO>(analyticEditModel);
+
+                using (IAnalyticService service = factory.CreateAnalyticService())
+                {
+                    ServiceMessage serviceMessage = service.Update(analyticEditDTO);
+                    RaiseReceivedMessageEvent(serviceMessage);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        window.Close();
+                        Notify();
+                    }
+                }
+            };
+
+            window.Show();
         }
     }
 }

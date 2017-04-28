@@ -6,6 +6,7 @@ using SportBet.Data.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.DTOModels.Edit;
 
 namespace SportBet.Services.Providers.AnalyticServices
 {
@@ -16,6 +17,41 @@ namespace SportBet.Services.Providers.AnalyticServices
         public SuperuserAnalyticService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
+        }
+
+        public ServiceMessage Update(AnalyticEditDTO analyticEditDTO)
+        {
+            string message = "";
+            bool success = true;
+
+            if (success = Validate(analyticEditDTO, ref message))
+            {
+                string login = analyticEditDTO.Login;
+                string firstName = analyticEditDTO.FirstName;
+                string lastName = analyticEditDTO.LastName;
+                string phoneNumber = analyticEditDTO.PhoneNumber;
+
+                try
+                {
+                    int id = unitOfWork.Users.GetIdByLogin(login);
+                    AnalyticEntity analyticEntity = unitOfWork.Analytics.Get(id);
+
+                    analyticEntity.FirstName = firstName;
+                    analyticEntity.LastName = lastName;
+                    analyticEntity.PhoneNumber = phoneNumber;
+
+                    unitOfWork.Commit();
+
+                    message = "Changed analytics's info";
+                }
+                catch (Exception ex)
+                {
+                    message = ExceptionMessageBuilder.BuildMessage(ex);
+                    success = false;
+                }
+            }
+
+            return new ServiceMessage(message, success);
         }
 
         public ServiceMessage Delete(string login)
@@ -93,6 +129,38 @@ namespace SportBet.Services.Providers.AnalyticServices
         public void Dispose()
         {
             unitOfWork.Dispose();
+        }
+
+        private bool Validate(AnalyticEditDTO analyticEditDTO, ref string message)
+        {
+            bool isValid = true;
+
+            if (String.IsNullOrEmpty(analyticEditDTO.FirstName))
+            {
+                message = "First name cannot be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(analyticEditDTO.LastName))
+            {
+                message = "Last name cannot be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(analyticEditDTO.PhoneNumber))
+            {
+                message = "Phone number cannot be empty";
+                isValid = false;
+            }
+            else
+            {
+                bool invalidPhone = analyticEditDTO.PhoneNumber.Any(c => !Char.IsDigit(c));
+                if (invalidPhone)
+                {
+                    message = "Phone number must consist only of digits";
+                    isValid = false;
+                }
+            }
+
+            return isValid;
         }
     }
 }

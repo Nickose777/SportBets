@@ -22,18 +22,12 @@
             </Grid.RowDefinitions>
 
             <CommonControls:Header />
-            <Expander Grid.Row="1" Name="expander1" Expanded="Expander_Expanded">
-                <Expander.Header>
-                    <TextBlock Margin="10,0" Text="Register" FontSize="18" Foreground="White"/>
-                </Expander.Header>
+            <Expander Grid.Row="1" Name="expander1" Header="Register" Expanded="Expander_Expanded">
                 <StackPanel>
                     <Button Style="{StaticResource MenuButton}" Content="Client" Click="RegisterClient_Click"/>
                 </StackPanel>
             </Expander>
-            <Expander Grid.Row="2" Name="expander2" Expanded="Expander_Expanded">
-                <Expander.Header>
-                    <TextBlock Margin="10,0" Text="Create" FontSize="18" Foreground="White"/>
-                </Expander.Header>
+            <Expander Grid.Row="2" Name="expander2" Header="Create" Expanded="Expander_Expanded">
                 <StackPanel>
                     <Button Style="{StaticResource MenuButton}" Content="Bet" Click="CreateBet_Click"/>
                 </StackPanel>

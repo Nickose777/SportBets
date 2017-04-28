@@ -9,6 +9,7 @@ namespace SportBet.SuperuserControls.ViewModels
 {
     public class ManageAnalyticsViewModel : ObservableObject, IObserver
     {
+        public event AnalyticDisplayEventHandler AnalyticEdit;
         public event AnalyticDisplayEventHandler AnalyticDeleted;
 
         private readonly ISubject subject;
@@ -23,6 +24,9 @@ namespace SportBet.SuperuserControls.ViewModels
 
             this.Analytics = new ObservableCollection<AnalyticDisplayModel>(facade.GetAll());
 
+            this.EditSelectedAnalyticCommand = new DelegateCommand(
+                () => RaiseAnalyticEditEvent(SelectedAnalytic),
+                obj => SelectedAnalytic != null);
             this.DeleteSelectedAnalyticCommand = new DelegateCommand(
                 () => RaiseAnalyticDeletedEvent(SelectedAnalytic),
                 obj => SelectedAnalytic != null);
@@ -46,6 +50,8 @@ namespace SportBet.SuperuserControls.ViewModels
             RaisePropertyChangedEvent("SelectedAnalytic");
         }
 
+        public ICommand EditSelectedAnalyticCommand { get; private set; }
+
         public ICommand DeleteSelectedAnalyticCommand { get; private set; }
 
         public AnalyticDisplayModel SelectedAnalytic
@@ -63,6 +69,16 @@ namespace SportBet.SuperuserControls.ViewModels
         private void RaiseAnalyticDeletedEvent(AnalyticDisplayModel analytic)
         {
             var handler = AnalyticDeleted;
+            if (handler != null)
+            {
+                AnalyticDisplayEventArgs e = new AnalyticDisplayEventArgs(analytic);
+                handler(this, e);
+            }
+        }
+
+        private void RaiseAnalyticEditEvent(AnalyticDisplayModel analytic)
+        {
+            var handler = AnalyticEdit;
             if (handler != null)
             {
                 AnalyticDisplayEventArgs e = new AnalyticDisplayEventArgs(analytic);
