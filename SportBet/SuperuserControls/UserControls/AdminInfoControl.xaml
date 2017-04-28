@@ -1,15 +1,15 @@
-﻿<UserControl x:Class="SportBet.SuperuserControls.UserControls.BookmakerInfoControl"
+﻿<UserControl x:Class="SportBet.SuperuserControls.UserControls.AdminInfoControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
-             mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance ViewModel:BookmakerInfoDTViewModel}"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance ViewModel:AdminInfoDTViewModel}"
              Background="{StaticResource DefaultBackgroundColor}" 
              d:DesignHeight="300" d:DesignWidth="400"
              MinHeight="300" MinWidth="400">
-    <GroupBox Header="Bookmaker's info">
+    <GroupBox Header="Admin's info">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -30,7 +30,7 @@
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
-            
+
             <Button
                 Grid.Row="4"
                 Grid.ColumnSpan="2"

@@ -25,10 +25,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Expander Grid.Row="0">
-                    <Expander.Header>
-                        <TextBlock Margin="10,0" Text="Search options" FontSize="16" Foreground="White"/>
-                    </Expander.Header>
+                <Expander Grid.Row="0" Header="Search options">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20" />

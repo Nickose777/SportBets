@@ -54,7 +54,8 @@
                     HorizontalAlignment="Left"
                     Height="30"
                     Width="70"
-                    Content="Edit" />
+                    Content="Edit"
+                    Command="{Binding EditSelectedAdminCommand}" />
                 <Button
                     Grid.Row="2" 
                     HorizontalAlignment="Right"

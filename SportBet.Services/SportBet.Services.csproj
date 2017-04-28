@@ -72,6 +72,7 @@
     <Compile Include="DTOModels\Display\CoefficientDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\EventDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\TournamentDisplayDTO.cs" />
+    <Compile Include="DTOModels\Edit\AdminEditDTO.cs" />
     <Compile Include="DTOModels\Edit\BookmakerEditDTO.cs" />
     <Compile Include="DTOModels\Edit\ClientEditDTO.cs" />
     <Compile Include="DTOModels\Edit\CoefficientEditDTO.cs" />

@@ -14,6 +14,8 @@ using SportBet.SuperuserControls.UserControls;
 using SportBet.SuperuserControls.ViewModels;
 using SportBet.WindowFactories;
 using SportBet.Contracts.Controllers;
+using SportBet.Models.Edit;
+using SportBet.Services.DTOModels.Edit;
 
 namespace SportBet.Controllers
 {
@@ -73,6 +75,7 @@ namespace SportBet.Controllers
             ManageAdminsViewModel viewModel = new ManageAdminsViewModel(this, facade);
             ManageAdminsControl control = new ManageAdminsControl(viewModel);
 
+            viewModel.AdminEdit += (s, e) => Edit(e.Admin);
             viewModel.AdminDeleted += (s, e) =>
             {
                 using (IAdminService service = factory.CreateAdminService())
@@ -90,6 +93,41 @@ namespace SportBet.Controllers
             };
 
             return control;
+        }
+
+        private void Edit(AdminDisplayModel adminDisplayModel)
+        {
+            AdminEditModel admin = new AdminEditModel
+            {
+                FirstName = adminDisplayModel.FirstName,
+                LastName = adminDisplayModel.LastName,
+                PhoneNumber = adminDisplayModel.PhoneNumber,
+                Login = adminDisplayModel.Login
+            };
+
+            AdminInfoViewModel viewModel = new AdminInfoViewModel(admin);
+            AdminInfoControl control = new AdminInfoControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.AdminEdited += (s, e) =>
+            {
+                AdminEditModel adminEditModel = e.Admin;
+                AdminEditDTO adminEditDTO = Mapper.Map<AdminEditModel, AdminEditDTO>(adminEditModel);
+
+                using (IAdminService service = factory.CreateAdminService())
+                {
+                    ServiceMessage serviceMessage = service.Update(adminEditDTO);
+                    RaiseReceivedMessageEvent(serviceMessage);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        window.Close();
+                        Notify();
+                    }
+                }
+            };
+
+            window.Show();
         }
     }
 }

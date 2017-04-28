@@ -44,8 +44,9 @@ namespace SportBet.Services.Factories
         public override IAdminService CreateAdminService()
         {
             IUnitOfWork unitOfWork = CreateUnitOfWork();
+            ISession session = CreateSession();
 
-            return new SuperuserAdminService(unitOfWork);
+            return new SuperuserAdminService(unitOfWork, session);
         }
 
         public override IAnalyticService CreateAnalyticService()

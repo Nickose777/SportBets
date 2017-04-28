@@ -9,6 +9,7 @@ namespace SportBet.SuperuserControls.ViewModels
 {
     public class ManageAdminsViewModel : ObservableObject, IObserver
     {
+        public event AdminDisplayEventHandler AdminEdit;
         public event AdminDisplayEventHandler AdminDeleted;
 
         private readonly ISubject subject;
@@ -23,6 +24,9 @@ namespace SportBet.SuperuserControls.ViewModels
 
             this.Admins = new ObservableCollection<AdminDisplayModel>(facade.GetAll());
 
+            this.EditSelectedAdminCommand = new DelegateCommand(
+                () => RaiseAdminEditEvent(SelectedAdmin),
+                obj => SelectedAdmin != null);
             this.DeleteSelectedAdminCommand = new DelegateCommand(
                 () => RaiseAdminDeletedEvent(SelectedAdmin),
                 obj => SelectedAdmin != null);
@@ -46,6 +50,8 @@ namespace SportBet.SuperuserControls.ViewModels
             RaisePropertyChangedEvent("SelectedAdmin");
         }
 
+        public ICommand EditSelectedAdminCommand { get; private set; }
+
         public ICommand DeleteSelectedAdminCommand { get; private set; }
 
         public AdminDisplayModel SelectedAdmin
@@ -59,6 +65,16 @@ namespace SportBet.SuperuserControls.ViewModels
         }
 
         public ObservableCollection<AdminDisplayModel> Admins { get; private set; }
+
+        private void RaiseAdminEditEvent(AdminDisplayModel admin)
+        {
+            var handler = AdminEdit;
+            if (handler != null)
+            {
+                AdminDisplayEventArgs e = new AdminDisplayEventArgs(admin);
+                handler(this, e);
+            }
+        }
 
         private void RaiseAdminDeletedEvent(AdminDisplayModel admin)
         {

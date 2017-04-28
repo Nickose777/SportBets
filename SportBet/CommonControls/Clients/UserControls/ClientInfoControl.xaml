@@ -6,6 +6,7 @@
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="500"
+             d:Height="300" d:Width="500"
              d:DataContext="{d:DesignInstance ViewModel:ClientInfoDTViewModel}"
              Background="{StaticResource DefaultBackgroundColor}">
     <GroupBox Header="Client info">
@@ -26,6 +27,7 @@
                     <RowDefinition Height="40" />
                     <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Text="Last name:" />
@@ -33,47 +35,30 @@
                 <TextBlock Grid.Row="2" Text="Phone Number:" />
                 <TextBlock Grid.Row="3" Text="Date of Birth:" />
 
-                <TextBox Grid.Column="1" Grid.Row="0"
-                    Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
-                    IsEnabled="{Binding IsEditMode}" />
-                <TextBox Grid.Column="1" Grid.Row="1"
-                    Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" 
-                    IsEnabled="{Binding IsEditMode}" />
-                <TextBox Grid.Column="1" Grid.Row="2"
-                    Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
-                    IsEnabled="{Binding IsEditMode}" />
+                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
                 <DatePicker Grid.Column="1" Grid.Row="3"
                     VerticalAlignment="Center"
-                    SelectedDateFormat="Short" 
                     SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" 
-                    IsEnabled="{Binding IsEditMode}"
                     CalendarStyle="{StaticResource CalendarStyle}"/>
-            </Grid>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
 
                 <Button
-                    Grid.Column="0"
+                    Grid.Row="5"
+                    Grid.ColumnSpan="2"
                     Content="Save"
+                    HorizontalAlignment="Left"
                     Height="30"
                     Width="70"
-                    Command="{Binding SaveClientCommand}" />
+                    Command="{Binding SaveChangesCommand}" />
                 <Button
-                    Grid.Column="1"
-                    Content="Edit"
+                    Grid.Row="5"
+                    Grid.ColumnSpan="2"
+                    Content="Undo"
+                    HorizontalAlignment="Right"
                     Height="30"
                     Width="70"
-                    Command="{Binding StartEditClientCommand}" />
-                <Button
-                    Grid.Column="2"
-                    Content="Cancel"
-                    Height="30"
-                    Width="70"
-                    Command="{Binding CancelEditClientCommand}" />
+                    Command="{Binding UndoCommand}" />
             </Grid>
         </Grid>
     </GroupBox>

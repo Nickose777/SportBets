@@ -9,8 +9,6 @@ namespace SportBet.CommonControls.Clients.ViewModels
     {
         public event ClientEditEventHandler ClientEdited;
 
-        private bool isEditMode;
-
         private readonly ClientEditModel client;
         private readonly ClientEditModel clientForEdit;
 
@@ -25,18 +23,13 @@ namespace SportBet.CommonControls.Clients.ViewModels
                 DateOfBirth = client.DateOfBirth
             };
 
-            IsEditMode = false;
-
-            StartEditClientCommand = new DelegateCommand(() => StartEdit(), obj => !isEditMode);
-            CancelEditClientCommand = new DelegateCommand(() => CancelEdit(), obj => isEditMode);
-            SaveClientCommand = new DelegateCommand(() => Save(), CanSave);
+            this.SaveChangesCommand = new DelegateCommand(() => RaiseClientEditedEvent(clientForEdit), CanSave);
+            this.UndoCommand = new DelegateCommand(Undo, obj => IsDirty());
         }
 
-        public ICommand StartEditClientCommand { get; private set; }
+        public ICommand SaveChangesCommand { get; private set; }
 
-        public ICommand CancelEditClientCommand { get; private set; }
-
-        public ICommand SaveClientCommand { get; private set; }
+        public ICommand UndoCommand { get; private set; }
 
         public string LastName
         {
@@ -78,44 +71,30 @@ namespace SportBet.CommonControls.Clients.ViewModels
             }
         }
 
-        public bool IsEditMode
+        private void Undo()
         {
-            get { return isEditMode; }
-            private set 
-            { 
-                isEditMode = value;
-                RaisePropertyChangedEvent("IsEditMode");
-            }
-        }
-
-        private void StartEdit()
-        {
-            IsEditMode = true;
-        }
-
-        private void CancelEdit()
-        {
-            IsEditMode = false;
             FirstName = client.FirstName;
             LastName = client.LastName;
             PhoneNumber = client.PhoneNumber;
             DateOfBirth = client.DateOfBirth;
         }
 
-        private void Save()
-        {
-            RaiseClientEditedEvent(clientForEdit);
-            IsEditMode = false;
-        }
-
         private bool CanSave(object parameter)
         {
             return
-                isEditMode &&
+                IsDirty() &&
                 !String.IsNullOrEmpty(FirstName) &&
                 !String.IsNullOrEmpty(LastName) &&
-                !String.IsNullOrEmpty(PhoneNumber) &&
-                DateOfBirth != null;
+                !String.IsNullOrEmpty(PhoneNumber);
+        }
+
+        private bool IsDirty()
+        {
+            return
+                client.FirstName != FirstName ||
+                client.LastName != LastName ||
+                client.PhoneNumber != PhoneNumber ||
+                client.DateOfBirth != DateOfBirth;
         }
 
         private void RaiseClientEditedEvent(ClientEditModel client)

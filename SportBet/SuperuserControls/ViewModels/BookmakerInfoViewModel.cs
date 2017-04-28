@@ -9,8 +9,6 @@ namespace SportBet.SuperuserControls.ViewModels
     {
         public event BookmakerEditEventHandler BookmakerEdited;
 
-        private bool isEditMode;
-
         private readonly BookmakerEditModel bookmaker;
         private readonly BookmakerEditModel bookmakerForEdit;
 
@@ -24,18 +22,13 @@ namespace SportBet.SuperuserControls.ViewModels
                 PhoneNumber = bookmaker.PhoneNumber
             };
 
-            IsEditMode = false;
-
-            StartEditBookmakerCommand = new DelegateCommand(() => StartEdit(), obj => !isEditMode);
-            CancelEditBookmakerCommand = new DelegateCommand(() => CancelEdit(), obj => isEditMode);
-            SaveBookmakerCommand = new DelegateCommand(() => Save(), CanSave);
+            this.SaveChangesCommand = new DelegateCommand(() => RaiseBookmakerEditedEvent(bookmakerForEdit), CanSave);
+            this.UndoCommand = new DelegateCommand(Undo, obj => IsDirty());
         }
 
-        public ICommand StartEditBookmakerCommand { get; private set; }
+        public ICommand SaveChangesCommand { get; private set; }
 
-        public ICommand CancelEditBookmakerCommand { get; private set; }
-
-        public ICommand SaveBookmakerCommand { get; private set; }
+        public ICommand UndoCommand { get; private set; }
 
         public string LastName
         {
@@ -67,42 +60,28 @@ namespace SportBet.SuperuserControls.ViewModels
             }
         }
 
-        public bool IsEditMode
+        private void Undo()
         {
-            get { return isEditMode; }
-            private set 
-            { 
-                isEditMode = value;
-                RaisePropertyChangedEvent("IsEditMode");
-            }
-        }
-
-        private void StartEdit()
-        {
-            IsEditMode = true;
-        }
-
-        private void CancelEdit()
-        {
-            IsEditMode = false;
             FirstName = bookmaker.FirstName;
             LastName = bookmaker.LastName;
             PhoneNumber = bookmaker.PhoneNumber;
         }
 
-        private void Save()
-        {
-            RaiseBookmakerEditedEvent(bookmakerForEdit);
-            IsEditMode = false;
-        }
-
         private bool CanSave(object parameter)
         {
             return
-                isEditMode &&
+                IsDirty() &&
                 !String.IsNullOrEmpty(FirstName) &&
                 !String.IsNullOrEmpty(LastName) &&
                 !String.IsNullOrEmpty(PhoneNumber);
+        }
+
+        private bool IsDirty()
+        {
+            return
+                bookmaker.FirstName != FirstName ||
+                bookmaker.LastName != LastName ||
+                bookmaker.PhoneNumber != PhoneNumber;
         }
 
         private void RaiseBookmakerEditedEvent(BookmakerEditModel bookmaker)
