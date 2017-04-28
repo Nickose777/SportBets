@@ -184,10 +184,6 @@ namespace SportBet.Controllers
                 EventEditModel eventEditModel = e.Event;
                 EventEditDTO eventEditDTO = Mapper.Map<EventEditModel, EventEditDTO>(eventEditModel);
 
-                //TODO
-                //move to Mapper config
-                eventEditDTO.Notes = eventEditModel.NewNotes;
-
                 using (IEventService service = factory.CreateEventService())
                 {
                     ServiceMessage serviceMessage = service.Update(eventEditDTO);
@@ -203,9 +199,6 @@ namespace SportBet.Controllers
             {
                 EventEditModel eventEditModel = e.Event;
                 EventEditDTO eventEditDTO = Mapper.Map<EventEditModel, EventEditDTO>(eventEditModel);
-
-                //TODO
-                //move to Mapper config
 
                 using (IEventService service = factory.CreateEventService())
                 {

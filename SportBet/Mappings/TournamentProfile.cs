@@ -12,11 +12,9 @@ namespace SportBet.Mappings
     {
         public TournamentProfile()
         {
-            CreateMap<TournamentBaseDTO, TournamentBaseModel>();
-            CreateMap<TournamentBaseModel, TournamentBaseDTO>();
+            CreateMap<TournamentBaseDTO, TournamentBaseModel>().ReverseMap();
 
-            CreateMap<TournamentDisplayDTO, TournamentDisplayModel>();
-            CreateMap<TournamentDisplayModel, TournamentBaseDTO>();
+            CreateMap<TournamentDisplayDTO, TournamentDisplayModel>().ReverseMap();
 
             CreateMap<TournamentEditModel, TournamentEditDTO>();
 

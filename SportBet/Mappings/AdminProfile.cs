@@ -12,8 +12,7 @@ namespace SportBet.Mappings
         {
             CreateMap<AdminRegisterModel, AdminRegisterDTO>();
 
-            CreateMap<AdminDisplayDTO, AdminDisplayModel>();
-            CreateMap<AdminDisplayModel, AdminDisplayDTO>();
+            CreateMap<AdminDisplayDTO, AdminDisplayModel>().ReverseMap();
         }
     }
 }

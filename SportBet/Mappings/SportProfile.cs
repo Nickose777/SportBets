@@ -12,8 +12,7 @@ namespace SportBet.Mappings
         {
             CreateMap<SportCreateModel, SportCreateDTO>();
 
-            CreateMap<SportEditDTO, SportEditModel>();
-            CreateMap<SportEditModel, SportEditDTO>();
+            CreateMap<SportEditDTO, SportEditModel>().ReverseMap();
         }
     }
 }

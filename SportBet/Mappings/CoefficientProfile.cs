@@ -16,7 +16,8 @@ namespace SportBet.Mappings
 
             CreateMap<CoefficientDisplayDTO, CoefficientDisplayModel>();
 
-            CreateMap<CoefficientEditModel, CoefficientEditDTO>();
+            CreateMap<CoefficientEditModel, CoefficientEditDTO>()
+                .ForMember(dest => dest.Win, conf => conf.MapFrom(src => src.NewWin));
         }
     }
 }

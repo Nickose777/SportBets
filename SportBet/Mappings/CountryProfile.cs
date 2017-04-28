@@ -8,8 +8,7 @@ namespace SportBet.Mappings
     {
         public CountryProfile()
         {
-            CreateMap<CountryEditDTO, CountryEditModel>();
-            CreateMap<CountryEditModel, CountryEditDTO>();
+            CreateMap<CountryEditDTO, CountryEditModel>().ReverseMap();
         }
     }
 }

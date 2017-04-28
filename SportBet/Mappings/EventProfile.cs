@@ -14,14 +14,14 @@ namespace SportBet.Mappings
     {
         public EventProfile()
         {
-            CreateMap<EventBaseModel, EventBaseDTO>();
-            CreateMap<EventBaseDTO, EventBaseModel>();
+            CreateMap<EventBaseModel, EventBaseDTO>().ReverseMap();
 
             CreateMap<EventCreateModel, EventCreateDTO>();
 
             CreateMap<EventDisplayDTO, EventDisplayModel>();
 
-            CreateMap<EventEditModel, EventEditDTO>();
+            CreateMap<EventEditModel, EventEditDTO>()
+                .ForMember(dest => dest.Notes, conf => conf.MapFrom(src => src.NewNotes));
         }
     }
 }

@@ -14,11 +14,9 @@ namespace SportBet.Mappings
         {
             CreateMap<ClientRegisterModel, ClientRegisterDTO>();
 
-            CreateMap<ClientEditDTO, ClientEditModel>();
-            CreateMap<ClientEditModel, ClientEditDTO>();
+            CreateMap<ClientEditDTO, ClientEditModel>().ReverseMap();
 
-            CreateMap<ClientDisplayDTO, ClientDisplayModel>();
-            CreateMap<ClientDisplayModel, ClientDisplayDTO>();
+            CreateMap<ClientDisplayDTO, ClientDisplayModel>().ReverseMap();
         }
     }
 }

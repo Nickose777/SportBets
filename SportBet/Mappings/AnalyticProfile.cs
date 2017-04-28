@@ -12,8 +12,7 @@ namespace SportBet.Mappings
         {
             CreateMap<AnalyticRegisterModel, AnalyticRegisterDTO>();
 
-            CreateMap<AnalyticDisplayDTO, AnalyticDisplayModel>();
-            CreateMap<AnalyticDisplayModel, AnalyticDisplayDTO>();
+            CreateMap<AnalyticDisplayDTO, AnalyticDisplayModel>().ReverseMap();
         }
     }
 }

@@ -14,8 +14,8 @@ namespace SportBet.Mappings
         {
             CreateMap<BookmakerRegisterModel, BookmakerRegisterDTO>();
 
-            CreateMap<BookmakerDisplayModel, BookmakerDisplayDTO>();
-            CreateMap<BookmakerDisplayDTO, BookmakerDisplayModel>();
+            CreateMap<BookmakerDisplayModel, BookmakerDisplayDTO>().ReverseMap();
+
             CreateMap<BookmakerDisplayModel, BookmakerEditModel>();
 
             CreateMap<BookmakerEditModel, BookmakerEditDTO>();

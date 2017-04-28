@@ -13,8 +13,7 @@ namespace SportBet.Mappings
     {
         public ParticipantProfile()
         {
-            CreateMap<ParticipantBaseModel, ParticipantBaseDTO>();
-            CreateMap<ParticipantBaseDTO, ParticipantBaseModel>();
+            CreateMap<ParticipantBaseModel, ParticipantBaseDTO>().ReverseMap();
 
             CreateMap<ParticipantBaseDTO, ParticipantDisplayModel>();
 
