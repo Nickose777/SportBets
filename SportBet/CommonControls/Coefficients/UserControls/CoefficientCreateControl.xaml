@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              xmlns:Converters="clr-namespace:SportBet.ValueConverters"
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
-             d:DataContext="{d:DesignInstance ViewModel:CoefficientCreateDTViewModel}" MinHeight="300" MinWidth="300"
+             d:DataContext="{d:DesignInstance ViewModel:CoefficientCreateDTViewModel}" d:DesignHeight="500" d:DesignWidth="500"
              Background="{StaticResource DefaultBackgroundColor}">
     <UserControl.Resources>
         <Converters:DecimalToPersistantStringConverter x:Key="decimalToPersistantStringConverter" />
@@ -43,27 +43,18 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ListBox Grid.Row="2" ItemsSource="{Binding SortedEvents}" SelectedItem="{Binding SelectedEvent}">
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Padding" Value="0"/>
-                    </Style>
-                </ListBox.ItemContainerStyle>
+            <ListBox HorizontalContentAlignment="Stretch" MaxHeight="180" Grid.Row="2" ItemsSource="{Binding SortedEvents}" SelectedItem="{Binding SelectedEvent}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding DateOfEvent, StringFormat='{}{0:dd.MM.yyyy}'}" />
 
-                            <TextBlock Grid.Column="0" Margin="3" VerticalAlignment="Center" Text="{Binding DateOfEvent, StringFormat='{}{0:dd.MM.yyyy}'}" />
-                            <ItemsControl Grid.Column="1" HorizontalAlignment="Right" ItemsSource="{Binding Participants}">
+                            <ItemsControl ItemsSource="{Binding Participants}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock>
+                                        <TextBlock HorizontalAlignment="Left">
                                             <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}{0} ({1})">
+                                                <MultiBinding StringFormat="- {0} ({1})">
                                                     <Binding Path="Name" />
                                                     <Binding Path="CountryName" />
                                                 </MultiBinding>
@@ -72,7 +63,9 @@
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                        </Grid>
+                            
+                            <Separator BorderBrush="Black" BorderThickness="5" />
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

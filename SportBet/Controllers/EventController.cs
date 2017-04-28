@@ -2,7 +2,6 @@
 using SportBet.CommonControls.Events.ViewModels;
 using SportBet.Contracts;
 using SportBet.Contracts.Controllers;
-using SportBet.Contracts.Subjects;
 using SportBet.Models.Display;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;

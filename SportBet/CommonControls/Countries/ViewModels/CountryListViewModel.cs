@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using SportBet.Contracts;
-using SportBet.Contracts.Subjects;
 using SportBet.EventHandlers.Display;
 
 namespace SportBet.CommonControls.Countries.ViewModels

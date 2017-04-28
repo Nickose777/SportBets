@@ -3,7 +3,6 @@ using System.Windows;
 using SportBet.CommonControls.Sports.UserControls;
 using SportBet.CommonControls.Sports.ViewModels;
 using SportBet.Contracts;
-using SportBet.Contracts.Subjects;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.ResultTypes;

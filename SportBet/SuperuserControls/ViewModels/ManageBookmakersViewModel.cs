@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using SportBet.Contracts.Subjects;
 using SportBet.EventHandlers.Display;
 using SportBet.Models.Display;
 using SportBet.Contracts;

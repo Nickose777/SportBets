@@ -2,7 +2,6 @@
 using System.Windows;
 using AutoMapper;
 using SportBet.Contracts;
-using SportBet.Contracts.Subjects;
 using SportBet.Controllers;
 using SportBet.Models.Display;
 using SportBet.Models.Registers;

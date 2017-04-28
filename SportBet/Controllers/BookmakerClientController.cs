@@ -4,7 +4,6 @@ using AutoMapper;
 using SportBet.CommomControls.Clients.UserControls;
 using SportBet.CommonControls.Clients.ViewModels;
 using SportBet.Contracts;
-using SportBet.Contracts.Subjects;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;
 using SportBet.Models.Registers;

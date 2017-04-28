@@ -6,7 +6,6 @@ using AutoMapper;
 using SportBet.CommonControls.Coefficients.UserControls;
 using SportBet.CommonControls.Coefficients.ViewModels;
 using SportBet.Contracts.Controllers;
-using SportBet.Contracts.Subjects;
 using SportBet.Models.Base;
 using SportBet.Models.Create;
 using SportBet.Services.Contracts;

@@ -7,6 +7,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Base;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.DTOModels.Display;
 
 namespace SportBet.Services.Providers.BetServices
 {
@@ -95,6 +96,27 @@ namespace SportBet.Services.Providers.BetServices
             }
 
             return new ServiceMessage(message, success);
+        }
+
+        public DataServiceMessage<IEnumerable<BetDisplayDTO>> GetAll()
+        {
+            string message = "";
+            bool success = true;
+            IEnumerable<BetDisplayDTO> betDisplayDTOs = null;
+
+            try
+            {
+                IEnumerable<BetEntity> betEntities = unitOfWork.Bets.GetAll();
+
+
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<BetDisplayDTO>>(betDisplayDTOs, message, success);
         }
 
         public void Dispose()

@@ -43,7 +43,7 @@
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
-                <DatePicker Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" SelectedDateFormat="Short" SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" />
+                <DatePicker Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" SelectedDateFormat="Short" SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" CalendarStyle="{StaticResource CalendarStyle}" />
 
                 <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />

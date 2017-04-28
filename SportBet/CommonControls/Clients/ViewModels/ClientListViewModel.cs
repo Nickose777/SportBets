@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Input;
 using SportBet.Contracts;
-using SportBet.Contracts.Subjects;
 using SportBet.Models.Display;
 
 namespace SportBet.CommonControls.Clients.ViewModels

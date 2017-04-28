@@ -8,7 +8,6 @@ using SportBet.CommonControls.Tournaments.UserControls;
 using SportBet.CommonControls.Tournaments.ViewModels;
 using SportBet.Contracts;
 using SportBet.Contracts.Controllers;
-using SportBet.Contracts.Subjects;
 using SportBet.Models.Base;
 using SportBet.Models.Display;
 using SportBet.Models.Edit;

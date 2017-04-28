@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="SportBet.CommonControls.Bets.UserControls.BetListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
+             xmlns:Converter="clr-namespace:SportBet.ValueConverters"
+             d:DesignHeight="500" d:DesignWidth="500"
+             d:DataContext="{d:DesignInstance ViewModel:BetListDTViewModel}"
+             Background="{StaticResource DefaultBackgroundColor}">
+    <UserControl.Resources>
+        <Converter:NullableBoolToBrushConverter x:Key="nullableBoolToBrushConverter" />
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Header="Bets">
+            <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding Bets}" SelectedItem="{Binding SelectedBet}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Ellipse HorizontalAlignment="Left" Height="15" Width="15" Fill="{Binding Win, Converter={StaticResource nullableBoolToBrushConverter}}" Stroke="Black" StrokeThickness="1" />
+                            <TextBlock HorizontalAlignment="Left">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0:dd.MM.yyyy}. {1}, {2}. {3}">
+                                        <Binding Path="DateOfEvent" />
+                                        <Binding Path="SportName" />
+                                        <Binding Path="TournamentName" />
+                                        <Binding Path="CoefficientDescription" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+
+                            <Separator />
+
+                            <ItemsControl ItemsSource="{Binding EventParticipants}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock HorizontalAlignment="Left">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="- {0} ({1})">
+                                                    <Binding Path="Name" />
+                                                    <Binding Path="CountryName" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            
+                            <Separator BorderBrush="Black" BorderThickness="5" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Bet info">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Registered:" />
+                <TextBlock Grid.Row="1" Text="Client's sum:" />
+                <TextBlock Grid.Row="2" Text="Possible win:" />
+                <TextBlock Grid.Row="3" Text="Actual win:" />
+
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding SelectedBet.RegistrationDate, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding SelectedBet.Sum}" />
+                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding SelectedBet.PossibleWinSum}" />
+                <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding SelectedBet.WinSum}" />
+                
+                <Button
+                    Grid.Row="4"
+                    Content="Edit"
+                    HorizontalAlignment="Left"
+                    Height="30"
+                    Width="70"
+                    Command="{Binding EditBetCommand}" />
+                <Button
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Content="Delete"
+                    HorizontalAlignment="Right"
+                    Height="30"
+                    Width="70" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

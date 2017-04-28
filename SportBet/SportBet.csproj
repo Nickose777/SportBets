@@ -81,6 +81,10 @@
     <Compile Include="AdminControls\AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Bets\UserControls\BetListControl.xaml.cs">
+      <DependentUpon>BetListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommonControls\Bets\ViewModels\BetListViewModel.cs" />
     <Compile Include="CommonControls\Countries\UserControls\CountryCreateControl.xaml.cs">
       <DependentUpon>CountryCreateControl.xaml</DependentUpon>
     </Compile>
@@ -229,6 +233,7 @@
     <Compile Include="DesignTimeViewModels\AdminRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BetCreateDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\BetListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientInfoDTViewModel.cs" />
@@ -264,6 +269,7 @@
     <Compile Include="EventHandlers\Create\TournamentEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AdminDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\AnalyticDisplayEventHandler.cs" />
+    <Compile Include="EventHandlers\Display\BetDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\CoefficientDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\EventDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Display\ParticipantDisplayEventHandler.cs" />
@@ -287,6 +293,7 @@
     <Compile Include="EventHandlers\ServiceMessageEventHandler.cs" />
     <Compile Include="Facades\AdminFacade.cs" />
     <Compile Include="Facades\AnalyticFacade.cs" />
+    <Compile Include="Facades\BetFacade.cs" />
     <Compile Include="Facades\BookmakerFacade.cs" />
     <Compile Include="Facades\ClientFacade.cs" />
     <Compile Include="Facades\CoefficientFacade.cs" />
@@ -325,6 +332,7 @@
     <Compile Include="Models\Create\SportCreateModel.cs" />
     <Compile Include="Models\Display\AdminDisplayModel.cs" />
     <Compile Include="Models\Display\AnalyticDisplayModel.cs" />
+    <Compile Include="Models\Display\BetDisplayModel.cs" />
     <Compile Include="Models\Display\BookmakerDisplayModel.cs" />
     <Compile Include="Models\Display\ClientDisplayModel.cs" />
     <Compile Include="Models\Display\CoefficientDisplayModel.cs" />
@@ -386,8 +394,13 @@
     <Compile Include="SuperuserControls\ViewModels\ManageBookmakersViewModel.cs" />
     <Compile Include="ValueConverters\DecimalToPersistantStringConverter.cs" />
     <Compile Include="ValueConverters\InverseBooleanConverter.cs" />
+    <Compile Include="ValueConverters\NullableBoolToBrushConverter.cs" />
     <Compile Include="WindowFactories\WindowFactory.cs" />
     <Page Include="AdminControls\AdminMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Bets\UserControls\BetListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

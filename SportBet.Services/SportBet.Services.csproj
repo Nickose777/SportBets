@@ -66,6 +66,7 @@
     <Compile Include="DTOModels\Create\SportCreateDTO.cs" />
     <Compile Include="DTOModels\Display\AdminDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\AnalyticDisplayDTO.cs" />
+    <Compile Include="DTOModels\Display\BetDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\BookmakerDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\ClientDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\CoefficientDisplayDTO.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Providers\AccountServices\ClientAccountService.cs" />
     <Compile Include="Providers\AccountServices\SuperuserAccountService.cs" />
     <Compile Include="Providers\BetServices\BookmakerBetService.cs" />
+    <Compile Include="Providers\BetServices\ClientBetService.cs" />
     <Compile Include="Providers\BookmakerServices\BookmakerBookmakerService.cs" />
     <Compile Include="Providers\CoefficientServices\AdminCoefficientService.cs" />
     <Compile Include="Providers\AdminServices\SuperuserAdminService.cs" />

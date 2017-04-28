@@ -12,6 +12,7 @@ namespace SportBet.ClientControls
     public partial class ClientMainWindow : LogWindowBase
     {
         private readonly IAccountController accountController;
+        private readonly IBetController betController;
 
         private UIElement lastElement;
 
@@ -21,8 +22,10 @@ namespace SportBet.ClientControls
             InitializeComponent();
 
             accountController = controllerFactory.CreateAccountController();
+            betController = controllerFactory.CreateBetController();
 
             accountController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
+            betController.ReceivedMessage += (s, e) => UpdateLogs(e.Success, e.Message);
 
             UpdateLogs(true, "Welcome, client");
         }
@@ -30,6 +33,12 @@ namespace SportBet.ClientControls
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             UIElement element = accountController.GetAccountElement();
+            DisplayElement(element);
+        }
+
+        private void ManageBets_Click(object sender, RoutedEventArgs e)
+        {
+            UIElement element = betController.GetDisplayElement();
             DisplayElement(element);
         }
 
@@ -50,6 +59,10 @@ namespace SportBet.ClientControls
             if (expander != expander2)
             {
                 expander2.IsExpanded = false;
+            }
+            if (expander != expander3)
+            {
+                expander3.IsExpanded = false;
             }
         }
 

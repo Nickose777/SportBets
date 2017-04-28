@@ -1,6 +1,4 @@
-﻿using SportBet.Contracts;
-
-namespace SportBet.Contracts.Subjects
+﻿namespace SportBet.Contracts
 {
     public interface ISubject
     {

@@ -90,7 +90,7 @@ namespace SportBet.ControllerFactories
 
         public IBetController CreateBetController()
         {
-            return new BetController(factory);
+            return new BetController(factory, new BetFacade(factory));
         }
     }
 }

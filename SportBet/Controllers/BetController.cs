@@ -2,8 +2,8 @@
 using SportBet.CommonControls.Bets.UserControls;
 using SportBet.CommonControls.Bets.ViewModels;
 using SportBet.CommonControls.Errors;
+using SportBet.Contracts;
 using SportBet.Contracts.Controllers;
-using SportBet.Contracts.Subjects;
 using SportBet.Models.Base;
 using SportBet.Models.Create;
 using SportBet.Models.Display;
@@ -27,10 +27,12 @@ namespace SportBet.Controllers
 {
     class BetController : SubjectBase, ISubject, IBetController
     {
-        public BetController(ServiceFactory factory)
+        private readonly FacadeBase<BetDisplayModel> facade;
+
+        public BetController(ServiceFactory factory, FacadeBase<BetDisplayModel> facade)
             : base(factory)
         {
-
+            this.facade = facade;
         }
 
         public void Add()
@@ -140,13 +142,10 @@ namespace SportBet.Controllers
 
         public UIElement GetDisplayElement()
         {
-            List<ServiceMessage> messages = new List<ServiceMessage>()
-            {
+            BetListViewModel viewModel = new BetListViewModel(this, facade);
+            BetListControl control = new BetListControl(viewModel);
 
-            };
-
-            ErrorViewModel viewModel = new ErrorViewModel(messages);
-            ErrorControl control = new ErrorControl(viewModel);
+            viewModel.BetSelected += (s, e) => Edit(e.Bet);
 
             return control;
         }
@@ -175,6 +174,13 @@ namespace SportBet.Controllers
             };
 
             return control;
+        }
+
+        private void Edit(BetDisplayModel betDisplayModel)
+        {
+            Window window = new Window();
+
+            window.Show();
         }
     }
 }

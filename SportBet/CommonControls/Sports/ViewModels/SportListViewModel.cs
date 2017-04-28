@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using SportBet.Contracts;
-using SportBet.Contracts.Subjects;
 using SportBet.EventHandlers.Display;
 using System.Windows.Input;
 

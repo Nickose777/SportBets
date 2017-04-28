@@ -4,7 +4,6 @@ using SportBet.CommonControls.Participants.UserControls;
 using SportBet.CommonControls.Participants.ViewModels;
 using SportBet.Contracts;
 using SportBet.Contracts.Controllers;
-using SportBet.Contracts.Subjects;
 using SportBet.Models.Base;
 using SportBet.Models.Create;
 using SportBet.Models.Display;
