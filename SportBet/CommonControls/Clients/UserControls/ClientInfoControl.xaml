@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="500"
              d:DataContext="{d:DesignInstance ViewModel:ClientInfoDTViewModel}"
              Background="{StaticResource DefaultBackgroundColor}">
     <GroupBox Header="Client info">
@@ -20,10 +21,10 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
@@ -42,6 +43,7 @@
                     Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
                     IsEnabled="{Binding IsEditMode}" />
                 <DatePicker Grid.Column="1" Grid.Row="3"
+                    VerticalAlignment="Center"
                     SelectedDateFormat="Short" 
                     SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" 
                     IsEnabled="{Binding IsEditMode}"

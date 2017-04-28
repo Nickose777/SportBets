@@ -6,68 +6,55 @@
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance ViewModel:BookmakerInfoDTViewModel}"
-             Background="Orange" MinHeight="235.609" MinWidth="314.346">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="30" />
-        </Grid.RowDefinitions>
-
-        <GroupBox Header="Bookmaker data">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <TextBlock
-                    Grid.Row="1"
-                    Text="Last name:" />
-                <TextBox 
-                    Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" 
-                    IsEnabled="{Binding IsEditMode}" 
-                    Grid.Row="2" />
-                <TextBlock
-                    Grid.Row="3"
-                    Text="First name:" />
-                <TextBox 
-                    Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" 
-                    IsEnabled="{Binding IsEditMode}" 
-                    Grid.Row="4" />
-                <TextBlock
-                    Grid.Row="5"
-                    Text="Phone Number:" />
-                <TextBox 
-                    Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
-                    IsEnabled="{Binding IsEditMode}" 
-                    Grid.Row="6" />
-            </Grid>
-        </GroupBox>
-        <Grid Grid.Row="1">
+             Background="{StaticResource DefaultBackgroundColor}" 
+             d:DesignHeight="300" d:DesignWidth="400"
+             MinHeight="300" MinWidth="400">
+    <GroupBox Header="Bookmaker's info">
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
+            <TextBlock Grid.Row="0" Text="Last name:" />
+            <TextBlock Grid.Row="1" Text="First name:" />
+            <TextBlock Grid.Row="2" Text="Phone Number:" />
+
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditMode}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditMode}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditMode}" />
+            
             <Button
-                Grid.Column="0"
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Left"
+                Height="30"
+                Width="70"
                 Content="Save"
                 Command="{Binding SaveBookmakerCommand}" />
             <Button
-                Grid.Column="1"
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                Height="30"
+                Width="70"
                 Content="Edit"
                 Command="{Binding StartEditBookmakerCommand}" />
             <Button
-                Grid.Column="2"
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Right"
+                Height="30"
+                Width="70"
                 Content="Cancel"
                 Command="{Binding CancelEditBookmakerCommand}" />
         </Grid>
-    </Grid>
+    </GroupBox>
 </UserControl>
