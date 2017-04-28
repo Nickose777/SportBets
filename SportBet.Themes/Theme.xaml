@@ -9,5 +9,6 @@
         <ResourceDictionary Source="DefaultGroupBox.xaml" />
         <ResourceDictionary Source="DefaultListBox.xaml" />
         <ResourceDictionary Source="DefaultDatePicker.xaml" />
+        <ResourceDictionary Source="DefaultExpander.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

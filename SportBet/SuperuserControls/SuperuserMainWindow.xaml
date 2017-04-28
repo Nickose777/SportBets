@@ -21,10 +21,7 @@
             </Grid.RowDefinitions>
 
             <CommonControls:Header />
-            <Expander Grid.Row="1" Name="expander1" Expanded="Expander_Expanded">
-                <Expander.Header>
-                    <TextBlock Margin="10,0" Text="Register" FontSize="18" Foreground="White"/>
-                </Expander.Header>
+            <Expander Grid.Row="1" Name="expander1" Header="Register" Expanded="Expander_Expanded">
                 <StackPanel>
                     <Button Style="{StaticResource MenuButton}" Content="Admin" Click="RegisterAdmin_Click"/>
                     <Button Style="{StaticResource MenuButton}" Content="Analytic" Click="RegisterAnalytic_Click"/>
@@ -32,10 +29,7 @@
                     <Button Style="{StaticResource MenuButton}" Content="Client" Click="RegisterClient_Click"/>
                 </StackPanel>
             </Expander>
-            <Expander Grid.Row="2" Name="expander2" Expanded="Expander_Expanded">
-                <Expander.Header>
-                    <TextBlock Margin="10,0" Text="Manage" FontSize="18" Foreground="White"/>
-                </Expander.Header>
+            <Expander Grid.Row="2" Name="expander2" Header="Manage" Expanded="Expander_Expanded">
                 <StackPanel>
                     <Button Style="{StaticResource MenuButton}" Content="Admins" Click="ManageAdmins_Click"/>
                     <Button Style="{StaticResource MenuButton}" Content="Analytics" Click="ManageAnalytics_Click" />
@@ -43,10 +37,7 @@
                     <Button Style="{StaticResource MenuButton}" Content="Clients" Click="ManageClients_Click" />
                 </StackPanel>
             </Expander>
-            <Expander Grid.Row="3" Name="expander3" Expanded="Expander_Expanded">
-                <Expander.Header>
-                    <TextBlock Margin="10,0" Text="Settings" FontSize="18" Foreground="White"/>
-                </Expander.Header>
+            <Expander Grid.Row="3" Name="expander3" Header="Settings" Expanded="Expander_Expanded">
                 <StackPanel>
                     <Button Style="{StaticResource MenuButton}" Content="Change Password" Click="ChangePassword_Click"/>
                     <Button Style="{StaticResource MenuButton}" Content="Show logs" Click="ShowLogs_Click"/>

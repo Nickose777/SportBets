@@ -22,26 +22,17 @@
             </Grid.RowDefinitions>
 
             <CommonControls:Header />
-            <Expander Grid.Row="1" Name="expander1" Expanded="Expander_Expanded">
-                <Expander.Header>
-                    <TextBlock Margin="10,0" Text="Account" FontSize="18" Foreground="White"/>
-                </Expander.Header>
+            <Expander Grid.Row="1" Name="expander1" Header="Account" Expanded="Expander_Expanded">
                 <StackPanel>
                     <Button Style="{StaticResource MenuButton}" Content="Personal info" Click="DisplayAccount_Click"/>
                 </StackPanel>
             </Expander>
-            <Expander Grid.Row="2" Name="expander2" Expanded="Expander_Expanded">
-                <Expander.Header>
-                    <TextBlock Margin="10,0" Text="Manage" FontSize="18" Foreground="White"/>
-                </Expander.Header>
+            <Expander Grid.Row="2" Name="expander2" Header="Manage" Expanded="Expander_Expanded">
                 <StackPanel>
                     <Button Style="{StaticResource MenuButton}" Content="My bets" Click="ManageBets_Click"/>
                 </StackPanel>
             </Expander>
-            <Expander Grid.Row="3" Name="expander3" Expanded="Expander_Expanded">
-                <Expander.Header>
-                    <TextBlock Margin="10,0" Text="Settings" FontSize="18" Foreground="White"/>
-                </Expander.Header>
+            <Expander Grid.Row="3" Name="expander3" Header="Settings" Expanded="Expander_Expanded">
                 <StackPanel>
                     <Button Style="{StaticResource MenuButton}" Content="Change Password" Click="ChangePassword_Click"/>
                     <Button Style="{StaticResource MenuButton}" Content="Show logs" Click="ShowLogs_Click"/>
