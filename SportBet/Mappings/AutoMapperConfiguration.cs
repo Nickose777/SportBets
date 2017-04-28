@@ -8,7 +8,17 @@ namespace SportBet.Mappings
         {
             Mapper.Initialize(config =>
             {
-                config.AddProfile<MappingProfile>();
+                config.AddProfile<AdminProfile>();
+                config.AddProfile<AnalyticProfile>();
+                config.AddProfile<BetProfile>();
+                config.AddProfile<BookmakerProfile>();
+                config.AddProfile<ClientProfile>();
+                config.AddProfile<CoefficientProfile>();
+                config.AddProfile<CountryProfile>();
+                config.AddProfile<EventProfile>();
+                config.AddProfile<ParticipantProfile>();
+                config.AddProfile<SportProfile>();
+                config.AddProfile<TournamentProfile>();
             });
         }
     }

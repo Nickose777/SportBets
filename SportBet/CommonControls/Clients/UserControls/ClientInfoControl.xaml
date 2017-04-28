@@ -44,7 +44,8 @@
                 <DatePicker Grid.Column="1" Grid.Row="3"
                     SelectedDateFormat="Short" 
                     SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" 
-                    IsEnabled="{Binding IsEditMode}" />
+                    IsEnabled="{Binding IsEditMode}"
+                    CalendarStyle="{StaticResource CalendarStyle}"/>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>

@@ -8,7 +8,7 @@
              d:DesignHeight="380" d:DesignWidth="400"
              d:DataContext="{d:DesignInstance ViewModels:ClientRegisterDTViewModel}"
              Background="{StaticResource DefaultBackgroundColor}">
-    <GroupBox Header="Client info" Grid.Row="0">
+    <GroupBox Header="Client registration">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -54,7 +54,6 @@
                 HorizontalAlignment="Center"
                 Height="40"
                 Width="100"
-                Margin="0,10"
                 Content="Register"
                 Command="{Binding CreateClientCommand}" />
         </Grid>

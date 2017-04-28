@@ -31,10 +31,24 @@ namespace SportBet.Controllers
 
         public void Register()
         {
+            UIElement element = GetRegisterElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public void Display()
+        {
+            UIElement element = GetDisplayElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public UIElement GetRegisterElement()
+        {
             AnalyticRegisterViewModel viewModel = new AnalyticRegisterViewModel(new AnalyticRegisterModel());
             RegisterAnalyticControl control = new RegisterAnalyticControl(viewModel);
-
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.AnalyticCreated += (s, e) =>
             {
@@ -59,14 +73,13 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
-        public void Display()
+        public UIElement GetDisplayElement()
         {
             ManageAnalyticsViewModel viewModel = new ManageAnalyticsViewModel(this, facade);
             ManageAnalyticsControl control = new ManageAnalyticsControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.AnalyticDeleted += (s, e) =>
             {
@@ -84,7 +97,7 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
     }
 }

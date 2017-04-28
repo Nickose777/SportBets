@@ -31,42 +31,48 @@ namespace SportBet.Controllers
 
         public void Register()
         {
-            AdminRegisterViewModel viewModel = new AdminRegisterViewModel(new AdminRegisterModel());
-            RegisterAdminControl control = new RegisterAdminControl(viewModel);
-
-            Window window = WindowFactory.CreateByContentsSize(control);
-
-            viewModel.AdminCreated += (s, e) =>
-            {
-                AdminRegisterModel admin = e.Admin;
-                AdminRegisterDTO adminDTO = Mapper.Map<AdminRegisterModel, AdminRegisterDTO>(admin);
-
-                using (IAccountService service = factory.CreateAccountService())
-                {
-                    ServiceMessage serviceMessage = service.Register(adminDTO);
-                    RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
-
-                    if (serviceMessage.IsSuccessful)
-                    {
-                        viewModel.FirstName = String.Empty;
-                        viewModel.LastName = String.Empty;
-                        viewModel.PhoneNumber = String.Empty;
-                        viewModel.Login = String.Empty;
-                        viewModel.Password = String.Empty;
-                        viewModel.ConfirmPassword = String.Empty;
-                        Notify();
-                    }
-                }
-            };
+            UIElement element = GetRegisterElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
 
             window.Show();
         }
 
         public void Display()
         {
+            UIElement element = GetDisplayElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public UIElement GetRegisterElement()
+        {
+            AdminRegisterViewModel viewModel = new AdminRegisterViewModel(new AdminRegisterModel());
+            RegisterAdminControl control = new RegisterAdminControl(viewModel);
+
+            viewModel.AdminCreated += (s, e) =>
+            {
+                AdminRegisterDTO admin = Mapper.Map<AdminRegisterModel, AdminRegisterDTO>(e.Admin);
+
+                using (IAccountService service = factory.CreateAccountService())
+                {
+                    ServiceMessage serviceMessage = service.Register(admin);
+                    RaiseReceivedMessageEvent(serviceMessage);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        Notify();
+                    }
+                }
+            };
+
+            return control;
+        }
+
+        public UIElement GetDisplayElement()
+        {
             ManageAdminsViewModel viewModel = new ManageAdminsViewModel(this, facade);
             ManageAdminsControl control = new ManageAdminsControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.AdminDeleted += (s, e) =>
             {
@@ -84,7 +90,7 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
     }
 }

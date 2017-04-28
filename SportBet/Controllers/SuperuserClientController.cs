@@ -33,9 +33,24 @@ namespace SportBet.Controllers
 
         public void Register()
         {
+            UIElement element = GetRegisterElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public void Display()
+        {
+            UIElement element = GetDisplayElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public UIElement GetRegisterElement()
+        {
             ClientRegisterViewModel viewModel = new ClientRegisterViewModel(new ClientRegisterModel() { DateOfBirth = new DateTime(1990, 01, 01) });
             RegisterClientControl control = new RegisterClientControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.ClientCreated += (s, e) =>
             {
@@ -60,14 +75,13 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
-        public void Display()
+        public UIElement GetDisplayElement()
         {
             ManageClientsViewModel viewModel = new ManageClientsViewModel(this, facade, true);
             ManageClientsControl control = new ManageClientsControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.ClientSelectRequest += (s, e) => EditClient(e.Client);
             viewModel.ClientDeleteRequest += (s, e) =>
@@ -90,7 +104,7 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
         private void EditClient(ClientDisplayModel clientDisplayModel)

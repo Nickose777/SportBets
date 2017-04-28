@@ -2,21 +2,20 @@
 using System.Windows;
 using AutoMapper;
 using SportBet.Contracts;
+using SportBet.Contracts.Controllers;
 using SportBet.Contracts.Subjects;
-using SportBet.Controllers;
 using SportBet.Models.Display;
+using SportBet.Models.Edit;
 using SportBet.Models.Registers;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
+using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using SportBet.SuperuserControls.UserControls;
 using SportBet.SuperuserControls.ViewModels;
 using SportBet.WindowFactories;
-using SportBet.Contracts.Controllers;
-using SportBet.Models.Edit;
-using SportBet.Services.DTOModels.Edit;
 
 namespace SportBet.Controllers
 {
@@ -33,9 +32,24 @@ namespace SportBet.Controllers
 
         public void Register()
         {
+            UIElement element = GetRegisterElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public void Display()
+        {
+            UIElement element = GetDisplayElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public UIElement GetRegisterElement()
+        {
             BookmakerRegisterViewModel viewModel = new BookmakerRegisterViewModel(new BookmakerRegisterModel());
             RegisterBookmakerControl control = new RegisterBookmakerControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.BookmakerCreated += (s, ea) =>
             {
@@ -60,14 +74,13 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
-        public void Display()
+        public UIElement GetDisplayElement()
         {
             ManageBookmakersViewModel viewModel = new ManageBookmakersViewModel(this, facade);
             ManageBookmakersControl control = new ManageBookmakersControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.BookmakerSelectRequest += (s, e) => Edit(e.Bookmaker);
             viewModel.BookmakerDeleteRequest += (s, e) =>
@@ -86,7 +99,7 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
 
         private void Edit(BookmakerDisplayModel bookmakerDisplayModel)

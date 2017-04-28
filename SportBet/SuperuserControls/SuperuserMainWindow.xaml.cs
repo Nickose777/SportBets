@@ -45,65 +45,74 @@ namespace SportBet.SuperuserControls
 
         private void RegisterAdmin_Click(object sender, RoutedEventArgs e)
         {
-            adminController.Register();
+            UIElement element = adminController.GetRegisterElement();
+            DisplayElement(element);
         }
 
         private void RegisterAnalytic_Click(object sender, RoutedEventArgs e)
         {
-            analyticController.Register();
+            UIElement element = analyticController.GetRegisterElement();
+            DisplayElement(element);
         }
 
         private void RegisterBookmaker_Click(object sender, RoutedEventArgs e)
         {
-            bookmakerController.Register();
+            UIElement element = bookmakerController.GetRegisterElement();
+            DisplayElement(element);
         }
 
         private void RegisterClient_Click(object sender, RoutedEventArgs e)
         {
-            clientController.Register();
+            UIElement element = clientController.GetRegisterElement();
+            DisplayElement(element);
         }
 
         private void ManageAdmins_Click(object sender, RoutedEventArgs e)
         {
-            adminController.Display();
+            UIElement element = adminController.GetDisplayElement();
+            DisplayElement(element);
         }
 
         private void ManageAnalytics_Click(object sender, RoutedEventArgs e)
         {
-            analyticController.Display();
+            UIElement element = analyticController.GetDisplayElement();
+            DisplayElement(element);
         }
 
         private void ManageBookmakers_Click(object sender, RoutedEventArgs e)
         {
-            bookmakerController.Display();
+            UIElement element = bookmakerController.GetDisplayElement();
+            DisplayElement(element);
         }
 
         private void ManageClients_Click(object sender, RoutedEventArgs e)
         {
-            clientController.Display();
+            UIElement element = clientController.GetDisplayElement();
+            DisplayElement(element);
         }
 
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            accountController.ChangePassword();
+            UIElement element = accountController.GetPasswordElement();
+            DisplayElement(element);
         }
 
         private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
             Expander expander = sender as Expander;
 
-            //if (expander != expander1)
-            //{
-            //    expander1.IsExpanded = false;
-            //}
-            //if (expander != expander2)
-            //{
-            //    expander2.IsExpanded = false;
-            //}
-            //if (expander != expander3)
-            //{
-            //    expander3.IsExpanded = false;
-            //}
+            if (expander != expander1)
+            {
+                expander1.IsExpanded = false;
+            }
+            if (expander != expander2)
+            {
+                expander2.IsExpanded = false;
+            }
+            if (expander != expander3)
+            {
+                expander3.IsExpanded = false;
+            }
         }
 
         private void ShowLogs_Click(object sender, RoutedEventArgs e)

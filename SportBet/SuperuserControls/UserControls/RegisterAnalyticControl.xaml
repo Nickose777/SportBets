@@ -5,77 +5,55 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="200.752" d:DesignWidth="228.947"
+             d:DesignHeight="500" d:DesignWidth="500"
              d:DataContext="{d:DesignInstance ViewModel:AnalyticRegisterDTViewModel}"
-             Background="Orange">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="30" />
-        </Grid.RowDefinitions>
+             Background="{StaticResource DefaultBackgroundColor}">
+    <GroupBox Header="Analytic registration">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <GroupBox Header="Account">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="1" Text="Login:" />
-                <TextBlock Grid.Row="3" Text="Password:" />
-                <TextBlock Grid.Row="5" Text="Confirm password:" />
+                <TextBlock Grid.Row="0" Text="Last name:" />
+                <TextBlock Grid.Row="1" Text="First name:" />
+                <TextBlock Grid.Row="2" Text="Phone Number:" />
 
-                <TextBox Grid.Row="2" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Grid.Row="4" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Grid.Row="6" Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Grid.Row="3" Text="Login:" />
+                <TextBlock Grid.Row="4" Text="Password:" />
+                <TextBlock Grid.Row="5" Text="Confirm:" />
+
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
-        </GroupBox>
-        <GroupBox Header="Analytic data"
-            Grid.Column="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <TextBlock
-                    Grid.Row="1"
-                    Text="Last name:" />
-                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" />
-                <TextBlock
-                    Grid.Row="3"
-                    Text="First name:" />
-                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" />
-                <TextBlock
-                    Grid.Row="5"
-                    Text="Phone Number:" />
-                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" />
-            </Grid>
-        </GroupBox>
-
-        <Button
-            Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Padding="30,3"
-            Grid.ColumnSpan="2"
-            Content="Register"
-            Command="{Binding CreateAnalyticCommand}" />
-    </Grid>
+            <Button
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                Height="40"
+                Width="100"
+                Content="Register"
+                Command="{Binding CreateAnalyticCommand}" />
+        </Grid>
+    </GroupBox>
 </UserControl>

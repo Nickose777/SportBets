@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SportBet.CommonControls.Bets.UserControls;
 using SportBet.CommonControls.Bets.ViewModels;
+using SportBet.CommonControls.Errors;
 using SportBet.Contracts.Controllers;
 using SportBet.Contracts.Subjects;
 using SportBet.Models.Base;
@@ -32,7 +33,23 @@ namespace SportBet.Controllers
 
         }
 
-        public void Create()
+        public void Add()
+        {
+            UIElement element = GetAddElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public void Display()
+        {
+            UIElement element = GetDisplayElement();
+            Window window = WindowFactory.CreateByContentsSize(element);
+
+            window.Show();
+        }
+
+        public UIElement GetAddElement()
         {
             DataServiceMessage<string> bookmakerServiceMessage;
             DataServiceMessage<IEnumerable<ClientDisplayDTO>> clientServiceMessage;
@@ -80,6 +97,7 @@ namespace SportBet.Controllers
                 eventServiceMessage.IsSuccessful &&
                 coefficientServiceMessage.IsSuccessful;
 
+            UIElement element;
             if (success)
             {
                 string bookmakerPhoneNumber = bookmakerServiceMessage.Data;
@@ -97,15 +115,46 @@ namespace SportBet.Controllers
                     .Data
                     .Select(coefficient => Mapper.Map<CoefficientDisplayDTO, CoefficientDisplayModel>(coefficient));
 
-                Create(bookmakerPhoneNumber, clients, sports, tournaments, events, coefficients);
+                element = Add(bookmakerPhoneNumber, clients, sports, tournaments, events, coefficients);
             }
+            else
+            {
+                List<ServiceMessage> messages = new List<ServiceMessage>()
+                {
+                    bookmakerServiceMessage,
+                    clientServiceMessage,
+                    sportServiceMessage,
+                    tournamentServiceMessage,
+                    eventServiceMessage,
+                    coefficientServiceMessage
+                };
+
+                ErrorViewModel viewModel = new ErrorViewModel(messages);
+                ErrorControl control = new ErrorControl(viewModel);
+
+                element = control;
+            }
+
+            return element;
         }
 
-        private void Create(string bookmakerPhoneNumber, IEnumerable<ClientDisplayModel> clients, IEnumerable<string> sports, IEnumerable<TournamentDisplayModel> tournaments, IEnumerable<EventDisplayModel> events, IEnumerable<CoefficientDisplayModel> coefficients)
+        public UIElement GetDisplayElement()
+        {
+            List<ServiceMessage> messages = new List<ServiceMessage>()
+            {
+
+            };
+
+            ErrorViewModel viewModel = new ErrorViewModel(messages);
+            ErrorControl control = new ErrorControl(viewModel);
+
+            return control;
+        }
+
+        private UIElement Add(string bookmakerPhoneNumber, IEnumerable<ClientDisplayModel> clients, IEnumerable<string> sports, IEnumerable<TournamentDisplayModel> tournaments, IEnumerable<EventDisplayModel> events, IEnumerable<CoefficientDisplayModel> coefficients)
         {
             BetCreateViewModel viewModel = new BetCreateViewModel(bookmakerPhoneNumber, clients, sports, tournaments, events, coefficients);
             BetCreateControl control = new BetCreateControl(viewModel);
-            Window window = WindowFactory.CreateByContentsSize(control);
 
             viewModel.BetCreated += (s, e) =>
             {
@@ -125,7 +174,7 @@ namespace SportBet.Controllers
                 }
             };
 
-            window.Show();
+            return control;
         }
     }
 }

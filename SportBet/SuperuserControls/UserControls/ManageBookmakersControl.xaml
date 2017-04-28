@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="500" d:DesignWidth="500"
              d:DataContext="{d:DesignInstance ViewModel:ManageBookmakersDTViewModel}"
-             Background="Orange">
+             Background="{StaticResource DefaultBackgroundColor}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -24,20 +24,19 @@
                 <Expander Header="Search options">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="*" />
                             <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="First name:" />
-                        <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Last name:" />
-                        <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="Phone number:" />
+                        <TextBlock Grid.Row="0" Text="First name:" />
+                        <TextBlock Grid.Row="1" Text="Last name:" />
+                        <TextBlock Grid.Row="2" Text="Phone number:" />
 
                         <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding BookmakerListViewModel.FirstNameFilter}" />
                         <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding BookmakerListViewModel.LastNameFilter}" />
@@ -46,6 +45,9 @@
                         <Button
                             Grid.Row="4"
                             Grid.ColumnSpan="2"
+                            Height="30"
+                            Width="70"
+                            Margin="0,10"
                             Content="Search"
                             Command="{Binding BookmakerListViewModel.RefreshBookmakers}" />
                     </Grid>
@@ -73,14 +75,12 @@
         <GroupBox Header="Bookmaker info" Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="20" />
                     <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0">
+                <TextBlock Grid.Row="0" HorizontalAlignment="Left">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Full name: {0} {1}">
                             <Binding Path="SelectedBookmaker.LastName" />
@@ -88,22 +88,20 @@
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
-                <TextBlock Grid.Row="1" Text="{Binding SelectedBookmaker.PhoneNumber, StringFormat='Phone number: {0}'}" />
-                <TextBlock Grid.Row="2" Text="{Binding SelectedBookmaker.DateOfBirth, StringFormat='Date of birth: {0:dd/MM/yyyy}'}" />
-                <TextBlock Grid.Row="3" Text="{Binding SelectedBookmaker.DateOfRegistration, StringFormat='Date of registration: {0:dd/MM/yyyy}'}" />
+                <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="{Binding SelectedBookmaker.PhoneNumber, StringFormat='Phone number: {0}'}" />
 
                 <Button
-                    Grid.Row="4"
+                    Grid.Row="2"
                     HorizontalAlignment="Left"
-                    Padding="30,0"
-                    Margin="30,0"
+                    Height="30"
+                    Width="70"
                     Content="Edit"
                     Command="{Binding SelectBookmakerCommand}" />
                 <Button
-                    Grid.Row="4"
+                    Grid.Row="2"
                     HorizontalAlignment="Right"
-                    Padding="30,0"
-                    Margin="30,0"
+                    Height="30"
+                    Width="70"
                     Content="Delete"
                     Command="{Binding DeleteBookmakerCommand}" />
             </Grid>
