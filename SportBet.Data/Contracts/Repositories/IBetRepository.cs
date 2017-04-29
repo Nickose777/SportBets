@@ -5,5 +5,7 @@ namespace SportBet.Data.Contracts.Repositories
     public interface IBetRepository : IRepository<BetEntity>
     {
         bool Exists(int coefficientId, string clientPhoneNumber);
+
+        BetEntity Get(int coefficientId, string clientPhoneNumber);
     }
 }

@@ -81,9 +81,13 @@
     <Compile Include="AdminControls\AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Bets\UserControls\BetInfoControl.xaml.cs">
+      <DependentUpon>BetInfoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CommonControls\Bets\UserControls\BetListControl.xaml.cs">
       <DependentUpon>BetListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Bets\ViewModels\BetInfoViewModel.cs" />
     <Compile Include="CommonControls\Bets\ViewModels\BetListViewModel.cs" />
     <Compile Include="CommonControls\Countries\UserControls\CountryCreateControl.xaml.cs">
       <DependentUpon>CountryCreateControl.xaml</DependentUpon>
@@ -235,6 +239,7 @@
     <Compile Include="DesignTimeViewModels\AnalyticInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\AnalyticRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BetCreateDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\BetInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BetListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
@@ -279,6 +284,7 @@
     <Compile Include="EventHandlers\Display\TournamentDisplayEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\AdminEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\AnalyticEditEventHandler.cs" />
+    <Compile Include="EventHandlers\Edit\BetEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\BookmakerEditEventHandler.cs" />
     <Compile Include="EventHandlers\Edit\ClientEditEventHandler.cs" />
     <Compile Include="EventHandlers\Display\CountryDisplayEventHandler.cs" />
@@ -345,6 +351,7 @@
     <Compile Include="Models\Display\TournamentDisplayModel.cs" />
     <Compile Include="Models\Edit\AdminEditModel.cs" />
     <Compile Include="Models\Edit\AnalyticEditModel.cs" />
+    <Compile Include="Models\Edit\BetEditModel.cs" />
     <Compile Include="Models\Edit\BookmakerEditModel.cs" />
     <Compile Include="Models\Edit\ClientEditModel.cs" />
     <Compile Include="Models\Edit\CoefficientEditModel.cs" />
@@ -411,6 +418,10 @@
     <Compile Include="ValueConverters\NullableBoolToBrushConverter.cs" />
     <Compile Include="WindowFactories\WindowFactory.cs" />
     <Page Include="AdminControls\AdminMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Bets\UserControls\BetInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

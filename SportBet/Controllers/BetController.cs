@@ -7,12 +7,14 @@ using SportBet.Contracts.Controllers;
 using SportBet.Models.Base;
 using SportBet.Models.Create;
 using SportBet.Models.Display;
+using SportBet.Models.Edit;
 using SportBet.Models.Registers;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Base;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.DTOModels.Display;
+using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.DTOModels.Register;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
@@ -178,7 +180,27 @@ namespace SportBet.Controllers
 
         private void Edit(BetDisplayModel betDisplayModel)
         {
-            Window window = new Window();
+            BetInfoViewModel viewModel = new BetInfoViewModel(betDisplayModel);
+            BetInfoControl control = new BetInfoControl(viewModel);
+            Window window = WindowFactory.CreateByContentsSize(control);
+
+            viewModel.BetEdited += (s, e) =>
+            {
+                BetEditModel betEditModel = e.Bet;
+                BetEditDTO betEditDTO = Mapper.Map<BetEditModel, BetEditDTO>(betEditModel);
+
+                using (IBetService service = factory.CreateBetService())
+                {
+                    ServiceMessage serviceMessage = service.Update(betEditDTO);
+                    RaiseReceivedMessageEvent(serviceMessage);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        window.Close();
+                        Notify();
+                    }
+                }
+            };
 
             window.Show();
         }

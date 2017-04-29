@@ -5,6 +5,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Base;
 using SportBet.Services.DTOModels.Create;
 using SportBet.Services.DTOModels.Display;
+using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,11 @@ namespace SportBet.Services.Providers.BetServices
         }
 
         public ServiceMessage Create(BetCreateDTO betCreateDTO)
+        {
+            return new ServiceMessage("No permissions", false);
+        }
+
+        public ServiceMessage Update(BetEditDTO betEditDTO)
         {
             return new ServiceMessage("No permissions", false);
         }
