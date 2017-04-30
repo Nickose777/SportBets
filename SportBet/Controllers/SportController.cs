@@ -75,6 +75,7 @@ namespace SportBet.Controllers
             SportListControl control = new SportListControl(viewModel);
 
             viewModel.SportSelected += (s, e) => EditSport(e.SportName);
+            viewModel.SportDeleteRequest += (s, e) => Delete(e.SportName);
 
             return control;
         }
@@ -104,6 +105,20 @@ namespace SportBet.Controllers
             };
 
             window.Show();
+        }
+
+        private void Delete(string sportName)
+        {
+            using (ISportService service = factory.CreateSportService())
+            {
+                ServiceMessage serviceMessage = service.Delete(sportName);
+                RaiseReceivedMessageEvent(serviceMessage);
+
+                if (serviceMessage.IsSuccessful)
+                {
+                    Notify();
+                }
+            }
         }
     }
 }

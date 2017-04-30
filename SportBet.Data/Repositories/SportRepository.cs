@@ -10,6 +10,13 @@ namespace SportBet.Data.Repositories
         public SportRepository(Func<SportBetDbContext> GetContext)
             : base(GetContext) { }
 
+        public bool Exists(string sportName)
+        {
+            SportEntity sportEntity = Get(sportName);
+
+            return sportEntity != null;
+        }
+
         public SportEntity Get(string sportName)
         {
             SportBetDbContext context = GetContext();

@@ -31,6 +31,11 @@ namespace SportBet.Services.Providers.SportServices
             return new ServiceMessage("No permissions", false);
         }
 
+        public ServiceMessage Delete(string sportName)
+        {
+            return new ServiceMessage("No permissions", false);
+        }
+
         public DataServiceMessage<IEnumerable<string>> GetAll()
         {
             string message;

@@ -29,8 +29,8 @@ namespace SportBet.Services.Providers.SportServices
 
             try
             {
-                int sportsWithSameNameCount = unitOfWork.Sports.GetAll(sport => sport.Type == sportName).Count();
-                if (sportsWithSameNameCount == 0)
+                bool exists = unitOfWork.Sports.Exists(sportName);
+                if (!exists)
                 {
                     unitOfWork.Sports.Add(new SportEntity
                     {
@@ -73,6 +73,36 @@ namespace SportBet.Services.Providers.SportServices
                     unitOfWork.Commit();
 
                     message = "Sport was renamed";
+                }
+                else
+                {
+                    message = "Sport with such name doesn't exist";
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
+        public ServiceMessage Delete(string sportName)
+        {
+            string message;
+            bool success = true;
+
+            try
+            {
+                SportEntity sportEntity = unitOfWork.Sports.Get(sportName);
+                if (sportEntity != null)
+                {
+                    unitOfWork.Sports.Remove(sportEntity);
+                    unitOfWork.Commit();
+
+                    message = "Sport deleted";
                 }
                 else
                 {

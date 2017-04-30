@@ -12,6 +12,8 @@ namespace SportBet.Services.Contracts.Services
 
         ServiceMessage Update(SportEditDTO sportEditDTO);
 
+        ServiceMessage Delete(string sportName);
+
         DataServiceMessage<IEnumerable<string>> GetAll();
     }
 }
