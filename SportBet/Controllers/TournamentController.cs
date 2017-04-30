@@ -111,6 +111,7 @@ namespace SportBet.Controllers
                     }
                 }
             };
+            viewModel.TournamentDeleteRequest += (s, e) => Delete(e.Tournament);
 
             return control;
         }
@@ -181,6 +182,22 @@ namespace SportBet.Controllers
             };
 
             window.Show();
+        }
+
+        private void Delete(TournamentBaseModel tournamentBaseModel)
+        {
+            TournamentBaseDTO tournamentBaseDTO = Mapper.Map<TournamentBaseModel, TournamentBaseDTO>(tournamentBaseModel);
+
+            using (ITournamentService service = factory.CreateTournamentService())
+            {
+                ServiceMessage serviceMessage = service.Delete(tournamentBaseDTO);
+                RaiseReceivedMessageEvent(serviceMessage);
+
+                if (serviceMessage.IsSuccessful)
+                {
+                    Notify();
+                }
+            }
         }
     }
 }

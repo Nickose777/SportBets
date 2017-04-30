@@ -14,6 +14,8 @@ namespace SportBet.Services.Contracts.Services
 
         ServiceMessage Update(TournamentEditDTO tournamentEditDTO);
 
+        ServiceMessage Delete(TournamentBaseDTO tournamentBaseDTO);
+
         ServiceMessage UpdateParticipants(TournamentEditDTO tournamentEditDTO);
 
         DataServiceMessage<IEnumerable<TournamentDisplayDTO>> GetAll();

@@ -10,6 +10,7 @@ namespace SportBet.CommonControls.Tournaments.ViewModels
     public class TournamentListViewModel : ObservableObject, IObserver
     {
         public event TournamentDisplayEventHandler TournamentSelected;
+        public event TournamentDisplayEventHandler TournamentDeleteRequest;
 
         private readonly ISubject subject;
         private readonly FacadeBase<TournamentDisplayModel> facade;
@@ -24,6 +25,9 @@ namespace SportBet.CommonControls.Tournaments.ViewModels
             this.SelectTournamentCommand = new DelegateCommand(
                 () => RaiseTournamentSelectedEvent(SelectedTournament),
                 obj => SelectedTournament != null);
+            this.DeleteTournamentCommand = new DelegateCommand(
+                () => RaiseTournamentDeleteRequestEvent(SelectedTournament),
+                obj => SelectedTournament != null);
 
             this.Tournaments = new ObservableCollection<TournamentDisplayModel>(facade.GetAll());
 
@@ -31,6 +35,8 @@ namespace SportBet.CommonControls.Tournaments.ViewModels
         }
 
         public ICommand SelectTournamentCommand { get; private set; }
+
+        public ICommand DeleteTournamentCommand { get; private set; }
 
         public void Update()
         {
@@ -60,6 +66,16 @@ namespace SportBet.CommonControls.Tournaments.ViewModels
         public void RaiseTournamentSelectedEvent(TournamentDisplayModel tournament)
         {
             var handler = TournamentSelected;
+            if (handler != null)
+            {
+                TournamentDisplayEventArgs e = new TournamentDisplayEventArgs(tournament);
+                handler(this, e);
+            }
+        }
+
+        public void RaiseTournamentDeleteRequestEvent(TournamentDisplayModel tournament)
+        {
+            var handler = TournamentDeleteRequest;
             if (handler != null)
             {
                 TournamentDisplayEventArgs e = new TournamentDisplayEventArgs(tournament);

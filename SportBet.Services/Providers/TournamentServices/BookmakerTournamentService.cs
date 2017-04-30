@@ -35,6 +35,11 @@ namespace SportBet.Services.Providers.TournamentServices
             return new ServiceMessage("No permissions", false);
         }
 
+        public ServiceMessage Delete(TournamentBaseDTO tournamentBaseDTO)
+        {
+            return new ServiceMessage("No permissions", false);
+        }
+
         public DataServiceMessage<IEnumerable<TournamentDisplayDTO>> GetAll()
         {
             string message = "";

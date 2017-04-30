@@ -126,6 +126,49 @@ namespace SportBet.Services.Providers.TournamentServices
             return new ServiceMessage(message, success);
         }
 
+        public ServiceMessage Delete(TournamentBaseDTO tournamentBaseDTO)
+        {
+            string message = "";
+            bool success = true;
+
+            string name = tournamentBaseDTO.Name;
+            string sportName = tournamentBaseDTO.SportName;
+            DateTime dateOfStart = tournamentBaseDTO.DateOfStart;
+
+            try
+            {
+                SportEntity sportEntity = unitOfWork.Sports.Get(sportName);
+                if (sportEntity != null)
+                {
+                    TournamentEntity tournamentEntity = unitOfWork.Tournaments.Get(name, sportEntity.Type, dateOfStart);
+                    if (tournamentEntity != null)
+                    {
+                        unitOfWork.Tournaments.Remove(tournamentEntity);
+                        unitOfWork.Commit();
+
+                        message = "Deleted tournament";
+                    }
+                    else
+                    {
+                        message = "Such tournament doesn't exist";
+                        success = false;
+                    }
+                }
+                else
+                {
+                    message = "No such sport found";
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
         public ServiceMessage UpdateParticipants(TournamentEditDTO tournamentEditDTO)
         {
             string message = "";

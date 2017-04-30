@@ -48,7 +48,8 @@
                     Height="30"
                     Width="70"
                     Margin="0,10,0,0"
-                    Content="Delete" />
+                    Content="Delete"
+                    Command="{Binding DeleteTournamentCommand}" />
             </Grid>
         </GroupBox>
     </Grid>
