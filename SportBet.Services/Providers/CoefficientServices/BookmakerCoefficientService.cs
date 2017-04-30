@@ -33,6 +33,11 @@ namespace SportBet.Services.Providers.CoefficientServices
             return new ServiceMessage("No permissions", false);
         }
 
+        public ServiceMessage Delete(CoefficientBaseDTO coefficientBaseDTO)
+        {
+            return new ServiceMessage("No permissions", false);
+        }
+
         public DataServiceMessage<IEnumerable<CoefficientDisplayDTO>> GetAll()
         {
             string message = "";

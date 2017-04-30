@@ -110,6 +110,7 @@ namespace SportBet.Controllers
             CoefficientListControl control = new CoefficientListControl(viewModel);
 
             viewModel.CoefficientSelected += (s, e) => Edit(e.Coefficient);
+            viewModel.CoefficientDeleteRequest += (s, e) => Delete(e.Coefficient);
 
             return control;
         }
@@ -166,6 +167,22 @@ namespace SportBet.Controllers
             };
 
             window.Show();
+        }
+
+        private void Delete(CoefficientBaseModel coefficientBaseModel)
+        {
+            CoefficientBaseDTO coefficientBaseDTO = Mapper.Map<CoefficientBaseModel, CoefficientBaseDTO>(coefficientBaseModel);
+
+            using (ICoefficientService service = factory.CreateCoefficientService())
+            {
+                ServiceMessage serviceMessage = service.Delete(coefficientBaseDTO);
+                RaiseReceivedMessageEvent(serviceMessage);
+
+                if (serviceMessage.IsSuccessful)
+                {
+                    Notify();
+                }
+            }
         }
     }
 }

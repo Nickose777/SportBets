@@ -40,8 +40,7 @@ namespace SportBet.Services.Providers.CoefficientServices
                 try
                 {
                     IEnumerable<ParticipantEntity> participantEntities = participants
-                        .Select(p => unitOfWork.Participants.Get(p.Name, p.SportName, p.CountryName))
-                        .ToList();
+                        .Select(p => unitOfWork.Participants.Get(p.Name, p.SportName, p.CountryName));
 
                     EventEntity eventEntity = unitOfWork.Events.Get(sportName, tournamentName, dateOfEvent, participantEntities);
                     bool exists = unitOfWork.Coefficients.Exists(eventEntity.Id, description);
@@ -122,6 +121,55 @@ namespace SportBet.Services.Providers.CoefficientServices
                     message = ExceptionMessageBuilder.BuildMessage(ex);
                     success = false;
                 }
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
+        public ServiceMessage Delete(CoefficientBaseDTO coefficientBaseDTO)
+        {
+            string message = "";
+            bool success = true;
+
+            string sportName = coefficientBaseDTO.SportName;
+            string tournamentName = coefficientBaseDTO.TournamentName;
+            DateTime dateOfEvent = coefficientBaseDTO.DateOfEvent;
+            List<ParticipantBaseDTO> participants = coefficientBaseDTO.Participants;
+            string description = coefficientBaseDTO.Description;
+
+            try
+            {
+                IEnumerable<ParticipantEntity> participantEntities = participants
+                    .Select(p => unitOfWork.Participants.Get(p.Name, p.SportName, p.CountryName))
+                    .ToList();
+
+                EventEntity eventEntity = unitOfWork.Events.Get(sportName, tournamentName, dateOfEvent, participantEntities);
+                if (eventEntity != null)
+                {
+                    CoefficientEntity coefficientEntity = unitOfWork.Coefficients.Get(eventEntity.Id, description);
+                    if (coefficientEntity != null)
+                    {
+                        unitOfWork.Coefficients.Remove(coefficientEntity);
+                        unitOfWork.Commit();
+
+                        message = "Coefficient deleted";
+                    }
+                    else
+                    {
+                        message = "Such coefficient doesn't exist";
+                        success = false;
+                    }
+                }
+                else
+                {
+                    message = "Such event doesn't exist";
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
             }
 
             return new ServiceMessage(message, success);

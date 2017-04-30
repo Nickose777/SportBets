@@ -10,6 +10,7 @@ namespace SportBet.CommonControls.Coefficients.ViewModels
     public class CoefficientListViewModel : ObservableObject, IObserver
     {
         public event CoefficientDisplayEventHandler CoefficientSelected;
+        public event CoefficientDisplayEventHandler CoefficientDeleteRequest;
 
         private readonly FacadeBase<CoefficientDisplayModel> facade;
 
@@ -20,7 +21,10 @@ namespace SportBet.CommonControls.Coefficients.ViewModels
             this.facade = facade;
 
             this.SelectCoefficientCommand = new DelegateCommand(
-                () => RaiseCoefficientSelectedEvent(SelectedCoefficient), 
+                () => RaiseCoefficientSelectedEvent(SelectedCoefficient),
+                obj => SelectedCoefficient != null);
+            this.DeleteCoefficientCommand = new DelegateCommand(
+                () => RaiseCoefficientDeleteRequestEvent(SelectedCoefficient),
                 obj => SelectedCoefficient != null);
 
             this.Coefficients = new ObservableCollection<CoefficientDisplayModel>(facade.GetAll());
@@ -29,6 +33,8 @@ namespace SportBet.CommonControls.Coefficients.ViewModels
         }
 
         public ICommand SelectCoefficientCommand { get; private set; }
+
+        public ICommand DeleteCoefficientCommand { get; private set; }
 
         public CoefficientDisplayModel SelectedCoefficient
         {
@@ -56,6 +62,16 @@ namespace SportBet.CommonControls.Coefficients.ViewModels
         private void RaiseCoefficientSelectedEvent(CoefficientDisplayModel coefficient)
         {
             var handler = CoefficientSelected;
+            if (handler != null)
+            {
+                CoefficientDisplayEventArgs e = new CoefficientDisplayEventArgs(coefficient);
+                handler(this, e);
+            }
+        }
+
+        private void RaiseCoefficientDeleteRequestEvent(CoefficientDisplayModel coefficient)
+        {
+            var handler = CoefficientDeleteRequest;
             if (handler != null)
             {
                 CoefficientDisplayEventArgs e = new CoefficientDisplayEventArgs(coefficient);
