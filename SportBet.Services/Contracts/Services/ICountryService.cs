@@ -11,6 +11,8 @@ namespace SportBet.Services.Contracts.Services
 
         ServiceMessage Update(CountryEditDTO countryEditDTO);
 
+        ServiceMessage Delete(string countryName);
+
         DataServiceMessage<IEnumerable<string>> GetAll();
     }
 }

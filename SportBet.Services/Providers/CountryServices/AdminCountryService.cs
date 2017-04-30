@@ -25,8 +25,8 @@ namespace SportBet.Services.Providers.CountryServices
 
             try
             {
-                int countriesWithSameNameCount = unitOfWork.Countries.GetAll(country => country.Name == countryName).Count();
-                if (countriesWithSameNameCount == 0)
+                bool exists = unitOfWork.Countries.Exists(countryName);
+                if (!exists)
                 {
                     unitOfWork.Countries.Add(new CountryEntity
                     {
@@ -68,6 +68,36 @@ namespace SportBet.Services.Providers.CountryServices
                     unitOfWork.Commit();
 
                     message = "Country was renamed";
+                }
+                else
+                {
+                    message = "Country with such name doesn't exist";
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
+        public ServiceMessage Delete(string countryName)
+        {
+            string message;
+            bool success = true;
+
+            try
+            {
+                CountryEntity countryEntity = unitOfWork.Countries.Get(countryName);
+                if (countryEntity != null)
+                {
+                    unitOfWork.Countries.Remove(countryEntity);
+                    unitOfWork.Commit();
+
+                    message = "Country deleted";
                 }
                 else
                 {

@@ -50,6 +50,7 @@ namespace SportBet.Controllers
             CountryListControl control = new CountryListControl(viewModel);
 
             viewModel.CountrySelected += (s, e) => EditCountry(e.CountryName);
+            viewModel.CountryDeleteRequest += (s, e) => Delete(e.CountryName);
 
             return control;
         }
@@ -102,6 +103,20 @@ namespace SportBet.Controllers
             };
 
             window.Show();
+        }
+
+        private void Delete(string countryName)
+        {
+            using (ICountryService service = factory.CreateCountryService())
+            {
+                ServiceMessage serviceMessage = service.Delete(countryName);
+                RaiseReceivedMessageEvent(serviceMessage);
+
+                if (serviceMessage.IsSuccessful)
+                {
+                    Notify();
+                }
+            }
         }
     }
 }

@@ -10,6 +10,13 @@ namespace SportBet.Data.Repositories
         public CountryRepository(Func<SportBetDbContext> GetContext)
             : base(GetContext) { }
 
+        public bool Exists(string countryName)
+        {
+            CountryEntity countryEntity = Get(countryName);
+
+            return countryEntity != null;
+        }
+
         public CountryEntity Get(string countryName)
         {
             SportBetDbContext context = GetContext();
