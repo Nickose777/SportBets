@@ -344,6 +344,46 @@ namespace SportBet.Services.Providers.EventServices
             return new ServiceMessage(message, success);
         }
 
+        public ServiceMessage Delete(EventBaseDTO eventBaseDTO)
+        {
+            string message = "";
+            bool success = true;
+
+            string sportName = eventBaseDTO.SportName;
+            string tournamentName = eventBaseDTO.TournamentName;
+            DateTime dateOfTournamentStart = eventBaseDTO.DateOfTournamentStart;
+
+            DateTime dateOfEvent = eventBaseDTO.DateOfEvent;
+            List<ParticipantBaseDTO> participants = eventBaseDTO.Participants;
+
+            try
+            {
+                IEnumerable<ParticipantEntity> participantEntities = participants
+                    .Select(p => unitOfWork.Participants.Get(p.Name, p.SportName, p.CountryName));
+
+                EventEntity eventEntity = unitOfWork.Events.Get(sportName, tournamentName, dateOfEvent, participantEntities);
+                if (eventEntity != null)
+                {
+                    unitOfWork.Events.Remove(eventEntity);
+                    unitOfWork.Commit();
+
+                    message = "Deleted event";
+                }
+                else
+                {
+                    message = "Such event was not found";
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
         public DataServiceMessage<IEnumerable<EventDisplayDTO>> GetAll()
         {
             string message = "";

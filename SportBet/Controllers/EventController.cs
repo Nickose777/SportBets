@@ -142,6 +142,7 @@ namespace SportBet.Controllers
                 }
 
             };
+            viewModel.EventDeleteRequest += (s, e) => Delete(e.Event);
 
             return control;
         }
@@ -212,6 +213,22 @@ namespace SportBet.Controllers
             };
 
             window.Show();
+        }
+
+        private void Delete(EventBaseModel eventBaseModel)
+        {
+            EventBaseDTO eventBaseDTO = Mapper.Map<EventBaseModel, EventBaseDTO>(eventBaseModel);
+
+            using (IEventService service = factory.CreateEventService())
+            {
+                ServiceMessage serviceMessage = service.Delete(eventBaseDTO);
+                RaiseReceivedMessageEvent(serviceMessage);
+
+                if (serviceMessage.IsSuccessful)
+                {
+                    Notify();
+                }
+            }
         }
     }
 }

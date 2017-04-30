@@ -38,6 +38,11 @@ namespace SportBet.Services.Providers.EventServices
             return new ServiceMessage("No permisssions", false);
         }
 
+        public ServiceMessage Delete(EventBaseDTO eventBaseDTO)
+        {
+            return new ServiceMessage("No permisssions", false);
+        }
+
         public DataServiceMessage<IEnumerable<EventDisplayDTO>> GetAll()
         {
             string message = "";
