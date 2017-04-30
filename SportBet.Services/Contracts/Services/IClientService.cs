@@ -8,7 +8,7 @@ namespace SportBet.Services.Contracts.Services
 {
     public interface IClientService : IDisposable
     {
-        ServiceMessage Update(ClientEditDTO clientEditDTO, string login);
+        ServiceMessage Update(ClientEditDTO clientEditDTO);
 
         ServiceMessage Delete(string login);
 

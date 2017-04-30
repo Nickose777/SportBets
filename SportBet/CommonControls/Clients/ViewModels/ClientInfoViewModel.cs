@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using SportBet.EventHandlers.Edit;
+using SportBet.Models.Display;
 using SportBet.Models.Edit;
 
 namespace SportBet.CommonControls.Clients.ViewModels
@@ -25,6 +27,8 @@ namespace SportBet.CommonControls.Clients.ViewModels
 
             this.SaveChangesCommand = new DelegateCommand(() => RaiseClientEditedEvent(clientForEdit), CanSave);
             this.UndoCommand = new DelegateCommand(Undo, obj => IsDirty());
+
+            this.Bets = new ObservableCollection<BetDisplayModel>(client.Bets);
         }
 
         public ICommand SaveChangesCommand { get; private set; }
@@ -70,6 +74,8 @@ namespace SportBet.CommonControls.Clients.ViewModels
                 RaisePropertyChangedEvent("DateOfBirth");
             }
         }
+
+        public ObservableCollection<BetDisplayModel> Bets { get; private set; }
 
         private void Undo()
         {

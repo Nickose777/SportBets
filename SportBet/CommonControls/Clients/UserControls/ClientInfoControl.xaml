@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
+             xmlns:Converter="clr-namespace:SportBet.ValueConverters"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="500"
              d:Height="300" d:Width="500"
              d:DataContext="{d:DesignInstance ViewModel:ClientInfoDTViewModel}"
              Background="{StaticResource DefaultBackgroundColor}">
+    <UserControl.Resources>
+        <Converter:NullableBoolToBrushConverter x:Key="nullableBoolToBrushConverter" />
+    </UserControl.Resources>
+    
     <GroupBox Header="Client info">
         <Grid>
             <Grid.RowDefinitions>
@@ -43,16 +48,62 @@
                     SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" 
                     CalendarStyle="{StaticResource CalendarStyle}"/>
 
-                <Button
-                    Grid.Row="5"
+                <Expander Grid.ColumnSpan="2" Grid.Row="4" Header="Bets history">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl BorderBrush="LightGray" BorderThickness="3" ItemsSource="{Binding Bets}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Ellipse HorizontalAlignment="Left" Height="15" Width="15" Fill="{Binding Win, Converter={StaticResource nullableBoolToBrushConverter}}" Stroke="Black" StrokeThickness="1" />
+                                        <TextBlock HorizontalAlignment="Left">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0:dd.MM.yyyy}. {1}, {2}. {3}">
+                                                    <Binding Path="DateOfEvent" />
+                                                    <Binding Path="SportName" />
+                                                    <Binding Path="TournamentName" />
+                                                    <Binding Path="CoefficientDescription" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+
+                                        <Separator />
+
+                                        <ItemsControl ItemsSource="{Binding EventParticipants}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock HorizontalAlignment="Left">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="- {0} ({1})">
+                                                                <Binding Path="Name" />
+                                                                <Binding Path="CountryName" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+
+                                        <Separator />
+
+                                        <TextBlock HorizontalAlignment="Left" Text="{Binding Sum, StringFormat='Client\'s sum: {0}'}" />
+                                        <TextBlock HorizontalAlignment="Left" Text="{Binding WinSum, StringFormat='Client\'s win: {0}'}" />
+
+                                        <Separator BorderBrush="Black" BorderThickness="5" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Expander>
+                
+                <Button Grid.Row="5"
                     Grid.ColumnSpan="2"
                     Content="Save"
                     HorizontalAlignment="Left"
                     Height="30"
                     Width="70"
                     Command="{Binding SaveChangesCommand}" />
-                <Button
-                    Grid.Row="5"
+                <Button Grid.Row="5"
                     Grid.ColumnSpan="2"
                     Content="Undo"
                     HorizontalAlignment="Right"

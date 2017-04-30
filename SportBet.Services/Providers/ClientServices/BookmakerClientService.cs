@@ -8,6 +8,7 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.DTOModels.Base;
 
 namespace SportBet.Services.Providers.ClientServices
 {
@@ -20,7 +21,7 @@ namespace SportBet.Services.Providers.ClientServices
             this.unitOfWork = unitOfWork;
         }
 
-        public ServiceMessage Update(ClientEditDTO clientEditDTO, string login)
+        public ServiceMessage Update(ClientEditDTO clientEditDTO)
         {
             string message = "";
             bool success = true;
@@ -29,7 +30,7 @@ namespace SportBet.Services.Providers.ClientServices
             {
                 try
                 {
-                    int id = unitOfWork.Users.GetIdByLogin(login);
+                    int id = unitOfWork.Users.GetIdByLogin(clientEditDTO.Login);
                     ClientEntity clientEntity = unitOfWork.Clients.Get(id);
 
                     clientEntity.FirstName = clientEditDTO.FirstName;
@@ -107,12 +108,61 @@ namespace SportBet.Services.Providers.ClientServices
                 int id = unitOfWork.Users.GetIdByLogin(login);
                 ClientEntity clientEntity = unitOfWork.Clients.Get(id);
 
+                List<BetDisplayDTO> clientBets = clientEntity
+                    .Bets
+                    .Select(betEntity =>
+                    {
+                        List<ParticipantBaseDTO> participants = betEntity
+                            .Coefficient
+                            .Event
+                            .Participations
+                            .Select(part => part.Participant)
+                            .Select(participantEntity =>
+                            {
+                                return new ParticipantBaseDTO
+                                {
+                                    CountryName = participantEntity.Country.Name,
+                                    Name = participantEntity.Name,
+                                    SportName = participantEntity.Sport.Type
+                                };
+                            })
+                            .OrderBy(p => p.Name)
+                            .ToList();
+
+                        decimal winSum = 0;
+
+                        bool? win = betEntity.Coefficient.Win;
+                        if (win.HasValue && win.Value)
+                        {
+                            winSum = betEntity.Coefficient.Value * betEntity.Sum;
+                        }
+
+                        return new BetDisplayDTO
+                        {
+                            ClientPhoneNumber = betEntity.Client.PhoneNumber,
+                            CoefficientDescription = betEntity.Coefficient.Description,
+                            DateOfEvent = betEntity.Coefficient.Event.DateOfEvent,
+                            EventParticipants = participants,
+                            PossibleWinSum = betEntity.Coefficient.Value * betEntity.Sum,
+                            RegistrationDate = betEntity.RegistrationDate,
+                            SportName = betEntity.Coefficient.Event.Tournament.Sport.Type,
+                            Sum = betEntity.Sum,
+                            TournamentName = betEntity.Coefficient.Event.Tournament.Name,
+                            Win = betEntity.Coefficient.Win,
+                            WinSum = winSum
+                        };
+                    })
+                    .OrderByDescending(b => b.DateOfEvent)
+                    .ThenBy(b => b.TournamentName)
+                    .ToList();
+
                 clientEditDTO = new ClientEditDTO
                 {
                     FirstName = clientEntity.FirstName,
                     LastName = clientEntity.LastName,
                     PhoneNumber = clientEntity.PhoneNumber,
-                    DateOfBirth = clientEntity.DateOfBirth
+                    DateOfBirth = clientEntity.DateOfBirth,
+                    Bets = clientBets
                 };
 
                 message = "Retrieved info about client";

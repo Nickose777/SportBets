@@ -19,18 +19,18 @@ namespace SportBet.Services.Providers.ClientServices
             this.unitOfWork = unitOfWork;
         }
 
-        public ServiceMessage Update(ClientEditDTO clientEditDTO, string login)
+        public ServiceMessage Update(ClientEditDTO clientEditDTO)
         {
             string message = null;
             bool success = true;
 
-            if (login == Session.CurrentUserLogin)
+            if (clientEditDTO.Login == Session.CurrentUserLogin)
             {
                 if (Validate(clientEditDTO, ref message))
                 {
                     try
                     {
-                        int id = unitOfWork.Users.GetIdByLogin(login);
+                        int id = unitOfWork.Users.GetIdByLogin(clientEditDTO.Login);
                         ClientEntity clientEntity = unitOfWork.Clients.Get(id);
 
                         clientEntity.FirstName = clientEditDTO.FirstName;
@@ -73,6 +73,7 @@ namespace SportBet.Services.Providers.ClientServices
             string message = null;
             bool success = true;
 
+            //TODO session
             if (login == Session.CurrentUserLogin)
             {
                 try

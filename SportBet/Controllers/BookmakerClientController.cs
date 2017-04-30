@@ -82,22 +82,30 @@ namespace SportBet.Controllers
             ManageClientsViewModel viewModel = new ManageClientsViewModel(this, facade, false);
             ManageClientsControl control = new ManageClientsControl(viewModel);
 
-            viewModel.ClientSelectRequest += (s, e) => Edit(e.Client);
+            viewModel.ClientSelectRequest += (s, e) =>
+            {
+                string login = e.Client.Login;
+
+                using (IClientService service = factory.CreateClientService())
+                {
+                    DataServiceMessage<ClientEditDTO> serviceMessage = service.GetClientInfo(login);
+                    RaiseReceivedMessageEvent(serviceMessage);
+
+                    if (serviceMessage.IsSuccessful)
+                    {
+                        ClientEditDTO clientEditDTO = serviceMessage.Data;
+                        ClientEditModel clientEditModel = Mapper.Map<ClientEditDTO, ClientEditModel>(clientEditDTO);
+
+                        Edit(clientEditModel);
+                    }
+                }
+            };
 
             return control;
         }
 
-        private void Edit(ClientDisplayModel clientDisplayModel)
+        private void Edit(ClientEditModel clientEditModel)
         {
-            string login = clientDisplayModel.Login;
-            ClientEditModel clientEditModel = new ClientEditModel
-            {
-                FirstName = clientDisplayModel.FirstName,
-                LastName = clientDisplayModel.LastName,
-                PhoneNumber = clientDisplayModel.PhoneNumber,
-                DateOfBirth = clientDisplayModel.DateOfBirth
-            };
-
             ClientInfoViewModel viewModel = new ClientInfoViewModel(clientEditModel);
             ClientInfoControl control = new ClientInfoControl(viewModel);
             Window window = WindowFactory.CreateByContentsSize(control);
@@ -108,7 +116,7 @@ namespace SportBet.Controllers
 
                 using (IClientService service = factory.CreateClientService())
                 {
-                    ServiceMessage serviceMessage = service.Update(clientEditDTO, login);
+                    ServiceMessage serviceMessage = service.Update(clientEditDTO);
 
                     RaiseReceivedMessageEvent(serviceMessage.IsSuccessful, serviceMessage.Message);
                     if (serviceMessage.IsSuccessful)

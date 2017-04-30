@@ -117,7 +117,7 @@ namespace SportBet.Controllers
 
             using (IClientService service = factory.CreateClientService())
             {
-                ServiceMessage serviceMessage = service.Update(clientEditDTO, login);
+                ServiceMessage serviceMessage = service.Update(clientEditDTO);
                 RaiseReceivedMessageEvent(serviceMessage);
             }
         }
