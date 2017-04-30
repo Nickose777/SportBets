@@ -10,6 +10,7 @@ namespace SportBet.CommonControls.Participants.ViewModels
     public class ParticipantListViewModel : ObservableObject, IObserver
     {
         public event ParticipantDisplayEventHandler ParticipantSelected;
+        public event ParticipantDisplayEventHandler ParticipantDeleteRequest;
 
         private readonly ISubject subject;
         private readonly FacadeBase<ParticipantDisplayModel> facade;
@@ -24,6 +25,9 @@ namespace SportBet.CommonControls.Participants.ViewModels
             this.SelectParticipantCommand = new DelegateCommand(
                 () => RaiseParticipantSelectedEvent(SelectedParticipant),
                 obj => SelectedParticipant != null);
+            this.DeleteParticipantCommand = new DelegateCommand(
+                () => RaiseParticipantDeleteRequestEvent(SelectedParticipant),
+                obj => SelectedParticipant != null);
 
             this.Participants = new ObservableCollection<ParticipantDisplayModel>(facade.GetAll());
 
@@ -31,6 +35,8 @@ namespace SportBet.CommonControls.Participants.ViewModels
         }
 
         public ICommand SelectParticipantCommand { get; private set; }
+
+        public ICommand DeleteParticipantCommand { get; private set; }
 
         public void Update()
         {
@@ -60,6 +66,16 @@ namespace SportBet.CommonControls.Participants.ViewModels
         private void RaiseParticipantSelectedEvent(ParticipantDisplayModel participant)
         {
             var handler = ParticipantSelected;
+            if (handler != null)
+            {
+                ParticipantDisplayEventArgs e = new ParticipantDisplayEventArgs(participant);
+                handler(this, e);
+            }
+        }
+
+        private void RaiseParticipantDeleteRequestEvent(ParticipantDisplayModel participant)
+        {
+            var handler = ParticipantDeleteRequest;
             if (handler != null)
             {
                 ParticipantDisplayEventArgs e = new ParticipantDisplayEventArgs(participant);

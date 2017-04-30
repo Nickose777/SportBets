@@ -15,6 +15,8 @@ namespace SportBet.Services.Contracts.Services
 
         ServiceMessage Update(ParticipantEditDTO participantEditDTO);
 
+        ServiceMessage Delete(ParticipantBaseDTO participantBaseDTO);
+
         DataServiceMessage<IEnumerable<ParticipantBaseDTO>> GetBySport(string sportName);
 
         DataServiceMessage<IEnumerable<ParticipantBaseDTO>> GetByTournament(TournamentBaseDTO tournamentBaseDTO);

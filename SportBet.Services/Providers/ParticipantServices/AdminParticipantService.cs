@@ -128,6 +128,51 @@ namespace SportBet.Services.Providers.ParticipantServices
             return new ServiceMessage(message, success);
         }
 
+        public ServiceMessage Delete(ParticipantBaseDTO participantBaseDTO)
+        {
+            string message;
+            bool success = true;
+
+            string sportName = participantBaseDTO.SportName;
+            string countryName = participantBaseDTO.CountryName;
+            string participantName = participantBaseDTO.Name;
+
+            try
+            {
+                SportEntity sportEntity = unitOfWork.Sports.Get(sportName);
+                CountryEntity countryEntity = unitOfWork.Countries.Get(countryName);
+
+                if (sportEntity != null && countryEntity != null)
+                {
+                    ParticipantEntity participantEntity = unitOfWork.Participants.Get(participantName, sportEntity.Id, countryEntity.Id);
+                    if (participantEntity != null)
+                    {
+                        unitOfWork.Participants.Remove(participantEntity);
+                        unitOfWork.Commit();
+
+                        message = "Deleted participant";
+                    }
+                    else
+                    {
+                        message = "Such participant doesn't exist";
+                        success = false;
+                    }
+                }
+                else
+                {
+                    message = "Such sport or country was not found";
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new ServiceMessage(message, success);
+        }
+
         public DataServiceMessage<IEnumerable<ParticipantBaseDTO>> GetBySport(string sportName)
         {
             string message;

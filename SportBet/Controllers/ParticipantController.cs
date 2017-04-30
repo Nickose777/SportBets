@@ -119,6 +119,7 @@ namespace SportBet.Controllers
                     Edit(e.Participant, countries, sports);
                 }
             };
+            viewModel.ParticipantDeleteRequest += (s, e) => Delete(e.Participant);
 
             return control;
         }
@@ -174,6 +175,22 @@ namespace SportBet.Controllers
             };
 
             window.Show();
+        }
+
+        private void Delete(ParticipantBaseModel participantBaseModel)
+        {
+            ParticipantBaseDTO participantBaseDTO = Mapper.Map<ParticipantBaseModel, ParticipantBaseDTO>(participantBaseModel);
+
+            using (IParticipantService service = factory.CreateParticipantService())
+            {
+                ServiceMessage serviceMessage = service.Delete(participantBaseDTO);
+                RaiseReceivedMessageEvent(serviceMessage);
+
+                if (serviceMessage.IsSuccessful)
+                {
+                    Notify();
+                }
+            }
         }
     }
 }
