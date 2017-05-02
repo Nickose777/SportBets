@@ -90,7 +90,25 @@ namespace SportBet.ControllerFactories
 
         public IBetController CreateBetController()
         {
-            return new BetController(factory, new BetFacade(factory));
+            BetControllerBase controller = null;
+            BetFacade facade = new BetFacade(factory);
+
+            switch (loginType)
+            {
+                case LoginType.Client:
+                    controller = new ClientBetController(factory, facade);
+                    break;
+                case LoginType.Bookmaker:
+                    controller = new BookmakerBetController(factory, facade);
+                    break;
+                case LoginType.Superuser:
+                    controller = new SuperuserBetController(factory, facade);
+                    break;
+                default:
+                    break;
+            }
+
+            return controller;
         }
     }
 }

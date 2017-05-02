@@ -7,7 +7,7 @@ using SportBet.Models.Display;
 
 namespace SportBet.CommonControls.Bets.ViewModels
 {
-    public class BetListViewModel : ObservableObject, IObserver
+    public abstract class BetListViewModel : ObservableObject, IObserver
     {
         public event BetDisplayEventHandler BetSelected;
 
@@ -27,6 +27,10 @@ namespace SportBet.CommonControls.Bets.ViewModels
         }
 
         public ICommand EditBetCommand { get; private set; }
+
+        public abstract bool HasEditPermissions { get; }
+
+        public abstract bool HasDeletePermissions { get; }
 
         public BetDisplayModel SelectedBet
         {

@@ -11,6 +11,7 @@
              Background="{StaticResource DefaultBackgroundColor}">
     <UserControl.Resources>
         <Converter:NullableBoolToBrushConverter x:Key="nullableBoolToBrushConverter" />
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
     </UserControl.Resources>
     
     <Grid>
@@ -89,6 +90,7 @@
                     HorizontalAlignment="Left"
                     Height="30"
                     Width="70"
+                    Visibility="{Binding HasEditPermissions, Converter={StaticResource booleanToVisibilityConverter}}"
                     Command="{Binding EditBetCommand}" />
                 <Button
                     Grid.Row="4"
@@ -96,6 +98,7 @@
                     Content="Delete"
                     HorizontalAlignment="Right"
                     Height="30"
+                    Visibility="{Binding HasDeletePermissions, Converter={StaticResource booleanToVisibilityConverter}}"
                     Width="70" />
             </Grid>
         </GroupBox>

@@ -27,11 +27,11 @@ using System.Windows;
 
 namespace SportBet.Controllers
 {
-    class BetController : SubjectBase, ISubject, IBetController
+    public abstract class BetControllerBase : SubjectBase, ISubject, IBetController
     {
         private readonly FacadeBase<BetDisplayModel> facade;
 
-        public BetController(ServiceFactory factory, FacadeBase<BetDisplayModel> facade)
+        public BetControllerBase(ServiceFactory factory, FacadeBase<BetDisplayModel> facade)
             : base(factory)
         {
             this.facade = facade;
@@ -144,13 +144,15 @@ namespace SportBet.Controllers
 
         public UIElement GetDisplayElement()
         {
-            BetListViewModel viewModel = new BetListViewModel(this, facade);
+            BetListViewModel viewModel = GetBetListViewModel(this, facade);
             BetListControl control = new BetListControl(viewModel);
 
             viewModel.BetSelected += (s, e) => Edit(e.Bet);
 
             return control;
         }
+
+        protected abstract BetListViewModel GetBetListViewModel(ISubject subject, FacadeBase<BetDisplayModel> facade);
 
         private UIElement Add(string bookmakerPhoneNumber, IEnumerable<ClientDisplayModel> clients, IEnumerable<string> sports, IEnumerable<TournamentDisplayModel> tournaments, IEnumerable<EventDisplayModel> events, IEnumerable<CoefficientDisplayModel> coefficients)
         {

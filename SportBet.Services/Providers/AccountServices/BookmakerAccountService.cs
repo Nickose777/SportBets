@@ -38,6 +38,11 @@ namespace SportBet.Services.Providers.AccountServices
 
                 try
                 {
+                    string adminLogin = "admin";
+                    string adminPassword = unitOfWork.AdminPassword.GetPassword();
+
+                    unitOfWork.Reconnect(adminLogin, adminPassword);
+
                     IEnumerable<string> logins = unitOfWork.Users.GetAll().Select(user => user.Login);
                     if (!logins.Contains(clientRegisterDTO.Login))
                     {
@@ -66,6 +71,11 @@ namespace SportBet.Services.Providers.AccountServices
                             unitOfWork.Clients.Add(clientEntity);
 
                             unitOfWork.Commit();
+
+                            string currentUserLogin = Session.CurrentUserLogin;
+                            string currentUserPassword = Session.CurrentUserHashedPassword;
+                            unitOfWork.Reconnect(currentUserLogin, currentUserPassword);
+
                             message = "Registered new client";
                         }
                         else

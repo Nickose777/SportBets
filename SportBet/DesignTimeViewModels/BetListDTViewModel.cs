@@ -6,5 +6,15 @@ namespace SportBet.DesignTimeViewModels
     {
         public BetListDTViewModel()
             : base(null, null) { }
+
+        public override bool HasEditPermissions
+        {
+            get { return true; }
+        }
+
+        public override bool HasDeletePermissions
+        {
+            get { return true; }
+        }
     }
 }
