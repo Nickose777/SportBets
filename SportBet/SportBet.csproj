@@ -81,6 +81,10 @@
     <Compile Include="AdminControls\AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AnalyticControls\UserControls\IncomeControl.xaml.cs">
+      <DependentUpon>IncomeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AnalyticControls\ViewModels\IncomeViewModel.cs" />
     <Compile Include="CommonControls\Bets\UserControls\BetInfoControl.xaml.cs">
       <DependentUpon>BetInfoControl.xaml</DependentUpon>
     </Compile>
@@ -213,6 +217,7 @@
     <Compile Include="CommonControls\Tournaments\ViewModels\TournamentParticipantViewModel.cs" />
     <Compile Include="Contracts\Controllers\IAccountController.cs" />
     <Compile Include="Contracts\Controllers\IAdminController.cs" />
+    <Compile Include="Contracts\Controllers\IAnalysisController.cs" />
     <Compile Include="Contracts\Controllers\IAnalyticController.cs" />
     <Compile Include="Contracts\Controllers\IBetController.cs" />
     <Compile Include="Contracts\Controllers\IBookmakerController.cs" />
@@ -231,6 +236,7 @@
     <Compile Include="ControllerFactories\ControllerFactory.cs" />
     <Compile Include="Controllers\AccountControllerBase.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AnalysisController.cs" />
     <Compile Include="Controllers\AnalyticController.cs" />
     <Compile Include="Controllers\BetControllerBase.cs" />
     <Compile Include="Controllers\BookmakerAccountController.cs" />
@@ -268,6 +274,7 @@
     <Compile Include="DesignTimeViewModels\EventCreateDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\EventListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\EventManageDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\IncomeDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageAdminsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageAnalyticsDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ManageBookmakersDTViewModel.cs" />
@@ -316,6 +323,7 @@
     <Compile Include="EventHandlers\Register\ClientRegisterEventHandler.cs" />
     <Compile Include="EventHandlers\ServiceMessageEventHandler.cs" />
     <Compile Include="Facades\AdminFacade.cs" />
+    <Compile Include="Facades\AnalysisFacade.cs" />
     <Compile Include="Facades\AnalyticFacade.cs" />
     <Compile Include="Facades\BetFacade.cs" />
     <Compile Include="Facades\BookmakerFacade.cs" />
@@ -432,6 +440,10 @@
     <Compile Include="ValueConverters\NullableBoolToBrushConverter.cs" />
     <Compile Include="WindowFactories\WindowFactory.cs" />
     <Page Include="AdminControls\AdminMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AnalyticControls\UserControls\IncomeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

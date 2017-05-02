@@ -85,5 +85,10 @@ namespace SportBet.Services.Factories
 
             return new ClientBetService(unitOfWork, session);
         }
+
+        public override IAnalysisService CreateAnalysisService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

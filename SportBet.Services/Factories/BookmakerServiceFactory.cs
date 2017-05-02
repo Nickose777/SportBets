@@ -99,5 +99,10 @@ namespace SportBet.Services.Factories
 
             return new BookmakerBetService(unitOfWork);
         }
+
+        public override IAnalysisService CreateAnalysisService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

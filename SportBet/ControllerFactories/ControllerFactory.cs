@@ -31,6 +31,7 @@ namespace SportBet.ControllerFactories
                 case LoginType.Bookmaker:
                 case LoginType.Superuser:
                 case LoginType.Admin:
+                case LoginType.Analytic:
                     controller = new BookmakerAccountController(factory, login);
                     break;
             }
@@ -45,6 +46,11 @@ namespace SportBet.ControllerFactories
         public IAnalyticController CreateAnalyticController()
         {
             return new AnalyticController(factory, new AnalyticFacade(factory));
+        }
+
+        public IAnalysisController CreateAnalysisController()
+        {
+            return new AnalysisController(factory, new AnalysisFacade(factory));
         }
 
         public IBookmakerController CreateBookmakerController()

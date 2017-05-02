@@ -5,6 +5,7 @@ using SportBet.Services.Contracts.Encryption;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.Contracts.Validators;
 using SportBet.Services.Providers.AccountServices;
+using SportBet.Services.Providers.AnalysisServices;
 
 namespace SportBet.Services.Factories
 {
@@ -76,6 +77,13 @@ namespace SportBet.Services.Factories
         public override IBetService CreateBetService()
         {
             throw new NotImplementedException();
+        }
+
+        public override IAnalysisService CreateAnalysisService()
+        {
+            IUnitOfWork unitOfWork = CreateUnitOfWork();
+
+            return new AnalysisService(unitOfWork);
         }
     }
 }

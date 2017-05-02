@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="SportBet.AnalyticControls.UserControls.IncomeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
+             d:DesignHeight="400" d:DesignWidth="300"
+             Background="{StaticResource DefaultBackgroundColor}"
+             d:DataContext="{d:DesignInstance ViewModel:IncomeDTViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Header="Input">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Start date:" />
+                <TextBlock Grid.Row="1" Text="End date:" />
+
+                <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding StartDate}" CalendarStyle="{StaticResource CalendarStyle}" />
+                <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding EndDate}" CalendarStyle="{StaticResource CalendarStyle}" />
+                
+                <Button
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    Height="30"
+                    Width="70"
+                    Margin="0,10,0,0"
+                    Content="Apply"
+                    Command="{Binding ApplyCommand}" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Header="Output">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Won bets:" />
+                <TextBlock Grid.Row="1" Text="Lost bets:" />
+                <TextBlock Grid.Row="2" Text="Profits:" />
+                <TextBlock Grid.Row="3" Text="Costs:" />
+                <TextBlock Grid.Row="4" Text="Income:" />
+
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding WonBetsCount}" />
+                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding LostBetsCount}" />
+                <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Profits}" />
+                <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Costs}" />
+                <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding Income}" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

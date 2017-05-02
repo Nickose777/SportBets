@@ -4,6 +4,8 @@ using SportBet.Services.ResultTypes;
 
 namespace SportBet.Controllers
 {
+    //TODO
+    //rename
     public abstract class ControllerBase
     {
         public event ServiceMessageEventHandler ReceivedMessage;

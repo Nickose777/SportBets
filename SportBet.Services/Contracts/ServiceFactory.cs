@@ -44,6 +44,8 @@ namespace SportBet.Services.Contracts
 
         public abstract IBetService CreateBetService();
 
+        public abstract IAnalysisService CreateAnalysisService();
+
         protected IUnitOfWork CreateUnitOfWork()
         {
             return new UnitOfWork(login, password);
