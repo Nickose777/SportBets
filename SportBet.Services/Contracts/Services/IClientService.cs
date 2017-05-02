@@ -12,6 +12,8 @@ namespace SportBet.Services.Contracts.Services
 
         ServiceMessage Delete(string login);
 
+        DataServiceMessage<ClientEditDTO> GetAuthorizedClientInfo();
+
         DataServiceMessage<ClientEditDTO> GetClientInfo(string login);
 
         DataServiceMessage<IEnumerable<ClientDisplayDTO>> GetAll();

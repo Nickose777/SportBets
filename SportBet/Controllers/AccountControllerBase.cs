@@ -110,7 +110,7 @@ namespace SportBet.Controllers
             return element;
         }
 
-        public abstract ClientInfoViewModel GetClientInfoViewModel(ClientEditModel client);
+        protected abstract ClientInfoViewModel GetClientInfoViewModel(ClientEditModel client);
 
         private void Edit(ClientEditModel clientEditModel)
         {

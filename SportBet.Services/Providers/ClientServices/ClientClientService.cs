@@ -7,16 +7,19 @@ using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels.Display;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
+using SportBet.Services.Contracts;
 
 namespace SportBet.Services.Providers.ClientServices
 {
     class ClientClientService : IClientService
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly ISession session;
 
-        public ClientClientService(IUnitOfWork unitOfWork)
+        public ClientClientService(IUnitOfWork unitOfWork, ISession session)
         {
             this.unitOfWork = unitOfWork;
+            this.session = session;
         }
 
         public ServiceMessage Update(ClientEditDTO clientEditDTO)
@@ -24,7 +27,7 @@ namespace SportBet.Services.Providers.ClientServices
             string message = null;
             bool success = true;
 
-            if (clientEditDTO.Login == Session.CurrentUserLogin)
+            if (clientEditDTO.Login == session.CurrentUserLogin)
             {
                 if (Validate(clientEditDTO, ref message))
                 {
@@ -67,14 +70,20 @@ namespace SportBet.Services.Providers.ClientServices
             return new ServiceMessage("No permissions to delete a client", false);
         }
 
+        public DataServiceMessage<ClientEditDTO> GetAuthorizedClientInfo()
+        {
+            string login = session.CurrentUserLogin;
+
+            return GetClientInfo(login);
+        }
+
         public DataServiceMessage<ClientEditDTO> GetClientInfo(string login)
         {
             ClientEditDTO clientDTO = null;
             string message = null;
             bool success = true;
 
-            //TODO session
-            if (login == Session.CurrentUserLogin)
+            if (login == session.CurrentUserLogin)
             {
                 try
                 {
@@ -86,8 +95,10 @@ namespace SportBet.Services.Providers.ClientServices
                         FirstName = clientEntity.FirstName,
                         LastName = clientEntity.LastName,
                         PhoneNumber = clientEntity.PhoneNumber,
-                        DateOfBirth = clientEntity.DateOfBirth
+                        DateOfBirth = clientEntity.DateOfBirth,
+                        Login = login
                     };
+
                     message = "Retrieved info about client";
                 }
                 catch (Exception ex)

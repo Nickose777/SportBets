@@ -33,8 +33,9 @@ namespace SportBet.Services.Factories
         public override IClientService CreateClientService()
         {
             IUnitOfWork unitOfWork = CreateUnitOfWork();
+            ISession session = CreateSession();
 
-            return new ClientClientService(unitOfWork);
+            return new ClientClientService(unitOfWork, session);
         }
 
         public override IAdminService CreateAdminService()

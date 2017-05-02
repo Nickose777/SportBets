@@ -97,6 +97,11 @@ namespace SportBet.Services.Providers.ClientServices
             return new DataServiceMessage<IEnumerable<ClientDisplayDTO>>(clients, message, success);
         }
 
+        public DataServiceMessage<ClientEditDTO> GetAuthorizedClientInfo()
+        {
+            return new DataServiceMessage<ClientEditDTO>(null, "Bookmaker is authorized", false);
+        }
+
         public DataServiceMessage<ClientEditDTO> GetClientInfo(string login)
         {
             string message = "";

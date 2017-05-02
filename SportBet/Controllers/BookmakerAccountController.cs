@@ -9,7 +9,7 @@ namespace SportBet.Controllers
         public BookmakerAccountController(ServiceFactory factory, string login)
             : base(factory, login) { }
 
-        public override ClientInfoViewModel GetClientInfoViewModel(ClientEditModel client)
+        protected override ClientInfoViewModel GetClientInfoViewModel(ClientEditModel client)
         {
             return new BookmakerClientInfoViewModel(client);
         }
