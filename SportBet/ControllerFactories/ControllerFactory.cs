@@ -59,6 +59,9 @@ namespace SportBet.ControllerFactories
 
             switch (loginType)
             {
+                case LoginType.Client:
+                    controller = new ClientClientController(factory, facade);
+                    break;
                 case LoginType.Superuser:
                     controller = new SuperuserClientController(factory, facade);
                     break;
