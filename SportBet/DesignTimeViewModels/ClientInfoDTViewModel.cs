@@ -6,5 +6,10 @@ namespace SportBet.DesignTimeViewModels
     {
         public ClientInfoDTViewModel()
             : base(null) { }
+
+        public override bool ShowBetHistory
+        {
+            get { return true; }
+        }
     }
 }

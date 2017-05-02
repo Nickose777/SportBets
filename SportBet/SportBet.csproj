@@ -92,6 +92,10 @@
     <Compile Include="CommonControls\Bets\ViewModels\BookmakerBetListViewModel.cs" />
     <Compile Include="CommonControls\Bets\ViewModels\ClientBetListViewModel.cs" />
     <Compile Include="CommonControls\Bets\ViewModels\SuperuserBetListViewModel.cs" />
+    <Compile Include="CommonControls\Clients\ViewModels\BookmakerClientInfoViewModel.cs" />
+    <Compile Include="CommonControls\Clients\ViewModels\BookmakerManageClientsViewModel.cs" />
+    <Compile Include="CommonControls\Clients\ViewModels\ClientClientInfoViewModel.cs" />
+    <Compile Include="CommonControls\Clients\ViewModels\SuperuserManageClientsViewModel.cs" />
     <Compile Include="CommonControls\Countries\UserControls\CountryCreateControl.xaml.cs">
       <DependentUpon>CountryCreateControl.xaml</DependentUpon>
     </Compile>
@@ -225,13 +229,17 @@
     <Compile Include="Contracts\IObserver.cs" />
     <Compile Include="Contracts\ISubject.cs" />
     <Compile Include="ControllerFactories\ControllerFactory.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountControllerBase.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnalyticController.cs" />
     <Compile Include="Controllers\BetControllerBase.cs" />
+    <Compile Include="Controllers\BookmakerAccountController.cs" />
     <Compile Include="Controllers\BookmakerBetController.cs" />
     <Compile Include="Controllers\BookmakerController.cs" />
+    <Compile Include="Controllers\ClientAccountController.cs" />
     <Compile Include="Controllers\ClientBetController.cs" />
+    <Compile Include="Controllers\ClientClientController.cs" />
+    <Compile Include="Controllers\ClientControllerBase.cs" />
     <Compile Include="Controllers\CoefficientController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\EventController.cs" />

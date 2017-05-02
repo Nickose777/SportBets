@@ -7,7 +7,7 @@ using SportBet.Models.Edit;
 
 namespace SportBet.CommonControls.Clients.ViewModels
 {
-    public class ClientInfoViewModel : ObservableObject
+    public abstract class ClientInfoViewModel : ObservableObject
     {
         public event ClientEditEventHandler ClientEdited;
 
@@ -30,6 +30,8 @@ namespace SportBet.CommonControls.Clients.ViewModels
 
             this.Bets = new ObservableCollection<BetDisplayModel>(client.Bets);
         }
+
+        public abstract bool ShowBetHistory { get; }
 
         public ICommand SaveChangesCommand { get; private set; }
 

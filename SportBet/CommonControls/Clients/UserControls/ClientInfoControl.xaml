@@ -12,6 +12,7 @@
              Background="{StaticResource DefaultBackgroundColor}">
     <UserControl.Resources>
         <Converter:NullableBoolToBrushConverter x:Key="nullableBoolToBrushConverter" />
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
     </UserControl.Resources>
     
     <GroupBox Header="Client info">
@@ -48,7 +49,7 @@
                     SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}" 
                     CalendarStyle="{StaticResource CalendarStyle}"/>
 
-                <Expander Grid.ColumnSpan="2" Grid.Row="4" Header="Bets history">
+                <Expander Grid.ColumnSpan="2" Grid.Row="4" Header="Bets history" Visibility="{Binding ShowBetHistory, Converter={StaticResource booleanToVisibilityConverter}}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <ItemsControl BorderBrush="LightGray" BorderThickness="3" ItemsSource="{Binding Bets}">
                             <ItemsControl.ItemTemplate>
@@ -85,8 +86,8 @@
 
                                         <Separator />
 
-                                        <TextBlock HorizontalAlignment="Left" Text="{Binding Sum, StringFormat='Client\'s sum: {0}'}" />
-                                        <TextBlock HorizontalAlignment="Left" Text="{Binding WinSum, StringFormat='Client\'s win: {0}'}" />
+                                        <TextBlock HorizontalAlignment="Left" Text="{Binding Sum, StringFormat='Clients sum: {0}'}" />
+                                        <TextBlock HorizontalAlignment="Left" Text="{Binding WinSum, StringFormat='Clients win: {0}'}" />
 
                                         <Separator BorderBrush="Black" BorderThickness="5" />
                                     </StackPanel>

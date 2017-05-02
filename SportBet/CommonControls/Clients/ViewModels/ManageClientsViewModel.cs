@@ -5,7 +5,7 @@ using SportBet.Contracts;
 
 namespace SportBet.CommonControls.Clients.ViewModels
 {
-    public class ManageClientsViewModel : ObservableObject
+    public abstract class ManageClientsViewModel : ObservableObject
     {
         public event ClientDisplayEventHandler ClientSelectRequest;
         public event ClientDisplayEventHandler ClientDeleteRequest;
@@ -22,10 +22,9 @@ namespace SportBet.CommonControls.Clients.ViewModels
             }
         }
 
-        public ManageClientsViewModel(ISubject subject, FacadeBase<ClientDisplayModel> facade, bool allowDeleteClient)
+        public ManageClientsViewModel(ISubject subject, FacadeBase<ClientDisplayModel> facade)
         {
             ClientListViewModel = new ClientListViewModel(subject, facade);
-            CanDeleteClient = allowDeleteClient;
 
             this.SelectClientCommand = new DelegateCommand(
                 () => RaiseClientSelectRequestEvent(SelectedClient),
@@ -39,7 +38,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
 
         public ICommand DeleteClientCommand { get; private set; }
 
-        public bool CanDeleteClient { get; private set; }
+        public abstract bool HasDeletePermissions { get; }
 
         private void RaiseClientSelectRequestEvent(ClientDisplayModel client)
         {

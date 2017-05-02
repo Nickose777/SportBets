@@ -113,7 +113,7 @@
                     Height="30"
                     Width="70"
                     Content="Delete"
-                    Visibility="{Binding CanDeleteClient, Converter={StaticResource booleanToVisibilityConverter}}"
+                    Visibility="{Binding HasDeletePermissions, Converter={StaticResource booleanToVisibilityConverter}}"
                     Command="{Binding DeleteClientCommand}" />
             </Grid>
         </GroupBox>

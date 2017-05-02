@@ -21,7 +21,19 @@ namespace SportBet.ControllerFactories
 
         public IAccountController CreateAccountController()
         {
-            return new AccountController(factory, login);
+            IAccountController controller = null;
+
+            switch (loginType)
+            {
+                case LoginType.Client:
+                    controller = new ClientAccountController(factory, login);
+                    break;
+                case LoginType.Bookmaker:
+                case LoginType.Superuser:
+                    controller = new BookmakerAccountController(factory, login);
+                    break;
+            }
+            return controller;
         }
 
         public IAdminController CreateAdminController()
@@ -42,14 +54,15 @@ namespace SportBet.ControllerFactories
         public IClientController CreateClientController()
         {
             IClientController controller = null;
+            ClientFacade facade = new ClientFacade(factory);
 
             switch (loginType)
             {
                 case LoginType.Superuser:
-                    controller = new SuperuserClientController(factory, new ClientFacade(factory));
+                    controller = new SuperuserClientController(factory, facade);
                     break;
                 case LoginType.Bookmaker:
-                    controller = new BookmakerClientController(factory, new ClientFacade(factory));
+                    controller = new BookmakerClientController(factory, facade);
                     break;
                 default:
                     break;

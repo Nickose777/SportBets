@@ -1,28 +1,27 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
+using AutoMapper;
 using SportBet.CommonControls.ChangePassword;
+using SportBet.CommonControls.Clients.UserControls;
+using SportBet.CommonControls.Clients.ViewModels;
+using SportBet.CommonControls.Errors;
+using SportBet.Contracts.Controllers;
 using SportBet.Models;
+using SportBet.Models.Edit;
 using SportBet.Services.Contracts;
 using SportBet.Services.Contracts.Services;
 using SportBet.Services.DTOModels;
+using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
-using SportBet.Contracts.Controllers;
-using System.Windows.Controls;
-using SportBet.CommonControls.Clients.ViewModels;
-using SportBet.Services.DTOModels.Edit;
-using SportBet.Models.Edit;
-using AutoMapper;
-using SportBet.CommonControls.Clients.UserControls;
-using System.Collections.Generic;
-using SportBet.CommonControls.Errors;
 
 namespace SportBet.Controllers
 {
-    class AccountController : ControllerBase, IAccountController
+    public abstract class AccountControllerBase : ControllerBase, IAccountController
     {
         private readonly string login;
 
-        public AccountController(ServiceFactory factory, string login)
+        public AccountControllerBase(ServiceFactory factory, string login)
             : base(factory)
         {
             this.login = login;
@@ -88,7 +87,7 @@ namespace SportBet.Controllers
             if (serviceMessage.IsSuccessful)
             {
                 ClientEditModel client = Mapper.Map<ClientEditDTO, ClientEditModel>(serviceMessage.Data);
-                ClientInfoViewModel viewModel = new ClientInfoViewModel(client);
+                ClientInfoViewModel viewModel = GetClientInfoViewModel(client);
                 ClientInfoControl control = new ClientInfoControl(viewModel);
 
                 viewModel.ClientEdited += (s, e) => Edit(e.Client);
@@ -110,6 +109,8 @@ namespace SportBet.Controllers
 
             return element;
         }
+
+        public abstract ClientInfoViewModel GetClientInfoViewModel(ClientEditModel client);
 
         private void Edit(ClientEditModel clientEditModel)
         {
