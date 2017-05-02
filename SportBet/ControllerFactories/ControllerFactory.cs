@@ -30,6 +30,7 @@ namespace SportBet.ControllerFactories
                     break;
                 case LoginType.Bookmaker:
                 case LoginType.Superuser:
+                case LoginType.Admin:
                     controller = new BookmakerAccountController(factory, login);
                     break;
             }

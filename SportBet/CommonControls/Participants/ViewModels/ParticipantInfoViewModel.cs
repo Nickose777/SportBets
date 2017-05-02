@@ -22,10 +22,7 @@ namespace SportBet.CommonControls.Participants.ViewModels
                 NewParticipantName = participant.Name,
 
                 CountryName = participant.CountryName,
-                NewCountryName = participant.CountryName,
-
                 SportName = participant.SportName,
-                NewSportName = participant.SportName
             };
 
             this.Sports = new ObservableCollection<string>(sports);
@@ -51,22 +48,12 @@ namespace SportBet.CommonControls.Participants.ViewModels
 
         public string SportName
         {
-            get { return participant.NewSportName; }
-            set
-            {
-                participant.NewSportName = value;
-                RaisePropertyChangedEvent("SportName");
-            }
+            get { return participant.SportName; }
         }
 
         public string CountryName
         {
-            get { return participant.NewCountryName; }
-            set
-            {
-                participant.NewCountryName = value;
-                RaisePropertyChangedEvent("CountryName");
-            }
+            get { return participant.CountryName; }
         }
 
         public ObservableCollection<string> Sports { get; private set; }
@@ -78,24 +65,17 @@ namespace SportBet.CommonControls.Participants.ViewModels
             return
                 IsDirty(parameter) &&
                 !String.IsNullOrEmpty(Name) &&
-                !String.IsNullOrEmpty(SportName) &&
-                !String.IsNullOrEmpty(CountryName) &&
                 Name.Length <= 20;
         }
 
         private void Undo()
         {
             Name = participant.Name;
-            SportName = participant.SportName;
-            CountryName = participant.CountryName;
         }
 
         private bool IsDirty(object parameter)
         {
-            return
-                participant.Name != participant.NewParticipantName ||
-                participant.SportName != participant.NewSportName ||
-                participant.CountryName != participant.NewCountryName;
+            return participant.Name != participant.NewParticipantName;
         }
 
         private void RaiseParticipantEditedEvent(ParticipantEditModel participant)

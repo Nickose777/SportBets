@@ -21,13 +21,13 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Name:" />
-            <TextBlock Grid.Row="1" Text="Country:" />
-            <TextBlock Grid.Row="2" Text="Sport:" />
+            <TextBlock Grid.Row="0" Text="Country:" />
+            <TextBlock Grid.Row="1" Text="Sport:" />
+            <TextBlock Grid.Row="2" Text="Name:" />
 
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-            <ComboBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Countries}" SelectedItem="{Binding CountryName}" />
-            <ComboBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Sports}" SelectedItem="{Binding SportName}" />
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding CountryName}" />
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding SportName}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button
                 Grid.Row="4"

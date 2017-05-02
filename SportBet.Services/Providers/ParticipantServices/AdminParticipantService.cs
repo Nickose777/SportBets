@@ -83,35 +83,20 @@ namespace SportBet.Services.Providers.ParticipantServices
             bool success = true;
 
             string oldName = participantEditDTO.Name;
-            string oldSportName = participantEditDTO.SportName;
-            string oldCountryName = participantEditDTO.CountryName;
+            string sportName = participantEditDTO.SportName;
+            string countryName = participantEditDTO.CountryName;
 
             string newName = participantEditDTO.NewParticipantName;
-            string newSportName = participantEditDTO.NewSportName;
-            string newCountryName = participantEditDTO.NewCountryName;
 
             try
             {
-                ParticipantEntity participantEntity = unitOfWork.Participants.Get(oldName, oldSportName, oldCountryName);
+                ParticipantEntity participantEntity = unitOfWork.Participants.Get(oldName, sportName, countryName);
                 if (participantEntity != null)
                 {
-                    SportEntity sportEntity = unitOfWork.Sports.Get(newSportName);
-                    CountryEntity countryEntity = unitOfWork.Countries.Get(newCountryName);
-                    if (sportEntity != null && countryEntity != null)
-                    {
-                        participantEntity.Name = newName;
-                        participantEntity.SportId = sportEntity.Id;
-                        participantEntity.CountryId = countryEntity.Id;
+                    participantEntity.Name = newName;
+                    unitOfWork.Commit();
 
-                        unitOfWork.Commit();
-
-                        message = "Edited participant";
-                    }
-                    else
-                    {
-                        message = "Such sport or country was not found";
-                        success = false;
-                    }
+                    message = "Edited participant";
                 }
                 else
                 {
