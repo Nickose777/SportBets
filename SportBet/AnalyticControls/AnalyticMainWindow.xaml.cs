@@ -42,6 +42,18 @@ namespace SportBet.AnalyticControls
             DisplayElement(element);
         }
 
+        private void AnalyseBookmakers_Click(object sender, RoutedEventArgs e)
+        {
+            UIElement element = analysisController.GetBookmakerAnalysisElement();
+            DisplayElement(element);
+        }
+
+        private void AnalyseClients_Click(object sender, RoutedEventArgs e)
+        {
+            UIElement element = analysisController.GetClientAnalysisElement();
+            DisplayElement(element);
+        }
+
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
             UIElement element = accountController.GetPasswordElement();

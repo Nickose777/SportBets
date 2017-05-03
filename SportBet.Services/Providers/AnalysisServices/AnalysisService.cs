@@ -96,6 +96,8 @@ namespace SportBet.Services.Providers.AnalysisServices
                     })
                     .OrderBy(sport => sport.SportName)
                     .ToList();
+
+                message = "Gor sport rating";
             }
             catch (Exception ex)
             {
@@ -104,6 +106,55 @@ namespace SportBet.Services.Providers.AnalysisServices
             }
 
             return new DataServiceMessage<IEnumerable<SportRatingDTO>>(sportRating, message, success);
+        }
+
+        public DataServiceMessage<IEnumerable<BookmakerAnalysisDTO>> GetBookmakerAnalysis()
+        {
+            string message = "";
+            bool success = true;
+            IEnumerable<BookmakerAnalysisDTO> bookmakerAnalysis = null;
+
+            try
+            {
+                bookmakerAnalysis = unitOfWork
+                    .Bookmakers
+                    .GetAll(b => !b.IsDeleted)
+                    .Select(bookmaker =>
+                    {
+                        IEnumerable<BetEntity> betEntities = bookmaker.Bets;
+
+                        decimal win = betEntities
+                            .Where(b => b.Coefficient.Win.HasValue && b.Coefficient.Win.Value)
+                            .Select(b => b.Sum * b.Coefficient.Value)
+                            .Sum();
+                        decimal lost = betEntities
+                            .Where(b => b.Coefficient.Win.HasValue && !b.Coefficient.Win.Value)
+                            .Select(b => b.Sum)
+                            .Sum();
+
+                        return new BookmakerAnalysisDTO
+                        {
+                            FirstName = bookmaker.FirstName,
+                            LastName = bookmaker.LastName,
+                            PhoneNumber = bookmaker.PhoneNumber,
+                            Profits = lost,
+                            Costs = win,
+                            Income = lost - win
+                        };
+                    })
+                    .OrderBy(b => b.LastName)
+                    .ThenBy(b => b.FirstName)
+                    .ToList();
+
+                message = "Got bookmaker analysis";
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<BookmakerAnalysisDTO>>(bookmakerAnalysis, message, success);
         }
 
         public void Dispose()

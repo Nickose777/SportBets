@@ -68,6 +68,7 @@
     <Compile Include="DTOModels\Display\AdminDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\AnalyticDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\BetDisplayDTO.cs" />
+    <Compile Include="DTOModels\Display\BookmakerAnalysisDTO.cs" />
     <Compile Include="DTOModels\Display\BookmakerDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\ClientDisplayDTO.cs" />
     <Compile Include="DTOModels\Display\CoefficientDisplayDTO.cs" />

@@ -24,6 +24,8 @@
                 <StackPanel>
                     <Button Style="{StaticResource MenuButton}" Content="Income" Click="AnalyseIncome_Click" />
                     <Button Style="{StaticResource MenuButton}" Content="Sport Rating" Click="AnalyseSportRating_Click" />
+                    <Button Style="{StaticResource MenuButton}" Content="Bookmakers" Click="AnalyseBookmakers_Click" />
+                    <Button Style="{StaticResource MenuButton}" Content="Clients" Click="AnalyseClients_Click" />
                 </StackPanel>
             </Expander>
             <Expander Grid.Row="2" Name="expander2" Header="Settings" Expanded="Expander_Expanded">

@@ -10,5 +10,7 @@ namespace SportBet.Services.Contracts.Services
         DataServiceMessage<IncomeDTO> GetIncome(DateTime startDate, DateTime endDate);
 
         DataServiceMessage<IEnumerable<SportRatingDTO>> GetSportRating();
+
+        DataServiceMessage<IEnumerable<BookmakerAnalysisDTO>> GetBookmakerAnalysis();
     }
 }

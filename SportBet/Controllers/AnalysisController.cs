@@ -63,5 +63,43 @@ namespace SportBet.Controllers
 
             return element;
         }
+
+        public UIElement GetBookmakerAnalysisElement()
+        {
+            UIElement element = null;
+
+            using (IAnalysisService service = factory.CreateAnalysisService())
+            {
+                DataServiceMessage<IEnumerable<BookmakerAnalysisDTO>> serviceMessage = service.GetBookmakerAnalysis();
+                RaiseReceivedMessageEvent(serviceMessage);
+
+                if (serviceMessage.IsSuccessful)
+                {
+                    BookmakerAnalysisViewModel viewModel = new BookmakerAnalysisViewModel(serviceMessage.Data);
+                    BookmakerAnalysisControl control = new BookmakerAnalysisControl(viewModel);
+
+                    element = control;
+                }
+                else
+                {
+                    List<ServiceMessage> messages = new List<ServiceMessage>()
+                    {
+                        serviceMessage
+                    };
+
+                    ErrorViewModel viewModel = new ErrorViewModel(messages);
+                    ErrorControl control = new ErrorControl(viewModel);
+
+                    element = control;
+                }
+            }
+
+            return element;
+        }
+
+        public UIElement GetClientAnalysisElement()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

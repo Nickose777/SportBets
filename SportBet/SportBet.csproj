@@ -81,12 +81,16 @@
     <Compile Include="AdminControls\AdminMainWindow.xaml.cs">
       <DependentUpon>AdminMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AnalyticControls\UserControls\BookmakerAnalysisControl.xaml.cs">
+      <DependentUpon>BookmakerAnalysisControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AnalyticControls\UserControls\IncomeControl.xaml.cs">
       <DependentUpon>IncomeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="AnalyticControls\UserControls\SportRatingControl.xaml.cs">
       <DependentUpon>SportRatingControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AnalyticControls\ViewModels\BookmakerAnalysisViewModel.cs" />
     <Compile Include="AnalyticControls\ViewModels\IncomeViewModel.cs" />
     <Compile Include="AnalyticControls\ViewModels\SportRatingViewModel.cs" />
     <Compile Include="CommonControls\Bets\UserControls\BetInfoControl.xaml.cs">
@@ -265,6 +269,7 @@
     <Compile Include="DesignTimeViewModels\BetCreateDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BetInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BetListDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\BookmakerAnalysisDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerInfoDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\BookmakerRegisterDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\ClientInfoDTViewModel.cs" />
@@ -445,6 +450,10 @@
     <Compile Include="ValueConverters\NullableBoolToBrushConverter.cs" />
     <Compile Include="WindowFactories\WindowFactory.cs" />
     <Page Include="AdminControls\AdminMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AnalyticControls\UserControls\BookmakerAnalysisControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

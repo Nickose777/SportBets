@@ -7,5 +7,9 @@ namespace SportBet.Contracts.Controllers
         UIElement GetIncomeElement();
 
         UIElement GetSportRatingElement();
+
+        UIElement GetBookmakerAnalysisElement();
+
+        UIElement GetClientAnalysisElement();
     }
 }
