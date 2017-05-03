@@ -80,7 +80,7 @@ namespace SportBet.Services.Providers.BetServices
                         else
                         {
                             message = "Such bet already exists";
-                            success = true;
+                            success = false;
                         }
                     }
                     else
