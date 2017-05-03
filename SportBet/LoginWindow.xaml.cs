@@ -37,11 +37,6 @@ namespace SportBet
                     this.Close();
                 }
             }
-
-            loginTxt.Text = "Boiko1";
-            passwordTxt.Password = "Boiko1";
-
-            Login();
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -124,7 +119,7 @@ namespace SportBet
                     break;
             }
 
-            window.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            window.WindowState = System.Windows.WindowState.Maximized;
 
             return window;
         }

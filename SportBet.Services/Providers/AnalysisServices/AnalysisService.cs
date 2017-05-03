@@ -157,6 +157,55 @@ namespace SportBet.Services.Providers.AnalysisServices
             return new DataServiceMessage<IEnumerable<BookmakerAnalysisDTO>>(bookmakerAnalysis, message, success);
         }
 
+        public DataServiceMessage<IEnumerable<ClientAnalysisDTO>> GetClientAnalysis()
+        {
+            string message = "";
+            bool success = true;
+            IEnumerable<ClientAnalysisDTO> clientAnalysis = null;
+
+            try
+            {
+                clientAnalysis = unitOfWork
+                    .Clients
+                    .GetAll(c => !c.IsDeleted)
+                    .Select(client =>
+                    {
+                        IEnumerable<BetEntity> betEntities = client.Bets;
+
+                        decimal win = betEntities
+                            .Where(b => b.Coefficient.Win.HasValue && b.Coefficient.Win.Value)
+                            .Select(b => b.Sum * b.Coefficient.Value)
+                            .Sum();
+                        decimal lost = betEntities
+                            .Where(b => b.Coefficient.Win.HasValue && !b.Coefficient.Win.Value)
+                            .Select(b => b.Sum)
+                            .Sum();
+
+                        return new ClientAnalysisDTO
+                        {
+                            FirstName = client.FirstName,
+                            LastName = client.LastName,
+                            PhoneNumber = client.PhoneNumber,
+                            Profits = lost,
+                            Costs = win,
+                            Income = lost - win
+                        };
+                    })
+                    .OrderBy(b => b.LastName)
+                    .ThenBy(b => b.FirstName)
+                    .ToList();
+
+                message = "Got client analysis";
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<ClientAnalysisDTO>>(clientAnalysis, message, success);
+        }
+
         public void Dispose()
         {
             unitOfWork.Dispose();

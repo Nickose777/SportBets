@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SportBet.AnalyticControls.UserControls.BookmakerAnalysisControl"
+﻿<UserControl x:Class="SportBet.AnalyticControls.UserControls.ClientAnalysisControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,8 +7,8 @@
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              d:DesignHeight="300" d:DesignWidth="500"
              Background="{StaticResource DefaultBackgroundColor}"
-             d:DataContext="{d:DesignInstance ViewModel:BookmakerAnalysisDTViewModel}">
-    <GroupBox Header="Bookmaker Analysis">
-        <DataGrid ItemsSource="{Binding Bookmakers}" />
+             d:DataContext="{d:DesignInstance ViewModel:ClientAnalysisDTViewModel}">
+    <GroupBox Header="Client Analysis">
+        <DataGrid ItemsSource="{Binding Clients}" />
     </GroupBox>
 </UserControl>

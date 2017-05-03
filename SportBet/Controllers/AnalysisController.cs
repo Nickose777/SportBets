@@ -99,7 +99,35 @@ namespace SportBet.Controllers
 
         public UIElement GetClientAnalysisElement()
         {
-            throw new System.NotImplementedException();
+            UIElement element = null;
+
+            using (IAnalysisService service = factory.CreateAnalysisService())
+            {
+                DataServiceMessage<IEnumerable<ClientAnalysisDTO>> serviceMessage = service.GetClientAnalysis();
+                RaiseReceivedMessageEvent(serviceMessage);
+
+                if (serviceMessage.IsSuccessful)
+                {
+                    ClientAnalysisViewModel viewModel = new ClientAnalysisViewModel(serviceMessage.Data);
+                    ClientAnalysisControl control = new ClientAnalysisControl(viewModel);
+
+                    element = control;
+                }
+                else
+                {
+                    List<ServiceMessage> messages = new List<ServiceMessage>()
+                    {
+                        serviceMessage
+                    };
+
+                    ErrorViewModel viewModel = new ErrorViewModel(messages);
+                    ErrorControl control = new ErrorControl(viewModel);
+
+                    element = control;
+                }
+            }
+
+            return element;
         }
     }
 }

@@ -12,5 +12,7 @@ namespace SportBet.Services.Contracts.Services
         DataServiceMessage<IEnumerable<SportRatingDTO>> GetSportRating();
 
         DataServiceMessage<IEnumerable<BookmakerAnalysisDTO>> GetBookmakerAnalysis();
+
+        DataServiceMessage<IEnumerable<ClientAnalysisDTO>> GetClientAnalysis();
     }
 }
