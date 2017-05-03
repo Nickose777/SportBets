@@ -53,6 +53,10 @@
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
+
+                            <Separator />
+                            
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding ClientPhoneNumber, StringFormat='Client: {0}'}" />
                             
                             <Separator BorderBrush="Black" BorderThickness="5" />
                         </StackPanel>

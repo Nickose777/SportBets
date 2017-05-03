@@ -50,6 +50,7 @@ namespace SportBet.Services.Providers.CoefficientServices
                     .Coefficients.GetAll();
 
                 coefficientDisplayDTOs = coefficientEntities
+                    .Where(c => !c.Win.HasValue)
                     .Select(coefficientEntity =>
                     {
                         IEnumerable<ParticipantEntity> participantEntities = coefficientEntity

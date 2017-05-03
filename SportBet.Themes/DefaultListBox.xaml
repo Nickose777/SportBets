@@ -1,7 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+
+    <Color x:Key="FocusedListBoxItemColor">#A9A9A9</Color>
+
     <Style TargetType="ListBox">
+        <Style.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource FocusedListBoxItemColor}"/>
+            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="{StaticResource FocusedListBoxItemColor}" />
+        </Style.Resources>
+        
         <Setter Property="Background" Value="Gray" />
     </Style>
 </ResourceDictionary>

@@ -106,7 +106,7 @@ namespace SportBet.Services.Providers.AccountServices
                         bool phoneNumberExists = unitOfWork.Bookmakers.GetAll().Any(b => b.PhoneNumber == bookmakerRegisterDTO.PhoneNumber);
                         if (!phoneNumberExists)
                         {
-                            unitOfWork.Accounts.RegisterClientRole(bookmakerRegisterDTO.Login, hashedPassword);
+                            unitOfWork.Accounts.RegisterBookmakerRole(bookmakerRegisterDTO.Login, hashedPassword);
 
                             UserEntity userEntity = new UserEntity
                             {
