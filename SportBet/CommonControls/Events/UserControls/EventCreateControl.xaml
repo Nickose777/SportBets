@@ -23,8 +23,8 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
@@ -44,7 +44,7 @@
                     SelectedItem="{Binding SelectedTournament}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding Name}" />
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
