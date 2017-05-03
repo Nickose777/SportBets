@@ -59,6 +59,53 @@ namespace SportBet.Services.Providers.AnalysisServices
             return new DataServiceMessage<IncomeDTO>(income, message, success);
         }
 
+        public DataServiceMessage<IEnumerable<SportRatingDTO>> GetSportRating()
+        {
+            string message = "";
+            bool success = true;
+            IEnumerable<SportRatingDTO> sportRating = null;
+
+            try
+            {
+                sportRating = unitOfWork
+                    .Sports.GetAll().Select(sport =>
+                    {
+                        var betEntities = sport
+                                .Tournaments
+                                .SelectMany(t => t.Events)
+                                .SelectMany(e => e.Coefficients)
+                                .SelectMany(c => c.Bets);
+
+                        decimal win = betEntities
+                            .Where(b => b.Coefficient.Win.HasValue && b.Coefficient.Win.Value)
+                            .Select(b => b.Sum * b.Coefficient.Value)
+                            .Sum();
+                        decimal lost = betEntities
+                            .Where(b => b.Coefficient.Win.HasValue && !b.Coefficient.Win.Value)
+                            .Select(b => b.Sum)
+                            .Sum();
+
+                        return new SportRatingDTO
+                        {
+                            SportName = sport.Type,
+                            BetsCount = betEntities.Count(),
+                            Profits = lost,
+                            Costs = win,
+                            Income = lost - win
+                        };
+                    })
+                    .OrderBy(sport => sport.SportName)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                message = ExceptionMessageBuilder.BuildMessage(ex);
+                success = false;
+            }
+
+            return new DataServiceMessage<IEnumerable<SportRatingDTO>>(sportRating, message, success);
+        }
+
         public void Dispose()
         {
             unitOfWork.Dispose();

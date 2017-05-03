@@ -3,7 +3,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:CommonControls="clr-namespace:SportBet.CommonControls"
-        Title="AnalyticMainWindow" Height="500" Width="800">
+        Title="AnalyticMainWindow" Height="500" Width="900">
     <Grid x:Name="mainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -23,6 +23,7 @@
             <Expander Grid.Row="1" Name="expander1" Header="Analysis" Expanded="Expander_Expanded">
                 <StackPanel>
                     <Button Style="{StaticResource MenuButton}" Content="Income" Click="AnalyseIncome_Click" />
+                    <Button Style="{StaticResource MenuButton}" Content="Sport Rating" Click="AnalyseSportRating_Click" />
                 </StackPanel>
             </Expander>
             <Expander Grid.Row="2" Name="expander2" Header="Settings" Expanded="Expander_Expanded">

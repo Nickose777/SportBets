@@ -84,7 +84,11 @@
     <Compile Include="AnalyticControls\UserControls\IncomeControl.xaml.cs">
       <DependentUpon>IncomeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AnalyticControls\UserControls\SportRatingControl.xaml.cs">
+      <DependentUpon>SportRatingControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AnalyticControls\ViewModels\IncomeViewModel.cs" />
+    <Compile Include="AnalyticControls\ViewModels\SportRatingViewModel.cs" />
     <Compile Include="CommonControls\Bets\UserControls\BetInfoControl.xaml.cs">
       <DependentUpon>BetInfoControl.xaml</DependentUpon>
     </Compile>
@@ -284,6 +288,7 @@
     <Compile Include="DesignTimeViewModels\ParticipantListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\SportEditDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\SportListDTViewModel.cs" />
+    <Compile Include="DesignTimeViewModels\SportRatingDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\TournamentCreateDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\TournamentListDTViewModel.cs" />
     <Compile Include="DesignTimeViewModels\TournamentManageDTViewModel.cs" />
@@ -444,6 +449,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AnalyticControls\UserControls\IncomeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AnalyticControls\UserControls\SportRatingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

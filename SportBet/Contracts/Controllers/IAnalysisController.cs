@@ -5,5 +5,7 @@ namespace SportBet.Contracts.Controllers
     public interface IAnalysisController : IReceiveMessage
     {
         UIElement GetIncomeElement();
+
+        UIElement GetSportRatingElement();
     }
 }

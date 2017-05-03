@@ -11,5 +11,6 @@
         <ResourceDictionary Source="DefaultDatePicker.xaml" />
         <ResourceDictionary Source="DefaultExpander.xaml" />
         <ResourceDictionary Source="DefaultComboBox.xaml" />
+        <ResourceDictionary Source="DefaultDataGrid.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

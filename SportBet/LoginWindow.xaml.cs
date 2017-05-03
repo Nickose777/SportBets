@@ -38,8 +38,8 @@ namespace SportBet
                 }
             }
 
-            loginTxt.Text = "Admin10";
-            passwordTxt.Password = "Admin10";
+            loginTxt.Text = "Boiko1";
+            passwordTxt.Password = "Boiko1";
 
             Login();
         }

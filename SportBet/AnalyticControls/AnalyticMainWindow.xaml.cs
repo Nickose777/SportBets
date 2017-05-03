@@ -36,6 +36,12 @@ namespace SportBet.AnalyticControls
             DisplayElement(element);
         }
 
+        private void AnalyseSportRating_Click(object sender, RoutedEventArgs e)
+        {
+            UIElement element = analysisController.GetSportRatingElement();
+            DisplayElement(element);
+        }
+
         private void ChangePassword_Click(object sender, RoutedEventArgs e)
         {
             UIElement element = accountController.GetPasswordElement();
