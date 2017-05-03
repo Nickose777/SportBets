@@ -97,6 +97,22 @@ namespace SportBet.SuperuserControls
             DisplayElement(element);
         }
 
+        private void CommonSettings_Click(object sender, RoutedEventArgs e)
+        {
+            UIElement element = accountController.GetSettingsElement();
+            DisplayElement(element);
+        }
+
+        private void ShowLogs_Click(object sender, RoutedEventArgs e)
+        {
+            ShowLogWindow();
+        }
+
+        private void SignOut_Click(object sender, RoutedEventArgs e)
+        {
+            RaiseSignedOutEvent();
+        }
+
         private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
             Expander expander = sender as Expander;
@@ -113,16 +129,6 @@ namespace SportBet.SuperuserControls
             {
                 expander3.IsExpanded = false;
             }
-        }
-
-        private void ShowLogs_Click(object sender, RoutedEventArgs e)
-        {
-            ShowLogWindow();
-        }
-
-        private void SignOut_Click(object sender, RoutedEventArgs e)
-        {
-            RaiseSignedOutEvent();
         }
 
         private void DisplayElement(UIElement element)

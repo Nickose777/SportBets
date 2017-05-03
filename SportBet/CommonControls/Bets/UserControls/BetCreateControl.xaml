@@ -61,7 +61,7 @@
                                     <ItemsControl Grid.Column="1" HorizontalAlignment="Right" ItemsSource="{Binding Participants}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock>
+                                                <TextBlock HorizontalAlignment="Left">
                                                     <TextBlock.Text>
                                                         <MultiBinding StringFormat="{}{0} ({1})">
                                                             <Binding Path="Name" />

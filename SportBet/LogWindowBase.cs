@@ -2,6 +2,7 @@
 using SportBet.Contracts;
 using SportBet.Logs;
 using SportBet.WindowFactories;
+using SportBet.Properties;
 
 namespace SportBet
 {
@@ -18,6 +19,11 @@ namespace SportBet
         {
             LogObject log = new LogObject(message, success);
             logger.Log(log);
+
+            if (!success && Settings.Default.ShowMessages)
+            {
+                MessageBox.Show("Fail or error: " + message);
+            }
         }
 
         protected void ShowLogWindow()

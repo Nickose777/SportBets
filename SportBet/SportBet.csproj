@@ -121,6 +121,10 @@
     <Compile Include="CommonControls\Countries\UserControls\CountryListControl.xaml.cs">
       <DependentUpon>CountryListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonControls\Settings\UserControls\SettingsControl.xaml.cs">
+      <DependentUpon>SettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommonControls\Settings\ViewModels\SettingsViewModel.cs" />
     <Compile Include="CommonControls\Sports\UserControls\SportCreateControl.xaml.cs">
       <DependentUpon>SportCreateControl.xaml</DependentUpon>
     </Compile>
@@ -491,6 +495,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CommonControls\Countries\UserControls\CountryListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommonControls\Settings\UserControls\SettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

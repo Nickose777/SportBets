@@ -14,6 +14,9 @@ using SportBet.Services.DTOModels;
 using SportBet.Services.DTOModels.Edit;
 using SportBet.Services.ResultTypes;
 using SportBet.WindowFactories;
+using SportBet.CommonControls.Settings.ViewModels;
+using SportBet.Properties;
+using SportBet.CommonControls.Settings.UserControls;
 
 namespace SportBet.Controllers
 {
@@ -121,6 +124,21 @@ namespace SportBet.Controllers
                 ServiceMessage serviceMessage = service.Update(clientEditDTO);
                 RaiseReceivedMessageEvent(serviceMessage);
             }
+        }
+
+        public UIElement GetSettingsElement()
+        {
+            bool showMessages = Settings.Default.ShowMessages;
+            SettingsViewModel viewModel = new SettingsViewModel(showMessages);
+            SettingsControl control = new SettingsControl(viewModel);
+
+            viewModel.SettingsChanged += (s, e) =>
+            {
+                Settings.Default.ShowMessages = viewModel.ShowMessages;
+                Settings.Default.Save();
+            };
+
+            return control;
         }
     }
 }

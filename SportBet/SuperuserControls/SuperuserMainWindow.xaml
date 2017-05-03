@@ -39,6 +39,7 @@
             </Expander>
             <Expander Grid.Row="3" Name="expander3" Header="Settings" Expanded="Expander_Expanded">
                 <StackPanel>
+                    <Button Style="{StaticResource MenuButton}" Content="Common settings" Click="CommonSettings_Click"/>
                     <Button Style="{StaticResource MenuButton}" Content="Change Password" Click="ChangePassword_Click"/>
                     <Button Style="{StaticResource MenuButton}" Content="Show logs" Click="ShowLogs_Click"/>
                 </StackPanel>

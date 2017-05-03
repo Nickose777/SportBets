@@ -9,5 +9,7 @@ namespace SportBet.Contracts.Controllers
         UIElement GetPasswordElement();
 
         UIElement GetAccountElement();
+
+        UIElement GetSettingsElement();
     }
 }
