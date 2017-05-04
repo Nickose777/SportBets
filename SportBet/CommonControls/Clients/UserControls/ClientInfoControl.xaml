@@ -6,8 +6,8 @@
              xmlns:ViewModel="clr-namespace:SportBet.DesignTimeViewModels"
              xmlns:Converter="clr-namespace:SportBet.ValueConverters"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="500"
-             d:Height="300" d:Width="500"
+             d:DesignHeight="500" d:DesignWidth="500"
+             d:MinHeight="500" d:MinWidth="500"
              d:DataContext="{d:DesignInstance ViewModel:ClientInfoDTViewModel}"
              Background="{StaticResource DefaultBackgroundColor}">
     <UserControl.Resources>

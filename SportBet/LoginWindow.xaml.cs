@@ -70,7 +70,7 @@ namespace SportBet
 
                     ILogger logger = new Logger();
 
-                    SignOutWindowBase window = Create(controllerFactory, logger, loginType);
+                    SignOutWindowBase window = Create(controllerFactory, logger, loginType, login);
 
                     window.SignedOut += (s, e) =>
                     {
@@ -90,7 +90,7 @@ namespace SportBet
             }
         }
 
-        private SignOutWindowBase Create(ControllerFactory controllerFactory, ILogger logger, LoginType loginType)
+        private SignOutWindowBase Create(ControllerFactory controllerFactory, ILogger logger, LoginType loginType, string login)
         {
             SignOutWindowBase window = null;
 
@@ -120,6 +120,7 @@ namespace SportBet
             }
 
             window.WindowState = System.Windows.WindowState.Maximized;
+            window.Title = String.Format("Welcome, {0}!", login);
 
             return window;
         }
