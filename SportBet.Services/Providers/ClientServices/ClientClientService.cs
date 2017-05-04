@@ -92,11 +92,11 @@ namespace SportBet.Services.Providers.ClientServices
 
                     clientDTO = new ClientEditDTO
                     {
+                        Login = login,
                         FirstName = clientEntity.FirstName,
                         LastName = clientEntity.LastName,
                         PhoneNumber = clientEntity.PhoneNumber,
-                        DateOfBirth = clientEntity.DateOfBirth,
-                        Login = login
+                        DateOfBirth = clientEntity.DateOfBirth
                     };
 
                     message = "Retrieved info about client";

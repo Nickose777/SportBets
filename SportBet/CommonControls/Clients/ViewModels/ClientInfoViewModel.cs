@@ -19,6 +19,7 @@ namespace SportBet.CommonControls.Clients.ViewModels
             this.client = client;
             this.clientForEdit = new ClientEditModel
             {
+                Login = client.Login,
                 FirstName = client.FirstName,
                 LastName = client.LastName,
                 PhoneNumber = client.PhoneNumber,

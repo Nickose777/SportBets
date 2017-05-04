@@ -202,6 +202,7 @@ namespace SportBet.Services.Providers.ClientServices
 
                 clientEditDTO = new ClientEditDTO
                 {
+                    Login = login,
                     FirstName = clientEntity.FirstName,
                     LastName = clientEntity.LastName,
                     PhoneNumber = clientEntity.PhoneNumber,
