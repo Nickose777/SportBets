@@ -28,7 +28,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="{}{0}, {1}, {2:dd.MM.yyyy}">
                         <Binding Path="SportName" />
@@ -40,7 +40,7 @@
             <ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Participants}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock>
+                        <TextBlock HorizontalAlignment="Left">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} ({1})">
                                     <Binding Path="Name" />
