@@ -26,12 +26,12 @@ namespace SportBet.Services.Providers.TournamentServices
             string message = "";
             bool success = true;
 
-            string name = tournamentCreateDTO.Name;
-            string sportName = tournamentCreateDTO.SportName;
-            DateTime dateOfStart = tournamentCreateDTO.DateOfStart;
-            
-            if (success = ValidateDate(dateOfStart, ref message))
+            if (success = Validate(tournamentCreateDTO, ref message))
             {
+                string name = tournamentCreateDTO.Name;
+                string sportName = tournamentCreateDTO.SportName;
+                DateTime dateOfStart = tournamentCreateDTO.DateOfStart;
+
                 try
                 {
                     SportEntity sportEntity = unitOfWork.Sports.Get(sportName);
@@ -79,16 +79,16 @@ namespace SportBet.Services.Providers.TournamentServices
             string message = "";
             bool success = true;
 
-            string sportName = tournamentEditDTO.SportName;
-
-            string oldName = tournamentEditDTO.Name;
-            DateTime oldDateOfStart = tournamentEditDTO.DateOfStart;
-
-            string newName = tournamentEditDTO.NewName;
-            DateTime newDateOfStart = tournamentEditDTO.NewDateOfStart;
-
-            if (success = ValidateDate(newDateOfStart, ref message))
+            if (success = Validate(tournamentEditDTO, ref message))
             {
+                string sportName = tournamentEditDTO.SportName;
+
+                string oldName = tournamentEditDTO.Name;
+                DateTime oldDateOfStart = tournamentEditDTO.DateOfStart;
+
+                string newName = tournamentEditDTO.NewName;
+                DateTime newDateOfStart = tournamentEditDTO.NewDateOfStart;
+
                 try
                 {
                     TournamentEntity tournamentEntity = unitOfWork.Tournaments.Get(oldName, sportName, oldDateOfStart);
@@ -280,13 +280,41 @@ namespace SportBet.Services.Providers.TournamentServices
             unitOfWork.Dispose();
         }
 
-        private bool ValidateDate(DateTime dateTime, ref string message)
+        private bool Validate(TournamentBaseDTO tournamentCreateDTO, ref string message)
         {
             bool isValid = true;
 
-            if (dateTime < DateTime.Now)
+            if (tournamentCreateDTO.DateOfStart < DateTime.Now)
             {
                 message = "Invalid date: cannot start tournament in the past";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(tournamentCreateDTO.Name))
+            {
+                message = "Invalid name: cannot be empty";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(tournamentCreateDTO.SportName))
+            {
+                message = "Invalid sport: cannot be empty";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private bool Validate(TournamentEditDTO tournamentEditDTO, ref string message)
+        {
+            bool isValid = true;
+
+            if (tournamentEditDTO.NewDateOfStart < DateTime.Now)
+            {
+                message = "Invalid date: cannot start tournament in the past";
+                isValid = false;
+            }
+            else if (String.IsNullOrEmpty(tournamentEditDTO.NewName))
+            {
+                message = "Invalid name: cannot be empty";
                 isValid = false;
             }
 
