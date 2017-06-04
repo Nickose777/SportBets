@@ -65,8 +65,7 @@ namespace SportBet.Services.Providers.SportServices
             {
                 SportEntity sportEntity = unitOfWork
                     .Sports
-                    .GetAll()
-                    .SingleOrDefault(sport => sport.Type == sportEditDTO.OldSportName);
+                    .Get(sportEditDTO.OldSportName);
                 if (sportEntity != null)
                 {
                     sportEntity.Type = sportEditDTO.NewSportName;
@@ -131,7 +130,7 @@ namespace SportBet.Services.Providers.SportServices
                     .Sports
                     .GetAll();
                 sportNames = sportEntities
-                    .Select(countryEntity => countryEntity.Type)
+                    .Select(sportEntity => sportEntity.Type)
                     .OrderBy(name => name);
 
                 message = "Got all sports";
